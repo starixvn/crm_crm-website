@@ -180,11 +180,13 @@ export const setIsRefresh = data => {
 
 const actions = {
     setGridParams,
+    setGridData,
     getGridData,
     setContentPopup,
     setResendOptions,
     setViewDetailPopup,
     setInvalidParams,
+    setSettings,
     getSettings,
     editNotificationList,
     setViewDetail,

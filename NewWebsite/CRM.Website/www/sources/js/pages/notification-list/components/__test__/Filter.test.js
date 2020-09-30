@@ -22,7 +22,8 @@ describe('Filter', () => {
             invalidParams: {},
             settings: {},
             headlineOptions: {},
-            recipientOptions: {}
+            recipientOptions: {},
+            autoRefresh: {}
         };
 
         const store = mockStore(initialState);
@@ -41,6 +42,7 @@ describe('Filter', () => {
             expect(wrapper.props().children.props.settings).toEqual(initialState.settings);
             expect(wrapper.props().children.props.headlineOptions).toEqual(initialState.headlineOptions);
             expect(wrapper.props().children.props.recipientOptions).toEqual(initialState.recipientOptions);
+            expect(wrapper.props().children.props.autoRefresh).toEqual(initialState.autoRefresh);
         });
     });
 
@@ -59,7 +61,7 @@ describe('Filter', () => {
                 recipient: null,
                 notificationIdLower: '',
                 notificationIdUpper: '',
-                messageID: '',
+                messageId: '',
                 content: ''
             },
             maxDate: now,
@@ -168,6 +170,32 @@ describe('Filter', () => {
         expect(filter.instance().state.filter.name).toBe(value);
     });
 
+    it('handleFilterChangeProps runs correctly', () => {
+        // Arrange
+        const name = 'name';
+        const value = 'value';
+        const props = {
+            gridParams: {},
+            invalidParams: {},
+            settings: {},
+            headlineOptions: {},
+            recipientOptions: {},
+            setGridParams: jest.fn(),
+            getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+        };
+
+        const filter = shallow(<Filter {...props} />);
+
+        // Action
+        filter.instance().handleFilterChangeProps(name, value);
+
+        // Assert
+        expect(props.setGridParams).toHaveBeenCalledWith({
+            ...props.gridParams,
+            [name]: value
+        });
+    });
+
     it('handleNotificationTypeChange call handleFilterChange', () => {
         // Arrange
         const expected = 'selectedItemsKey';
@@ -182,16 +210,18 @@ describe('Filter', () => {
 
         const filter = shallow(<Filter {...props} />);
         filter.instance().handleFilterChange = jest.fn();
+        filter.instance().handleFilterChangeProps = jest.fn();
 
         // Action
         filter.instance().handleNotificationTypeChange(null, expected);
 
         // Assert
         expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('notificationTypes', expected);
+        expect(filter.instance().handleFilterChangeProps).toHaveBeenCalledWith('notificationTypeIds', expected);
     });
 
     describe('handleFromDateChange', () => {
-        it('handleFromDateChange run correctly', () => {
+        it('runs regularly', () => {
             // Arrange
             const expected = 'value';
             const props = {
@@ -204,154 +234,226 @@ describe('Filter', () => {
             };
 
             const filter = shallow(<Filter {...props} />);
-            filter.instance().changeToDateAfterFromDateChanged = jest.fn();
+            filter.instance().handleFilterChangeProps = jest.fn();
             filter.instance().handleFilterChange = jest.fn();
+            DateTimeService.startOfDay = jest.fn(value => value);
 
             // Action
             filter.instance().handleFromDateChange(expected);
 
             // Assert
-            expect(filter.instance().changeToDateAfterFromDateChanged).toHaveBeenCalledWith(expected);
             expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('fromDate', expected);
+            expect(filter.instance().handleFilterChangeProps).toHaveBeenCalledWith('fromDate', expected);
             expect(filter.instance().state.minToDate).toEqual(expected);
         });
 
-        it('maxToDate changes when handleFromDateChange run with toDate less than maxDate', () => {
-            // Arrange
-            const toDate = '09/03/2020';
-            const expected = new Date(toDate);
-            expected.setMonth(expected.getMonth() + 1);
-            expected.setDate(expected.getDate() - 1);
-            const maxDate = new Date('10/04/2020');
-            const props = {
-                gridParams: {},
-                invalidParams: {},
-                settings: {},
-                headlineOptions: {},
-                recipientOptions: {},
-                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
-            };
+        describe('runs with new maxToDate greater than state maxDate' , () => {
+            it('filter toDate greater than maxToDate' , () => {
+                // Arrange
+                const value = '09/25/2020';
+                const maxDate = new Date('10/24/2020');
+                const state = {
+                    maxDate,
+                    filter: {
+                        toDate: new Date('10/26/2020')
+                    }
+                };
 
-            const filter = shallow(<Filter {...props} />);
-            filter.setState({ maxDate });
+                const props = {
+                    gridParams: {},
+                    invalidParams: {},
+                    settings: {},
+                    headlineOptions: {},
+                    recipientOptions: {},
+                    getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                };
 
-            // Action
-            filter.instance().handleFromDateChange(toDate);
+                const filter = shallow(<Filter {...props} />);
+                filter.instance().setState(state);
+                filter.instance().handleFilterChangeProps = jest.fn();
+                filter.instance().handleFilterChange = jest.fn();
+                filter.instance().handleToDateChange = jest.fn();
 
-            // Assert
-            expect(filter.instance().state.maxToDate).toEqual(expected);
+                // Action
+                filter.instance().handleFromDateChange(value);
+
+                // Assert
+                expect(filter.instance().handleToDateChange).toHaveBeenCalledWith(maxDate);
+                expect(filter.instance().state.maxToDate).toEqual(maxDate);
+            });
+
+            it('filter toDate not greater than maxToDate and less than value' , () => {
+                // Arrange
+                const value = new Date('09/25/2020');
+                const maxDate = new Date('10/23/2020');
+                const state = {
+                    maxDate,
+                    filter: {
+                        toDate: new Date('09/22/2020')
+                    }
+                };
+
+                const props = {
+                    gridParams: {},
+                    invalidParams: {},
+                    settings: {},
+                    headlineOptions: {},
+                    recipientOptions: {},
+                    getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                };
+
+                const filter = shallow(<Filter {...props} />);
+                filter.instance().setState(state);
+                filter.instance().handleFilterChangeProps = jest.fn();
+                filter.instance().handleFilterChange = jest.fn();
+                filter.instance().handleToDateChange = jest.fn();
+
+                // Action
+                filter.instance().handleFromDateChange(value);
+
+                // Assert
+                expect(filter.instance().handleToDateChange).toHaveBeenCalledWith(value);
+                expect(filter.instance().state.maxToDate).toEqual(maxDate);
+            });
+
+            it('not change toDate' , () => {
+                // Arrange
+                const value = new Date('09/25/2020');
+                const maxDate = new Date('10/23/2020');
+                const state = {
+                    maxDate,
+                    filter: {
+                        toDate: new Date('09/26/2020')
+                    }
+                };
+
+                const props = {
+                    gridParams: {},
+                    invalidParams: {},
+                    settings: {},
+                    headlineOptions: {},
+                    recipientOptions: {},
+                    getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                };
+        
+                const filter = shallow(<Filter {...props} />);
+                filter.instance().setState(state);
+                filter.instance().handleFilterChangeProps = jest.fn();
+                filter.instance().handleFilterChange = jest.fn();
+                filter.instance().handleToDateChange = jest.fn();
+
+                // Action
+                filter.instance().handleFromDateChange(value);
+
+                // Assert
+                expect(filter.instance().handleToDateChange).toHaveBeenCalledTimes(0);
+                expect(filter.instance().state.maxToDate).toEqual(maxDate);
+            });
         });
+        
 
-        it('maxToDate changes when handleFromDateChange run with toDate not less than maxDate', () => {
-            // Arrange
-            const toDate = '09/03/2020';
-            const maxDate = new Date('8/04/2020');
-            const maxToDate = 'max to date';
-            const props = {
-                gridParams: {},
-                invalidParams: {},
-                settings: {},
-                headlineOptions: {},
-                recipientOptions: {},
-                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
-            };
+        describe('runs with new maxToDate not greater than state maxDate' , () => {
+            it('filter toDate greater than maxToDate' , () => {
+                // Arrange
+                const value = '09/30/2020';
+                const maxDate = new Date('10/30/2020');
+                const state = {
+                    maxDate,
+                    filter: {
+                        toDate: new Date('11/01/2020')
+                    }
+                };
 
-            const filter = shallow(<Filter {...props} />);
-            filter.setState({ maxDate, maxToDate });
+                const props = {
+                    gridParams: {},
+                    invalidParams: {},
+                    settings: {},
+                    headlineOptions: {},
+                    recipientOptions: {},
+                    getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                };
 
-            // Action
-            filter.instance().handleFromDateChange(toDate);
+                const filter = shallow(<Filter {...props} />);
+                filter.instance().setState(state);
+                filter.instance().handleFilterChangeProps = jest.fn();
+                filter.instance().handleFilterChange = jest.fn();
+                filter.instance().handleToDateChange = jest.fn();
 
-            // Assert
-            expect(filter.instance().state.maxToDate).toEqual(maxToDate);
-        });
-    });
+                // Action
+                filter.instance().handleFromDateChange(value);
 
-    describe('changeToDateAfterFromDateChanged', () => {
-        it('changeToDateAfterFromDateChanged calls handleFilterChange run with value', () => {
-            // Arrange
-            const expected = new Date('09/04/2020');
-            const state = {
-                filter: {
-                    toDate: new Date('09/03/2020')
-                }
-            };
-            const props = {
-                gridParams: {},
-                invalidParams: {},
-                settings: {},
-                headlineOptions: {},
-                recipientOptions: {},
-                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
-            };
+                // Assert
+                expect(filter.instance().handleToDateChange).toHaveBeenCalledWith(maxDate);
+                expect(filter.instance().state.maxToDate).toEqual(maxDate);
+            });
 
-            const filter = shallow(<Filter {...props} />);
-            filter.setState(state);
-            filter.instance().handleFilterChange = jest.fn();
+            it('filter toDate not greater than maxToDate and less than value' , () => {
+                // Arrange
+                const value = new Date('09/30/2020');
+                const maxDate = new Date('10/30/2020');
+                const state = {
+                    maxDate,
+                    filter: {
+                        toDate: new Date('09/29/2020')
+                    }
+                };
 
-            // Action
-            filter.instance().changeToDateAfterFromDateChanged(expected);
+                const props = {
+                    gridParams: {},
+                    invalidParams: {},
+                    settings: {},
+                    headlineOptions: {},
+                    recipientOptions: {},
+                    getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                };
 
-            // Assert
-            expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('toDate', expected);
-        });
+                const filter = shallow(<Filter {...props} />);
+                filter.instance().setState(state);
+                filter.instance().handleFilterChangeProps = jest.fn();
+                filter.instance().handleFilterChange = jest.fn();
+                filter.instance().handleToDateChange = jest.fn();
 
-        it('changeToDateAfterFromDateChanged calls handleFilterChange run with filter toDate greater than maxToDate', () => {
-            // Arrange
-            const value = new Date('09/03/2020');
-            const state = {
-                filter: {
-                    toDate: new Date('09/03/2020')
-                },
-                maxToDate: new Date('09/02/2020')
-            };
-            const props = {
-                gridParams: {},
-                invalidParams: {},
-                settings: {},
-                headlineOptions: {},
-                recipientOptions: {},
-                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
-            };
+                // Action
+                filter.instance().handleFromDateChange(value);
 
-            const filter = shallow(<Filter {...props} />);
-            filter.setState(state);
-            filter.instance().handleFilterChange = jest.fn();
+                // Assert
+                expect(filter.instance().handleToDateChange).toHaveBeenCalledWith(value);
+                expect(filter.instance().state.maxToDate).toEqual(maxDate);
+            });
 
-            // Action
-            filter.instance().changeToDateAfterFromDateChanged(value);
+            it('not change toDate' , () => {
+                // Arrange
+                const value = new Date('09/30/2020');
+                const maxDate = new Date('10/30/2020');
+                const state = {
+                    maxDate,
+                    filter: {
+                        toDate: new Date('10/01/2020')
+                    }
+                };
 
-            // Assert
-            expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('toDate', state.maxToDate);
-        });
+                const props = {
+                    gridParams: {},
+                    invalidParams: {},
+                    settings: {},
+                    headlineOptions: {},
+                    recipientOptions: {},
+                    getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+                };
 
-        it('changeToDateAfterFromDateChanged not calls handleFilterChange', () => {
-            // Arrange
-            const value = new Date('09/03/2020');
-            const state = {
-                filter: {
-                    toDate: new Date('09/03/2020')
-                },
-                maxToDate: new Date('09/03/2020')
-            };
-            const props = {
-                gridParams: {},
-                invalidParams: {},
-                settings: {},
-                headlineOptions: {},
-                recipientOptions: {},
-                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
-            };
+                const filter = shallow(<Filter {...props} />);
+                filter.instance().setState(state);
+                filter.instance().handleFilterChangeProps = jest.fn();
+                filter.instance().handleFilterChange = jest.fn();
+                filter.instance().handleToDateChange = jest.fn();
 
-            const filter = shallow(<Filter {...props} />);
-            filter.setState(state);
-            filter.instance().handleFilterChange = jest.fn();
+                // Action
+                filter.instance().handleFromDateChange(value);
 
-            // Action
-            filter.instance().changeToDateAfterFromDateChanged(value);
-
-            // Assert
-            expect(filter.instance().handleFilterChange).toHaveBeenCalledTimes(0);
+                // Assert
+                expect(filter.instance().handleToDateChange).toHaveBeenCalledTimes(0);
+                expect(filter.instance().state.maxToDate).toEqual(maxDate);
+            });
         });
     });
 
@@ -370,19 +472,25 @@ describe('Filter', () => {
 
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
+            filter.instance().handleFilterChangeProps = jest.fn();
+            DateTimeService.startOfDay = jest.fn(value => value);
 
             // Action
             filter.instance().handleToDateChange(expected);
 
             // Assert
             expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('toDate', expected);
+            expect(filter.instance().handleFilterChangeProps).toHaveBeenCalledWith('toDate', expected);
         });
     });
 
     describe('handleHeadlineChange', () => {
-        it('handleHeadlineChange runs correctly', () => {
+        it('handleHeadlineChange runs with valid value', () => {
             // Arrange
-            const expected = 'value';
+            const expected = {
+                value: 'value'
+            };
+
             const props = {
                 gridParams: {},
                 invalidParams: {},
@@ -394,19 +502,72 @@ describe('Filter', () => {
 
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
+            filter.instance().handleFilterChangeProps = jest.fn();
 
             // Action
             filter.instance().handleHeadlineChange(expected);
 
             // Assert
             expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('headline', expected);
+            expect(filter.instance().handleFilterChangeProps).toHaveBeenCalledWith('headline', expected.value);
+        });
+        
+        it('handleHeadlineChange runs with invalid value', () => {
+            // Arrange
+            const expected = null;
+            const props = {
+                gridParams: {},
+                invalidParams: {},
+                settings: {},
+                headlineOptions: {},
+                recipientOptions: {},
+                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+            };
+    
+            const filter = shallow(<Filter {...props} />);
+            filter.instance().handleFilterChange = jest.fn();
+            filter.instance().handleFilterChangeProps = jest.fn();
+
+            // Action
+            filter.instance().handleHeadlineChange(expected);
+
+            // Assert
+            expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('headline', expected);
+            expect(filter.instance().handleFilterChangeProps).toHaveBeenCalledWith('headline', '');
         });
     });
 
     describe('handleRecipientChange', () => {
-        it('handleRecipientChange runs correctly', () => {
+        it('handleRecipientChange runs with valid value', () => {
             // Arrange
-            const expected = 'value';
+            const expected = {
+                value: 'value'
+            };
+
+            const props = {
+                gridParams: {},
+                invalidParams: {},
+                settings: {},
+                headlineOptions: {},
+                recipientOptions: {},
+                getSettings: jest.fn(() => Promise.resolve({ data: {} }))
+            };
+    
+            const filter = shallow(<Filter {...props} />);
+            filter.instance().handleFilterChange = jest.fn();
+            filter.instance().handleFilterChangeProps = jest.fn();
+
+            // Action
+            filter.instance().handleRecipientChange(expected);
+
+            // Assert
+            expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('recipient', expected);
+            expect(filter.instance().handleFilterChangeProps).toHaveBeenCalledWith('recipientName', expected.value);
+        });
+        
+        it('handleRecipientChange runs with invalid value', () => {
+            // Arrange
+            const expected = null;
             const props = {
                 gridParams: {},
                 invalidParams: {},
@@ -418,12 +579,14 @@ describe('Filter', () => {
 
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
+            filter.instance().handleFilterChangeProps = jest.fn();
 
             // Action
             filter.instance().handleRecipientChange(expected);
 
             // Assert
             expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('recipient', expected);
+            expect(filter.instance().handleFilterChangeProps).toHaveBeenCalledWith('recipientName', '');
         });
     });
 
@@ -442,12 +605,14 @@ describe('Filter', () => {
 
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
+            filter.instance().handleFilterChangeProps = jest.fn();
 
             // Action
             filter.instance().handleStatusChange(null, expected);
 
             // Assert
             expect(filter.instance().handleFilterChange).toHaveBeenCalledWith('statuses', expected);
+            expect(filter.instance().handleFilterChangeProps).toHaveBeenCalledWith('status', expected);
         });
     });
 
@@ -474,12 +639,14 @@ describe('Filter', () => {
 
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
+            filter.instance().handleFilterChangeProps = jest.fn();
 
             // Action
             filter.instance().handleChangeFilterControl(event);
 
             // Assert
             expect(filter.instance().handleFilterChange).toHaveBeenCalledWith(event.target.name, event.target.value);
+            expect(filter.instance().handleFilterChangeProps).toHaveBeenCalledWith(event.target.name, event.target.value);
         });
 
         it('handleChangeFilterControl invalid event runs correctly', () => {
@@ -531,12 +698,14 @@ describe('Filter', () => {
 
             const filter = shallow(<Filter {...props} />);
             filter.instance().handleFilterChange = jest.fn();
+            filter.instance().handleFilterChangeProps = jest.fn();
 
             // Action
             filter.instance().handleChange(event);
 
             // Assert
             expect(filter.instance().handleFilterChange).toHaveBeenCalledWith(event.target.name, event.target.value);
+            expect(filter.instance().handleFilterChangeProps).toHaveBeenCalledWith(event.target.name, event.target.value);
         });
     });
 
@@ -554,7 +723,7 @@ describe('Filter', () => {
                     recipient: {
                         value: 'recipient'
                     },
-                    messageID: 'messageID',
+                    messageId: 'messageID',
                     notificationIdLower: 'notificationIdLower',
                     notificationIdUpper: 'notificationIdUpper',
                     content: 'content',
@@ -580,7 +749,7 @@ describe('Filter', () => {
                 toDate: DateTimeService.endOfDay(state.filter.toDate),
                 headline: state.filter.headline.value,
                 recipientName: state.filter.recipient.value,
-                messageId: state.filter.messageID,
+                messageId: state.filter.messageId,
                 notificationIdLower: state.filter.notificationIdLower,
                 notificationIdUpper: state.filter.notificationIdUpper,
                 content: state.filter.content,
@@ -608,7 +777,7 @@ describe('Filter', () => {
                     toDate: '09/03/2020',
                     headline: null,
                     recipient: null,
-                    messageID: 'messageID',
+                    messageId: 'messageID',
                     notificationIdLower: 'notificationIdLower',
                     notificationIdUpper: 'notificationIdUpper',
                     content: 'content',
@@ -634,7 +803,7 @@ describe('Filter', () => {
                 toDate: DateTimeService.endOfDay(state.filter.toDate),
                 headline: '',
                 recipientName: '',
-                messageId: state.filter.messageID,
+                messageId: state.filter.messageId,
                 notificationIdLower: state.filter.notificationIdLower,
                 notificationIdUpper: state.filter.notificationIdUpper,
                 content: state.filter.content,
@@ -671,11 +840,15 @@ describe('Filter', () => {
                 settings: {},
                 headlineOptions: {},
                 recipientOptions: {},
+                autoRefresh: {
+                    value: 10
+                },
                 getSettings: jest.fn(() => Promise.resolve({})),
                 setInvalidParams: jest.fn(),
                 setGridParams: jest.fn(),
                 getGridData: jest.fn((params, callback) => callback([])),
-                setResendOptions: jest.fn()
+                setResendOptions: jest.fn(),
+                setAutoRefresh: jest.fn()
             };
 
             functions.handleNewResendOptions = jest.fn(data => handleNewResendOptions(data, props.setResendOptions));
@@ -1103,8 +1276,8 @@ describe('Filter', () => {
             expect(filter.find(Form.Group).at(5).find(Form.Control).props().type).toBe('text');
             expect(filter.find(Form.Group).at(5).find(Form.Control).props().pattern).toBe('[0-9]*');
             expect(filter.find(Form.Group).at(5).find(Form.Control).props().className).toBe('shadow-none');
-            expect(filter.find(Form.Group).at(5).find(Form.Control).props().name).toBe('messageID');
-            expect(filter.find(Form.Group).at(5).find(Form.Control).props().value).toBe(initialState.filter.messageID);
+            expect(filter.find(Form.Group).at(5).find(Form.Control).props().name).toBe('messageId');
+            expect(filter.find(Form.Group).at(5).find(Form.Control).props().value).toBe(initialState.filter.messageId);
             expect(filter.find(Form.Group).at(6).find(Form.Label).html()).toContain('NotificationID');
             expect(filter.find(Form.Group).at(6).find('div').at(0).props().className)
                 .toBe('form-control-wrapper d-flex align-items-center notification-id-container');

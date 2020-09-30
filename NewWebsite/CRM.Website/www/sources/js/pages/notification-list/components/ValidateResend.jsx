@@ -13,7 +13,9 @@ export class ValidateResend extends Component {
     }
 
     onClose = () => {
-        if (this.props.resendOptions.dataList.filter(item => LangHelper.getResource('Error') === item.status && item.isResent).length <= 0) {
+        if (this.props.resendOptions.dataList.filter(item =>
+                LangHelper.getResource('Error') === item.status && item.isResent
+            ).length <= 0 && this.props.autoRefresh.value > 0) {
             this.props.setIsRefresh(true);
         }
  
@@ -28,7 +30,6 @@ export class ValidateResend extends Component {
     }
 
     callBackSuccess = () => {
-        const params = { ...this.props.gridParams };
         this.props.setIsRefresh(true);
         this.props.getGridData(this.props.gridParams, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
         this.props.setAutoRefresh({

@@ -41,8 +41,12 @@ describe('ValidateResend', () => {
                             resendIds: []
                         }
                     },
+                    resendOptions: {
+                        dataList: []
+                    },
                     gridParams: {},
-                    setValidateResend: jest.fn()
+                    setValidateResend: jest.fn(),
+                    setIsRefresh: jest.fn()
                 };
 
                 const validateResend = shallow(<ValidateResend {...props} />);
@@ -52,6 +56,63 @@ describe('ValidateResend', () => {
 
                 // Assert
                 expect(props.setValidateResend).toHaveBeenCalledWith({ show: false });
+            });
+            
+            it('should not call setIsRefresh with resendOptions dataList has error notification resend', () => {
+                // Arrange
+                const props = {
+                    validateResendResult: {
+                        result: {
+                            inActiveNotificationIds: [],
+                            resendIds: []
+                        }
+                    },
+                    resendOptions: {
+                        dataList: [
+                            {
+                                isResent: true,
+                                status: 'Error'
+                            }
+                        ]
+                    },
+                    gridParams: {},
+                    setValidateResend: jest.fn(),
+                    setIsRefresh: jest.fn()
+                };
+
+                const validateResend = shallow(<ValidateResend {...props} />);
+
+                // Action
+                validateResend.instance().onClose();
+
+                // Assert
+                expect(props.setIsRefresh).toHaveBeenCalledTimes(0);
+            });
+            
+            it('should call setIsRefresh with resendOptions dataList not has error notification resend', () => {
+                // Arrange
+                const props = {
+                    validateResendResult: {
+                        result: {
+                            inActiveNotificationIds: [],
+                            resendIds: []
+                        }
+                    },
+                    resendOptions: {
+                        dataList: []
+                    },
+                    gridParams: {},
+                    setValidateResend: jest.fn(),
+                    setIsRefresh: jest.fn()
+                };
+
+                const validateResend = shallow(<ValidateResend {...props} />);
+
+                // Action
+                validateResend.instance().onClose();
+
+                // Assert
+                expect(props.setIsRefresh).toHaveBeenCalledWith(true);
             });
         });
 
@@ -96,18 +157,27 @@ describe('ValidateResend', () => {
                 gridParams: {
                     value: 'value'
                 },
+                autoRefresh: {
+                    value: 90
+                },
                 getGridData: jest.fn((params, callback) => callback([])),
-                setResendOptions: jest.fn()
+                setResendOptions: jest.fn(),
+                setIsRefresh: jest.fn(),
+                setAutoRefresh: jest.fn()
             };
 
-            functions.handleNewResendOptions = jest.fn(data => handleNewResendOptions(data, props.setResendOptions));
             const validateResend = shallow(<ValidateResend {...props} />);
 
             // Action
             validateResend.instance().callBackSuccess();
 
             // Assert
-            expect(props.getGridData).toHaveBeenCalledWith({...props.gridParams}, expect.any(Function));
+            expect(props.setIsRefresh).toHaveBeenCalledWith(true);
+            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams, expect.any(Function));
+            expect(props.setAutoRefresh).toHaveBeenCalledWith({
+                ...props.autoRefresh,
+                countDown: props.autoRefresh.value
+            });
         });
     });
 
@@ -163,7 +233,7 @@ describe('ValidateResend', () => {
                 validateResendResult: {
                     result: {
                         inActiveNotificationIds: [],
-                        resendIds: [ { notificationId: 1 } ],
+                        resendIds: [ 1 ],
                         isSingle: true
                     }
                 },
@@ -178,7 +248,7 @@ describe('ValidateResend', () => {
 
             // Assert
             expect(validateResend.instance().resendNotifications)
-                .toHaveBeenCalledWith(props.validateResendResult.result.resendIds.map(item => item.notificationId).toString());
+                .toHaveBeenCalledWith(props.validateResendResult.result.resendIds.toString());
         });
 
         it('Single Modal.Footer click button Cancel calls onClose', () => {
@@ -210,7 +280,7 @@ describe('ValidateResend', () => {
                 validateResendResult: {
                     result: {
                         inActiveNotificationIds: [],
-                        resendIds: [ { notificationId: 1 } ],
+                        resendIds: [ 1 ],
                         isSingle: false
                     }
                 },
@@ -225,7 +295,7 @@ describe('ValidateResend', () => {
 
             // Assert
             expect(validateResend.instance().resendNotifications)
-                .toHaveBeenCalledWith(props.validateResendResult.result.resendIds.map(item => item.notificationId).toString());
+                .toHaveBeenCalledWith(props.validateResendResult.result.resendIds.toString());
         });
 
         it('Multiple Modal.Footer click button Cancel calls onClose', () => {

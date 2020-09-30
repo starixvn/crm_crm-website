@@ -25,14 +25,13 @@ export class ViewDetail extends Component {
             modalWidth: document.getElementById('view-detail-modal-body').clientWidth
         })
 
-    buildHeader = () => {
-        return <HeaderRow>
+    buildHeader = () =>
+        <HeaderRow>
             <HeaderCell colWidth={0.2 * this.state.modalWidth}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
             <HeaderCell colWidth={0.2 * this.state.modalWidth}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
             <HeaderCell colWidth={0.2 * this.state.modalWidth}>{LangHelper.getResource('Recipient')}</HeaderCell>
             <HeaderCell colWidth={0.4 * this.state.modalWidth}>{LangHelper.getResource('Reason')}</HeaderCell>
-        </HeaderRow>;
-    }
+        </HeaderRow>
 
     buildBody = data =>
         [<Row key={data.notificationId}>

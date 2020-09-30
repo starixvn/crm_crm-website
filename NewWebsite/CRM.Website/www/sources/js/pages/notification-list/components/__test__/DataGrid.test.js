@@ -467,27 +467,72 @@ describe('DataGrid', () => {
             expect(dataGrid.instance().setIsRefresh).toHaveBeenCalledWith(false);
         });
 
-        // it('openViewDetailPopup runs correctly', () => {
-        //     // Arrange
-        //     const item = { status: 'Error' };
-        //     const props = {
-        //         gridData: {},
-        //         gridParams: {},
-        //         resendOptions: {},
-        //         setViewDetailPopup: jest.fn()
-        //     };
+        it('openViewDetailPopup runs correctly', () => {
+            // Arrange
+            const item = { status: 'Error' };
+            const props = {
+                gridData: {},
+                gridParams: {},
+                resendOptions: {},
+                setViewDetailPopup: jest.fn()
+            };
 
-        //     const dataGrid = shallow(<DataGrid {...props} />);
+            const dataGrid = shallow(<DataGrid {...props} />);
+            dataGrid.instance().setIsRefresh = jest.fn();
 
-        //     // Action
-        //     dataGrid.instance().openViewDetailPopup(item);
+            // Action
+            dataGrid.instance().openViewDetailPopup(item);
 
-        //     // Assert
-        //     expect(props.setViewDetailPopup).toHaveBeenCalledWith({
-        //         show: true,
-        //         data: item
-        //     });
-        // });
+            // Assert
+            expect(props.setViewDetailPopup).toHaveBeenCalledWith({
+                show: true,
+                data: item
+            });
+            expect(dataGrid.instance().setIsRefresh).toHaveBeenCalled();
+        });
+
+        it('setIsRefresh runs correctly', () => {
+            // Arrange
+            const param = true;
+            const props = {
+                gridData: {},
+                gridParams: {},
+                resendOptions: {},
+                setIsRefresh: jest.fn()
+            };
+
+            const dataGrid = shallow(<DataGrid {...props} />);
+            dataGrid.instance().setNotShouldResetScrollPosition = jest.fn();
+
+            // Action
+            dataGrid.instance().setIsRefresh(param);
+
+            // Assert
+            expect(dataGrid.instance().setNotShouldResetScrollPosition).toHaveBeenCalled();
+            expect(props.setIsRefresh).toHaveBeenCalledWith(param);
+        });
+
+        it('setNotShouldResetScrollPosition runs correctly', () => {
+            // Arrange
+            const param = true;
+            const props = {
+                gridData: {},
+                gridParams: {},
+                resendOptions: {},
+                setResendOptions: jest.fn()
+            };
+
+            const dataGrid = shallow(<DataGrid {...props} />);
+
+            // Action
+            dataGrid.instance().setNotShouldResetScrollPosition(param);
+
+            // Assert
+            expect(props.setResendOptions).toHaveBeenCalledWith({
+                ...props.resendOptions,
+                shouldResetScrollPosition: false
+            });
+        });
 
         describe('isError', () => {
             it('isError returns true', () => {
@@ -591,27 +636,64 @@ describe('DataGrid', () => {
             });
         });
 
-        // it('validateResend runs correctly', () => {
-        //     // Arrange
-        //     const notificationId = 1;
-        //     const props = {
-        //         gridData: {},
-        //         gridParams: {},
-        //         resendOptions: {},
-        //         validateResend: jest.fn()
-        //     };
+        describe('isDuplicated', () => {
+            it('isDuplicated returns true', () => {
+                // Arrange
+                const props = {
+                    gridData: {},
+                    gridParams: {},
+                    resendOptions: {}
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
 
-        //     const dataGrid = shallow(<DataGrid {...props} />);
+                // Action
+                const result = dataGrid.instance().isDuplicated('Duplicated');
 
-        //     // Action
-        //     dataGrid.instance().validateResend(notificationId);
+                expect(result).toBeTrue;
+            });
 
-        //     // Assert
-        //     expect(props.validateResend).toHaveBeenCalledWith({
-        //         notificationIds: notificationId,
-        //         isSingle: true
-        //     });
-        // });
+            it('isDuplicated returns false', () => {
+                // Arrange
+                const props = {
+                    gridData: {},
+                    gridParams: {},
+                    resendOptions: {}
+                };
+    
+                const dataGrid = shallow(<DataGrid {...props} />);
+
+                // Action
+                const result = dataGrid.instance().isDuplicated('string not equal "Duplicated"');
+
+                // Assert
+                expect(result).toBeFalse;
+            });
+        });
+
+        it('validateResend runs correctly', () => {
+            // Arrange
+            const notificationId = 1;
+            const props = {
+                gridData: {},
+                gridParams: {},
+                resendOptions: {},
+                validateResend: jest.fn()
+            };
+
+            const dataGrid = shallow(<DataGrid {...props} />);
+            dataGrid.instance().setIsRefresh = jest.fn();
+
+            // Action
+            dataGrid.instance().validateResend(notificationId);
+
+            // Assert
+            expect(props.validateResend).toHaveBeenCalledWith({
+                notificationIds: notificationId,
+                isSingle: true
+            });
+            expect(dataGrid.instance().setIsRefresh).toHaveBeenCalledWith(false);
+        });
 
         describe('renderRow', () => {
             it('renders regular Row', () => {
