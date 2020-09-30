@@ -36,20 +36,25 @@
                     mergeRowNumber = newValues.length;
                     evenClass = i % 2 === 0 ? 'freegrid-even' : '';
 
-                    var row = [
-                        { Name: 'ColLogDate', Value: info.LogDateString, MergeRowNumber: mergeRowNumber },
-                        { Name: 'ColUsername', Value: info.Username, MergeRowNumber: mergeRowNumber, CssClass: 'username-wordwrap' },
-                        { Name: 'ColAction', Value: info.ActionName, MergeRowNumber: mergeRowNumber }];
                     if (mergeRowNumber === 0) {
                         bodyData.push({
-                            Columns: row.concat([
+                            Columns: [
+                                { Name: 'ColLogDate', Value: info.LogDateString },
+                                { Name: 'ColUsername', Value: info.Username, CssClass: 'username-wordwrap' },
+                                { Name: 'ColAction', Value: info.ActionName },
                                 { Name: 'ColFieldName', Value: '' },
                                 { Name: 'ColOldValues', Value: '' },
-                                { Name: 'ColNewValues', Value: '' }]),
+                                { Name: 'ColNewValues', Value: '' }
+                            ],
                             CssClass: evenClass
                         });
                     }
                     else {
+                        var row = [
+                            { Name: 'ColLogDate', Value: info.LogDateString, MergeRowNumber: mergeRowNumber },
+                            { Name: 'ColUsername', Value: info.Username, MergeRowNumber: mergeRowNumber, CssClass: 'username-wordwrap' },
+                            { Name: 'ColAction', Value: info.ActionName, MergeRowNumber: mergeRowNumber }
+                        ];
                         for (var j = 0; j < mergeRowNumber; j++) {
                             row = j !== 0 ? [] : row;
                             var fieldName = fieldNames[j];
