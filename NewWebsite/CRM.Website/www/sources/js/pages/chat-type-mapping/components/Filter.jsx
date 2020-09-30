@@ -52,7 +52,7 @@ export class Filter extends Component {
             this.setState(prevState => ({
                 filter: { ...prevState.filter, ...{ mappingStatuses: selectedMappingStatuses.toString() } },
                 settings: settings
-            }));
+            }), () => this.props.setGridParams(this.getParams()));
         });
     }
 
