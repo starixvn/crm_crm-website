@@ -10,7 +10,9 @@ import {
     validateResendResult,
     confirmPopup,
     headlineOptions,
-    recipientOptions
+    recipientOptions,
+    autoRefresh,
+    isRefresh
 } from '../dataHandlerReducer';
 import types from '../../actions/types';
 
@@ -132,6 +134,26 @@ describe('dataHandlerReducer.test', () => {
         };
 
         const result = recipientOptions({}, action);
+        expect(result).toEqual(action.data);
+    });
+    
+    it('should handle autoRefresh ', () => {
+        const action = {
+            type: types.AUTO_REFRESH_DATA,
+            data: {}
+        };
+
+        const result = autoRefresh({}, action);
+        expect(result).toEqual(action.data);
+    });
+    
+    it('should handle isRefresh ', () => {
+        const action = {
+            type: types.IS_REFRESH_DATA,
+            data: {}
+        };
+
+        const result = isRefresh({}, action);
         expect(result).toEqual(action.data);
     });
 });

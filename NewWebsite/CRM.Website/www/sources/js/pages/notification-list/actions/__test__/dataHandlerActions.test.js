@@ -1,4 +1,4 @@
-import  actions from '../dataHandlerActions';
+import actions from '../dataHandlerActions';
 import types from '../types';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -37,7 +37,7 @@ describe('dataHandlerActions', () => {
         expect(actions.setGridData(data)).toEqual(expectedAction);
     });
     
-    it('should params change when fetching grid data with params have messageId or notificationIdLower', async () => {
+    it('should params change when fetching grid data with params have messageId', async () => {
         const expectedParams = { messageId: 1, notificationIdLower: '', fromDate: '08/21/2020', toDate: '08/21/2020'};
         const expectedDone = jest.fn();
         const response = { data: { totalItems: 1, data: [{ id: 1, name: 'abnormal bet' }] } };
@@ -53,9 +53,55 @@ describe('dataHandlerActions', () => {
         });
     });
     
-    it('should handle setGridData when fetching grid data has been done', async () => {
+    it('should params change when fetching grid data with params have notificationIdLower', async () => {
+        const expectedParams = { messageId: '', notificationIdLower: 1, fromDate: '08/21/2020', toDate: '08/21/2020'};
+        const expectedDone = jest.fn();
+        const response = { data: { totalItems: 1, data: [{ id: 1, name: 'abnormal bet' }] } };
+        const store = mockStore({ gridData: null });
+        Site.blockUI = jest.fn();
+        Site.unblockUI = jest.fn();
+        const promise = Promise.resolve(response);
+        DataService.postDataAsync = jest.fn(() => promise);
+
+        await store.dispatch(actions.getGridData(expectedParams, expectedDone)).then(() => {
+            expect(expectedParams.fromDate).toBeNull();
+            expect(expectedParams.toDate).toBeNull();
+        });
+    });
+    
+    it('should params not change when fetching grid data', async () => {
+        const expectedParams = { messageId: '', notificationIdLower: '', fromDate: '08/21/2020', toDate: '08/21/2020'};
+        const expectedDone = jest.fn();
+        const response = { data: { totalItems: 1, data: [{ id: 1, name: 'abnormal bet' }] } };
+        const store = mockStore({ gridData: null });
+        Site.blockUI = jest.fn();
+        Site.unblockUI = jest.fn();
+        const promise = Promise.resolve(response);
+        DataService.postDataAsync = jest.fn(() => promise);
+
+        await store.dispatch(actions.getGridData(expectedParams, expectedDone)).then(() => {
+            expect(expectedParams.fromDate === null).toBeFalse;
+            expect(expectedParams.toDate === null).toBeFalse;
+        });
+    });
+    
+    it('should handle setGridData when fetching grid data has been done and calls callback function', async () => {
         const expectedParams = { messageId: null, notificationIdLower: null, fromDate: '08/21/2020', toDate: '08/21/2020'};
         const expectedDone = jest.fn();
+        const response = { data: { totalItems: 1, data: [{ id: 1, name: 'abnormal bet' }] } };
+        const store = mockStore({ gridData: null });
+        Site.blockUI = jest.fn();
+        Site.unblockUI = jest.fn();
+        const promise = Promise.resolve(response);
+        DataService.postDataAsync = jest.fn(() => promise);
+
+        await store.dispatch(actions.getGridData(expectedParams, expectedDone)).then(() => {
+            expect(expectedDone).toHaveBeenCalled();
+        });
+    });
+    
+    it('should handle setGridData when fetching grid data has been done', async () => {
+        const expectedParams = { messageId: null, notificationIdLower: null, fromDate: '08/21/2020', toDate: '08/21/2020'};
         const response = { data: { totalItems: 1, data: [{ id: 1, name: 'abnormal bet' }] } };
         const expectedActions = [{ type: types.GRID_DATA, data: response.data }];
         const store = mockStore({ gridData: null });
@@ -64,10 +110,9 @@ describe('dataHandlerActions', () => {
         const promise = Promise.resolve(response);
         DataService.postDataAsync = jest.fn(() => promise);
 
-        await store.dispatch(actions.getGridData(expectedParams, expectedDone)).then(() => {
+        await store.dispatch(actions.getGridData(expectedParams, null)).then(() => {
             expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationList/GetGridData', expectedParams);
             expect(store.getActions()).toEqual(expectedActions);
-            expect(expectedDone).toHaveBeenCalled();
         });
     });
 
@@ -258,5 +303,25 @@ describe('dataHandlerActions', () => {
         };
 
         expect(actions.setRecipientOptions(data)).toEqual(expectedAction);
+    });
+
+    it('should create an action to set auto refresh data', () => {
+        const data = 'Test set auto refresh data';
+        const expectedAction = {
+            type: types.AUTO_REFRESH_DATA,
+            data
+        };
+
+        expect(actions.setAutoRefresh(data)).toEqual(expectedAction);
+    });
+
+    it('should create an action to set is refresh data', () => {
+        const data = 'Test set is refresh data';
+        const expectedAction = {
+            type: types.IS_REFRESH_DATA,
+            data
+        };
+
+        expect(actions.setIsRefresh(data)).toEqual(expectedAction);
     });
 });

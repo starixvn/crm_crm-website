@@ -93,7 +93,8 @@ describe('AppContainer', () => {
             invalidParams: {},
             validateResendResult: {},
             confirmPopup: {},
-            setContentPopup: jest.fn()
+            setContentPopup: jest.fn(),
+            setIsRefresh: jest.fn()
         };
 
         const appContainer = shallow(<AppContainer {...props} />);
@@ -104,7 +105,7 @@ describe('AppContainer', () => {
 
         // Assert
         expect(props.setContentPopup).toHaveBeenCalledWith({ show: false });
-        expect(appContainer.instance().setIsRefresh).toHaveBeenCalled();
+        expect(props.setIsRefresh).toHaveBeenCalledWith(true);
     });
 
     it('handleCloseViewDetail runs correctly', () => {
@@ -115,7 +116,8 @@ describe('AppContainer', () => {
             invalidParams: {},
             validateResendResult: {},
             confirmPopup: {},
-            setViewDetailPopup: jest.fn()
+            setViewDetailPopup: jest.fn(),
+            setIsRefresh: jest.fn()
         };
 
         const appContainer = shallow(<AppContainer {...props} />);
@@ -126,55 +128,7 @@ describe('AppContainer', () => {
 
         // Assert
         expect(props.setViewDetailPopup).toHaveBeenCalledWith({ show: false });
-        expect(appContainer.instance().setIsRefresh).toHaveBeenCalled();
-    });
-
-    describe('setIsRefresh runs correctly', () => {
-        it('autoRefresh value greater than zero', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {},
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {},
-                autoRefresh: {
-                    value: 10
-                },
-                setIsRefresh: jest.fn()
-            };
-    
-            const appContainer = shallow(<AppContainer {...props} />);
-    
-            // Action
-            appContainer.instance().setIsRefresh();
-    
-            // Assert
-            expect(props.setIsRefresh).toHaveBeenCalledWith(true);
-        });
-        
-        it('autoRefresh value less or equal zero', () => {
-            // Arrange
-            const props = {
-                contentPopup: {},
-                viewDetailPopup: {},
-                invalidParams: {},
-                validateResendResult: {},
-                confirmPopup: {},
-                autoRefresh: {
-                    value: 0
-                },
-                setIsRefresh: jest.fn()
-            };
-    
-            const appContainer = shallow(<AppContainer {...props} />);
-    
-            // Action
-            appContainer.instance().setIsRefresh();
-    
-            // Assert
-            expect(props.setIsRefresh).toHaveBeenCalledTimes(0);
-        });
+        expect(props.setIsRefresh).toHaveBeenCalledWith(true);
     });
 
     describe('render', () => {

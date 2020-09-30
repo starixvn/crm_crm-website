@@ -5,7 +5,7 @@ import { Button, Modal } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
 import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
 import configureMockStore from 'redux-mock-store';
-import { getHeadlines, getRecipients } from '../../functions';
+import functions, { getHeadlines, getRecipients } from '../../functions';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
 
 describe('ViewDetail', () => {
@@ -218,41 +218,44 @@ describe('ViewDetail', () => {
     });
 
     describe('onClose', () => {
-        // it('onClose called with isResolved is true executes correctly', () => {
-        //     // Arrange
-        //     const state = {
-        //         isResolved: true
-        //     };
+        it('onClose called with isResolved is true executes correctly', () => {
+            // Arrange
+            const close = jest.fn();
+            const state = {
+                isResolved: true
+            };
     
-        //     const props = {
-        //         data: {},
-        //         viewDetail: {
-        //             result: {}
-        //         },
-        //         gridParams: {},
-        //         setViewDetail: jest.fn(),
-        //         getGridData: jest.fn(),
-        //         onClose: jest.fn()
-        //     };
+            const props = {
+                data: {},
+                viewDetail: {
+                    result: {}
+                },
+                gridParams: {},
+                autoRefresh: {
+                    value: 'value'
+                },
+                setViewDetail: jest.fn(),
+                getGridData: jest.fn((params, callback) => callback()),
+                onClose: jest.fn(),
+                setAutoRefresh: jest.fn()
+            };
     
-        //     const viewDetail = shallow(<ViewDetail {...props} />);
-        //     viewDetail.instance().setState(state);
+            const viewDetail = shallow(<ViewDetail {...props} />);
+            viewDetail.instance().setState(state);
+            functions.handleNewResendOptions = jest.fn();
     
-        //     // Action
-        //     viewDetail.find(Modal).props().onHide();
+            // Action
+            viewDetail.instance().onClose(close);
     
-        //     // Assert
-        //     expect(props.setViewDetail).toHaveBeenCalledWith({
-        //         resolvedBy: '',
-        //         result: {
-        //             code: 1,
-        //             message: '',
-        //             isSuccessful: false
-        //         }
-        //     });
-        //     expect(props.onClose).toHaveBeenCalled();
-        //     expect(props.getGridData).toHaveBeenCalledWith({...props.gridParams});
-        // });
+            // Assert
+            expect(props.setViewDetail).toHaveBeenCalledWith({ resolvedBy: '' });
+            expect(close).toHaveBeenCalled();
+            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams, expect.any(Function));
+            expect(props.setAutoRefresh).toHaveBeenCalledWith({
+                ...props.autoRefresh,
+                countDown: props.autoRefresh.value
+            });
+        });
 
         it('onClose called with isResolved is false and remark not change executes correctly', () => {
             // Arrange
