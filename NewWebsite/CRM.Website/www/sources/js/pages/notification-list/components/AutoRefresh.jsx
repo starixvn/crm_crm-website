@@ -42,7 +42,7 @@ export class AutoRefresh extends Component {
             });
         }
 
-        if (this.props.autoRefresh.countDown === 0 && this.props.isRefresh) {
+        if (this.props.autoRefresh.countDown === 0 && this.props.isRefresh && this.props.autoRefresh.value > 0) {
             this.props.setAutoRefresh({
                 ...this.props.autoRefresh,
                 countDown: this.props.autoRefresh.value

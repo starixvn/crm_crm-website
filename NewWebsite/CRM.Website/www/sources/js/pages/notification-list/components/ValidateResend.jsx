@@ -15,7 +15,7 @@ export class ValidateResend extends Component {
     onClose = () => {
         if (this.props.resendOptions.dataList.filter(item =>
                 LangHelper.getResource('Error') === item.status && item.isResent
-            ).length <= 0 && this.props.autoRefresh.value > 0) {
+            ).length <= 0) {
             this.props.setIsRefresh(true);
         }
  

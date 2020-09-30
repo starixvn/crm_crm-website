@@ -21,18 +21,12 @@ export class AppContainer extends Component {
 
     handleCloseContent = () => {
         this.props.setContentPopup({ show: false });
-        this.setIsRefresh();
+        this.props.setIsRefresh(true);
     }
 
     handleCloseViewDetail = () => {
         this.props.setViewDetailPopup({ show: false });
-        this.setIsRefresh();
-    }
-
-    setIsRefresh = () => {
-        if (this.props.autoRefresh.value > 0) {
-            this.props.setIsRefresh(true);
-        }
+        this.props.setIsRefresh(true);
     }
 
     render() {
