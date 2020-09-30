@@ -688,7 +688,7 @@ describe('AutoRefresh', () => {
             autoRefresh.instance().handleRefresh = jest.fn();
             
             // Action
-            autoRefresh.find('span').at(1).simulate('click')
+            autoRefresh.find('span').at(1).simulate('click');
             // Assert
             expect(autoRefresh.instance().handleRefresh).toHaveBeenCalled();
         });

@@ -26,7 +26,7 @@ describe('Content', () => {
         LangHelper.getResource = jest.fn(value => value);
         const props = {
             data: {
-                headlines: [],
+                headlines: []
             },
             onClose: jest.fn()
         };

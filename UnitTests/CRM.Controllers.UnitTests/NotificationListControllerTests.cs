@@ -150,6 +150,24 @@
             Assert.Equal(expected, valueResult);
         }
 
+        [Fact]
+        public async Task ResendNotificationList_WhenCalled_ReturnExpectedResult()
+        {
+            // Arrange
+            var controller = GetController();
+            var command = fixture.Create<ResendNotificationsCommand>();
+            var expected = fixture.Create<CommandResult>();
+            notificationListService.ResendNotificationsAsync(command).Returns(expected);
+
+            // Act
+            var result = await controller.ResendNotificationList(command) as JsonResult;
+
+            // Assert
+            var valueResult = (CommandResult)result.Value;
+            Assert.Equal(napSession.UserId, command.UserId);
+            Assert.Equal(expected, valueResult);
+        }
+
         #region Helpers
 
         private NotificationListController GetController()
