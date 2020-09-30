@@ -180,7 +180,7 @@ export class DataGrid extends Component {
     }
 
     render() {
-        if (!this.props.gridData.data) {
+        if (!this.props.gridData || !this.props.gridData.data) {
             return null;
         }
 
@@ -241,15 +241,14 @@ export class DataGrid extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispatch);
 
 const mapStateToProps = state => {
-    const { gridParams, gridData, updateActiveStatusPopup, updateActiveStatusResult, updatePersonalMappingData, updateGroupMappingData, dirtyFormConfirmation } = state;
+    const { gridParams, gridData, updateActiveStatusPopup, updateActiveStatusResult, updatePersonalMappingData, updateGroupMappingData } = state;
     return {
         gridParams,
         gridData,
         updateActiveStatusPopup,
         updateActiveStatusResult,
         updatePersonalMappingData,
-        updateGroupMappingData,
-        dirtyFormConfirmation
+        updateGroupMappingData
     };
 };
 
