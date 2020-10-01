@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import DataGridWrapper, { DataGrid } from '../DataGrid';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 import { Form } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
@@ -267,51 +267,71 @@ describe('DataGrid', () => {
     });
 
     describe('Update active status', () => {
+        const event = {
+            target: { checked: true }
+        };
+        const props = {
+            isHost: true,
+            gridParams: {
+                pageIndex: 1,
+                pageSize: 100
+            },
+            gridData: {
+                data: [
+                    {
+                        chatTypeId: 1,
+                        mappingStatusId: 2,
+                        conversationGroupId: 1,
+                        chatType: 'Personal',
+                        botName: 'Bot1',
+                        recipients: [],
+                        headlines: [],
+                        active: false
+                    }, {
+                        chatTypeId: 2,
+                        mappingStatusId: 0,
+                        conversationGroupId: 2,
+                        chatType: 'Group',
+                        botName: 'Bot1',
+                        recipients: [],
+                        headlines: [],
+                        active: true
+                    }
+                ],
+                totalItems: 1
+            },
+            updateActiveStatusPopup: {},
+            updateActiveStatusResult: {},
+            updatePersonalMappingData: {},
+            updateGroupMappingData: {},
+            setUpateActivePopup: jest.fn(),
+            openUpdatePersonalMappingPopup: jest.fn(),
+            openUpdateGroupMappingPopup: jest.fn()
+        };
+        const expectedParams = {
+            conversationGroupId: props.gridData.data[0].conversationGroupId,
+            isChecked: event.target.checked,
+            isShowPopup: true
+        };
+
         it('should call props setUpateActivePopup on change active checkbox with expected params', () => {
-            function renderRow(item, index, isHost) {
-                return <div key={index}>{isHost ? item.notificationId : item.status}</div>;
-            }
+            const dataGrid = mount(<DataGrid {...props} />);
+            dataGrid.onChangeActiveStaus = jest.fn();
+            expect(dataGrid.find(Row).length).toBe(2);
+            dataGrid.find(Form.Control).at(0).simulate('change', event);
+            expect(props.setUpateActivePopup).toHaveBeenCalledWith(expectedParams);
+        });
 
-            const event = {
-                target: { checked: true }
-            };
-            const props = {
-                isHost: true,
-                gridParams: {
-                    pageIndex: 1,
-                    pageSize: 100
-                },
-                gridData: {
-                    data: [
-                        {
-                            chatTypeId: 1,
-                            mappingStatusId: 2,
-                            conversationGroupId: 1,
-                            chatType: 'Personal',
-                            botName: 'Bot1',
-                            recipients: [],
-                            headlines: [],
-                            active: false
-                        }
-                    ],
-                    totalItems: 1
-                },
-                updateActiveStatusPopup: {},
-                updateActiveStatusResult: {},
-                updatePersonalMappingData: {},
-                updateGroupMappingData: {},
-                setUpateActivePopup: jest.fn()
-            };
+        it('should call correct props when click edit mapping with expected params', () => {
+            const dataGrid = mount(<DataGrid {...props} />);
+            dataGrid.onChangeActiveStaus = jest.fn();
+            expect(dataGrid.find('.icon-edit').length).toBe(2);
 
-            const dataGrid = shallow(<DataGrid {...props} />);
-            dataGrid.instance().onChangeActiveStaus = jest.fn();
-            dataGrid.instance().renderRow = jest.fn(renderRow);
-            const body = shallow(dataGrid.instance().buildBody());
+            dataGrid.find('.icon-edit').at(0).simulate('click', event);
+            expect(props.openUpdateGroupMappingPopup).toHaveBeenCalled();
 
-            console.log(body.find(Cell).length);
-            body.find(Form.Control).at(0).simulate('change', event);
-            expect(dataGrid.instance().onChangeActiveStaus).toHaveBeenCalledWith(props.gridData.data[0].conversationGroupId, event.target.checked);
-            expect(props.setUpateActivePopup).toHaveBeenCalledWith(props.gridData.data[0].conversationGroupId, event.target.checked);
+            dataGrid.find('.icon-edit').at(1).simulate('click', event);
+            expect(props.openUpdatePersonalMappingPopup).toHaveBeenCalled();
         });
     });
 });
