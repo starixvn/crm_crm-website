@@ -70,13 +70,14 @@ export class InsertPersonalMappingPopup extends Component {
     }
 
     handleRecipientChange = option => {
-        this.handleChange('recipient', option);
+        this.handleChange('recipient', option || '');
         this.handleChange('letstalkId', '');
         this.handleChange('displayName', '');
         this.setState({
-            letstalkIds: option.letstalkIds
+            letstalkIds: option ? option.letstalkIds : ''
         });
-        this.props.getGroupHeadlineByRecipient(option.value);
+        const optionValue = option ? option.value : '';
+        this.props.getGroupHeadlineByRecipient(optionValue);
     };
 
     handleLetstalkSelect = e => {

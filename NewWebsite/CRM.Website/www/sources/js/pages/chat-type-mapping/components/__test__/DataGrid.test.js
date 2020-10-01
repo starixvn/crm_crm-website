@@ -2,6 +2,7 @@
 import DataGridWrapper, { DataGrid } from '../DataGrid';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
+import { Form } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
 import { Table, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
 import { PAGING_SIZES } from '@jsroot/common/constants';
@@ -262,6 +263,55 @@ describe('DataGrid', () => {
 
             testBuildBodyHasData(true);
             testBuildBodyHasData(false);
+        });
+    });
+
+    describe('Update active status', () => {
+        it('should call props setUpateActivePopup on change active checkbox with expected params', () => {
+            function renderRow(item, index, isHost) {
+                return <div key={index}>{isHost ? item.notificationId : item.status}</div>;
+            }
+
+            const event = {
+                target: { checked: true }
+            };
+            const props = {
+                isHost: true,
+                gridParams: {
+                    pageIndex: 1,
+                    pageSize: 100
+                },
+                gridData: {
+                    data: [
+                        {
+                            chatTypeId: 1,
+                            mappingStatusId: 2,
+                            conversationGroupId: 1,
+                            chatType: 'Personal',
+                            botName: 'Bot1',
+                            recipients: [],
+                            headlines: [],
+                            active: false
+                        }
+                    ],
+                    totalItems: 1
+                },
+                updateActiveStatusPopup: {},
+                updateActiveStatusResult: {},
+                updatePersonalMappingData: {},
+                updateGroupMappingData: {},
+                setUpateActivePopup: jest.fn()
+            };
+
+            const dataGrid = shallow(<DataGrid {...props} />);
+            dataGrid.instance().onChangeActiveStaus = jest.fn();
+            dataGrid.instance().renderRow = jest.fn(renderRow);
+            const body = shallow(dataGrid.instance().buildBody());
+
+            console.log(body.find(Cell).length);
+            body.find(Form.Control).at(0).simulate('change', event);
+            expect(dataGrid.instance().onChangeActiveStaus).toHaveBeenCalledWith(props.gridData.data[0].conversationGroupId, event.target.checked);
+            expect(props.setUpateActivePopup).toHaveBeenCalledWith(props.gridData.data[0].conversationGroupId, event.target.checked);
         });
     });
 });
