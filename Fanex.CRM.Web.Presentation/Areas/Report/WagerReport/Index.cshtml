@@ -6,7 +6,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Labels.WagerReport;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Areas/Report/WagerReportStyles", "~/Content/site/ResultMessageStyles")
@@ -17,15 +16,15 @@
         </div>
         <div class="row filter-frm one-row wager-filter">
             <form data-ng-submit="getWagerReport()">
-            <div class="item">
-                <label for="year">@Labels.Year</label>
-                <select id="year" data-ng-model="year" data-ng-options="y.value for y in years">
-                </select>
-            </div>
-            <div class="item">
-                <button class="btn default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
-                    <span class="hotkey">S</span>ubmit</button>
-            </div>
+                <div class="item">
+                    <label for="year">@Labels.Year</label>
+                    <select id="year" data-ng-model="year" data-ng-options="y.value for y in years"></select>
+                </div>
+                <div class="item">
+                    <button class="btn default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
+                        <span class="hotkey">S</span>ubmit
+                    </button>
+                </div>
             </form>
         </div>
         <div class="row">
@@ -48,7 +47,6 @@
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        parent.document.title = '@Resources.Language.Title_Report_WagerReport';
         var currentDate = new Date('@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()');
         var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
         var wagerReportResources = {

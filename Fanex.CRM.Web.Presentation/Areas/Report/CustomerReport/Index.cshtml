@@ -8,7 +8,6 @@
     var isCn88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
     var hideSiteClass = isCn88 ? "hide-item" : "";
 
-    ViewBag.Title = Labels.Customer_Report;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
@@ -118,7 +117,6 @@
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
     @RazorHelper.RenderScripts("~/Areas/Report/CustomerReportScripts")
     <script type="text/javascript">
-        parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';

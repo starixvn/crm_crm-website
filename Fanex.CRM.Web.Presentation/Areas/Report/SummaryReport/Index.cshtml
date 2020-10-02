@@ -5,7 +5,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Labels.SummaryReport;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Areas/Report/SummaryReportStyles",
@@ -19,33 +18,31 @@
         <div class="row filter-frm one-row summary-filter">
             <div class="row">
                 <form data-ng-submit="getSummaryReport()">
-                <div class="item">
-                    <label for="year">@Labels.Year</label>
-                    <select id="year" data-ng-model="year" data-ng-options="y.Value for y in years">
-                    </select>
-                </div>
-                <div class="item">
-                    <label for="site">@Labels.Site</label>
-                    <select id="site" data-ng-model="site" data-ng-options="s.Value for s in siteTypes">
-                    </select>
-                </div>
-                <div class="item">
-                    <label for="category">@Labels.Category</label>
-                    <div class="sel-category pull-right" category-picker-container data-ng-model="categoryOptions.DataList">
-                        <select id="category">
-                        </select>
+                    <div class="item">
+                        <label for="year">@Labels.Year</label>
+                        <select id="year" data-ng-model="year" data-ng-options="y.Value for y in years"></select>
                     </div>
-                </div>
-                <div class="item">
-                    <button class="btn default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
-                        <span class="hotkey">S</span>ubmit</button>
-                </div>
+                    <div class="item">
+                        <label for="site">@Labels.Site</label>
+                        <select id="site" data-ng-model="site" data-ng-options="s.Value for s in siteTypes"></select>
+                    </div>
+                    <div class="item">
+                        <label for="category">@Labels.Category</label>
+                        <div class="sel-category pull-right" category-picker-container data-ng-model="categoryOptions.DataList">
+                            <select id="category"></select>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <button class="btn default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
+                            <span class="hotkey">S</span>ubmit
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
         <div class="row">
             <div table-summary-report-container summary-report="summaryReport" is-filter-box-clicked="isFilterBoxClicked"
-                export-summary-report-excel="exportSummaryReportExcel()">
+                 export-summary-report-excel="exportSummaryReportExcel()">
                 <div id="table-summary-report" class="freegrid display-none">
                 </div>
             </div>
@@ -64,7 +61,6 @@
     "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        parent.document.title = '@Resources.Language.Title_Report_SummaryReport';
         var summaryReportResources = {
             Categories: '@Labels.Categories',
             GrandTotal: '@Labels.GrandTotal',

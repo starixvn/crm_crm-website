@@ -4,8 +4,6 @@
 @using Fanex.CRM.Common.Helpers;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    ViewBag.Title = Labels.Customer_Report;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
@@ -30,15 +28,15 @@
                             <input id="excludeIgnoredAccounts" type="checkbox" data-ng-model="searchCriteria.ExcludeIgnoredAccounts">
                             @Labels.ExcludeIgnoredAccounts
                         </label>
-                    </div>               
+                    </div>
                 </div>
-                <div class="row row-item">                   
+                <div class="row row-item">
                     <div class="item">
                         <label for="language" class="width-90 pull-left">
                             @Labels.Username
                         </label>
                         <input type="text" class="textbox search-by-enter" id="username" data-ng-model="searchCriteria.Username" />
-                    </div>     
+                    </div>
                     <div class="item pad-left-30">
                         <button id="button-submit" class="btn" data-ng-click="getReport();">
                             <span class="hotkey">S</span>ubmit
@@ -73,7 +71,6 @@
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
     @RazorHelper.RenderScripts("~/Areas/Report/DirectCustomerReportScripts")
     <script type="text/javascript">
-        parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';

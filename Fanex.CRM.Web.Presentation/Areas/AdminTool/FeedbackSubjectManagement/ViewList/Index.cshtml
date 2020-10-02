@@ -4,7 +4,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Labels.Title_AdminTool_FeedbackSubjectManagement;
     var hasHostPermission = (Constant.Policy)ViewBag.FeedbackSubjectManagementPolicy == Constant.Policy.Host;
 }
 @section Styles{
@@ -35,7 +34,7 @@
                             <span class="hotkey">I</span>nsert New Feedback Subject
                         </button>
                     </div>
-                }                
+                }
             </div>
             <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -69,7 +68,6 @@
         "~/Scripts/FanexGridScripts",
         "~/Areas/Admin/FeedbackSubjectManagement/ViewListScripts")
     <script type="text/javascript">
-        parent.document.title = '@Labels.Title_AdminTool_FeedbackSubjectManagement';
         window.rootUrl = '@Url.Content("~")';
         var hasHostPermission = '@hasHostPermission' == 'True';
         var viewResources = {

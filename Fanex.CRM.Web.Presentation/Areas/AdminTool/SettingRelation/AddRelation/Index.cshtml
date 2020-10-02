@@ -6,7 +6,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Labels.Title_AdminTool_SettingRelation;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
@@ -20,8 +19,7 @@
             <div class="row filter-frm one-row">
                 <div class="item afterButton main-setting-container" data-ng-model="mainSettingOptions.DataList">
                     @Labels.Sub_setting
-                    <select id="mainsetting">
-                    </select>
+                    <select id="mainsetting"></select>
                 </div>
                 <div class="item afterButton">
                     <button id="btn-search" class="btn pull-left" data-ng-click="getMainSettingRelations();">
@@ -32,7 +30,7 @@
             <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
-                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                         class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
                         <div data-ng-bind="messageResultOptions.Message">
                         </div>
                     </div>
@@ -40,7 +38,7 @@
             </div>
             <div class="row">
                 <div id="main-setting-relation-list-container" class="main-setting-relation-list-container"
-                    data-ng-model="mainSettingRelationView">
+                     data-ng-model="mainSettingRelationView">
                     <div id="main-settingrelation-list" class="freegrid display-none">
                     </div>
                 </div>

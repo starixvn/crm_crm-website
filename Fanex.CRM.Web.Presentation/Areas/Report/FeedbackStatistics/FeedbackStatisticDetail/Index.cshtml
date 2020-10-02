@@ -3,7 +3,6 @@
 @model Fanex.CRM.Report.Criteria.FeedbackStatisticReport.GetFeedbackStatisticDetailCriteria
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = Resources.Language.Title_Report_FeedbackStatistics;
     var criteria = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
 @section Styles{

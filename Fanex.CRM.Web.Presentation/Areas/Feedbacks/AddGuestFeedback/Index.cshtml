@@ -9,7 +9,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Resources.Language.Title_AddGuestFeedback;
     var isCN88 = ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff;
     var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
     var hideProvinceClass = isCN88 ? "" : "hide-item";
@@ -469,9 +468,9 @@
                                 <div class="row">
                                     <div class="col-xs-11 col-sm-11 col-md-11">
                                         <span type="button" id="btnRelatedHelp" class="btnHelp pull-left"
-                                               tooltip-class="helper-tooltip"
-                                               tooltip-placement="bottom-left"
-                                               uib-tooltip="@Labels.Helper_RelatedInputMessage"></span>
+                                              tooltip-class="helper-tooltip"
+                                              tooltip-placement="bottom-left"
+                                              uib-tooltip="@Labels.Helper_RelatedInputMessage"></span>
                                         <input id="txtrelatedcustomer" name="txtrelatedcustomer" class="related-customer"
                                                ng-model="customersInput"
                                                ng-paste="pasteRelatedCustomerHandler($event)"
@@ -598,7 +597,6 @@
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
     <script type="text/javascript">
-        parent.document.title = '@Resources.Language.Title_AddGuestFeedback';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';

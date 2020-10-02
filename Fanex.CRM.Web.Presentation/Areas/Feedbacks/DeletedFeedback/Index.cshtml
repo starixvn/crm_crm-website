@@ -3,7 +3,6 @@
 @using CommonLabels = Fanex.CRM.Common.Resources.Labels;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = Resources.Language.Title_DeletedFeedback;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackStyles")
@@ -97,7 +96,6 @@
         "~/CRM/DownLoadFile/Scripts",
         "~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackScripts")
     <script language="javascript" type="text/javascript">
-        parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
 
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';

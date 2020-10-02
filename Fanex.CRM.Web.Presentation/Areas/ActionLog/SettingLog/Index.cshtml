@@ -4,8 +4,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Labels.Setting_Logs;
-
     var currentDate = DateTimeUtilize.CurrentClientTime();
 }
 @section Styles{
@@ -15,31 +13,31 @@
     <div class="container main" data-ng-controller="settingLogController">
         <div class="row filter-frm one-row redemption-filter">
             <form data-ng-submit="searchSettingLogs()">
-            <div class="item">
-                <label for="username">@Labels.Handler</label>
-                <input type="text" class="textbox" id="username" data-ng-model="searchCriteria.Username" />
-            </div>
-            <div class="item">
-                <label for="fromDate">@Labels.FromDate</label>
-                <div class="display-inline-block" data-ng-model="searchCriteria.MaxFromDate" date-picker-from-date-container>
-                    <input id="fromDate" type="text" class="textbox txtcalendar" />
+                <div class="item">
+                    <label for="username">@Labels.Handler</label>
+                    <input type="text" class="textbox" id="username" data-ng-model="searchCriteria.Username" />
                 </div>
-            </div>
-            <div class="item">
-                <label for="toDate">@Labels.ToDate</label>
-                <div class="display-inline-block" data-ng-model="searchCriteria.MinToDate" date-picker-to-date-container>
-                    <input id="toDate" type="text" class="textbox txtcalendar" />
+                <div class="item">
+                    <label for="fromDate">@Labels.FromDate</label>
+                    <div class="display-inline-block" data-ng-model="searchCriteria.MaxFromDate" date-picker-from-date-container>
+                        <input id="fromDate" type="text" class="textbox txtcalendar" />
+                    </div>
                 </div>
-            </div>
-            <div class="item afterButton">
-                <label for="action">@Labels.Action</label>
-                <select id="action" class="sel-action" data-ng-model="searchCriteria.Action" ng-options="a.Name for a in actions">
-                </select>
-            </div>
-            <div class="item">
-                <button class="btn">
-                    <span class="hotkey">S</span>ubmit</button>
-            </div>
+                <div class="item">
+                    <label for="toDate">@Labels.ToDate</label>
+                    <div class="display-inline-block" data-ng-model="searchCriteria.MinToDate" date-picker-to-date-container>
+                        <input id="toDate" type="text" class="textbox txtcalendar" />
+                    </div>
+                </div>
+                <div class="item afterButton">
+                    <label for="action">@Labels.Action</label>
+                    <select id="action" class="sel-action" data-ng-model="searchCriteria.Action" ng-options="a.Name for a in actions"></select>
+                </div>
+                <div class="item">
+                    <button class="btn">
+                        <span class="hotkey">S</span>ubmit
+                    </button>
+                </div>
             </form>
         </div>
         <div class="row">
@@ -52,7 +50,6 @@
     @section Scripts {
         @RazorHelper.RenderScripts("~/Areas/ActionLog/SettingLogScripts")
         <script type="text/javascript">
-            parent.document.title = '@Resources.Language.Title_AdminTool_SettingLog';
             window.rootUrl = '@Url.Content("~")';
             var currentDate = '@currentDate.ToShortFormatedDate()';
             var initFromDate = '@currentDate.FirstDayOfMonth().ToShortFormatedDate()';

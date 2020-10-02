@@ -3,7 +3,6 @@
 @model IList<Fanex.CRM.Common.Models.BaseModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = Labels.LatestFeedbackDocumentTitle;
     var model = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
     var CreateUpdateFeedbackPermission = ((bool)ViewBag.CreateUpdateFeedbackPermission).ToString().ToLower();
 }
@@ -36,7 +35,6 @@
             "~/CRM/DownLoadFile/Scripts",
             "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackScripts")
     <script language="javascript" type="text/javascript">
-        parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
 
         var createUpdateFeedbackPermission = @CreateUpdateFeedbackPermission;

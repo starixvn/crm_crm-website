@@ -3,7 +3,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Labels.Title_AdminTool_SettingRelation;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
@@ -15,8 +14,7 @@
         <div class="container main">
             <div class="row filter-frm one-row">
                 <div class="item afterButton main-setting-container" data-ng-model="mainSettingOptions.DataList">
-                    <select id="mainsetting">
-                    </select>
+                    <select id="mainsetting"></select>
                 </div>
                 <div class="item afterButton">
                     <button id="btn-search" class="btn pull-left btn" data-ng-click="getSettingRelations();">
@@ -27,7 +25,7 @@
             <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
-                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                         class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
                         <div data-ng-bind="messageResultOptions.Message">
                         </div>
                     </div>
@@ -35,7 +33,7 @@
             </div>
             <div class="row">
                 <div id="setting-relation-list-container" class="setting-relation-list-container"
-                    data-ng-model="settingRelationView">
+                     data-ng-model="settingRelationView">
                     <div id="settingrelation-list" class="freegrid display-none">
                     </div>
                 </div>
@@ -50,7 +48,6 @@
         "~/Scripts/FanexGridScripts",
         "~/Areas/Admin/SettingRelation/ViewListScripts")
     <script type="text/javascript">
-        parent.document.title = '@Labels.Title_AdminTool_SettingRelation';
         window.rootUrl = '@Url.Content("~")';
         var viewResources = {
             All: '@Labels.All',

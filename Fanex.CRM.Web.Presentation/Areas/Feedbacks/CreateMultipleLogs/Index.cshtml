@@ -5,8 +5,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Labels.Create_Multiple_Logs;
-
     var customerId = Model;
     var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
     var hideLicenseeTypeClass = isCN88 ? "hide-item" : "";
@@ -294,7 +292,6 @@
 @Html.Partial("~/Areas/Feedbacks/CreateMultipleLogs/_ViewRelatedCustomer.cshtml")
 @section Scripts {
     <script type="text/javascript">
-        parent.document.title = '@Labels.Create_Multiple_Logs';
         window.rootUrl = '@Url.Content("~")';
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var customerId = '@customerId';

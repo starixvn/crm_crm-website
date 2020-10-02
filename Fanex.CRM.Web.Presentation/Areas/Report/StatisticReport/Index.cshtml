@@ -6,7 +6,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Labels.Statistic_Report;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
@@ -31,23 +30,25 @@
                 <div class="row row-item">
                     <div class="item">
                         <label for="reporttype" class="label-1st pull-left">
-                            @Labels.Group_By</label>
+                            @Labels.Group_By
+                        </label>
                         <div class="report-type-container pull-left" data-ng-model="reportTypeOptions.DataList">
-                            <select id="reporttype" class="selReportType">
-                            </select>
+                            <select id="reporttype" class="selReportType"></select>
                         </div>
                     </div>
                     <div class="pull-left" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Daily}">
                         <div class="item">
                             <label for="fromDate" class="label-2nd">
-                                @Labels.From_Date</label>
+                                @Labels.From_Date
+                            </label>
                             <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
                                 <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
                             </div>
                         </div>
                         <div class="item">
                             <label for="toDate" class="label-3rd">
-                                @Labels.To_Date</label>
+                                @Labels.To_Date
+                            </label>
                             <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
                                 <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
                             </div>
@@ -56,38 +57,37 @@
                     <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Monthly}">
                         <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions">
                             <label for="frommonth" class="label-2nd">
-                                @Labels.From_Month</label>
-                            <select id="frommonth_month">
-                            </select>
+                                @Labels.From_Month
+                            </label>
+                            <select id="frommonth_month"></select>
                         </div>
                         <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions">
                             <label for="tomonth">
-                                @Labels.To_Month</label>
-                            <select id="tomonth_month">
-                            </select>
-                            <select id="frommonth_year">
-                            </select>
-                            <select id="tomonth_year" class="display-none">
-                            </select>
+                                @Labels.To_Month
+                            </label>
+                            <select id="tomonth_month"></select>
+                            <select id="frommonth_year"></select>
+                            <select id="tomonth_year" class="display-none"></select>
                         </div>
                     </div>
                 </div>
                 <div class="row row-item">
                     <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
                         <label for="main-category">
-                            @Labels.Main_Category</label>
-                        <select id="main-category" class="selCategory">
-                        </select>
+                            @Labels.Main_Category
+                        </label>
+                        <select id="main-category" class="selCategory"></select>
                     </div>
                     <div class="item sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
                         <label for="sub-category" class="width-110">
-                            @Labels.Sub_Category</label>
-                        <select id="sub-category" class="selSubCategory">
-                        </select>
+                            @Labels.Sub_Category
+                        </label>
+                        <select id="sub-category" class="selSubCategory"></select>
                     </div>
                     <div class="item">
                         <button id="button-submit" class="btn" data-ng-click="getStatisticReport()">
-                            <span class="hotkey">S</span>ubmit</button>
+                            <span class="hotkey">S</span>ubmit
+                        </button>
                     </div>
                 </div>
                 <div class="icon-collapse" data-ng-click="showHideFilterBox();">
@@ -117,7 +117,6 @@
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
     @RazorHelper.RenderScripts("~/Areas/Report/StatisticReportScripts")
     <script type="text/javascript">
-        parent.document.title = '@Resources.Language.Title_Report_StatisticReport';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');

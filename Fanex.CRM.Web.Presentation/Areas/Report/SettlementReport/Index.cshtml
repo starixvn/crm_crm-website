@@ -6,7 +6,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Labels.Settlement_Report;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
@@ -25,14 +24,15 @@
                     <div class="pull-left">
                         <div class="item year-picker-from-date-container" data-ng-model="fromYearOptions">
                             <label for="fromdate_year" class="width-80">
-                                @Labels.Year</label>
-                            <select id="fromdate_year" class="selYear">
-                            </select>
+                                @Labels.Year
+                            </label>
+                            <select id="fromdate_year" class="selYear"></select>
                         </div>
                     </div>
                     <div class="item">
                         <button id="button-submit" class="btn" data-ng-click="getSettlementReport()">
-                            <span class="hotkey">S</span>ubmit</button>
+                            <span class="hotkey">S</span>ubmit
+                        </button>
                     </div>
                 </div>
                 <div data-ng-model="settlementReportOptions.IsUpdateGrid" class="table-settlement-report-container">
@@ -54,7 +54,6 @@
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
     @RazorHelper.RenderScripts("~/Areas/Report/SettlementReportScripts")
     <script type="text/javascript">
-        parent.document.title = '@Resources.Language.Title_Report_SettlementReport';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = new Date('@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()');
         var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');

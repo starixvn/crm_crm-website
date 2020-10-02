@@ -5,8 +5,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    ViewBag.Title = Resources.Language.Title_Report_FeedbackStatistics;
-
     DateTime currentClientTime = DateTimeUtilize.CurrentClientTime();
     string currentClientTimeString = currentClientTime.ToShortFormatedDate();
     string previousWeekTimeString = currentClientTime.AddDays(-7).ToShortFormatedDate();
@@ -20,74 +18,74 @@
     <div class="main container" data-ng-controller="feedbackStatisticController">
         <div class="row filter-frm one-row">
             <form data-ng-submit="getFeedbackStatistic()" novalidate>
-            <div class="row row-item">
-                <div class="item">
-                    <select class="ddlType" data-ng-model="setting" ng-options="s.Name for s in settings">
-                    </select>
-                </div>
-                <div class="item">
-                    <label for="fromDate">@Labels.From_Date</label>
-                    <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-                        <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                <div class="row row-item">
+                    <div class="item">
+                        <select class="ddlType" data-ng-model="setting" ng-options="s.Name for s in settings"></select>
+                    </div>
+                    <div class="item">
+                        <label for="fromDate">@Labels.From_Date</label>
+                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                            <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for="toDate">@Labels.To_Date</label>
+                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                            <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <button class="btn">
+                            <span class="hotkey">S</span>ubmit
+                        </button>
                     </div>
                 </div>
-                <div class="item">
-                    <label for="toDate">@Labels.To_Date</label>
-                    <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-                        <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                <div class="row row-item">
+                    <div class="item width-78">@Labels.FromDuration</div>
+                    <div class="item day" number-only-input
+                         input-class="textbox"
+                         input-value="fromDuration.Day"
+                         input-label="@Labels.Day">
+                    </div>
+                    <div class="item day" number-only-input
+                         input-class="textbox"
+                         input-value="fromDuration.Hour"
+                         input-label="@Labels.Hour">
+                    </div>
+                    <div class="item day" number-only-input
+                         input-class="textbox"
+                         input-value="fromDuration.Minute"
+                         input-label="@Labels.Minute">
+                    </div>
+                    <div class="item day" number-only-input
+                         input-class="textbox"
+                         input-value="fromDuration.Second"
+                         input-label="@Labels.Second">
                     </div>
                 </div>
-                <div class="item">
-                    <button class="btn">
-                        <span class="hotkey">S</span>ubmit</button>
+                <div class="row">
+                    <div class="item width-78">@Labels.ToDuration</div>
+                    <div class="item day" number-only-input
+                         input-class="textbox"
+                         input-value="toDuration.Day"
+                         input-label="@Labels.Day">
+                    </div>
+                    <div class="item day" number-only-input
+                         input-class="textbox"
+                         input-value="toDuration.Hour"
+                         input-label="@Labels.Hour">
+                    </div>
+                    <div class="item day" number-only-input
+                         input-class="textbox"
+                         input-value="toDuration.Minute"
+                         input-label="@Labels.Minute">
+                    </div>
+                    <div class="item day" number-only-input
+                         input-class="textbox"
+                         input-value="toDuration.Second"
+                         input-label="@Labels.Second">
+                    </div>
                 </div>
-            </div>
-            <div class="row row-item">
-                <div class="item width-78">@Labels.FromDuration</div>
-                <div class="item day" number-only-input
-                    input-class="textbox"
-                    input-value="fromDuration.Day"
-                    input-label="@Labels.Day">
-                </div>
-                <div class="item day" number-only-input
-                    input-class="textbox"
-                    input-value="fromDuration.Hour"
-                    input-label="@Labels.Hour">
-                </div>
-                <div class="item day" number-only-input
-                    input-class="textbox"
-                    input-value="fromDuration.Minute"
-                    input-label="@Labels.Minute">
-                </div>
-                <div class="item day" number-only-input
-                    input-class="textbox"
-                    input-value="fromDuration.Second"
-                    input-label="@Labels.Second">
-                </div>
-            </div>
-            <div class="row">
-                <div class="item width-78">@Labels.ToDuration</div>
-                <div class="item day" number-only-input
-                    input-class="textbox"
-                    input-value="toDuration.Day"
-                    input-label="@Labels.Day">
-                </div>
-                <div class="item day" number-only-input
-                    input-class="textbox"
-                    input-value="toDuration.Hour"
-                    input-label="@Labels.Hour">
-                </div>
-                <div class="item day" number-only-input
-                    input-class="textbox"
-                    input-value="toDuration.Minute"
-                    input-label="@Labels.Minute">
-                </div>
-                <div class="item day" number-only-input
-                    input-class="textbox"
-                    input-value="toDuration.Second"
-                    input-label="@Labels.Second">
-                </div>
-            </div>
             </form>
         </div>
         <div class="row" alert-box-container>
@@ -109,7 +107,6 @@
         "~/CRM/DownLoadFile/Scripts",
         "~/bundles/Report/FeedbackStatisticScripts")
     <script type="text/javascript">
-       parent.document.title = '@Resources.Language.Title_Report_FeedbackStatistics';
        window.rootUrl = '@Url.Content("~")';
        var currentDate = new Date('@currentClientTimeString');
        var previousWeek = new Date('@previousWeekTimeString');
