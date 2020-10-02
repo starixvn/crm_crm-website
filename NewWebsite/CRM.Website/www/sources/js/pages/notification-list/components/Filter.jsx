@@ -146,8 +146,8 @@ export class Filter extends Component {
     getParams = () => {
         return {
             notificationTypeIds: this.state.filter.notificationTypes,
-            fromDate: DateTimeService.startOfDay(this.state.filter.fromDate),
-            toDate: DateTimeService.endOfDay(this.state.filter.toDate),
+            fromDate: DateTimeService.toLongDateTimeFormat(DateTimeService.startOfDay(this.state.filter.fromDate)),
+            toDate: DateTimeService.toLongDateTimeFormat(DateTimeService.endOfDay(this.state.filter.toDate)),
             headline: this.state.filter.headline ? this.state.filter.headline.value : '',
             recipientName: this.state.filter.recipient ? this.state.filter.recipient.value : '',
             messageId: this.state.filter.messageId,

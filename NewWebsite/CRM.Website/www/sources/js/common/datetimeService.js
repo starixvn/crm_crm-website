@@ -49,7 +49,7 @@ export default class DateTimeService {
         return moment(date).format(ShortDateTimeFormat);
     }
 
-    static toLongDateTimeFormat() {
+    static toLongDateTimeFormat(date) {
         return moment(date).format(LongDateTimeFormat);
     }
 }
