@@ -44,7 +44,8 @@
     var onclickEvent = "menuManager.goToURL('centerFr','" + Url.Content("~" + menuItem.Url.Trim()) + "');";
     var breadscrumbMenuName = string.Join(",", parentMenuList.Select(menu => "'" + menu.Name + "'"));
     breadscrumbMenuName += (parentMenuList.Count > 0 ? "," : string.Empty) + "'" + menuItem.Name + "'";
-    onclickEvent += "menuManager.setActiveClassForSubMenu(" + breadscrumbMenuName + ")";
+    onclickEvent += "menuManager.setActiveClassForSubMenu(" + breadscrumbMenuName + ");";
+    onclickEvent += "document.title='" + menuItem.Name + "';";
 
     @RenderMenuLink(onclickEvent, @menuItem.Name);
 }
