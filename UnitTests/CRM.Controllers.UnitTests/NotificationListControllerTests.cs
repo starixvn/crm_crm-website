@@ -96,9 +96,9 @@
             // Arrange
             var controller = GetController();
             var criteria = fixture.Create<GetNotificationListCriteria>();
-            var expectedFromDate = criteria.FromDate.Value;
-            var expectedToDate = criteria.ToDate.Value;
+            var expectedDate = fixture.Create<DateTime>();
             var notificationList = fixture.Create<IEnumerable<Notification>>();
+            commonService.ConvertClientToServerDateTime(Arg.Any<DateTime>()).Returns(expectedDate);
             notificationListService.GetNotificationListAsync(criteria).Returns(notificationList);
 
             // Act
@@ -109,8 +109,8 @@
             var dataResult = (IEnumerable<Notification>)result.Value.GetType().GetProperty("data").GetValue(result.Value);
             Assert.Equal(criteria.TotalRows, totalItemsResult);
             Assert.Equal(notificationList, dataResult);
-            Assert.Equal(commonService.ConvertToServerDateTime(expectedFromDate), criteria.FromDate.Value);
-            Assert.Equal(commonService.ConvertToServerDateTime(expectedToDate), criteria.ToDate.Value);
+            Assert.Equal(expectedDate, criteria.FromDate.Value);
+            Assert.Equal(expectedDate, criteria.ToDate.Value);
         }
 
         [Fact]
