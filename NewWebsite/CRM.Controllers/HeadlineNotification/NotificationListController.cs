@@ -66,8 +66,8 @@
         {
             if (param.FromDate.HasValue && param.ToDate.HasValue)
             {
-                param.FromDate = commonService.ConvertToServerDateTime(param.FromDate.Value);
-                param.ToDate = commonService.ConvertToServerDateTime(param.ToDate.Value);
+                param.FromDate = commonService.ConvertClientToServerDateTime(param.FromDate.Value);
+                param.ToDate = commonService.ConvertClientToServerDateTime(param.ToDate.Value);
             }
 
             var notifications = await notificationListService.GetNotificationListAsync(param);

@@ -77,5 +77,10 @@
             var timeSpan = new TimeSpan(appSettings.ServerTimezone, 0, 0);
             return date.ToUniversalTime().Add(timeSpan);
         }
+
+        public DateTime ConvertClientToServerDateTime(DateTime date)
+        {
+            return date.AddHours(appSettings.ServerTimezone - appSettings.ClientTimezone);
+        }
     }
 }
