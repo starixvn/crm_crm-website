@@ -17,7 +17,7 @@ export class InsertPersonalMappingPopup extends Component {
 
         this.state = {
             form: {
-                botId: this.props.settings.bots[0].id,
+                botId: this.props.settings.bots ? this.props.settings.bots[0].id : '',
                 displayName: '',
                 recipientType: '',
                 groupHeadlines: '',
