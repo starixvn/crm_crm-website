@@ -46,6 +46,7 @@
             {
                 ConversationGroupId = 1,
                 UserId = 1,
+                LoginIP = "127.0.0.1"
             };
             // Act
             var actual = criteria.IsValid();

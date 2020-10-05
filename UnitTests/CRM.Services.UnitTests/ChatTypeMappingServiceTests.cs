@@ -3,18 +3,21 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Threading.Tasks;
     using AutoFixture;
     using CRM.Core.Models;
     using CRM.Core.Services;
     using CRM.Criteria.ChatTypeMapping;
     using CRM.Models.ChatTypeMapping;
+    using Microsoft.AspNetCore.Http;
     using NSubstitute;
     using Xunit;
 
     public class ChatTypeMappingServiceTests
     {
         private IBaseService baseService;
+        private IHttpContextAccessor httpContextAccessor;
 
         [Fact]
         public async Task GetChatTypeMappingAsync_WhenCalled_ReturnExpectedListMapping()
@@ -117,7 +120,9 @@
         private ChatTypeMappingService GetService()
         {
             baseService = Substitute.For<IBaseService>();
-            var service = new ChatTypeMappingService(baseService);
+            httpContextAccessor = Substitute.For<IHttpContextAccessor>();
+            httpContextAccessor.HttpContext.Connection.RemoteIpAddress.Returns(new IPAddress(1234567));
+            var service = new ChatTypeMappingService(baseService, httpContextAccessor);
 
             return service;
         }

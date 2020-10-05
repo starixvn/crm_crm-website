@@ -9,14 +9,17 @@
     using CRM.Criteria.ChatTypeMapping;
     using CRM.Models.ChatTypeMapping;
     using CRM.Services.Interfaces;
+    using Microsoft.AspNetCore.Http;
 
     public class ChatTypeMappingService : IChatTypeMappingService
     {
         private readonly IBaseService baseService;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public ChatTypeMappingService(IBaseService baseService)
+        public ChatTypeMappingService(IBaseService baseService, IHttpContextAccessor httpContextAccessor)
         {
             this.baseService = baseService;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ValueTuple<IEnumerable<ChatTypeMappingModel>, int>> GetChatTypeMappingAsync(GetChatTypeMappingCriteria criteria)
@@ -40,7 +43,8 @@
             {
                 ConversationGroupId = conversationId,
                 IsActive = IsActive,
-                UserId = userId
+                UserId = userId,
+                LoginIP = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString()
             };
 
             return await baseService.ExecuteNonQueryAsync(criteria);
@@ -65,11 +69,13 @@
 
         public async Task<CommandResult> CreatePersonalMappingAsync(InsertPersonalMappingCommand criteria)
         {
+            criteria.LoginIP = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
             return await baseService.ExecuteNonQueryAsync(criteria);
         }
 
         public async Task<CommandResult> EditChatTypeMappingAsync(UpdateChatTypeMappingCommand criteria)
         {
+            criteria.LoginIP = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
             return await baseService.ExecuteNonQueryAsync(criteria);
         }
     }
