@@ -119,7 +119,11 @@
             var botConfigs = Configuration.GetSection("LetstalkBotConfigurations");
             services.Configure<List<BotConfig>>(options => botConfigs.Bind(options));
 
-            services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
+            services.AddAntiforgery(options =>
+            {
+                options.SuppressXFrameOptionsHeader = true;
+                options.Cookie.SameSite = SameSiteMode.None;
+            });
 
             var redisConfig = Configuration.GetSection("RedisConfig").Get<RedisConfig>();
             ConfigDataProtection(services, redisConfig);
@@ -130,6 +134,7 @@
                 builder.AddSerilog(dispose: true);
             });
 
+            services.AddCors();
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
