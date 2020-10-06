@@ -9,7 +9,6 @@
     using CRM.Letstalk.Core.Models;
     using CRM.Letstalk.Core.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
-    using Newtonsoft.Json;
 
     public class LetstalkWebhookController : ControllerBase
     {
@@ -32,7 +31,7 @@
         [Route("api/webhook/{id}")]
         public async Task WebhookReceiver(int id)
         {
-            cRMLogService.LogInformation(JsonConvert.SerializeObject("The request is coming"));
+            await cRMLogService.ErrorAsync(new Exception("The request is coming"));
             await webhookReceiver.ReceiveAsync(Request, id);
         }
 
@@ -57,7 +56,6 @@
             if (botConfigs != null && botConfigs.IsAllowedGet)
             {
                 var result = await letstalkService(id).GetWebhookAsync();
-                cRMLogService.LogInformation(JsonConvert.SerializeObject(result));
                 return Ok(result);
             }
 

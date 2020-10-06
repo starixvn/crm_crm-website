@@ -13,7 +13,7 @@
     <None Remove="App_Data\SIT\SpNames.xml" />
     <None Remove="App_Data\SpNames.xml" />
     <None Remove="App_Data\UAT\SpNames.xml" />
-    <None Remove="logs\logs.txt" />
+    <None Remove="logs\log.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,7 +36,7 @@
     <Content Include="App_Data\UAT\SpNames.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="logs\logs.txt">
+    <Content Include="logs\log.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

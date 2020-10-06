@@ -24,8 +24,8 @@
 
         public async Task EventHandleAsync(HookEvent hookEvent, BotConfig botConfig)
         {
-            cRMLogService.LogInformation(JsonConvert.SerializeObject(hookEvent));
-            cRMLogService.LogInformation(JsonConvert.SerializeObject(botConfig));
+            await cRMLogService.ErrorAsync(new Exception(JsonConvert.SerializeObject(hookEvent)));
+            await cRMLogService.ErrorAsync(new Exception(JsonConvert.SerializeObject(botConfig)));
             await letstalkService(botConfig.BotAccountId).PushAsync(hookEvent.Source.UserId, ReplayChat);
         }
     }
