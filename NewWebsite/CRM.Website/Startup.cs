@@ -134,7 +134,12 @@
                 builder.AddSerilog(dispose: true);
             });
 
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowCrossSite",
+                    builder => builder.WithOrigins(Configuration.GetSection("ExternalSiteHostUrl:Domain").Value)
+                        .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
@@ -160,7 +165,7 @@
                 app.UseHsts();
             }
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors("AllowCrossSite");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
