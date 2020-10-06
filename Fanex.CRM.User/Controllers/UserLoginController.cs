@@ -117,7 +117,7 @@
                     localLogin.Password,
                     Cryptography.CfsEnCrypt(AppSession.CurrentUser.OnUserId.ToString()),
                     localLogin.LoginToken);
-                return new RedirectResult(url);
+                return new RedirectResult(url, false);
             }
 
             return ProcessLoginResult(loginStatus);
@@ -159,7 +159,7 @@
                     ssoLogin.UserId,
                     ssoLogin.OnUserId,
                     ssoLogin.Time);
-                return new RedirectResult(url);
+                return new RedirectResult(url, false);
             }
 
             return ProcessLoginResult(loginStatus);
@@ -177,7 +177,7 @@
             }
 
             var url = string.Format("{0}auth/SignOut", AppSetting.ExternalSiteHostUrl);
-            return new RedirectResult(url);
+            return new RedirectResult(url, false);
         }
 
         [HttpPost]
@@ -200,7 +200,7 @@
         public ActionResult ReCheckIn()
         {
             var url = string.Format("{0}auth/ReCheckIn", AppSetting.ExternalSiteHostUrl);
-            return new RedirectResult(url);
+            return new RedirectResult(url, false);
         }
 
         private bool CheckValidToken(string loginToken)

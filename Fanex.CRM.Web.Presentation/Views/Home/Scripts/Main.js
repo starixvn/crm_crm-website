@@ -134,11 +134,7 @@ function udpateOnlineStatus() {
             }
         });
 
-        $.ajax({
-            type: 'post',
-            url: window.rootUrl + 'UserLogin/ReCheckIn',
-            contentType: "application/json; charset=utf-8"
-        });
+        $.post(window.rootUrl + 'UserLogin/ReCheckIn');
     };
 
     reCheckIn();
