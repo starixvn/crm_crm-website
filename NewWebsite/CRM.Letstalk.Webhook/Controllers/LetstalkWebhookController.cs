@@ -4,34 +4,30 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using CRM.Core.Services;
     using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Letstalk.Core.Models;
     using CRM.Letstalk.Core.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
 
     public class LetstalkWebhookController : ControllerBase
     {
         private readonly IWebhookReceiver webhookReceiver;
-        private readonly ICRMLogService cRMLogService;
         private readonly Func<int, ILetstalkService> letstalkService;
         private readonly List<WebhookConfiguration> webhookConfigurations;
 
         public LetstalkWebhookController(IWebhookReceiver webhookReceiver,
             Func<int, ILetstalkService> letstalkService,
-            List<WebhookConfiguration> webhookConfigurations,
-            ICRMLogService cRMLogService)
+            List<WebhookConfiguration> webhookConfigurations)
         {
             this.webhookReceiver = webhookReceiver;
             this.letstalkService = letstalkService;
             this.webhookConfigurations = webhookConfigurations;
-            this.cRMLogService = cRMLogService;
         }
 
         [Route("api/webhook/{id}")]
         public async Task WebhookReceiver(int id)
         {
-            await cRMLogService.ErrorAsync(new Exception("The request is coming"));
             await webhookReceiver.ReceiveAsync(Request, id);
         }
 
@@ -56,6 +52,7 @@
             if (botConfigs != null && botConfigs.IsAllowedGet)
             {
                 var result = await letstalkService(id).GetWebhookAsync();
+                await letstalkService(id).PushAsync("t381023", JsonConvert.SerializeObject(botConfigs));
                 return Ok(result);
             }
 
