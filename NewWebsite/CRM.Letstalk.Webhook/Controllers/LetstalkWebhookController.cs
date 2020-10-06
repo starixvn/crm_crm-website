@@ -32,7 +32,7 @@
         [Route("api/webhook/{id}")]
         public async Task WebhookReceiver(int id)
         {
-            cRMLogService.LogInformation(JsonConvert.SerializeObject(Request));
+            cRMLogService.LogInformation(JsonConvert.SerializeObject("The request is coming"));
             await webhookReceiver.ReceiveAsync(Request, id);
         }
 
