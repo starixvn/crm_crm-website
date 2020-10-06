@@ -33,7 +33,7 @@
                 GroupName = displayName,
                 ConversationId = hookEvent.Source.GroupId,
                 BotId = botConfig.BotAccountId,
-                BotName = botConfig.BotUserId
+                BotName = botConfig.DisplayName
             };
 
             var result = await baseService.ExecuteNonQueryAsync(command);

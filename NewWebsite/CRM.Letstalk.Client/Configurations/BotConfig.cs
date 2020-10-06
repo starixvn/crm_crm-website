@@ -10,6 +10,8 @@
 
         public string ChatKey { get; set; }
 
+        public string DisplayName { get; set; }
+
         public int BotAccountId { get; set; }
 
         public string BotUserId { get; set; }
