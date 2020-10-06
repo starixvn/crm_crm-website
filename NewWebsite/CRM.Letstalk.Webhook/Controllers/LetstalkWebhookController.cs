@@ -57,6 +57,7 @@
             if (botConfigs != null && botConfigs.IsAllowedGet)
             {
                 var result = await letstalkService(id).GetWebhookAsync();
+                cRMLogService.LogInformation(JsonConvert.SerializeObject(result));
                 return Ok(result);
             }
 
