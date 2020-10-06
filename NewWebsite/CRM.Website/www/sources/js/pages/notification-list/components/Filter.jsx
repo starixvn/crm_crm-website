@@ -327,6 +327,7 @@ export class Filter extends Component {
                         <Form.Label>{LangHelper.getResource('Content')}</Form.Label>
                         <Form.Control as='input' type='text' size='sm' className='shadow-none' name='content'
                             value={this.state.filter.content}
+                            autoComplete='off'
                             onChange={e => this.handleChange(e)}
                         />
                     </Form.Group>

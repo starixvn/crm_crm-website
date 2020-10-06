@@ -43,6 +43,7 @@ export class ValidateResend extends Component {
         const inActiveNotificationIdsString = inActiveNotificationIds.join(', ');
         const resendIdsString = resendIds.join(', ');
         const isAllValidate = inActiveNotificationIds.length <= 0;
+        const isAllInActive = resendIds.length === 0;
 
         return (
             <Modal show backdrop='static' keyboard={false} size='lg' centered
@@ -55,15 +56,33 @@ export class ValidateResend extends Component {
                 <Modal.Body>
                     {
                         isSingle && (isAllValidate ?
-                            LangHelper.formatString(LangHelper.getResource('ComfirmResendNotification'), resendIdsString) :
-                            LangHelper.formatString(LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive'), inActiveNotificationIdsString)
+                            LangHelper.formatString(LangHelper.getResource('ComfirmResendNotification'), '', resendIdsString) :
+                            LangHelper.formatString(
+                                LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive'),
+                                '',
+                                '',
+                                inActiveNotificationIdsString
+                            )
                         )
                     }
                     {
-                        !isSingle && (isAllValidate ?
-                            LangHelper.formatString(LangHelper.getResource('ComfirmResendNotification'), resendIdsString) :
+                        !isSingle && isAllInActive && LangHelper.formatString(
+                            LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive'),
+                            '',
+                            's',
+                            inActiveNotificationIdsString
+                        )
+                    }
+                    {
+                        !isSingle && resendIds.length > 0 && (isAllValidate ?
+                            LangHelper.formatString(LangHelper.getResource('ComfirmResendNotification'), 's', resendIdsString) :
                             <div>
-                                <div>{"1. " + LangHelper.formatString(LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive'), inActiveNotificationIdsString)}</div>
+                                <div>{LangHelper.formatString(
+                                    LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive'),
+                                    '1. ',
+                                    's',
+                                    inActiveNotificationIdsString
+                                )}</div>
                                 <div>{LangHelper.formatString(LangHelper.getResource('TheSelectedNotificationsAreAbleToResend'), resendIdsString)}</div>
                                 <div>{LangHelper.getResource('ComfirmResendListAndIgnoreNotification')}</div>
                             </div>
@@ -71,7 +90,7 @@ export class ValidateResend extends Component {
                     }
                 </Modal.Body>
                 {
-                    (isSingle && inActiveNotificationIds.length > 0) ?
+                    ((isSingle && inActiveNotificationIds.length > 0) || (!isSingle && isAllInActive)) ?
                         <Modal.Footer>
                             <Button onClick={() => this.onClose()} variant='primary' size='sm'>{LangHelper.getResource('OK')}</Button>
                         </Modal.Footer> :
