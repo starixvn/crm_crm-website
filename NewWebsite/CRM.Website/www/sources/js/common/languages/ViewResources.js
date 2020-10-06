@@ -86,7 +86,7 @@
     SystemRequired: 'System is required!',
     TemplateName: 'Template Name',
     TemplateNameRequired: 'Template Name is required!',
-    TheRecipientOfNotificationIdHasBeenInactive: '1. The Personal/Group of following selected Notifications have been deactivated: {0}',
+    TheRecipientOfNotificationIdHasBeenInactive: 'The Personal/Group of following selected Notifications have been deactivated: {0}',
     TheSelectedNotificationsAreAbleToResend: '2. The selected Notifications are able to resend: {0}',
     ThereAreSomeChangesConfirmMessage: 'There are some changes. Are you sure you want to ignore these changes?',
     ThereIsNoData: 'There is no data',

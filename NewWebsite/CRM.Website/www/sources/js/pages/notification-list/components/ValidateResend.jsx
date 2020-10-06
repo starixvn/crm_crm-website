@@ -63,7 +63,7 @@ export class ValidateResend extends Component {
                         !isSingle && (isAllValidate ?
                             LangHelper.formatString(LangHelper.getResource('ComfirmResendNotification'), resendIdsString) :
                             <div>
-                                <div>{LangHelper.formatString(LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive'), inActiveNotificationIdsString)}</div>
+                                <div>{"1. " + LangHelper.formatString(LangHelper.getResource('TheRecipientOfNotificationIdHasBeenInactive'), inActiveNotificationIdsString)}</div>
                                 <div>{LangHelper.formatString(LangHelper.getResource('TheSelectedNotificationsAreAbleToResend'), resendIdsString)}</div>
                                 <div>{LangHelper.getResource('ComfirmResendListAndIgnoreNotification')}</div>
                             </div>
