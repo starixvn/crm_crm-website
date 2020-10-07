@@ -400,8 +400,8 @@ describe('DataGrid', () => {
                 });
             }
 
-            testBuildBodyNoData(true, 10);
-            testBuildBodyNoData(false, 8);
+            testBuildBodyNoData(true, 11);
+            testBuildBodyNoData(false, 9);
 
             function renderRow(item, index, isHost) {
                 return <div key={index}>{isHost? item.notificationId : item.status}</div>;

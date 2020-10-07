@@ -396,7 +396,27 @@ describe('ValidateResend', () => {
             });
 
             describe('not isSingle', () => {
-                it('has not invalid notification ids', () => {
+                it('has all invalid notification ids', () => {
+                    // Arrange
+                    const props = {
+                        validateResendResult: {
+                            result: {
+                                inActiveNotificationIds: [ 1 ],
+                                resendIds: [],
+                                isSingle: false
+                            }
+                        },
+                        gridParams: {}
+                    };
+        
+                    // Action
+                    const validateResend = shallow(<ValidateResend {...props} />);
+    
+                    // Assert
+                    expect(validateResend.find(Modal.Body).html()).toContain('TheRecipientOfNotificationIdHasBeenInactive');
+                });
+
+                it('has all valid notification ids', () => {
                     // Arrange
                     const props = {
                         validateResendResult: {
@@ -416,13 +436,13 @@ describe('ValidateResend', () => {
                     expect(validateResend.find(Modal.Body).html()).toContain('ComfirmResendNotification');
                 });
                 
-                it('has invalid notification ids', () => {
+                it('has both valid and invalid notification ids', () => {
                     // Arrange
                     const props = {
                         validateResendResult: {
                             result: {
                                 inActiveNotificationIds: [ 1 ],
-                                resendIds: [],
+                                resendIds: [ 1 ],
                                 isSingle: false
                             }
                         },

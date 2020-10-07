@@ -185,6 +185,7 @@ describe('Filter', () => {
         };
 
         const filter = shallow(<Filter {...props} />);
+        filter.instance().setNotShouldResetScrollPosition = jest.fn();
 
         // Action
         filter.instance().handleFilterChangeProps(name, value);
@@ -194,6 +195,8 @@ describe('Filter', () => {
             ...props.gridParams,
             [name]: value
         });
+
+        expect(filter.instance().setNotShouldResetScrollPosition).toHaveBeenCalled();
     });
 
     it('handleNotificationTypeChange call handleFilterChange', () => {
@@ -710,6 +713,8 @@ describe('Filter', () => {
     });
 
     describe('getParams', () => {
+        DateTimeService.toLongDateTimeFormat = jest.fn(value => value);
+
         it('getParams with valid headline and recipient returns correctly', () => {
             // Arrange
             const state = {
@@ -820,6 +825,27 @@ describe('Filter', () => {
 
             // Assert
             expect(result).toEqual(expected);
+        });
+    });
+
+    it('setNotShouldResetScrollPosition', () => {
+        // Arrange
+        const props = {
+            resendOptions: {},
+            invalidParams: {},
+            getSettings: jest.fn(() => Promise.resolve({})),
+            setResendOptions: jest.fn()
+        }
+
+        var filter = shallow(<Filter {...props} />);
+
+        // Action
+        filter.instance().setNotShouldResetScrollPosition();
+
+        // Assert
+        expect(props.setResendOptions).toHaveBeenCalledWith({
+            shouldResetScrollPosition: false,
+            ...props.resendOptions
         });
     });
 
@@ -1305,6 +1331,7 @@ describe('Filter', () => {
             expect(filter.find(Form.Group).at(7).find(Form.Control).props().name).toBe('content');
             expect(filter.find(Form.Group).at(7).find(Form.Control).props().value)
                 .toEqual(initialState.filter.content);
+            expect(filter.find(Form.Group).at(7).find(Form.Control).props().autoComplete).toBe('off');
             expect(filter.find(Form.Group).at(8).find(Form.Label).html()).toContain('Status');
             expect(filter.find(Form.Group).at(8).find('div').props().className).toBe('form-control-wrapper');
             expect(filter.find(Form.Group).at(8).find('div').find(MultipleSelect).props().dataSource)

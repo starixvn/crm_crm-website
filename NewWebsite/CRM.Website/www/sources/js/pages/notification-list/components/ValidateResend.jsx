@@ -44,6 +44,7 @@ export class ValidateResend extends Component {
         const resendIdsString = resendIds.join(', ');
         const isAllValidate = inActiveNotificationIds.length <= 0;
         const isAllInActive = resendIds.length === 0;
+        const hasOnlyOkButton = (isSingle && inActiveNotificationIds.length > 0) || (!isSingle && isAllInActive);
 
         return (
             <Modal show backdrop='static' keyboard={false} size='lg' centered
@@ -90,7 +91,7 @@ export class ValidateResend extends Component {
                     }
                 </Modal.Body>
                 {
-                    ((isSingle && inActiveNotificationIds.length > 0) || (!isSingle && isAllInActive)) ?
+                    hasOnlyOkButton ?
                         <Modal.Footer>
                             <Button onClick={() => this.onClose()} variant='primary' size='sm'>{LangHelper.getResource('OK')}</Button>
                         </Modal.Footer> :
