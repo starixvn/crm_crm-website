@@ -373,7 +373,8 @@ const mapStateToProps = state => {
         settings,
         headlineOptions,
         recipientOptions,
-        autoRefresh
+        autoRefresh,
+        resendOptions
     } = state;
 
     return {
@@ -382,7 +383,8 @@ const mapStateToProps = state => {
         settings,
         headlineOptions,
         recipientOptions,
-        autoRefresh
+        autoRefresh,
+        resendOptions
     };
 };
 

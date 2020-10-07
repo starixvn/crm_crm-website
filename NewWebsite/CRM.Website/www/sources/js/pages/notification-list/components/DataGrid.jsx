@@ -76,7 +76,7 @@ export class DataGrid extends Component {
             return this.props.gridData.data.map((item, index) => this.renderRow(item, index, isHost));
         }
 
-        return [<Row key={`body${1}`} className='no-data' ><Cell colSpan={isHost ? 10 : 8}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
+        return [<Row key={`body${1}`} className='no-data' ><Cell colSpan={isHost ? 11 : 9}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
     }
 
     openContentPopup = item => {
