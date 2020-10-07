@@ -9,6 +9,7 @@ import { contentPopup } from '../../../notification-list/reducers/dataHandlerRed
 import { toast } from 'react-toastify';
 import { Promise } from 'q';
 import SelectWithSearch from 'react-select';
+import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import MultipleSelect from '@jsroot/components/multiple-select/index';
 
 describe('DataGrid', () => {
@@ -75,7 +76,7 @@ describe('DataGrid', () => {
             recipients: [],
             groupHeadline: [],
             gridParams: {},
-            insertPersonalMappingResult: {},
+            insertPersonalMappingResult: { isSuccessful: true },
             letstalkName: '',
             getLetstalkDisplayName: jest.fn(() => promise),
             getRecipientByRecipientType: jest.fn(),
@@ -123,6 +124,16 @@ describe('DataGrid', () => {
             popup.find(Form.Group).at(7).find(Form.Control).at(0).simulate('change', event);
             expect(popup.instance().handleChange).toHaveBeenCalledWith('languageId', 'value');
         });
+
+        it('render correct', () => {
+            const state = {
+                dirtyFormConfirmation: { isShow: true }
+            };
+            const popup = shallow(<InsertPersonalMappingPopup {...props} />);
+            popup.instance().setState(state);
+
+            expect(popup.find(ConfirmPopup).length).toBe(1);
+        });
     });
 
     describe('functions test', () => {
@@ -142,7 +153,7 @@ describe('DataGrid', () => {
             getRecipientByRecipientType: jest.fn(),
             getGroupHeadlineByRecipient: jest.fn(),
             setInsertPersonalMappingResult: jest.fn(),
-            insertPersonalMapping: jest.fn(),
+            insertPersonalMapping: jest.fn(() => promise),
             closeInsertPersonalMappingPopup: jest.fn(),
             getGridData: jest.fn()
         };
@@ -179,6 +190,218 @@ describe('DataGrid', () => {
             expect(popup.instance().handleChange).toHaveBeenCalledWith('letstalkId', '');
             expect(popup.instance().handleChange).toHaveBeenCalledWith('displayName', '');
             expect(props.getGroupHeadlineByRecipient).toHaveBeenCalledWith('value');
+        });
+
+        it('handleLetstalkSelect with call correct props with correct params', () => {
+            const event = {
+                target: { value: 'value' }
+            };
+            popup.instance().handleChange = jest.fn();
+            popup.instance().handleLetstalkSelect(event);
+            expect(popup.instance().handleChange).toHaveBeenCalledWith('letstalkId', 'value');
+            expect(props.getLetstalkDisplayName).toHaveBeenCalledWith(1, 'value');
+            promise.then(() => {
+                expect(popup.instance().handleChange).toHaveBeenCalledWith('displayName', props.letstalkName);
+            });
+        });
+
+        it('renderOptions return expected result', () => {
+            const item = {
+                id: 1, name: 'test'
+            };
+            const expected = <option key={`${0}-${item.id}`} value={item.id}>{item.name}</option>;
+            const actual = popup.instance().renderOptions(item, 0);
+            expect(actual).toEqual(expected);
+        });
+
+        it('renderLetstalkIds when state.letstalkIds is null return null', () => {
+            const state = { letstalkIds: '' };
+            popup.instance().setState(state);
+            const actual = popup.instance().renderLetstalkIds();
+            expect(actual).toBe(null);
+        });
+
+        it('renderLetstalkIds when state.letstalkIds is correct return expected radio input', () => {
+            const state = { letstalkIds: '1,2,3,4' };
+            popup.instance().setState(state);
+            const actual = popup.instance().renderLetstalkIds();
+            expect(actual.length).toBe(4);
+        });
+
+        it('isValidParams return expected results invalid', () => {
+            const state = {
+                form: {
+                    botId: '',
+                    displayName: '',
+                    recipientType: '',
+                    groupHeadlines: '',
+                    recipient: '',
+                    letstalkId: '',
+                    languageId: '',
+                }
+            };
+            popup.instance().setState(state);
+            const actual = popup.instance().isValidParams();
+            expect(popup.instance().state.validate.isShow).toBeTrue;
+            expect(popup.instance().state.validate.errMsgs.length).toBe(6);
+            expect(actual).toBeFalse;
+        });
+
+        it('isValidParams return valid validation', () => {
+            const state = {
+                form: {
+                    botId: '1',
+                    displayName: 'a',
+                    recipientType: '1',
+                    groupHeadlines: '1',
+                    recipient: '1',
+                    letstalkId: '1',
+                    languageId: '1'
+                }
+            };
+            popup.instance().setState(state);
+            const actual = popup.instance().isValidParams();
+            expect(popup.instance().state.validate.isShow).toBeFalse;
+            expect(popup.instance().state.validate.errMsgs.length).toBe(0);
+            expect(actual).toBeTrue;
+        });
+
+        it('getParams return expected results', () => {
+            const state = {
+                form: {
+                    botId: '1',
+                    displayName: 'a',
+                    recipientType: '1',
+                    groupHeadlines: '1',
+                    recipient: '1',
+                    letstalkId: '1',
+                    languageId: '1'
+                }
+            };
+            popup.instance().setState(state);
+            const expected = {
+                botId: state.form.botId,
+                recipientTypeId: state.form.recipientType,
+                letstalkId: state.form.letstalkId,
+                groupHeadlineIds: state.form.groupHeadlines,
+                recipientIds: state.form.recipient.value,
+                languageId: state.form.languageId,
+                remark: state.form.remark
+            };
+            const actual = popup.instance().getParams();
+            expect(actual).toEqual(expected);
+        });
+
+        it('handleSumit will call expected props when InValid params', () => {
+            const event = { preventDefault: jest.fn() };
+            popup.instance().isValidParams = jest.fn().mockReturnValue(false);
+            popup.instance().handleSubmit(event);
+            expect(props.setInsertPersonalMappingResult).toHaveBeenCalledWith(null);
+            expect(props.closeInsertPersonalMappingPopup).not.toHaveBeenCalled();
+            expect(props.getGridData).not.toHaveBeenCalled();
+        });
+
+        it('handleSumit will call expected props when Valid params', () => {
+            const event = { preventDefault: jest.fn() };
+            popup.instance().isValidParams = jest.fn().mockReturnValue(true);
+            popup.instance().getParams = jest.fn().mockReturnValue('valueParams');
+            popup.instance().handleSubmit(event);
+
+            expect(props.setInsertPersonalMappingResult).toHaveBeenCalledWith(null);
+            expect(props.insertPersonalMapping).toHaveBeenCalledWith('valueParams');
+            promise.then(() => {
+                expect(props.closeInsertPersonalMappingPopup).toHaveBeenCalled();
+                expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
+            });
+        });
+
+        it('isDirtyForm return expected true value', () => {
+            const initState = {
+                botId: '',
+                displayName: '',
+                recipientType: '',
+                groupHeadlines: '',
+                recipient: '',
+                letstalkId: '',
+                languageId: ''
+            };
+
+            const state = {
+                form: {
+                    botId: '1',
+                    displayName: 'a',
+                    recipientType: '1',
+                    groupHeadlines: '1',
+                    recipient: '1',
+                    letstalkId: '1',
+                    languageId: '1'
+                }
+            };
+
+            popup.instance().initState = initState;
+            popup.instance().setState(state);
+            const actual = popup.instance().isDirtyForm();
+            expect(actual).toBeTrue;
+        });
+
+        it('isDirtyForm return expected false value', () => {
+            const initState = {
+                botId: '',
+                displayName: '',
+                recipientType: '',
+                groupHeadlines: '',
+                recipient: '',
+                letstalkId: '',
+                languageId: ''
+            };
+
+            const state = {
+                form: {
+                    botId: '',
+                    displayName: '',
+                    recipientType: '',
+                    groupHeadlines: '',
+                    recipient: '',
+                    letstalkId: '',
+                    languageId: ''
+                }
+            };
+
+            popup.instance().initState = initState;
+            popup.instance().setState(state);
+            const actual = popup.instance().isDirtyForm();
+            expect(actual).toBeFalse;
+        });
+
+        it('onCloseInsertPopup when is dirty form will call setState', () => {
+            const initState = {
+                dirtyFormConfirmation: { isShow: false }
+            };
+            popup.instance().setState(initState);
+            popup.instance().isDirtyForm = jest.fn().mockReturnValue(true);
+            popup.instance().onCloseInsertPopup();
+            expect(popup.instance().state.dirtyFormConfirmation.isShow).toBeTrue;
+            expect(props.closeInsertPersonalMappingPopup).not.toHaveBeenCalled();
+        });
+
+        it('onCloseInsertPopup when is not dirty form will call correct props', () => {
+            const initState = {
+                dirtyFormConfirmation: { isShow: false }
+            };
+            popup.instance().setState(initState);
+            popup.instance().isDirtyForm = jest.fn().mockReturnValue(false);
+            popup.instance().onCloseInsertPopup();
+            expect(popup.instance().state.dirtyFormConfirmation.isShow).toBeFalse;
+            expect(props.closeInsertPersonalMappingPopup).toHaveBeenCalled();
+        });
+
+        it('closeConfirmDirtyForm will do expected action to change state dirtyFormConfirmation', () => {
+            const initState = {
+                dirtyFormConfirmation: { isShow: true }
+            };
+            popup.instance().setState(initState);
+            popup.instance().closeConfirmDirtyForm();
+            expect(popup.instance().state.dirtyFormConfirmation.isShow).toBeFalse;
         });
     });
 });
