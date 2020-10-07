@@ -80,11 +80,13 @@ export class Filter extends Component {
             }
         }))
 
-    handleFilterChangeProps = (name, value) =>
+    handleFilterChangeProps = (name, value) => {
+        this.setNotShouldResetScrollPosition();
         this.props.setGridParams({
             ...this.props.gridParams,
             [name]: value
-        })
+        });
+    }
 
     handleNotificationTypeChange = (currentItem, selectedItemsKey) => {
         this.handleFilterChange('notificationTypes', selectedItemsKey);
@@ -159,6 +161,12 @@ export class Filter extends Component {
             pageSize: this.props.gridParams.pageSize
         };
     }
+
+    setNotShouldResetScrollPosition = () =>
+        this.props.setResendOptions({
+            shouldResetScrollPosition: false,
+            ...this.props.resendOptions
+        })
 
     submitHandler = e => {
         e.preventDefault();
