@@ -95,8 +95,6 @@
         {
             var criteria = new ValidateNotificationListCriteria { NotificationIds = model.NotificationIds };
             var result = await notificationListService.ValidateNotificationListAsync(criteria);
-            result.InActiveNotificationIds = new List<int> { 1, 2, 3 };
-            result.ResendIds = new List<int>{ 1, 2, 3 };
             result.IsSingle = model.IsSingle;
             return Json(result);
         }
