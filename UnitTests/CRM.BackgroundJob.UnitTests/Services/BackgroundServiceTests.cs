@@ -183,6 +183,22 @@
             await monitorService.Received().MonitorLetstalkService();
         }
 
+        [Fact]
+        public async Task MonitorLetstalkService_Exception_ExpectedWriteLog()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var exception = fixture.Create<Exception>();
+            var service = GetService();
+            monitorService.When(x => x.MonitorLetstalkService()).Throw(exception);
+
+            // Act
+            await service.MonitorLetstalkService();
+
+            // Assert
+            await logService.Received().ErrorAsync(exception);
+        }
+
         #region Helpers
 
         private BackgroundService GetService()

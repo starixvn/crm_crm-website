@@ -2,7 +2,6 @@
 {
     using System;
     using System.Threading.Tasks;
-    using CRM.Core.Services;
     using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Letstalk.Services.Constants;
     using CRM.Letstalk.Services.Models;
@@ -11,35 +10,24 @@
     public class MonitorService : IMonitorService
     {
         private readonly MonitorSettings monitorSettings;
-        private readonly ICRMLogService cRMLogService;
         private readonly Func<int, ILetstalkService> letstalkService;
 
-        public MonitorService(MonitorSettings monitorSettings, Func<int, ILetstalkService> letstalkService, ICRMLogService cRMLogService)
+        public MonitorService(MonitorSettings monitorSettings, Func<int, ILetstalkService> letstalkService)
         {
             this.monitorSettings = monitorSettings;
             this.letstalkService = letstalkService;
-            this.cRMLogService = cRMLogService;
         }
 
         public async Task MonitorLetstalkService()
         {
-            try
+            if (monitorSettings.Mode.Equals(MonitorMode.GetWebhook, StringComparison.InvariantCultureIgnoreCase))
             {
-                if (monitorSettings.Mode.Equals(MonitorMode.GetWebhook, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    var result = await letstalkService(monitorSettings.BotId).GetWebhookAsync();
-                    cRMLogService.LogInformation(result);
-                }
-                else
-                {
-                    var listLetstalk = monitorSettings.LetstalkIds.Split(',');
-                    var results = await letstalkService(monitorSettings.BotId).PushAsync(listLetstalk, monitorSettings.Message);
-                }
+                await letstalkService(monitorSettings.BotId).GetWebhookAsync();
             }
-            catch (Exception ex)
+            else
             {
-                await cRMLogService.ErrorAsync(ex);
-                throw;
+                var listLetstalk = monitorSettings.LetstalkIds.Split(',');
+                await letstalkService(monitorSettings.BotId).PushAsync(listLetstalk, monitorSettings.Message);
             }
         }
     }

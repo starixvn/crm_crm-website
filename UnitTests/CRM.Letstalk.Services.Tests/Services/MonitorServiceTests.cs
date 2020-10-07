@@ -2,7 +2,6 @@
 {
     using System;
     using System.Threading.Tasks;
-    using CRM.Core.Services;
     using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Letstalk.Services.Constants;
     using CRM.Letstalk.Services.Models;
@@ -15,18 +14,16 @@
         private readonly MonitorService monitorService;
         private readonly MonitorSettings monitorSettings;
         private readonly ILetstalkService letstalkService;
-        private readonly ICRMLogService cRMLogService;
 
         public MonitorServiceTests()
         {
             var func = Substitute.For<Func<int, ILetstalkService>>();
             letstalkService = Substitute.For<ILetstalkService>();
-            cRMLogService = Substitute.For<ICRMLogService>();
             func(Arg.Any<int>()).Returns(letstalkService);
 
             monitorSettings = new MonitorSettings { Mode = MonitorMode.GetWebhook, BotId = 10, LetstalkIds = "abc,def", Message = "Hi" };
 
-            monitorService = new MonitorService(monitorSettings, func, cRMLogService);
+            monitorService = new MonitorService(monitorSettings, func);
         }
 
         [Fact]

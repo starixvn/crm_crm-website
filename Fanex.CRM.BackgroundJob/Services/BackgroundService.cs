@@ -111,7 +111,14 @@
         [Queue(QueuePriority.Default)]
         public async Task MonitorLetstalkService()
         {
-            await monitorService.MonitorLetstalkService();
+            try
+            {
+                await monitorService.MonitorLetstalkService();
+            }
+            catch (Exception ex)
+            {
+                await logService.ErrorAsync(ex);
+            }
         }
 
         private async Task<bool> CheckUM()
