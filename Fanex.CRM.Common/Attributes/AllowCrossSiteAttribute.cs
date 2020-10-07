@@ -10,6 +10,8 @@
         {
             filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Origin", "*");
             filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Headers", "*");
+            filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Methods", "*");
+            filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Credentials", "true");
             base.OnActionExecuting(filterContext);
         }
     }

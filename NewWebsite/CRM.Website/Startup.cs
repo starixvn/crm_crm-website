@@ -139,7 +139,7 @@
             {
                 options.AddPolicy("AllowCrossSite",
                     builder => builder.WithOrigins(Configuration.GetSection("ExternalSiteHostUrl:Domain").Value)
-                        .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                        .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             });
             services.AddMvc(options =>
             {
