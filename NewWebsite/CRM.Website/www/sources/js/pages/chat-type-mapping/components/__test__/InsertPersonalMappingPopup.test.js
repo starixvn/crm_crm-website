@@ -2,17 +2,14 @@
 import InsertPersonalMappingPopupWrapper, { InsertPersonalMappingPopup } from '../InsertPersonalMappingPopup';
 import { shallow, mount } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
-import { Form } from 'react-bootstrap';
+import { Form, Modal, Button } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
-import Site from '@jsroot/common/site';
-import { contentPopup } from '../../../notification-list/reducers/dataHandlerReducer';
-import { toast } from 'react-toastify';
 import { Promise } from 'q';
 import SelectWithSearch from 'react-select';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import MultipleSelect from '@jsroot/components/multiple-select/index';
 
-describe('DataGrid', () => {
+describe('InsertPersonalMappingPopup', () => {
     LangHelper.getResource = jest.fn(value => value);
 
     describe('component with redux', () => {
@@ -102,15 +99,18 @@ describe('DataGrid', () => {
 
         it('handle functions should call correct functions with correct params when event triggered', () => {
             const event = {
-                target: { value: 'value' }
+                target: { value: 'value' },
+                preventDefault: jest.fn()
             };
-            const popup = shallow(<InsertPersonalMappingPopup {...props} />);
+            const popup = mount(<InsertPersonalMappingPopup {...props} />);
             popup.instance().handleBotChange = jest.fn();
             popup.instance().handleGroupHeadlineChange = jest.fn();
             popup.instance().handleRecipientTypeChange = jest.fn();
             popup.instance().handleRecipientChange = jest.fn();
             popup.instance().handleLetstalkSelect = jest.fn();
             popup.instance().handleChange = jest.fn();
+            popup.instance().onCloseInsertPopup = jest.fn();
+            popup.instance().handleSubmit = jest.fn();
 
             popup.find(Form.Group).at(0).find(Form.Control).at(0).simulate('change', event);
             expect(popup.instance().handleBotChange).toHaveBeenCalledWith('value');
@@ -123,6 +123,9 @@ describe('DataGrid', () => {
 
             popup.find(Form.Group).at(7).find(Form.Control).at(0).simulate('change', event);
             expect(popup.instance().handleChange).toHaveBeenCalledWith('languageId', 'value');
+
+            popup.find(Form.Group).at(8).find(Form.Control).at(0).simulate('change', event);
+            expect(popup.instance().handleChange).toHaveBeenCalledWith('remark', 'value');
         });
 
         it('render correct', () => {
