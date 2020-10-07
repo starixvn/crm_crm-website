@@ -7,7 +7,6 @@
     using CRM.Letstalk.Services.Constants;
     using CRM.Letstalk.Services.Models;
     using CRM.Letstalk.Services.Services.Interfaces;
-    using Newtonsoft.Json;
 
     public class MonitorService : IMonitorService
     {
@@ -24,17 +23,23 @@
 
         public async Task MonitorLetstalkService()
         {
-            cRMLogService.LogInformation("Service run");
-            if (monitorSettings.Mode.Equals(MonitorMode.GetWebhook, StringComparison.InvariantCultureIgnoreCase))
+            try
             {
-                var result = await letstalkService(monitorSettings.BotId).GetWebhookAsync();
-                cRMLogService.LogInformation(result);
+                if (monitorSettings.Mode.Equals(MonitorMode.GetWebhook, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var result = await letstalkService(monitorSettings.BotId).GetWebhookAsync();
+                    cRMLogService.LogInformation(result);
+                }
+                else
+                {
+                    var listLetstalk = monitorSettings.LetstalkIds.Split(',');
+                    var results = await letstalkService(monitorSettings.BotId).PushAsync(listLetstalk, monitorSettings.Message);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                var listLetstalk = monitorSettings.LetstalkIds.Split(',');
-                var results = await letstalkService(monitorSettings.BotId).PushAsync(listLetstalk, monitorSettings.Message);
-                cRMLogService.LogInformation(JsonConvert.SerializeObject(results));
+                await cRMLogService.ErrorAsync(ex);
+                throw;
             }
         }
     }
