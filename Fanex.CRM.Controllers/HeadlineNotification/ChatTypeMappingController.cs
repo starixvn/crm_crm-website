@@ -9,7 +9,7 @@
     using Fanex.NAP.Core.Web.Attribute;
 
     [AllowCrossSite]
-    [NapAuth(FunctionKey = FunctionPermissions.NotificationTemplate, Policy = Constant.Policy.Read)]
+    [NapAuth(FunctionKey = FunctionPermissions.ChatTypeMapping, Policy = Constant.Policy.Read)]
     public class ChatTypeMappingController : ReadOnlyBaseController
     {
         public ActionResult Index()
