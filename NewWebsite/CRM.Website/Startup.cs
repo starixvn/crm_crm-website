@@ -31,7 +31,6 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Cors.Internal;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -135,20 +134,10 @@
                 builder.AddSerilog(dispose: true);
             });
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowCrossSite",
-                    builder => builder.WithOrigins(Configuration.GetSection("ExternalSiteHostUrl:Domain").Value)
-                        .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            });
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.Configure<MvcOptions>(options =>
-            {
-                options.Filters.Add(new CorsAuthorizationFilterFactory("AllowCrossSite"));
-            });
 
             RegisterDI(services, botConfigs.Get<List<BotConfig>>());
         }
@@ -170,7 +159,7 @@
                 app.UseHsts();
             }
 
-            app.UseCors("AllowCrossSite");
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

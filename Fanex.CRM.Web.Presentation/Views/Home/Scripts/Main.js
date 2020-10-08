@@ -117,6 +117,14 @@ function downup() {
 function udpateOnlineStatus() {
     var reCheckIn = function () {
         $.ajax({
+            type: 'get',
+            url: externalSiteHostUrl + 'auth/ReCheckIn',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: ''
+        });
+
+        $.ajax({
             type: "POST",
             url: window.rootUrl + "UserLogin/CheckUserOnlineStatus",
             contentType: "application/json; charset=utf-8",
@@ -127,14 +135,12 @@ function udpateOnlineStatus() {
                     openConfirmPopup(rs.ErrCode);
                 }
                 else {
-                    setTimeout(reCheckIn, 120000);
+                    setTimeout(reCheckIn, 60000);
                 }
             }, error: function () {
                 openConfirmPopup();
             }
         });
-
-        $.post(window.rootUrl + 'UserLogin/ReCheckIn');
     };
 
     reCheckIn();

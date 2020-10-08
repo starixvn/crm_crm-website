@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="~/css/dev/main.chunk.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/css/pro/main.chunk.css" />
+        <link rel="stylesheet" href="~/css/pro/main.chunk.css" asp-append-version="true" />
     </environment>
     @RenderSection("Styles", required: false)
 </head>
@@ -51,10 +51,10 @@
     </environment>
     <environment exclude="Development">
         @Html.Raw(Fanex.Logging.LogManager.RenderJavascriptLogger())
-        <script src="~/js/pro/main.chunk.js"></script>
-        <script src="~/js/pro/lib/lang-en-US.chunk.js"></script>
-        <script src="~/js/pro/lib/react-vendor.chunk.js"></script>
-        <script src="~/js/pro/lib/react-bootstrap-vendor.chunk.js"></script>
+        <script src="~/js/pro/main.chunk.js" asp-append-version="true"></script>
+        <script src="~/js/pro/lib/lang-en-US.chunk.js" asp-append-version="true"></script>
+        <script src="~/js/pro/lib/react-vendor.chunk.js" asp-append-version="true"></script>
+        <script src="~/js/pro/lib/react-bootstrap-vendor.chunk.js" asp-append-version="true"></script>
     </environment>
     @RenderSection("Scripts", required: false)
 </body>
