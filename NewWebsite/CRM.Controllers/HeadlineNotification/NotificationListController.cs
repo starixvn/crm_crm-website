@@ -61,7 +61,7 @@
         }
 
         [HttpPost]
-        [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Host)]
+        [CrmPermission(FunctionKey = FunctionKey.NotificationList, Policy = Policy.Read)]
         public async Task<IActionResult> GetGridData([FromBody]GetNotificationListCriteria param)
         {
             if (param.FromDate.HasValue && param.ToDate.HasValue)
