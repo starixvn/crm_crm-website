@@ -122,15 +122,9 @@ function udpateOnlineStatus() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: '',
-            success: function (response) {
-                if (response.code > 0) {
-                    openConfirmPopup(response.code);
-                } else {
-                    setTimeout(reCheckIn, 60000);
-                }
+            success: function () {
             },
             error: function () {
-                openConfirmPopup();
             }
         });
     };
