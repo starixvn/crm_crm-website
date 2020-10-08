@@ -118,10 +118,17 @@ function udpateOnlineStatus() {
     var externalReCheckin = function () {
         $.ajax({
             type: 'get',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Methods': '*',
+                'Access-Control-Max-Age': '86400'
+            },
             url: externalSiteHostUrl + 'auth/ReCheckIn',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: '',
+            async: false,
             success: function () {
             },
             error: function () {
