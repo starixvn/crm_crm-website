@@ -90,8 +90,12 @@
             {
                 await DoSignOutAsync();
             }
-
-            return Ok();
+            var commandResult = new CommandResult
+            {
+                Code = (byte)recheckInStatus,
+                Message = string.Empty
+            };
+            return Json(commandResult);
         }
 
         private bool IsValidPassword(User user, SignIn signIn)

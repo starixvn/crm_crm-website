@@ -177,6 +177,11 @@
         var userId = @(AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
         var clientTime = "@getClientTime";
         var externalSiteHostUrl = '@AppSetting.ExternalSiteHostUrl';
-        udpateOnlineStatus();
+        @if(AppSetting.IsLocalTest == false)
+        {
+            <text>
+                udpateOnlineStatus();
+            </text>
+        }
     </script>
 }
