@@ -142,6 +142,7 @@ function udpateOnlineStatus() {
                 }
                 else {
                     externalReCheckin();
+                    setTimeout(reCheckIn, 60000);
                 }
             }, error: function () {
                 openConfirmPopup();
