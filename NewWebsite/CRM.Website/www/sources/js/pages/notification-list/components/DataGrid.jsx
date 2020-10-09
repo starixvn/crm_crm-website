@@ -33,15 +33,15 @@ export class DataGrid extends Component {
                 <div>{LangHelper.getResource('NotificationID')}</div>
                 <div>{LangHelper.getResource('MessageID')}</div>
             </HeaderCell>
-            <HeaderCell colWidth={25}>{LangHelper.getResource('Sender')}/{LangHelper.getResource('NotificationType')}</HeaderCell>
-            <HeaderCell colWidth={10}>{LangHelper.getResource('SendDateTimeGMTA8')}</HeaderCell>
-            <HeaderCell colWidth={15}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
-            <HeaderCell colWidth={15}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
-            <HeaderCell colWidth={15}>{LangHelper.getResource('Recipient')}</HeaderCell>
-            <HeaderCell colWidth={25}>{LangHelper.getResource('Title')}/{LangHelper.getResource('Content')}</HeaderCell>
-            <HeaderCell colWidth={10}>{LangHelper.getResource('Status')}</HeaderCell>
+            <HeaderCell colWidth={23}>{LangHelper.getResource('Sender')}/{LangHelper.getResource('NotificationType')}</HeaderCell>
+            <HeaderCell colWidth={12}>{LangHelper.getResource('SendDateTimeGMTA8')}</HeaderCell>
+            <HeaderCell colWidth={19}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
+            <HeaderCell colWidth={19}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
+            <HeaderCell colWidth={19}>{LangHelper.getResource('Recipient')}</HeaderCell>
+            <HeaderCell colWidth={20}>{LangHelper.getResource('Title')}/{LangHelper.getResource('Content')}</HeaderCell>
+            <HeaderCell colWidth={12}>{LangHelper.getResource('Status')}</HeaderCell>
             {
-                isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Action')}</HeaderCell>
+                isHost && <HeaderCell colWidth={13}>{LangHelper.getResource('Action')}</HeaderCell>
             }
             {
                 isHost && <HeaderCell colWidth={10}>

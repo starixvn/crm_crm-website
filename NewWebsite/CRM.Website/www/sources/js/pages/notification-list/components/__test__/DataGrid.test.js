@@ -239,21 +239,21 @@ describe('DataGrid', () => {
                 expect(header.find(HeaderCell).at(1).props().colWidth).toBe(15);
                 expect(header.find(HeaderCell).at(1).find('div').at(0).html()).toContain('NotificationID');
                 expect(header.find(HeaderCell).at(1).find('div').at(1).html()).toContain('MessageID');
-                expect(header.find(HeaderCell).at(2).props().colWidth).toBe(25);
+                expect(header.find(HeaderCell).at(2).props().colWidth).toBe(23);
                 expect(header.find(HeaderCell).at(2).html()).toContain('Sender');
                 expect(header.find(HeaderCell).at(2).html()).toContain('NotificationType');
-                expect(header.find(HeaderCell).at(3).props().colWidth).toBe(10);
+                expect(header.find(HeaderCell).at(3).props().colWidth).toBe(12);
                 expect(header.find(HeaderCell).at(3).html()).toContain('SendDateTimeGMTA8');
-                expect(header.find(HeaderCell).at(4).props().colWidth).toBe(15);
+                expect(header.find(HeaderCell).at(4).props().colWidth).toBe(19);
                 expect(header.find(HeaderCell).at(4).html()).toContain('LetstalkName');
-                expect(header.find(HeaderCell).at(5).props().colWidth).toBe(15);
+                expect(header.find(HeaderCell).at(5).props().colWidth).toBe(19);
                 expect(header.find(HeaderCell).at(5).html()).toContain('GroupHeadline');
-                expect(header.find(HeaderCell).at(6).props().colWidth).toBe(15);
+                expect(header.find(HeaderCell).at(6).props().colWidth).toBe(19);
                 expect(header.find(HeaderCell).at(6).html()).toContain('Recipient');
-                expect(header.find(HeaderCell).at(7).props().colWidth).toBe(25);
+                expect(header.find(HeaderCell).at(7).props().colWidth).toBe(20);
                 expect(header.find(HeaderCell).at(7).html()).toContain('Title');
                 expect(header.find(HeaderCell).at(7).html()).toContain('Content');
-                expect(header.find(HeaderCell).at(8).props().colWidth).toBe(10);
+                expect(header.find(HeaderCell).at(8).props().colWidth).toBe(12);
                 expect(header.find(HeaderCell).at(8).html()).toContain('Status');
             });
 
@@ -271,7 +271,7 @@ describe('DataGrid', () => {
                 const header = shallow(dataGrid.instance().buildHeader(true));
                 
                 // Assert
-                expect(header.find(HeaderCell).at(9).props().colWidth).toBe(10);
+                expect(header.find(HeaderCell).at(9).props().colWidth).toBe(13);
                 expect(header.find(HeaderCell).at(9).html()).toContain('Action');
             });
             
