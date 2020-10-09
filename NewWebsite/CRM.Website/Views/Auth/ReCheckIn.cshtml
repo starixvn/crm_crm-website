@@ -11,6 +11,7 @@
     <title></title>
 </head>
 <body>
+    <input type="hidden" id="RootUrl" value="@Url.Content("~/")" />
     <input type="checkbox" hidden id="IsHost" @(napSettings.EnableReCheckIn ? "checked" : string.Empty) />
     @Html.AntiForgeryToken()
     <environment include="Development">
