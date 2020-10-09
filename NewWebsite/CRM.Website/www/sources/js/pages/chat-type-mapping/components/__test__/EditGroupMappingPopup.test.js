@@ -1,12 +1,14 @@
 ﻿import React from 'react';
 import EditGroupMappingPopupWrapper, { EditGroupMappingPopup } from '../EditGroupMappingPopup';
 import { shallow, mount } from 'enzyme';
+import renderer from 'react-test-renderer';
 import configureMockStore from 'redux-mock-store';
 import { Form, Modal, Button } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
 import { Promise } from 'q';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import MultipleSelect from '@jsroot/components/multiple-select/index';
+import { popper } from '@popperjs/core';
 
 describe('EditGroupMappingPopup', () => {
     const initData = {
@@ -17,7 +19,7 @@ describe('EditGroupMappingPopup', () => {
         conversationId: 'conversationId',
         headlines: [{ id: 1, name: 'headline' }],
         recipients: [{ id: 1, name: 'recipient', recipientTypeId: 1 }],
-        mappingStatusId: '1',
+        mappingStatusId: 1,
         mappingStatus: 'NotMapped',
         languageId: 1,
         remark: '123'
@@ -150,6 +152,7 @@ describe('EditGroupMappingPopup', () => {
 
             expect(popup.find(Form.Group).at(4).find(MultipleSelect).length).toBe(1);
             expect(popup.find(Form.Group).at(6).find(MultipleSelect).length).toBe(1);
+            expect(popup.find(Button).length).toBe(2);
 
             popup.find(Form.Group).at(8).find(Form.Control).at(0).simulate('change', event);
             expect(popup.instance().handleChange).toHaveBeenCalledWith('languageId', 'value');
@@ -263,6 +266,10 @@ describe('EditGroupMappingPopup', () => {
                     bot: { id: 1, name: 'bot' },
                     name: 'a',
                     conversationId: '1',
+                    mappingStatus: {
+                        id: 1,
+                        name: 'BotRemoved'
+                    },
                     recipientTypeId: '1',
                     recipientIds: '2',
                     groupHeadlines: '3',
@@ -282,11 +289,11 @@ describe('EditGroupMappingPopup', () => {
                 conversationGroupId: 1,
                 botId: 1,
                 name: 'a',
-                recipientTypeId: '',
+                recipientTypeId: '1',
                 letstalkId: '1',
-                groupHeadlineIds: '',
-                recipientIds: '',
-                languageId: '',
+                groupHeadlineIds: '3',
+                recipientIds: '2',
+                languageId: '4',
                 remark: ''
             };
             const actual = popup.instance().getParams();
@@ -323,6 +330,10 @@ describe('EditGroupMappingPopup', () => {
                 conversationId: '1',
                 recipientTypeId: '1',
                 recipientIds: '2',
+                mappingStatus: {
+                    id: 1,
+                    name: 'BotRemoved'
+                },
                 groupHeadlines: '3',
                 languageId: '4',
                 remark: ''
@@ -335,6 +346,10 @@ describe('EditGroupMappingPopup', () => {
                     conversationId: '1',
                     recipientTypeId: '1',
                     recipientIds: '2',
+                    mappingStatus: {
+                        id: 1,
+                        name: 'BotRemoved'
+                    },
                     groupHeadlines: '3',
                     languageId: '4',
                     remark: ''
@@ -354,6 +369,10 @@ describe('EditGroupMappingPopup', () => {
                 conversationId: '1',
                 recipientTypeId: '1',
                 recipientIds: '2',
+                mappingStatus: {
+                    id: 1,
+                    name: 'BotRemoved'
+                },
                 groupHeadlines: '3',
                 languageId: '4',
                 remark: ''
@@ -366,6 +385,10 @@ describe('EditGroupMappingPopup', () => {
                     conversationId: '1',
                     recipientTypeId: '1',
                     recipientIds: '2',
+                    mappingStatus: {
+                        id: 1,
+                        name: 'BotRemoved'
+                    },
                     groupHeadlines: '3,4',
                     languageId: '4',
                     remark: ''
@@ -407,6 +430,21 @@ describe('EditGroupMappingPopup', () => {
             popup.instance().setState(initState);
             popup.instance().closeConfirmDirtyForm();
             expect(popup.instance().state.isShowConfirmDirtyForm).toBeFalse;
+        });
+
+        it('renderLetstalkIdVerification to render match the snapshot', () => {
+            const letstalk = {
+                recipientName: 'Name',
+                letstalks: [{
+                    letstalkId: '1',
+                    isGroupMember: true
+                }]
+            };
+            const verification = popup.instance().renderLetstalkIdVerification(letstalk, 0);
+            const tree = renderer
+                .create(verification)
+                .toJSON();
+            expect(tree).toMatchSnapshot();
         });
     });
 });
