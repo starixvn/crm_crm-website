@@ -16,6 +16,7 @@ function generateConfig(environment) {
             /*js*/
             [`${jsPath}/lib/lang-en-US`]: pathConfig.scriptPaths.language,
             [`${jsPath}/main`]: pathConfig.scriptPaths.main,
+            [`${jsPath}/pages/auth/recheckin`]: pathConfig.scriptPaths.recheckin,
             [`${jsPath}/pages/notificationlist/index`]: pathConfig.scriptPaths.notification_list,
             [`${jsPath}/pages/notificationtemplate/index`]: pathConfig.scriptPaths.notification_template,
             [`${jsPath}/pages/notificationtype/index`]: pathConfig.scriptPaths.notification_type,

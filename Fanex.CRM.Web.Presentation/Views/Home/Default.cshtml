@@ -125,9 +125,10 @@
         </div>
     </div>
 </div>
-<div id="divErrorPoup" class="selector" style="display: none;">
-</div>
-<div id="div-resultpopup" class="selector display-none">
+<div id="divErrorPoup" class="selector" style="display: none;"></div>
+<div id="div-resultpopup" class="selector display-none"></div>
+<div style="display: none;">
+    <iframe src="@string.Format("{0}auth/recheckin", AppSetting.ExternalSiteHostUrl)"></iframe>
 </div>
 @section Scripts {
     <script type="text/javascript">

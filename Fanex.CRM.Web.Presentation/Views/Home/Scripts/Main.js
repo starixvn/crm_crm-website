@@ -115,12 +115,6 @@ function downup() {
 }
 
 function udpateOnlineStatus() {
-    var externalReCheckin = function () {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', externalSiteHostUrl + 'auth/ReCheckIn');
-        xhr.send();
-    };
-
     var reCheckIn = function () {
         $.ajax({
             type: "POST",
@@ -139,8 +133,6 @@ function udpateOnlineStatus() {
                 openConfirmPopup();
             }
         });
-
-        externalReCheckin();
     };
 
     setTimeout(reCheckIn, 60000);

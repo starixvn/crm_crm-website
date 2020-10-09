@@ -5,6 +5,7 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
     using CRM.Core.Enumerables;
+    using CRM.Core.Filters;
     using CRM.Core.Models;
     using CRM.Models.Auth;
     using CRM.Services;
@@ -57,7 +58,7 @@
                 await DoSignInAsync(user, onUserId);
             }
 
-            return new RedirectResult(externalSiteHostUrl.DefaultPageUrl);
+            return new RedirectResult(externalSiteHostUrl.DefaultPageUrl, false);
         }
 
         public async Task<IActionResult> SingleSignOn(SingleSignOn model)
@@ -73,29 +74,34 @@
                 }
             }
 
-            return new RedirectResult(externalSiteHostUrl.DefaultPageUrl);
+            return new RedirectResult(externalSiteHostUrl.DefaultPageUrl, false);
         }
 
         public async Task<IActionResult> SignOut()
         {
             await DoSignOutAsync();
 
-            return new RedirectResult(externalSiteHostUrl.SignInUrl);
+            return new RedirectResult(externalSiteHostUrl.SignInUrl, false);
         }
 
-        public async Task<IActionResult> ReCheckIn()
+        [CrmAuthorize]
+        public IActionResult ReCheckIn()
+        {
+            return View();
+        }
+
+        [CrmAuthorize]
+        [HttpPost]
+        public async Task<IActionResult> CheckUserOnlineStatus()
         {
             RecheckInStatus recheckInStatus = await authService.GetRecheckInStatusAsync();
             if (recheckInStatus != RecheckInStatus.Success)
             {
                 await DoSignOutAsync();
+                return new RedirectResult(externalSiteHostUrl.SignInUrl, false);
             }
-            var commandResult = new CommandResult
-            {
-                Code = (byte)recheckInStatus,
-                Message = string.Empty
-            };
-            return Json(commandResult);
+
+            return Ok();
         }
 
         private bool IsValidPassword(User user, SignIn signIn)
