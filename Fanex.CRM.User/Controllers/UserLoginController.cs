@@ -193,14 +193,6 @@
             });
         }
 
-        [HttpPost]
-        [Authorize]
-        public ActionResult ReCheckIn()
-        {
-            var url = string.Format("{0}auth/ReCheckIn", AppSetting.ExternalSiteHostUrl);
-            return new RedirectResult(url, false);
-        }
-
         private bool CheckValidToken(string loginToken)
         {
             return !string.IsNullOrWhiteSpace(loginToken)
