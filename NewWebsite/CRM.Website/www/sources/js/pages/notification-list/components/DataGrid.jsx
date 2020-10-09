@@ -44,7 +44,7 @@ export class DataGrid extends Component {
                 isHost && <HeaderCell colWidth={13}>{LangHelper.getResource('Action')}</HeaderCell>
             }
             {
-                isHost && <HeaderCell colWidth={10}>
+                isHost && <HeaderCell colWidth={11}>
                     <input
                         type='button'
                         value={LangHelper.getResource('Resend')}

@@ -289,7 +289,7 @@ describe('DataGrid', () => {
                 const header = shallow(dataGrid.instance().buildHeader(true));
                 
                 // Assert
-                expect(header.find(HeaderCell).at(10).props().colWidth).toBe(10);
+                expect(header.find(HeaderCell).at(10).props().colWidth).toBe(11);
             });
             
             it('has button resend', () => {
