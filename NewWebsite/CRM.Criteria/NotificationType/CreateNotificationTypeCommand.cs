@@ -5,10 +5,16 @@
     public class CreateNotificationTypeCommand : BaseNonQueryCommand
     {
         public string NotificationTypeName { get; set; }
+
         public string ChatTypeIds { get; set; }
+
         public string RecipientTypeIds { get; set; }
+
         public int SystemId { get; set; }
+
         public int UserId { get; set; }
+
+        public string LoginIP { get; set; }
 
         public override string GetSettingKey() => "Acc_CRM_ChatBot_NotificationType_Ins";
 

@@ -11,18 +11,22 @@
     using CRM.Models;
     using CRM.Models.NotificationType;
     using Fanex.NAP.Client.Helpers.Web;
+    using Microsoft.AspNetCore.Http;
 
     public class NotificationTypeService : INotificationTypeService
     {
         private readonly INapSession napSession;
         private readonly IBaseService baseService;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public NotificationTypeService(
             INapSession napSession,
-            IBaseService baseService)
+            IBaseService baseService,
+            IHttpContextAccessor httpContextAccessor)
         {
             this.napSession = napSession;
             this.baseService = baseService;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<CommandResult> CreateAsync(CreateNotificationType model)
@@ -33,7 +37,8 @@
                 ChatTypeIds = model.ChatTypeIds,
                 RecipientTypeIds = model.RecipientTypeIds,
                 SystemId = model.SystemId,
-                UserId = napSession.UserId
+                UserId = napSession.UserId,
+                LoginIP = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString()
             };
 
             return await baseService.ExecuteNonQueryAsync(command);
@@ -48,7 +53,8 @@
                 ChatTypeIds = model.ChatTypeIds,
                 RecipientTypeIds = model.RecipientTypeIds,
                 SystemId = model.SystemId,
-                UserId = napSession.UserId
+                UserId = napSession.UserId,
+                LoginIP = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString()
             };
 
             return await baseService.ExecuteNonQueryAsync(command);
@@ -60,7 +66,8 @@
             {
                 NotificationTypeId = model.NotificationTypeId,
                 NotificationTypeName = model.NotificationTypeName,
-                UserId = napSession.UserId
+                UserId = napSession.UserId,
+                LoginIP = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString()
             };
 
             return await baseService.ExecuteNonQueryAsync(command);

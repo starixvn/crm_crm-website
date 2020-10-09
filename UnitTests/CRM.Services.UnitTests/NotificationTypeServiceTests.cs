@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Net;
     using System.Threading.Tasks;
     using AutoFixture;
     using CRM.Core.Enumerables;
@@ -11,6 +12,7 @@
     using CRM.Models;
     using CRM.Models.NotificationType;
     using Fanex.NAP.Client.Helpers.Web;
+    using Microsoft.AspNetCore.Http;
     using NSubstitute;
     using Xunit;
 
@@ -18,6 +20,7 @@
     {
         private INapSession napSession;
         private IBaseService baseService;
+        private IHttpContextAccessor httpContextAccessor;
         private readonly Fixture fixture = new Fixture();
 
         [Fact]
@@ -121,7 +124,9 @@
         {
             napSession = Substitute.For<INapSession>();
             baseService = Substitute.For<IBaseService>();
-            var service = new NotificationTypeService(napSession, baseService);
+            httpContextAccessor = Substitute.For<IHttpContextAccessor>();
+            httpContextAccessor.HttpContext.Connection.RemoteIpAddress.Returns(new IPAddress(123456));
+            var service = new NotificationTypeService(napSession, baseService, httpContextAccessor);
 
             return service;
         }
