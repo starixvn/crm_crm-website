@@ -26,46 +26,43 @@ export class DataGrid extends Component {
         this.props.getGridData({ ...params }, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
     }
 
-    buildHeader = isHost => {
-        return (
-            <HeaderRow>
-                <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
-                <HeaderCell colWidth={15}>
-                    <div>{LangHelper.getResource('NotificationID')}</div>
-                    <div>{LangHelper.getResource('MessageID')}</div>
-                </HeaderCell>
-                <HeaderCell colWidth={30}>{LangHelper.getResource('Sender')}/{LangHelper.getResource('NotificationType')}</HeaderCell>
-                <HeaderCell colWidth={10}>{LangHelper.getResource('SendDateTimeGMTA8')}</HeaderCell>
-                <HeaderCell colWidth={10}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
-                <HeaderCell colWidth={10}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
-                <HeaderCell colWidth={15}>{LangHelper.getResource('Recipient')}</HeaderCell>
-                <HeaderCell colWidth={30}>{LangHelper.getResource('Title')}/{LangHelper.getResource('Content')}</HeaderCell>
-                <HeaderCell colWidth={10}>{LangHelper.getResource('Status')}</HeaderCell>
-                {
-                    isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Action')}</HeaderCell>
-                }
-                {
-                    isHost && <HeaderCell colWidth={10}>
-                        <input
-                            type='button'
-                            value={LangHelper.getResource('Resend')}
-                            disabled={this.props.resendOptions.isDisabledResend}
-                            onClick={this.resendNotificationAll}
+    buildHeader = isHost =>
+        <HeaderRow>
+            <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
+            <HeaderCell colWidth={15}>
+                <div>{LangHelper.getResource('NotificationID')}</div>
+                <div>{LangHelper.getResource('MessageID')}</div>
+            </HeaderCell>
+            <HeaderCell colWidth={25}>{LangHelper.getResource('Sender')}/{LangHelper.getResource('NotificationType')}</HeaderCell>
+            <HeaderCell colWidth={10}>{LangHelper.getResource('SendDateTimeGMTA8')}</HeaderCell>
+            <HeaderCell colWidth={15}>{LangHelper.getResource('LetstalkName')}</HeaderCell>
+            <HeaderCell colWidth={15}>{LangHelper.getResource('GroupHeadline')}</HeaderCell>
+            <HeaderCell colWidth={15}>{LangHelper.getResource('Recipient')}</HeaderCell>
+            <HeaderCell colWidth={25}>{LangHelper.getResource('Title')}/{LangHelper.getResource('Content')}</HeaderCell>
+            <HeaderCell colWidth={10}>{LangHelper.getResource('Status')}</HeaderCell>
+            {
+                isHost && <HeaderCell colWidth={10}>{LangHelper.getResource('Action')}</HeaderCell>
+            }
+            {
+                isHost && <HeaderCell colWidth={10}>
+                    <input
+                        type='button'
+                        value={LangHelper.getResource('Resend')}
+                        disabled={this.props.resendOptions.isDisabledResend}
+                        onClick={this.resendNotificationAll}
+                    />
+                    {
+                        this.props.resendOptions.isHaveResendAll &&
+                        <Form.Control
+                            className='checkbox-cell-style margin-top-10'
+                            type='checkbox'
+                            onChange={this.handleChangeResendAllCheckbox}
+                            checked={this.props.resendOptions.isCheckedAll}
                         />
-                        {
-                            this.props.resendOptions.isHaveResendAll &&
-                            <Form.Control
-                                className='checkbox-cell-style margin-top-10'
-                                type='checkbox'
-                                onChange={this.handleChangeResendAllCheckbox}
-                                checked={this.props.resendOptions.isCheckedAll}
-                            />
-                        }
-                    </HeaderCell>
-                }
-            </HeaderRow>
-        );
-    }
+                    }
+                </HeaderCell>
+            }
+        </HeaderRow>
 
     buildBody = isHost => {
         const { pageIndex, pageSize } = this.props.gridParams;

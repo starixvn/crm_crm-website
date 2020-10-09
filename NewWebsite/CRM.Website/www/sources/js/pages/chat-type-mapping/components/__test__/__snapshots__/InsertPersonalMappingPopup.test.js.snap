@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DataGrid component with redux component renders correctly 1`] = `ReactWrapper {}`;
+
+exports[`InsertPersonalMappingPopup component with redux component renders correctly 1`] = `ReactWrapper {}`;
