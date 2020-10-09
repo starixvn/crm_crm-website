@@ -1,6 +1,7 @@
 ﻿namespace CRM.Controllers.UnitTests
 {
     using System.Collections.Generic;
+    using System.Net;
     using System.Threading.Tasks;
     using AutoFixture;
     using CRM.Core.Constants;
@@ -11,6 +12,7 @@
     using Fanex.NAP.Client.Configuration;
     using Fanex.NAP.Client.Helpers.Web;
     using Fanex.NAP.Client.Services;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using NSubstitute;
     using Xunit;
@@ -168,7 +170,15 @@
             userService = Substitute.For<IUserService>();
             templateService = Substitute.For<INotificationTemplateService>();
             settingService = Substitute.For<ISettingService>();
-            return new NotificationTemplateController(napSession, napSettings, userService, templateService, settingService);
+            var controller = new NotificationTemplateController(napSession, napSettings, userService, templateService, settingService);
+            controller.ControllerContext.HttpContext = new DefaultHttpContext
+            {
+                Connection =
+                {
+                    RemoteIpAddress = new IPAddress(1)
+                }
+            };
+            return controller;
         }
 
         #endregion Helpers

@@ -14,9 +14,8 @@
     using Microsoft.AspNetCore.Mvc;
     using static Fanex.NAP.Core.Business.Constant;
 
-    [CrmAuthorize]
     [CrmPermission(FunctionKey = FunctionKey.NotificationTemplate, Policy = Policy.Read)]
-    public class NotificationTemplateController : Controller
+    public class NotificationTemplateController : BaseController
     {
         private readonly INapSession napSession;
         private readonly INapSettings napSettings;
@@ -55,6 +54,7 @@
         [CrmPermission(FunctionKey = FunctionKey.NotificationTemplate, Policy = Policy.Host)]
         public async Task<IActionResult> Create([FromBody]CreateNotificationTemplate model)
         {
+            model.LoginIP = ClientIP;
             CommandResult commandResult = await templateService.CreateAsync(model);
             return Json(commandResult);
         }
@@ -69,6 +69,7 @@
         [CrmPermission(FunctionKey = FunctionKey.NotificationTemplate, Policy = Policy.Host)]
         public async Task<IActionResult> Edit([FromBody]EditNotificationTemplate model)
         {
+            model.LoginIP = ClientIP;
             CommandResult commandResult = await templateService.EditAsync(model);
             return Json(commandResult);
         }
@@ -77,6 +78,7 @@
         [CrmPermission(FunctionKey = FunctionKey.NotificationTemplate, Policy = Policy.Host)]
         public async Task<IActionResult> Delete([FromBody]DeleteNotificationTemplate model)
         {
+            model.LoginIP = ClientIP;
             CommandResult commandResult = await templateService.DeleteAsync(model);
             return Json(commandResult);
         }

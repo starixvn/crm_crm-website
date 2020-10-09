@@ -133,16 +133,17 @@ function udpateOnlineStatus() {
                     openConfirmPopup(rs.ErrCode);
                 }
                 else {
-                    externalReCheckin();
                     setTimeout(reCheckIn, 60000);
                 }
             }, error: function () {
                 openConfirmPopup();
             }
         });
+
+        externalReCheckin();
     };
 
-    reCheckIn();
+    setTimeout(reCheckIn, 60000);
 }
 
 function toggleSelectLanguage() {

@@ -6,7 +6,6 @@
     using System.Web.Security;
     using Enumerations;
     using Fanex.Common;
-    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.User.Resources;
@@ -17,7 +16,6 @@
     using ONEbook.UM.Services.Impl;
     using Services;
 
-    [AllowCrossSite]
     public class UserLoginController : Controller
     {
         private const string FormTokenName = "__SecureFormToken";

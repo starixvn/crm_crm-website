@@ -80,8 +80,9 @@
                 NotificationTypeId = model.NotificationTypeId,
                 NotificationTemplateName = model.NotificationTemplateName?.Trim(),
                 Title = model.Title?.Trim(),
-                UserId = napSession.UserId,
-                ContentXml = model.Contents.Any() ? model.Contents.ToXML("Contents").ToString() : string.Empty
+                ContentXml = model.Contents.Any() ? model.Contents.ToXML("Contents").ToString() : string.Empty,
+                LoginIP = model.LoginIP,
+                UserId = napSession.UserId
             };
 
             return await baseService.ExecuteNonQueryAsync(command);
@@ -96,6 +97,7 @@
                 NotificationTemplateName = model.NotificationTemplateName?.Trim(),
                 Title = model.Title?.Trim(),
                 ContentXml = model.Contents.Any() ? model.Contents.ToXML("Contents").ToString() : string.Empty,
+                LoginIP = model.LoginIP,
                 UserId = napSession.UserId
             };
 
@@ -108,6 +110,7 @@
             {
                 NotificationTemplateId = model.NotificationTemplateId,
                 NotificationTemplateName = model.NotificationTemplateName,
+                LoginIP = model.LoginIP,
                 UserId = napSession.UserId
             };
 

@@ -127,6 +127,7 @@
             Assert.Equal(model.NotificationTemplateName, criteria.NotificationTemplateName);
             Assert.Equal(model.Title, criteria.Title);
             Assert.Equal(napSession.UserId, criteria.UserId);
+            Assert.Equal(model.LoginIP, criteria.LoginIP);
         }
 
         [Fact]
@@ -151,6 +152,7 @@
             Assert.Equal(model.NotificationTemplateName, criteria.NotificationTemplateName);
             Assert.Equal(model.Title, criteria.Title);
             Assert.Equal(napSession.UserId, criteria.UserId);
+            Assert.Equal(model.LoginIP, criteria.LoginIP);
         }
 
         [Fact]
@@ -171,8 +173,9 @@
             Assert.Equal(expected, actual);
 
             Assert.Equal(model.NotificationTemplateId, criteria.NotificationTemplateId);
-            Assert.Equal(model.NotificationTemplateId, criteria.NotificationTemplateId);
+            Assert.Equal(model.NotificationTemplateName, criteria.NotificationTemplateName);
             Assert.Equal(napSession.UserId, criteria.UserId);
+            Assert.Equal(model.LoginIP, criteria.LoginIP);
         }
 
         #region Helpers
