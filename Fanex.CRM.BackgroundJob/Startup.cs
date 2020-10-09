@@ -37,6 +37,7 @@
     using ONEbook.UM.Services;
     using ONEbook.UM.Transport;
     using Sentry;
+    using Serilog;
     using StackExchange.Redis;
 
     public class Startup
@@ -102,6 +103,11 @@
                     context.Response.Redirect(options.LoginPath);
                     return Task.CompletedTask;
                 };
+            });
+
+            services.AddLogging((builder) =>
+            {
+                builder.AddSerilog(dispose: true);
             });
 
             services.AddSession(options =>

@@ -18,6 +18,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Sentry;
+    using Serilog;
 
     public class Startup
     {
@@ -59,6 +60,11 @@
             ExceptionHandler
                 .UseConfig(new LoggingConfiguration())
                 .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
+
+            services.AddLogging((builder) =>
+            {
+                builder.AddSerilog(dispose: true);
+            });
 
             services.ResolveCoreDI();
             services.ResolveLetstalkServices(Configuration);
