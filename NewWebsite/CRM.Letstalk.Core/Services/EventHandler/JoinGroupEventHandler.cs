@@ -2,7 +2,6 @@
 {
     using System;
     using System.Threading.Tasks;
-    using CRM.Core.Extensions;
     using CRM.Core.Services;
     using CRM.Letstalk.Client.Configurations;
     using CRM.Letstalk.Client.Services.Interfaces;
@@ -27,9 +26,6 @@
 
         public async Task EventHandleAsync(HookEvent hookEvent, BotConfig botConfig)
         {
-            WritelogToFile.Writelog(hookEvent);
-            WritelogToFile.Writelog(botConfig);
-
             var displayName = await GetChatRoomDisplayName(botConfig, hookEvent.Source.GroupId);
 
             var command = new AddBotToGroupCommand
