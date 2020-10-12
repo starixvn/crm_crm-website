@@ -26,7 +26,7 @@ export class DataGrid extends Component {
         this.props.getGridData({ ...params }, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
     }
 
-    buildHeader = isHost =>
+    buildNotificationListHeader = isHost =>
         <HeaderRow>
             <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
             <HeaderCell colWidth={15}>
@@ -64,13 +64,13 @@ export class DataGrid extends Component {
             }
         </HeaderRow>
 
-    buildBody = isHost => {
+    buildNotificationListBody = isHost => {
         const { pageIndex, pageSize } = this.props.gridParams;
 
         this.startIndex = (pageIndex - 1) * pageSize + 1;
 
-        if (this.props.gridData.data.length > 0) {
-            return this.props.gridData.data.map((item, index) => this.renderRow(item, index, isHost));
+        if (this.props.notificationListGridData.data.length > 0) {
+            return this.props.notificationListGridData.data.map((item, index) => this.renderRow(item, index, isHost));
         }
 
         return [<Row key={`body${1}`} className='no-data' ><Cell colSpan={isHost ? 11 : 9}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
@@ -209,11 +209,11 @@ export class DataGrid extends Component {
     }
 
     render() {
-        if (!this.props.gridData || !this.props.gridData.data) {
+        if (!this.props.notificationListGridData || !this.props.notificationListGridData.data) {
             return null;
         }
 
-        const { totalItems } = this.props.gridData;
+        const { totalItems } = this.props.notificationListGridData;
         const { pageIndex, pageSize } = this.props.gridParams;
         const { isHost } = this.props;
 
@@ -234,8 +234,8 @@ export class DataGrid extends Component {
                     minWidth={960}
                     maxWidth={document.getElementById('app-container').clientWidth}
                     autoWidth
-                    header={this.buildHeader(isHost)}
-                    body={this.buildBody(isHost)}
+                    header={this.buildNotificationListHeader(isHost)}
+                    body={this.buildNotificationListBody(isHost)}
                     isPaging
                     pageOption={pagingOption}
                     onPaging={this.onPaging}
@@ -252,14 +252,14 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 const mapStateToProps = state => {
     const {
         gridParams,
-        gridData,
+        notificationListGridData,
         resendOptions,
         isRefresh
     } = state;
 
     return {
         gridParams,
-        gridData,
+        notificationListGridData,
         resendOptions,
         isRefresh
     };

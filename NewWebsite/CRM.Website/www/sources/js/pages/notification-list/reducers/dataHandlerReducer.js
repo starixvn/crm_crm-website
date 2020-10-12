@@ -8,7 +8,7 @@ export const gridParams = createReducer({}, {
     }
 });
 
-export const gridData = createReducer({}, {
+export const notificationListGridData = createReducer({}, {
     [types.GRID_DATA](state, action) {
         return action.data;
     }
@@ -88,7 +88,7 @@ export const isRefresh = createReducer({}, {
 
 const reducers = {
     gridParams,
-    gridData,
+    notificationListGridData,
     contentPopup,
     viewDetailPopup,
     resendOptions,

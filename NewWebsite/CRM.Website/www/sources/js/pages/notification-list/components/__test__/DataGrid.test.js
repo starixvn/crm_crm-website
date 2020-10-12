@@ -17,7 +17,7 @@ describe('DataGrid', () => {
         const mockStore = configureMockStore();
         const initialState = {
             gridParams: {},
-            gridData: {},
+            notificationListGridData: {},
             resendOptions: {}
         };
         
@@ -33,7 +33,7 @@ describe('DataGrid', () => {
 
         it('component has correct props', () => {
             expect(wrapper.props().children.props.gridParams).toEqual(initialState.gridParams);
-            expect(wrapper.props().children.props.gridData).toEqual(initialState.gridData);
+            expect(wrapper.props().children.props.notificationListGridData).toEqual(initialState.notificationListGridData);
             expect(wrapper.props().children.props.resendOptions).toEqual(initialState.resendOptions);
         });
     });
@@ -78,7 +78,7 @@ describe('DataGrid', () => {
             // Arrange
             const props = {
                 gridParams: {},
-                gridData: {
+                notificationListGridData: {
                     data: [
                         {
                             notificationId: 1,
@@ -100,7 +100,7 @@ describe('DataGrid', () => {
             // Arrange
             const props = {
                 gridParams: {},
-                gridData: {
+                notificationListGridData: {
                     data: [
                         {
                             notificationId: 1,
@@ -122,7 +122,7 @@ describe('DataGrid', () => {
             // Arrange
             const props = {
                 gridParams: {},
-                gridData: {
+                notificationListGridData: {
                     data: [
                         {
                             notificationId: 1,
@@ -147,7 +147,7 @@ describe('DataGrid', () => {
                     pageIndex: 1,
                     pageSize: 100
                 },
-                gridData: {
+                notificationListGridData: {
                     totalItems: 100,
                     data: [
                         {
@@ -164,7 +164,7 @@ describe('DataGrid', () => {
             const pagingOption = {
                 PageIndex: props.gridParams.pageIndex,
                 PageSize: props.gridParams.pageSize,
-                TotalItem: props.gridData.totalItems,
+                TotalItem: props.notificationListGridData.totalItems,
                 PageList: PAGING_SIZES
             };
 
@@ -188,7 +188,7 @@ describe('DataGrid', () => {
             const expectedPageSize = 100;
             const props = {
                 gridParams: {},
-                gridData: {
+                notificationListGridData: {
                     data: [
                         {
                             notificationId: 1,
@@ -219,19 +219,19 @@ describe('DataGrid', () => {
             expect(props.setResendOptions).toHaveBeenCalled();
         });
 
-        describe('buildHeader', () => {
+        describe('buildNotificationListHeader', () => {
             it('renders regular header', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
-                    gridData: {},
+                    notificationListGridData: {},
                     resendOptions: {}
                 };
     
                 const dataGrid = shallow(<DataGrid {...props} />);
     
                 // Action
-                const header = shallow(dataGrid.instance().buildHeader());
+                const header = shallow(dataGrid.instance().buildNotificationListHeader());
                 
                 // Assert
                 expect(header.find(HeaderCell).at(0).props().colWidth).toBe(5);
@@ -261,14 +261,14 @@ describe('DataGrid', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
-                    gridData: {},
+                    notificationListGridData: {},
                     resendOptions: {}
                 };
     
                 const dataGrid = shallow(<DataGrid {...props} />);
     
                 // Action
-                const header = shallow(dataGrid.instance().buildHeader(true));
+                const header = shallow(dataGrid.instance().buildNotificationListHeader(true));
                 
                 // Assert
                 expect(header.find(HeaderCell).at(9).props().colWidth).toBe(13);
@@ -279,14 +279,14 @@ describe('DataGrid', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
-                    gridData: {},
+                    notificationListGridData: {},
                     resendOptions: {}
                 };
     
                 const dataGrid = shallow(<DataGrid {...props} />);
     
                 // Action
-                const header = shallow(dataGrid.instance().buildHeader(true));
+                const header = shallow(dataGrid.instance().buildNotificationListHeader(true));
                 
                 // Assert
                 expect(header.find(HeaderCell).at(10).props().colWidth).toBe(11);
@@ -296,7 +296,7 @@ describe('DataGrid', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
-                    gridData: {},
+                    notificationListGridData: {},
                     resendOptions: {
                         isDisabledResend: false
                     }
@@ -305,7 +305,7 @@ describe('DataGrid', () => {
                 const dataGrid = shallow(<DataGrid {...props} />);
     
                 // Action
-                const header = shallow(dataGrid.instance().buildHeader(true));
+                const header = shallow(dataGrid.instance().buildNotificationListHeader(true));
                 
                 // Assert
                 expect(header.find(HeaderCell).at(10).find('input').props().type).toBe('button');
@@ -317,7 +317,7 @@ describe('DataGrid', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
-                    gridData: {},
+                    notificationListGridData: {},
                     resendOptions: {
                         isDisabledResend: false
                     }
@@ -325,7 +325,7 @@ describe('DataGrid', () => {
     
                 const dataGrid = shallow(<DataGrid {...props} />);
                 dataGrid.instance().resendNotificationAll = jest.fn();
-                const header = shallow(dataGrid.instance().buildHeader(true));
+                const header = shallow(dataGrid.instance().buildNotificationListHeader(true));
     
                 // Action
                 header.find(HeaderCell).at(10).find('input').simulate('click');
@@ -338,7 +338,7 @@ describe('DataGrid', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
-                    gridData: {},
+                    notificationListGridData: {},
                     resendOptions: {
                         isHaveResendAll: true
                     }
@@ -347,7 +347,7 @@ describe('DataGrid', () => {
                 const dataGrid = shallow(<DataGrid {...props} />);
     
                 // Action
-                const header = shallow(dataGrid.instance().buildHeader(true));
+                const header = shallow(dataGrid.instance().buildNotificationListHeader(true));
 
                 // Assert
                 expect(header.find(HeaderCell).at(10).find(Form.Control).props().className).toBe('checkbox-cell-style margin-top-10');
@@ -359,7 +359,7 @@ describe('DataGrid', () => {
                 // Arrange
                 const props = {
                     gridParams: {},
-                    gridData: {},
+                    notificationListGridData: {},
                     resendOptions: {
                         isHaveResendAll: true
                     }
@@ -367,7 +367,7 @@ describe('DataGrid', () => {
     
                 const dataGrid = shallow(<DataGrid {...props} />);
                 dataGrid.instance().handleChangeResendAllCheckbox = jest.fn();
-                const header = shallow(dataGrid.instance().buildHeader(true));
+                const header = shallow(dataGrid.instance().buildNotificationListHeader(true));
     
                 // Action
                 header.find(HeaderCell).at(10).find(Form.Control).simulate('change');
@@ -377,13 +377,13 @@ describe('DataGrid', () => {
             });
         });
 
-        describe('buildBody', () => {
-            function testBuildBodyNoData(isHost, colSpan) {
-                it('buildBody nodata', () => {
+        describe('buildNotificationListBody', () => {
+            function testBuildNotificationListBodyNoData(isHost, colSpan) {
+                it('buildNotificationListBody nodata', () => {
                     // Arrange
                     const props = {
                         gridParams: {},
-                        gridData: {
+                        notificationListGridData: {
                             data: []
                         },
                         resendOptions: {}
@@ -393,29 +393,29 @@ describe('DataGrid', () => {
                     const expectedBody = [<Row key={`body${1}`} className='no-data' ><Cell colSpan={colSpan}>{'ThereIsNoData'}</Cell></Row>];
         
                     // Action
-                    const body = dataGrid.instance().buildBody(isHost);
+                    const body = dataGrid.instance().buildNotificationListBody(isHost);
                     
                     // Assert
                     expect(body).toEqual(expectedBody);
                 });
             }
 
-            testBuildBodyNoData(true, 11);
-            testBuildBodyNoData(false, 9);
+            testBuildNotificationListBodyNoData(true, 11);
+            testBuildNotificationListBodyNoData(false, 9);
 
             function renderRow(item, index, isHost) {
                 return <div key={index}>{isHost? item.notificationId : item.status}</div>;
             }
 
-            function testBuildBodyHasData(isHost) {
-                it('buildBody has data', () => {
+            function testBuildNotificationListBodyHasData(isHost) {
+                it('buildNotificationListBody has data', () => {
                     // Arrange
                     const props = {
                         gridParams: {
                             pageIndex: 1,
                             pageSize: 100
                         },
-                        gridData: {
+                        notificationListGridData: {
                             data: [
                                 {
                                     notificationId: 1,
@@ -429,25 +429,25 @@ describe('DataGrid', () => {
         
                     const dataGrid = shallow(<DataGrid {...props} />);
                     dataGrid.instance().renderRow = jest.fn(renderRow);
-                    const expectedBody = props.gridData.data.map((item, index) => renderRow(item, index, isHost));
+                    const expectedBody = props.notificationListGridData.data.map((item, index) => renderRow(item, index, isHost));
         
                     // Action
-                    const body = dataGrid.instance().buildBody(isHost);
+                    const body = dataGrid.instance().buildNotificationListBody(isHost);
                     
                     // Assert
                     expect(body).toEqual(expectedBody);
                 });
             }
 
-            testBuildBodyHasData(true);
-            testBuildBodyHasData(false);
+            testBuildNotificationListBodyHasData(true);
+            testBuildNotificationListBodyHasData(false);
         });
 
         it('openContentPopup runs correctly', () => {
             // Arrange
             const item = { status: 'Error' };
             const props = {
-                gridData: {},
+                notificationListGridData: {},
                 gridParams: {},
                 resendOptions: {},
                 setContentPopup: jest.fn()
@@ -471,7 +471,7 @@ describe('DataGrid', () => {
             // Arrange
             const item = { status: 'Error' };
             const props = {
-                gridData: {},
+                notificationListGridData: {},
                 gridParams: {},
                 resendOptions: {},
                 setViewDetailPopup: jest.fn()
@@ -495,7 +495,7 @@ describe('DataGrid', () => {
             // Arrange
             const param = true;
             const props = {
-                gridData: {},
+                notificationListGridData: {},
                 gridParams: {},
                 resendOptions: {},
                 setIsRefresh: jest.fn()
@@ -516,7 +516,7 @@ describe('DataGrid', () => {
             // Arrange
             const param = true;
             const props = {
-                gridData: {},
+                notificationListGridData: {},
                 gridParams: {},
                 resendOptions: {},
                 setResendOptions: jest.fn()
@@ -538,7 +538,7 @@ describe('DataGrid', () => {
             it('isError returns true', () => {
                 // Arrange
                 const props = {
-                    gridData: {},
+                    notificationListGridData: {},
                     gridParams: {},
                     resendOptions: {}
                 };
@@ -554,7 +554,7 @@ describe('DataGrid', () => {
             it('isError returns false', () => {
                 // Arrange
                 const props = {
-                    gridData: {},
+                    notificationListGridData: {},
                     gridParams: {},
                     resendOptions: {}
                 };
@@ -572,7 +572,7 @@ describe('DataGrid', () => {
             it('isDuplicated returns true', () => {
                 // Arrange
                 const props = {
-                    gridData: {},
+                    notificationListGridData: {},
                     gridParams: {},
                     resendOptions: {}
                 };
@@ -588,7 +588,7 @@ describe('DataGrid', () => {
             it('isDuplicated returns false', () => {
                 // Arrange
                 const props = {
-                    gridData: {},
+                    notificationListGridData: {},
                     gridParams: {},
                     resendOptions: {}
                 };
@@ -606,7 +606,7 @@ describe('DataGrid', () => {
             it('isResolved returns true', () => {
                 // Arrange
                 const props = {
-                    gridData: {},
+                    notificationListGridData: {},
                     gridParams: {},
                     resendOptions: {}
                 };
@@ -622,7 +622,7 @@ describe('DataGrid', () => {
             it('isResolved returns false', () => {
                 // Arrange
                 const props = {
-                    gridData: {},
+                    notificationListGridData: {},
                     gridParams: {},
                     resendOptions: {}
                 };
@@ -640,7 +640,7 @@ describe('DataGrid', () => {
             it('isDuplicated returns true', () => {
                 // Arrange
                 const props = {
-                    gridData: {},
+                    notificationListGridData: {},
                     gridParams: {},
                     resendOptions: {}
                 };
@@ -656,7 +656,7 @@ describe('DataGrid', () => {
             it('isDuplicated returns false', () => {
                 // Arrange
                 const props = {
-                    gridData: {},
+                    notificationListGridData: {},
                     gridParams: {},
                     resendOptions: {}
                 };
@@ -675,7 +675,7 @@ describe('DataGrid', () => {
             // Arrange
             const notificationId = 1;
             const props = {
-                gridData: {},
+                notificationListGridData: {},
                 gridParams: {},
                 resendOptions: {},
                 validateResend: jest.fn()
@@ -718,7 +718,7 @@ describe('DataGrid', () => {
                 const startIndex = 1;
                 const props = {
                     gridParams: {},
-                    gridData: {},
+                    notificationListGridData: {},
                     resendOptions: {
                         dataList: []
                     }
@@ -761,7 +761,7 @@ describe('DataGrid', () => {
                 const index = 1;
                 const props = {
                     gridParams: {},
-                    gridData: {},
+                    notificationListGridData: {},
                     resendOptions: {
                         dataList: []
                     }
@@ -786,7 +786,7 @@ describe('DataGrid', () => {
                 const index = 1;
                 const props = {
                     gridParams: {},
-                    gridData: {},
+                    notificationListGridData: {},
                     resendOptions: {
                         dataList: []
                     }
@@ -814,7 +814,7 @@ describe('DataGrid', () => {
                         const index = 1;
                         const props = {
                             gridParams: {},
-                            gridData: {},
+                            notificationListGridData: {},
                             resendOptions: {
                                 dataList: []
                             }
@@ -839,7 +839,7 @@ describe('DataGrid', () => {
                         const index = 1;
                         const props = {
                             gridParams: {},
-                            gridData: {},
+                            notificationListGridData: {},
                             resendOptions: {
                                 dataList: []
                             }
@@ -867,7 +867,7 @@ describe('DataGrid', () => {
                         const index = 1;
                         const props = {
                             gridParams: {},
-                            gridData: {},
+                            notificationListGridData: {},
                             resendOptions: {
                                 dataList: []
                             }
@@ -892,7 +892,7 @@ describe('DataGrid', () => {
                         const index = 1;
                         const props = {
                             gridParams: {},
-                            gridData: {},
+                            notificationListGridData: {},
                             resendOptions: {
                                 dataList: []
                             }
@@ -921,7 +921,7 @@ describe('DataGrid', () => {
                     const index = 0;
                     const props = {
                         gridParams: {},
-                        gridData: {},
+                        notificationListGridData: {},
                         resendOptions: {
                             dataList: [
                                 {
@@ -953,7 +953,7 @@ describe('DataGrid', () => {
                     const index = 0;
                     const props = {
                         gridParams: {},
-                        gridData: {},
+                        notificationListGridData: {},
                         resendOptions: {
                             dataList: []
                         }
@@ -975,7 +975,7 @@ describe('DataGrid', () => {
         it('handleChangeResendCheckbox runs correctly', () => {
             // Arrange
             const props = {
-                gridData: {},
+                notificationListGridData: {},
                 gridParams: {},
                 resendOptions: {
                     dataList: [
@@ -1009,7 +1009,7 @@ describe('DataGrid', () => {
         it('handleChangeResendAllCheckbox runs correctly', () => {
             // Arrange
             const props = {
-                gridData: {},
+                notificationListGridData: {},
                 gridParams: {},
                 resendOptions: {
                     isCheckedAll: false,
@@ -1044,7 +1044,7 @@ describe('DataGrid', () => {
         it('resendNotificationAll run correctly', () => {
             // Arrange
             const props = {
-                gridData: {},
+                notificationListGridData: {},
                 gridParams: {},
                 resendOptions: {
                     isCheckedAll: false,

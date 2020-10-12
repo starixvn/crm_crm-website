@@ -1,6 +1,6 @@
 import {
     gridParams,
-    gridData,
+    notificationListGridData,
     contentPopup,
     viewDetailPopup,
     resendOptions,
@@ -27,13 +27,13 @@ describe('dataHandlerReducer.test', () => {
         expect(result).toEqual(action.data);
     });
     
-    it('should handle gridData', () => {
+    it('should handle notificationListGridData', () => {
         const action = {
             type: types.GRID_DATA,
             data: {}
         };
 
-        const result = gridData({}, action);
+        const result = notificationListGridData({}, action);
         expect(result).toEqual(action.data);
     });
     
