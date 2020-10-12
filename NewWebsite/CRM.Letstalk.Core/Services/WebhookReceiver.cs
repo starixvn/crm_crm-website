@@ -18,7 +18,7 @@
     public class WebhookReceiver : IWebhookReceiver
     {
         private readonly IJwtService jwtService;
-        private ICRMLogService logService;
+        private readonly ICRMLogService logService;
         private readonly Func<string, IEventHandler> eventHandler;
         private readonly List<BotConfig> botConfigs;
 
