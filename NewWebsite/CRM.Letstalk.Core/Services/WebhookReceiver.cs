@@ -5,7 +5,6 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using CRM.Core.Extensions;
     using CRM.Letstalk.Client.Configurations;
     using CRM.Letstalk.Client.Services.Interfaces;
     using CRM.Letstalk.Core.Extensions;
@@ -38,14 +37,11 @@
             using (TextReader reader = new StreamReader(request.Body))
             {
                 requestJson = await reader.ReadToEndAsync();
-                WritelogToFile.Writelog(requestJson);
-                WritelogToFile.Writelog(botConfig);
             }
 
             var rawData = jwtService.Decode(botConfig.SecureKey, requestJson.Trim());
             var data = JObject.Parse(rawData);
             var hookEvent = data.ToObject<HookEvent>();
-            WritelogToFile.Writelog(hookEvent);
             await eventHandler(hookEvent.Type).EventHandleAsync(hookEvent, botConfig);
         }
     }
