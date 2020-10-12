@@ -3,7 +3,7 @@
 const notificationTypeSlice = createSlice({
     name: 'notificationType',
     initialState: {
-        gridParams: {
+        notificationTypeGridParams: {
             pageIndex: 1,
             pageSize: 100
         },
@@ -12,7 +12,7 @@ const notificationTypeSlice = createSlice({
         editNotificationTypePopup: { show: false },
         editNotificationTypeResult: null,
         deleteNotificationTypePopup: { show: false },
-        gridData: null,
+        notificationTypeGridData: null,
         settings: {
             ChatTypes: [],
             RecipientTypes: [],
@@ -20,11 +20,11 @@ const notificationTypeSlice = createSlice({
         }
     },
     reducers: {
-        setGridParams: (state, action) => {
-            state.gridParams = action.payload;
+        setNotificationTypeGridParams: (state, action) => {
+            state.notificationTypeGridParams = action.payload;
         },
-        setGridData: (state, action) => {
-            state.gridData = action.payload;
+        setNotificationTypeGridData: (state, action) => {
+            state.notificationTypeGridData = action.payload;
         },
         setSettings: (state, action) => {
             state.settings = action.payload;
@@ -50,8 +50,8 @@ const notificationTypeSlice = createSlice({
 const { actions, reducer } = notificationTypeSlice;
 
 export const {
-    setGridParams,
-    setGridData,
+    setNotificationTypeGridParams,
+    setNotificationTypeGridData,
     setSettings,
     setCreateNotificationTypePopup,
     setCreateNotificationTypeResult,

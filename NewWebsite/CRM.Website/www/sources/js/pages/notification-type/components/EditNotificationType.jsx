@@ -4,12 +4,12 @@ import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
+import { renderSystemOption, validateFormik } from '../common.functions';
 import FormikErrorMessage from '@jsroot/components/FormikErrorMessage';
 import LangHelper from '@jsroot/common/langHelper';
 import MultipleSelect from '../../../components/multiple-select/index';
 import ResponseMessage from '@jsroot/components/ResponseMessage';
 import DraggableModalDialog from '@jsroot/components/DraggableModalDialog';
-import { renderSystemOption, validateFormik } from '../common.functions';
 
 export class EditNotificationType extends Component {
     static defaultProps = {

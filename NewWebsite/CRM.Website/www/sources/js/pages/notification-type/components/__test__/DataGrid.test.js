@@ -33,11 +33,11 @@ describe('DataGrid', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('render null when gridData invalid', () => {
+    it('render null when notificationTypeGridData invalid', () => {
         // Arrange
         const props = {
-            gridParams: {},
-            gridData: null,
+            notificationTypeGridParams: {},
+            notificationTypeGridData: null,
         };
 
         // Action
@@ -70,8 +70,8 @@ describe('DataGrid', () => {
                 chatTypes: []
             };
             const props = {
-                gridParams: {},
-                gridData: {
+                notificationTypeGridParams: {},
+                notificationTypeGridData: {
                     data: [
                         {
                             recipientTypes: [],
@@ -100,8 +100,8 @@ describe('DataGrid', () => {
                 chatTypes: []
             };
             const props = {
-                gridParams: {},
-                gridData: {
+                notificationTypeGridParams: {},
+                notificationTypeGridData: {
                     data: [
                         {
                             recipientTypes: [],
@@ -132,8 +132,8 @@ describe('DataGrid', () => {
                 chatTypes: []
             };
             const props = {
-                gridParams: {},
-                gridData: {},
+                notificationTypeGridParams: {},
+                notificationTypeGridData: {},
                 isHost: true
             };
             const dataGrid = shallow(<DataGrid {...props} />);
@@ -156,8 +156,8 @@ describe('DataGrid', () => {
                 chatTypes: []
             };
             const props = {
-                gridParams: {},
-                gridData: {},
+                notificationTypeGridParams: {},
+                notificationTypeGridData: {},
                 setDeleteNotificationTypePopup: jest.fn()
             };
             const dataGrid = shallow(<DataGrid {...props} />);
@@ -181,8 +181,8 @@ describe('DataGrid', () => {
             const expectedPageIndex = 1;
             const expectedPageSize = 100;
             const props = {
-                gridParams: {},
-                gridData: {
+                notificationTypeGridParams: {},
+                notificationTypeGridData: {
                     data: [
                         {
                             recipientTypes: [],
@@ -190,8 +190,8 @@ describe('DataGrid', () => {
                         }
                     ]
                 },
-                setGridParams: jest.fn(),
-                getGridData: jest.fn()
+                setNotificationTypeGridParams: jest.fn(),
+                getNotificationTypeGridData: jest.fn()
             };
 
             const expectedParams = {
@@ -205,17 +205,17 @@ describe('DataGrid', () => {
             dataGrid.find(Table).props().onPaging(expectedPageIndex, expectedPageSize);
 
             // Assert
-            expect(props.setGridParams).toHaveBeenCalledWith(expectedParams);
-            expect(props.getGridData).toHaveBeenCalledTimes(1);
+            expect(props.setNotificationTypeGridParams).toHaveBeenCalledWith(expectedParams);
+            expect(props.getNotificationTypeGridData).toHaveBeenCalledTimes(1);
         });
     });
 
-    describe('buildHeader', () => {
+    describe('buildNotificationTypeHeader', () => {
         it('render title correctly', () => {
             // Arrange
             const props = {
-                gridParams: {},
-                gridData: {
+                notificationTypeGridParams: {},
+                notificationTypeGridData: {
                     data: []
                 },
             };
@@ -230,11 +230,11 @@ describe('DataGrid', () => {
         it('table props should be mapped correctly', () => {
             // Arrange
             const props = {
-                gridParams: {
+                notificationTypeGridParams: {
                     pageIndex: 1,
                     pageSize: 100
                 },
-                gridData: {
+                notificationTypeGridData: {
                     totalItems: 100,
                     data: [
                         {
@@ -246,9 +246,9 @@ describe('DataGrid', () => {
             };
 
             const pagingOption = {
-                PageIndex: props.gridParams.pageIndex,
-                PageSize: props.gridParams.pageSize,
-                TotalItem: props.gridData.totalItems,
+                PageIndex: props.notificationTypeGridParams.pageIndex,
+                PageSize: props.notificationTypeGridParams.pageSize,
+                TotalItem: props.notificationTypeGridData.totalItems,
                 PageList: PAGING_SIZES
             };
 
@@ -270,7 +270,7 @@ describe('DataGrid', () => {
             const dataGrid = shallow(<DataGrid />).instance();
 
             // Action
-            const header = shallow(dataGrid.buildHeader(true));
+            const header = shallow(dataGrid.buildNotificationTypeHeader(true));
 
             // Assert
             expect(header.find(HeaderCell).length).toBe(6);
@@ -283,19 +283,19 @@ describe('DataGrid', () => {
             const container = shallow(<DataGrid />).instance();
 
             // Act
-            const header = shallow(container.buildHeader(false));
+            const header = shallow(container.buildNotificationTypeHeader(false));
 
             // Assert
             expect(header.find(HeaderCell).length).toBe(5);
         });
     });
 
-    describe('buildBody', () => {
-        it('should render no data when gridData is empty', () => {
+    describe('buildNotificationTypeBody', () => {
+        it('should render no data when notificationTypeGridData is empty', () => {
             // Arrange
             const props = {
-                gridParams: {},
-                gridData: {
+                notificationTypeGridParams: {},
+                notificationTypeGridData: {
                     data: []
                 },
             };
@@ -305,7 +305,7 @@ describe('DataGrid', () => {
             const expectedBody = [<Row key={`body${1}`} className="no-data"><Cell colSpan={6}>ThereIsNoData</Cell></Row>];
 
             // Action
-            const body = dataGrid.instance().buildBody(isHost);
+            const body = dataGrid.instance().buildNotificationTypeBody(isHost);
 
             // Assert
             expect(body).toEqual(expectedBody);
@@ -316,11 +316,11 @@ describe('DataGrid', () => {
         }
 
         function testBodyHasData(isHost) {
-            it('should render no data when gridData has data', () => {
+            it('should render no data when notificationTypeGridData has data', () => {
                 // Arrange
                 const props = {
-                    gridParams: {},
-                    gridData: {
+                    notificationTypeGridParams: {},
+                    notificationTypeGridData: {
                         data: [
                             {
                                 recipientTypes: [],
@@ -332,10 +332,10 @@ describe('DataGrid', () => {
 
                 const dataGrid = shallow(<DataGrid {...props} />);
                 dataGrid.instance().renderRow = jest.fn(renderRow);
-                const expectedBody = props.gridData.data.map((item, index) => renderRow(item, index, isHost));
+                const expectedBody = props.notificationTypeGridData.data.map((item, index) => renderRow(item, index, isHost));
 
                 // Action
-                const body = dataGrid.instance().buildBody(isHost);
+                const body = dataGrid.instance().buildNotificationTypeBody(isHost);
 
                 // Assert
                 expect(body).toEqual(expectedBody);
@@ -352,8 +352,8 @@ describe('DataGrid', () => {
             const index = 1;
             const startIndex = 1;
             const props = {
-                gridParams: {},
-                gridData: {}
+                notificationTypeGridParams: {},
+                notificationTypeGridData: {}
             };
             const item = {
                 notificationTypeName: 'test',
@@ -386,8 +386,8 @@ describe('DataGrid', () => {
             const index = 1;
             const startIndex = 1;
             const props = {
-                gridParams: {},
-                gridData: {}
+                notificationTypeGridParams: {},
+                notificationTypeGridData: {}
             };
             const item = {
                 notificationTypeName: 'test',

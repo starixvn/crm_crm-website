@@ -70,7 +70,7 @@ describe('AppContainer', () => {
         it('should call correct functions when create notification type success', () => {
             // Arrange
             const props = {
-                getGridData: jest.fn()
+                getNotificationTypeGridData: jest.fn()
             };
             const container = shallow(<AppContainer {...props} />).instance();
             container.handleCloseCreatePopup = jest.fn();
@@ -79,7 +79,7 @@ describe('AppContainer', () => {
             container.handleCreateSuccess();
 
             // Assert
-            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
+            expect(props.getNotificationTypeGridData).toHaveBeenCalledWith(props.notificationTypeGridParams);
             expect(container.handleCloseCreatePopup).toHaveBeenCalled();
         });
     });
@@ -119,7 +119,7 @@ describe('AppContainer', () => {
         it('should call correct functions when edit notification type successful', () => {
             // Arrange
             const props = {
-                getGridData: jest.fn()
+                getNotificationTypeGridData: jest.fn()
             };
             const container = shallow(<AppContainer {...props} />).instance();
 
@@ -129,7 +129,7 @@ describe('AppContainer', () => {
             container.handleEditSuccess();
 
             // Assert
-            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
+            expect(props.getNotificationTypeGridData).toHaveBeenCalledWith(props.notificationTypeGridParams);
             expect(container.handleCloseEditPopup).toHaveBeenCalled();
         });
     });
@@ -174,7 +174,7 @@ describe('AppContainer', () => {
             const props = {
                 deleteNotificationTypePopup: { notificationTypeId: 1, name: 'voiding bet'},
                 deleteNotificationType: jest.fn(() => promise),
-                getGridData: jest.fn()
+                getNotificationTypeGridData: jest.fn()
             };
             const container = shallow(<AppContainer {...props} />).instance();
             container.handleCloseDeletePopup = jest.fn();
@@ -187,7 +187,7 @@ describe('AppContainer', () => {
             expect(props.deleteNotificationType).toHaveBeenCalledWith({ notificationTypeId: 1, notificationTypeName: 'voiding bet'});
             expect(toast.success).toHaveBeenCalledWith('DeleteNotificationTypeSuccessfully');
             expect(container.handleCloseDeletePopup).toHaveBeenCalled();
-            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
+            expect(props.getNotificationTypeGridData).toHaveBeenCalledWith(props.notificationTypeGridParams);
 
         });
 
@@ -197,7 +197,7 @@ describe('AppContainer', () => {
             const props = {
                 deleteNotificationTypePopup: { notificationTypeId: 1, name: 'voiding bet' },
                 deleteNotificationType: jest.fn(() => promise),
-                getGridData: jest.fn()
+                getNotificationTypeGridData: jest.fn()
             };
             const container = shallow(<AppContainer {...props} />).instance();
             container.handleCloseDeletePopup = jest.fn();
@@ -210,7 +210,7 @@ describe('AppContainer', () => {
             expect(props.deleteNotificationType).toHaveBeenCalledWith({notificationTypeId: 1, notificationTypeName: 'voiding bet'});
             expect(toast.error).toHaveBeenCalledWith('unsuccessful');
             expect(container.handleCloseDeletePopup).toHaveBeenCalled();
-            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams);
+            expect(props.getNotificationTypeGridData).toHaveBeenCalledWith(props.notificationTypeGridParams);
         });
     });
 });

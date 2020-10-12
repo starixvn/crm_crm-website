@@ -37,7 +37,7 @@ describe('Filter', () => {
         };
 
         const props = {
-            gridParams: {},
+            notificationTypeGridParams: {},
             settings: {},
             getSettings: jest.fn(() => Promise.resolve({ data: {} }))
         };
@@ -54,7 +54,7 @@ describe('Filter', () => {
         const id = 1;
         const promise = Promise.resolve({ data: {} });
         const props = {
-            gridParams: {},
+            notificationTypeGridParams: {},
             settings: {
                 recipientTypes: [
                     {
@@ -121,7 +121,7 @@ describe('Filter', () => {
         it('should calls setState when change notification type', () => {
             // Arrange
             const props = {
-                gridParams: {},
+                notificationTypeGridParams: {},
                 settings: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
@@ -140,7 +140,7 @@ describe('Filter', () => {
         it('handleFilterChange runs correctly', () => {
             // Arrange
             const props = {
-                gridParams: {},
+                notificationTypeGridParams: {},
                 settings: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
@@ -158,7 +158,7 @@ describe('Filter', () => {
             // Arrange
             const expected = 'selectedItemsKey';
             const props = {
-                gridParams: {},
+                notificationTypeGridParams: {},
                 settings: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
@@ -177,7 +177,7 @@ describe('Filter', () => {
             // Arrange
             const expected = 'selectedItemsKey';
             const props = {
-                gridParams: {},
+                notificationTypeGridParams: {},
                 settings: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
@@ -196,7 +196,7 @@ describe('Filter', () => {
             // Arrange
             const expected = 'selectedItemsKey';
             const props = {
-                gridParams: {},
+                notificationTypeGridParams: {},
                 settings: {},
                 getSettings: jest.fn(() => Promise.resolve({ data: {} }))
             };
@@ -240,7 +240,7 @@ describe('Filter', () => {
                 };
 
                 const props = {
-                    gridParams: {
+                    notificationTypeGridParams: {
                         pageIndex: 1,
                         pageSize: 100
                     },
@@ -279,7 +279,7 @@ describe('Filter', () => {
                 };
 
                 const props = {
-                    gridParams: {
+                    notificationTypeGridParams: {
                         pageIndex: 1,
                         pageSize: 100
                     },
@@ -316,11 +316,11 @@ describe('Filter', () => {
                 };
 
                 const props = {
-                    gridParams: {},
+                    notificationTypeGridParams: {},
                     settings: {},
                     getSettings: jest.fn(() => Promise.resolve({ data: {} })),
-                    setGridParams: jest.fn(),
-                    getGridData: jest.fn(),
+                    setNotificationTypeGridParams: jest.fn(),
+                    getNotificationTypeGridData: jest.fn(),
                 };
 
                 const filter = shallow(<Filter {...props} />)
@@ -332,8 +332,8 @@ describe('Filter', () => {
 
                 // Assert
                 expect(event.preventDefault).toHaveBeenCalledTimes(1);
-                expect(props.setGridParams).toHaveBeenCalledWith(params);
-                expect(props.getGridData).toHaveBeenCalledTimes(1);
+                expect(props.setNotificationTypeGridParams).toHaveBeenCalledWith(params);
+                expect(props.getNotificationTypeGridData).toHaveBeenCalledTimes(1);
             });
 
             it('submitHandler runs with invalid params', () => {
@@ -343,11 +343,11 @@ describe('Filter', () => {
                 };
 
                 const props = {
-                    gridParams: {},
+                    notificationTypeGridParams: {},
                     settings: {},
                     getSettings: jest.fn(() => Promise.resolve({ data: {} })),
-                    setGridParams: jest.fn(),
-                    getGridData: jest.fn(),
+                    setNotificationTypeGridParams: jest.fn(),
+                    getNotificationTypeGridData: jest.fn(),
                 };
 
                 const filter = shallow(<Filter {...props} />)
@@ -357,8 +357,8 @@ describe('Filter', () => {
 
                 // Assert
                 expect(event.preventDefault).toHaveBeenCalledTimes(1);
-                expect(props.setGridParams).toHaveBeenCalledTimes(0);
-                expect(props.getGridData).toHaveBeenCalledTimes(0);
+                expect(props.setNotificationTypeGridParams).toHaveBeenCalledTimes(0);
+                expect(props.getNotificationTypeGridData).toHaveBeenCalledTimes(0);
             });
         });
     });

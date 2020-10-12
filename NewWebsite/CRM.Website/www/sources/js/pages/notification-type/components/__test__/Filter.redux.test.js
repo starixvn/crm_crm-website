@@ -24,13 +24,13 @@ describe('connect ', () => {
     it('props should be mapped correctly', () => {
         // Arrange
         const expected = {
-            gridParams: {},
+            notificationTypeGridParams: {},
             settings: {},
             getSettings: {}
         };
         const state = {
             anotherState: 123,
-            gridParams: {},
+            notificationTypeGridParams: {},
             settings: {},
             getSettings: {}
         };

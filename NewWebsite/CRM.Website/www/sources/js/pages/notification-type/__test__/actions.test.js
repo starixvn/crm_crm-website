@@ -42,20 +42,20 @@ describe('actionCreators', () => {
         });
     });
 
-    describe('getGridData', () => {
-        it('should handle setGridData when fetching notification type have been done', async () => {
+    describe('getnotificationTypeGridData', () => {
+        it('should handle setnotificationTypeGridData when fetching notification type have been done', async () => {
             // Arrange
             const expectedParams = { notificationTypeId: 1 };
             const response = { data: { totalItems: 1, data: [{ id: 1, name: 'abnormal bet' }] } };
-            const expectedActions = [{ type: ActionCreators.setGridData.type, payload: response.data }];
-            const store = mockStore({ gridData: null });
+            const expectedActions = [{ type: ActionCreators.setNotificationTypeGridData.type, payload: response.data }];
+            const store = mockStore({ notificationTypeGridData: null });
             Site.blockUI = jest.fn();
             Site.unblockUI = jest.fn();
             const promise = Promise.resolve(response);
             DataService.postDataAsync = jest.fn(() => promise);
 
             // Act
-            await store.dispatch(ActionCreators.getGridData(expectedParams));
+            await store.dispatch(ActionCreators.getNotificationTypeGridData(expectedParams));
 
             // Assert
             expect(DataService.postDataAsync).toHaveBeenCalledWith('NotificationType/GetNotificationType', expectedParams);

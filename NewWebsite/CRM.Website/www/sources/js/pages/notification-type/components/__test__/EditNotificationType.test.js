@@ -86,7 +86,7 @@ describe('EditNotificationType', () => {
                 }
 
             },
-            gridParams: {},
+            notificationTypeGridParams: {},
             settings: {
                 recipientTypes: [
                     {

@@ -1,9 +1,9 @@
 ﻿import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ActionCreators } from '../actions';
-import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
 import LangHelper from '@jsroot/common/langHelper';
+import { Table, HeaderRow, HeaderCell, Row, Cell } from '@jsroot/components/react-grid/index';
+import { ActionCreators } from '../actions';
 import { PAGING_SIZES } from '@jsroot/common/constants';
 
 export class DataGrid extends Component {
@@ -15,9 +15,8 @@ export class DataGrid extends Component {
         const params = { ...this.props.gridParams };
         params['pageIndex'] = pageIndex;
         params['pageSize'] = pageSize;
-
-        this.props.setGridParams(params);
-        this.props.getGridData(params);
+        this.props.setNotificationTypeGridParams(params);
+        this.props.getNotificationTypeGridData(params);
     }
 
     handleEdit = item => {
@@ -28,7 +27,7 @@ export class DataGrid extends Component {
         this.props.setDeleteNotificationTypePopup({ show: true, notificationTypeId: id, name: name });
     }
 
-    buildHeader = isHost => {
+    buildNotificationTypeHeader = isHost => {
         return (
             <HeaderRow>
                 <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
@@ -43,13 +42,13 @@ export class DataGrid extends Component {
         );
     }
 
-    buildBody = isHost => {
-        const { pageIndex, pageSize } = this.props.gridParams;
+    buildNotificationTypeBody = isHost => {
+        const { pageIndex, pageSize } = this.props.notificationTypeGridParams;
 
         this.startIndex = (pageIndex - 1) * pageSize + 1;
 
-        if (this.props.gridData.data.length > 0) {
-            return this.props.gridData.data.map((item, index) => this.renderRow(item, index, isHost));
+        if (this.props.notificationTypeGridData.data.length > 0) {
+            return this.props.notificationTypeGridData.data.map((item, index) => this.renderRow(item, index, isHost));
         }
 
         return [<Row key={`body${1}`} className="no-data"><Cell colSpan={isHost ? 6 : 5}>{LangHelper.getResource('ThereIsNoData')}</Cell></Row>];
@@ -77,12 +76,12 @@ export class DataGrid extends Component {
     )
 
     render() {
-        if (!this.props.gridData || !this.props.gridData.data) {
+        if (!this.props.notificationTypeGridData || !this.props.notificationTypeGridData.data) {
             return null;
         }
 
-        const { totalItems } = this.props.gridData;
-        const { pageIndex, pageSize } = this.props.gridParams;
+        const { totalItems } = this.props.notificationTypeGridData;
+        const { pageIndex, pageSize } = this.props.notificationTypeGridParams;
         const { isHost } = this.props;
 
         const pagingOption = {
@@ -99,8 +98,8 @@ export class DataGrid extends Component {
                     minWidth={960}
                     maxWidth={document.getElementById('app-container').clientWidth}
                     autoWidth
-                    header={this.buildHeader(isHost)}
-                    body={this.buildBody(isHost)}
+                    header={this.buildNotificationTypeHeader(isHost)}
+                    body={this.buildNotificationTypeBody(isHost)}
                     isPaging
                     pageOption={pagingOption}
                     onPaging={this.onPaging}
@@ -116,12 +115,12 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 
 const mapStateToProps = state => {
     const {
-        gridParams,
-        gridData
+        notificationTypeGridParams,
+        notificationTypeGridData
     } = state;
     return {
-        gridParams,
-        gridData
+        notificationTypeGridParams,
+        notificationTypeGridData
     };
 };
 

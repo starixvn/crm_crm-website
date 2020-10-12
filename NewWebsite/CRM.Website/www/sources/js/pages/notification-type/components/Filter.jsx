@@ -120,8 +120,8 @@ export class Filter extends Component {
             toast.error(`${LangHelper.getResource('PleaseChoose')} ${error.join(', ').toString()}`);
         }
         else {
-            this.props.setGridParams(params);
-            this.props.getGridData(params);
+            this.props.setNotificationTypeGridParams(params);
+            this.props.getNotificationTypeGridData(params);
         }
     }
 
@@ -205,12 +205,12 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 
 const mapStateToProps = state => {
     const {
-        gridParams,
+        notificationTypeGridParams,
         settings,
         getSettings
     } = state;
     return {
-        gridParams,
+        notificationTypeGridParams,
         settings,
         getSettings
     };

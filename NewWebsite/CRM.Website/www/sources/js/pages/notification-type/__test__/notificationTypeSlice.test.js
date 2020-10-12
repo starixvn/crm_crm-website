@@ -1,6 +1,6 @@
 ﻿import notificationType, {
-    setGridParams,
-    setGridData,
+    setNotificationTypeGridParams,
+    setNotificationTypeGridData,
     setSettings,
     setCreateNotificationTypePopup,
     setCreateNotificationTypeResult,
@@ -12,7 +12,7 @@
 describe('notificationType reducer', () => {
     it('should handle initial state', () => {
         expect(notificationType(undefined, {})).toEqual({
-            gridParams: {
+            notificationTypeGridParams: {
                 pageIndex: 1,
                 pageSize: 100
             },
@@ -21,7 +21,7 @@ describe('notificationType reducer', () => {
             editNotificationTypePopup: { show: false },
             editNotificationTypeResult: null,
             deleteNotificationTypePopup: { show: false },
-            gridData: null,
+            notificationTypeGridData: null,
             settings: {
                 ChatTypes: [],
                 RecipientTypes: [],
@@ -30,10 +30,10 @@ describe('notificationType reducer', () => {
         });
     });
 
-    it('should handle setGridParams', () => {
+    it('should handle setNotificationTypeGridParams', () => {
         expect(
             notificationType({}, {
-                type: setGridParams.type,
+                type: setNotificationTypeGridParams.type,
                 payload: {
                     notificationTypeId: 1,
                     notificationTypeName: '',
@@ -42,7 +42,7 @@ describe('notificationType reducer', () => {
                 }
             })
         ).toEqual({
-            gridParams: {
+            notificationTypeGridParams: {
                 notificationTypeId: 1,
                 notificationTypeName: '',
                 pageIndex: 1,
@@ -51,14 +51,14 @@ describe('notificationType reducer', () => {
         });
     });
 
-    it('should handle setGridData', () => {
+    it('should handle setNotificationTypeGridData', () => {
         expect(
             notificationType({}, {
-                type: setGridData.type,
+                type: setNotificationTypeGridData.type,
                 payload: { totalItems: 0, data: [] }
             })
         ).toEqual({
-            gridData: { totalItems: 0, data: [] }
+            notificationTypeGridData: { totalItems: 0, data: [] }
         });
     });
 

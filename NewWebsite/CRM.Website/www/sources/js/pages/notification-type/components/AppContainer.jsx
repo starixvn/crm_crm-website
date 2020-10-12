@@ -34,12 +34,12 @@ export class AppContainer extends Component {
 
     handleCreateSuccess = () => {
         this.handleCloseCreatePopup();
-        this.props.getGridData(this.props.gridParams);
+        this.props.getNotificationTypeGridData(this.props.notificationTypeGridParams);
     }
 
     handleEditSuccess = () => {
         this.handleCloseEditPopup();
-        this.props.getGridData(this.props.gridParams);
+        this.props.getNotificationTypeGridData(this.props.notificationTypeGridParams);
     }
 
     handleCloseDeletePopup = () => {
@@ -51,7 +51,7 @@ export class AppContainer extends Component {
         const params = { notificationTypeId: notificationTypeId, notificationTypeName: name };
         this.props.deleteNotificationType(params).then(data => {
             this.handleCloseDeletePopup();
-            this.props.getGridData(this.props.gridParams);
+            this.props.getNotificationTypeGridData(this.props.notificationTypeGridParams);
             if (data.isSuccessful) {
                 toast.success(LangHelper.getResource('DeleteNotificationTypeSuccessfully'));
             }
@@ -100,13 +100,13 @@ const mapDispatchToProps = dispatch => bindActionCreators(ActionCreators, dispat
 
 const mapStateToProps = state => {
     const {
-        gridParams,
+        notificationTypeGridParams,
         createNotificationTypePopup,
         editNotificationTypePopup,
         deleteNotificationTypePopup
     } = state;
     return {
-        gridParams,
+        notificationTypeGridParams,
         createNotificationTypePopup,
         editNotificationTypePopup,
         deleteNotificationTypePopup
