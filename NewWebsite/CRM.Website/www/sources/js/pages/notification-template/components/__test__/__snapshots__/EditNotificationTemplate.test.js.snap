@@ -6,6 +6,4 @@ exports[`EditNotificationTemplate methods renderForm should render correctly whe
 
 exports[`EditNotificationTemplate methods renderForm should show response message 1`] = `ShallowWrapper {}`;
 
-exports[`EditNotificationTemplate renders component correctly 1`] = `ShallowWrapper {}`;
-
 exports[`EditNotificationTemplate should render correctly 1`] = `ShallowWrapper {}`;

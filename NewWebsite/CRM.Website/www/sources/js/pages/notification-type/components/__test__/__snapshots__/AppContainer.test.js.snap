@@ -6,6 +6,4 @@ exports[`AppContainer delete notification type render component DeleteNotificati
 
 exports[`AppContainer edit notification type render component EditNotificationType correctly 1`] = `ShallowWrapper {}`;
 
-exports[`AppContainer renders component correctly 1`] = `ShallowWrapper {}`;
-
 exports[`AppContainer renders default component correctly 1`] = `ShallowWrapper {}`;

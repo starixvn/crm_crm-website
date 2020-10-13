@@ -174,13 +174,13 @@ describe('DataGrid', () => {
             });
         });
 
-        describe('buildHeader', () => {
+        describe('buildGridHeader', () => {
             it('should render expected header when isHost = false', () => {
                 // Arrange
                 const container = shallow(<DataGrid />).instance();
 
                 // Act
-                const header = shallow(container.buildHeader(false));
+                const header = shallow(container.buildGridHeader(false));
 
                 // Assert
                 expect(header.find(HeaderCell).length).toBe(4);
@@ -192,14 +192,14 @@ describe('DataGrid', () => {
                 const container = shallow(<DataGrid />).instance();
 
                 // Act
-                const header = shallow(container.buildHeader(true));
+                const header = shallow(container.buildGridHeader(true));
 
                 // Assert
                 expect(header.find(HeaderCell).length).toBe(5);
             });
         });
 
-        describe('buildBody', () => {
+        describe('buildGridBody', () => {
             it('should render no data when gridData is empty', () => {
                 // Arrange
                 const props = {
@@ -212,7 +212,7 @@ describe('DataGrid', () => {
                 const container = shallow(<DataGrid {...props} />).instance();
 
                 // Act
-                const actual = container.buildBody(true);
+                const actual = container.buildGridBody(true);
 
                 // Assert
                 expect(actual).toEqual([<Row key={`body${1}`} className="no-data"><Cell colSpan="5">ThereIsNoData</Cell></Row>]);
@@ -231,7 +231,7 @@ describe('DataGrid', () => {
                 container.renderRow = jest.fn(() => <div />);
 
                 // Act
-                const actual = container.buildBody(true);
+                const actual = container.buildGridBody(true);
 
                 // Assert
                 expect(actual).toEqual([<div />]);
