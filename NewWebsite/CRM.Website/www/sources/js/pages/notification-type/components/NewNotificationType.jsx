@@ -48,18 +48,15 @@ export class NewNotificationType extends Component {
                         />
                     }
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" htmlFor="name" className="required">
-                            {LangHelper.getResource('NotificationTypeName')}
-                        </Form.Label>
+                        <Form.Label column sm="4" md="3" htmlFor="name" className="required">{LangHelper.getResource('NotificationTypeName')}</Form.Label>
                         <Col sm="8" md="9">
                             <Form.Control type="text" size="sm" value={values.notificationTypeName} name="notificationTypeName" id="name"
                                 className="shadow-none" autoComplete="off"
-                                isInvalid={touched.notificationTypeName && errors.notificationTypeName}
                                 onChange={handleChange}
+                                isInvalid={touched.notificationTypeName && errors.notificationTypeName}
                             />
                         </Col>
                     </Form.Group>
-
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('RecipientType')}
@@ -69,8 +66,8 @@ export class NewNotificationType extends Component {
                                 isInvalid={touched.recipientTypeIds && errors.recipientTypeIds}
                                 dataSource={this.props.settings.recipientTypes}
                                 keyField='id'
-                                valueField='name'
                                 statusField='checked'
+                                valueField='name'
                                 isAllTextShown
                                 onChange={(currentItem, selectedItemsKey) => {
                                     setFieldValue('recipientTypeIds', selectedItemsKey);
@@ -78,18 +75,15 @@ export class NewNotificationType extends Component {
                             />
                         </Col>
                     </Form.Group>
-
                     <Form.Group as={Row}>
-                        <Form.Label column sm="4" md="3" className="required">
-                            {LangHelper.getResource('ChatType')}
-                        </Form.Label>
+                        <Form.Label column sm="4" md="3" className="required">{LangHelper.getResource('ChatType')}</Form.Label>
                         <Col sm="8" md="9">
                             <MultipleSelect
                                 isInvalid={touched.chatTypeIds && errors.chatTypeIds}
                                 dataSource={this.props.settings.chatTypes}
                                 keyField='id'
-                                valueField='name'
                                 statusField='checked'
+                                valueField='name'
                                 isAllTextShown
                                 onChange={(currentItem, selectedItemsKey) => {
                                     setFieldValue('chatTypeIds', selectedItemsKey);
@@ -97,7 +91,6 @@ export class NewNotificationType extends Component {
                             />
                         </Col>
                     </Form.Group>
-
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" value={values.systemId} className="required">
                             {LangHelper.getResource('System')}
@@ -114,15 +107,10 @@ export class NewNotificationType extends Component {
                             </Form.Control>
                         </Col>
                     </Form.Group>
-
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
-                        {LangHelper.getResource('Save')}
-                    </Button>
-                    <Button type="submit" variant="primary" size="sm" onClick={this.props.onClose}>
-                        {LangHelper.getResource('Cancel')}
-                    </Button>
+                    <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>{LangHelper.getResource('Save')}</Button>
+                    <Button type="submit" variant="primary" size="sm" onClick={this.props.onClose}>{LangHelper.getResource('Cancel')}</Button>
                 </Modal.Footer>
             </Form>
         );
@@ -164,9 +152,9 @@ export class NewNotificationType extends Component {
                     <Modal.Title as="div">{LangHelper.getResource('InsertNotificationType')}</Modal.Title>
                 </Modal.Header>
                 <Formik
+                    onSubmit={this.handleSubmit}
                     initialValues={initialValues}
                     validate={values => validateFormik(values)}
-                    onSubmit={this.handleSubmit}
                 >
                     {this.renderForm}
                 </Formik>

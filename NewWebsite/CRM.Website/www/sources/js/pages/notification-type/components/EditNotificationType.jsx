@@ -111,7 +111,6 @@ export class EditNotificationType extends Component {
                             />
                         </Col>
                     </Form.Group>
-
                     <Form.Group as={Row}>
                         <Form.Label column sm="4" md="3" className="required">
                             {LangHelper.getResource('ChatType')}
@@ -120,9 +119,9 @@ export class EditNotificationType extends Component {
                             <MultipleSelect
                                 isInvalid={touched.chatTypeIds && errors.chatTypeIds}
                                 dataSource={this.state.chatTypesOptions}
-                                keyField='id'
                                 valueField='name'
                                 statusField='checked'
+                                keyField='id'
                                 isAllTextShown
                                 onChange={(currentItem, selectedItemsKey) => {
                                     setFieldValue('chatTypeIds', selectedItemsKey);
