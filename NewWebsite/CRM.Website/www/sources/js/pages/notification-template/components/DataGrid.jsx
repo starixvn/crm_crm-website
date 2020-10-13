@@ -32,7 +32,7 @@ export class DataGrid extends Component {
         this.props.setDeleteTemplatePopup({ show: true, templateId: id, name: name });
     }
 
-    buildHeader = isHost => {
+    buildGridHeader = isHost => {
         return (
             <HeaderRow>
                 <HeaderCell colWidth={5}>{LangHelper.getResource('SymbolNo')}</HeaderCell>
@@ -48,7 +48,7 @@ export class DataGrid extends Component {
         );
     }
 
-    buildBody = isHost => {
+    buildGridBody = isHost => {
         const { pageIndex, pageSize } = this.props.gridParams;
 
         this.startIndex = (pageIndex - 1) * pageSize + 1;
@@ -85,16 +85,15 @@ export class DataGrid extends Component {
             return null;
         }
 
-        const { totalItems } = this.props.gridData;
-        const { pageIndex, pageSize } = this.props.gridParams;
-        const { isHost } = this.props;
-
         const pagingOption = {
             PageIndex: pageIndex,
             PageSize: pageSize,
             TotalItem: totalItems,
             PageList: PAGING_SIZES
         };
+        const { totalItems } = this.props.gridData;
+        const { pageIndex, pageSize } = this.props.gridParams;
+        const { isHost } = this.props;
 
         return (
             <Fragment>
@@ -103,8 +102,8 @@ export class DataGrid extends Component {
                     minWidth={720}
                     maxWidth={document.getElementById('app-container').clientWidth}
                     autoWidth
-                    header={this.buildHeader(isHost)}
-                    body={this.buildBody(isHost)}
+                    header={this.buildGridHeader(isHost)}
+                    body={this.buildGridBody(isHost)}
                     isPaging
                     pageOption={pagingOption}
                     onPaging={this.onPaging}

@@ -62,8 +62,9 @@ export default class Pager extends Component {
 
     onInputChangeHandler = event => {
         const pattern = /^\d*$/;
+        const regex = new RegExp(pattern);
         const { value } = event.target;
-        const isValidNumber = pattern.test(value);
+        const isValidNumber = regex.test(value);
         if (isValidNumber) {
             this._updateState(value);
         }
@@ -101,7 +102,8 @@ export default class Pager extends Component {
                 <span>Page </span>
                 <input type="text" className="page-form" value={index} maxLength="4" size="2"
                     onChange={this.onInputChangeHandler}
-                    onKeyUp={event => this.onKeyUpHandle(event, totalPage)} />
+                    onKeyUp={event => this.onKeyUpHandle(event, totalPage)}
+                />
                 <span>{` of ${totalPage}`} </span>
             </div>
         );
