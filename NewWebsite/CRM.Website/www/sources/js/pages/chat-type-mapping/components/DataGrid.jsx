@@ -95,7 +95,7 @@ export class DataGrid extends Component {
         );
     }
 
-    buildBody = isHost => {
+    buildChatTypeMappingBody = isHost => {
         const { pageIndex, pageSize } = this.props.gridParams;
 
         this.startIndex = (pageIndex - 1) * pageSize + 1;
@@ -188,27 +188,26 @@ export class DataGrid extends Component {
         const { pageIndex, pageSize } = this.props.gridParams;
         const { isHost } = this.props;
 
-        const pagingOption = {
+        const pagingOptions = {
             PageIndex: pageIndex,
             PageSize: pageSize,
             TotalItem: totalItems,
             PageList: PAGING_SIZES
         };
-
         return (
             <Fragment>
                 <div className='table-title'>{LangHelper.getResource('ChatTypeMapping')}</div>
                 <Table
-                    minWidth={960}
-                    maxWidth={document.getElementById('app-container').clientWidth}
-                    autoWidth
-                    header={this.buildHeader(isHost)}
-                    body={this.buildBody(isHost)}
                     isPaging
-                    pageOption={pagingOption}
+                    minWidth={960}
+                    header={this.buildHeader(isHost)}
+                    body={this.buildChatTypeMappingBody(isHost)}
+                    autoWidth
+                    maxWidth={document.getElementById('app-container').clientWidth}
                     onPaging={this.onPaging}
                     containerPadding={0}
                     shouldResetScrollPosition={false}
+                    pageOption={pagingOptions}
                 />
                 {
                     this.props.updateActiveStatusPopup.isShowPopup &&

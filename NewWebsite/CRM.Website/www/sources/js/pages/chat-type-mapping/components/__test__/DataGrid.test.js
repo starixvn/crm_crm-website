@@ -196,9 +196,9 @@ describe('DataGrid', () => {
             expect(props.getGridData).toHaveBeenCalled();
         });
 
-        describe('buildBody', () => {
+        describe('buildChatTypeMappingBody', () => {
             function testBuildBodyNoData(isHost, colSpan) {
-                it('buildBody nodata', () => {
+                it('buildChatTypeMappingBody nodata', () => {
                     // Arrange
                     const props = {
                         gridParams: {},
@@ -215,7 +215,7 @@ describe('DataGrid', () => {
                     const expectedBody = [<Row key={`body${1}`} className='no-data' ><Cell colSpan={colSpan}>{'ThereIsNoData'}</Cell></Row>];
 
                     // Action
-                    const body = dataGrid.instance().buildBody(isHost);
+                    const body = dataGrid.instance().buildChatTypeMappingBody(isHost);
 
                     // Assert
                     expect(body).toEqual(expectedBody);
@@ -230,7 +230,7 @@ describe('DataGrid', () => {
             }
 
             function testBuildBodyHasData(isHost) {
-                it('buildBody has data', () => {
+                it('buildChatTypeMappingBody has data', () => {
                     // Arrange
                     const props = {
                         gridParams: {
@@ -258,7 +258,7 @@ describe('DataGrid', () => {
                     const expectedBody = props.gridData.data.map((item, index) => renderRow(item, index, isHost));
 
                     // Action
-                    const body = dataGrid.instance().buildBody(isHost);
+                    const body = dataGrid.instance().buildChatTypeMappingBody(isHost);
 
                     // Assert
                     expect(body).toEqual(expectedBody);
