@@ -85,15 +85,15 @@ export class DataGrid extends Component {
             return null;
         }
 
+        const { isHost } = this.props;
+        const { totalItems } = this.props.gridData;
+        const { pageIndex, pageSize } = this.props.gridParams;
         const pagingOption = {
             PageIndex: pageIndex,
             PageSize: pageSize,
             TotalItem: totalItems,
             PageList: PAGING_SIZES
         };
-        const { totalItems } = this.props.gridData;
-        const { pageIndex, pageSize } = this.props.gridParams;
-        const { isHost } = this.props;
 
         return (
             <Fragment>
