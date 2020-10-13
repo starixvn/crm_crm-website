@@ -6,7 +6,7 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
     {
         public string UserName { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         public override string GetSettingKey()
         {

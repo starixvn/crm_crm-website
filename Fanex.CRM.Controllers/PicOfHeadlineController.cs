@@ -66,8 +66,6 @@ namespace Fanex.CRM.Controllers
 
             var positions = _settingService.GetPositions(true);
 
-            var pics = _baseService.GetData<PicInfo>(new GetPICCriteria());
-
             var headlines = _baseService.GetData<HeadlineInfo>(new GetHeadlinesCriteria());
 
             var allSetting = new
@@ -76,7 +74,6 @@ namespace Fanex.CRM.Controllers
                 CurrencyList = currency,
                 CustomerTypeList = _settingService.GetAllCustomerTypes(),
                 PositionList = positions,
-                picList = pics,
                 headlineList = headlines
             };
 
