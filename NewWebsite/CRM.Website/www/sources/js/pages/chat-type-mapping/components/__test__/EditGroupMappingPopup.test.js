@@ -1,14 +1,13 @@
 ﻿import React from 'react';
 import EditGroupMappingPopupWrapper, { EditGroupMappingPopup } from '../EditGroupMappingPopup';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import configureMockStore from 'redux-mock-store';
-import { Form, Modal, Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import LangHelper from '@jsroot/common/langHelper';
 import { Promise } from 'q';
 import ConfirmPopup from '@jsroot/components/ConfirmPopup';
 import MultipleSelect from '@jsroot/components/multiple-select/index';
-import { popper } from '@popperjs/core';
 
 describe('EditGroupMappingPopup', () => {
     const initData = {
@@ -125,7 +124,7 @@ describe('EditGroupMappingPopup', () => {
             const popup = shallow(<EditGroupMappingPopup {...props} />);
 
             popup.instance().verifyLetstalk = jest.fn();
-            expect(popup.instance().initState).toEqual(expected);
+            expect(popup.instance().initUpdateGroupMappingState).toEqual(expected);
             expect(props.getRecipientByRecipientType).toHaveBeenCalledWith(expected.recipientTypeId);
             promise.then(() => {
                 expect(props.getGroupHeadlineByRecipient).toHaveBeenCalledWith('1');
@@ -145,7 +144,7 @@ describe('EditGroupMappingPopup', () => {
             popup.instance().verifyLetstalk = jest.fn();
             popup.instance().handleChange = jest.fn();
             popup.instance().onClosePopup = jest.fn();
-            popup.instance().handleSubmit = jest.fn();
+            popup.instance().handleSubmitForm = jest.fn();
 
             popup.find(Form.Group).at(3).find(Form.Control).at(0).simulate('change', event);
             expect(popup.instance().handleRecipientTypeChange).toHaveBeenCalledWith('value');
@@ -230,12 +229,12 @@ describe('EditGroupMappingPopup', () => {
             expect(props.verifyLetstalkInGroup).not.toHaveBeenCalled();
         });
 
-        it('renderOptions return expected result', () => {
+        it('renderEditGroupMappingOptions return expected result', () => {
             const item = {
                 id: 1, name: 'test'
             };
             const expected = <option key={`${0}-${item.id}`} value={item.id}>{item.name}</option>;
-            const actual = popup.instance().renderOptions(item, 0);
+            const actual = popup.instance().renderEditGroupMappingOptions(item, 0);
             expect(actual).toEqual(expected);
         });
 
@@ -303,7 +302,7 @@ describe('EditGroupMappingPopup', () => {
         it('handleSumit will call expected props when InValid params', () => {
             const event = { preventDefault: jest.fn() };
             popup.instance().isValidParams = jest.fn().mockReturnValue(false);
-            popup.instance().handleSubmit(event);
+            popup.instance().handleSubmitForm(event);
             expect(props.setGroupMappingResult).toHaveBeenCalledWith(null);
             expect(props.closeUpdateGroupMappingPopup).not.toHaveBeenCalled();
             expect(props.getGridData).not.toHaveBeenCalled();
@@ -313,7 +312,7 @@ describe('EditGroupMappingPopup', () => {
             const event = { preventDefault: jest.fn() };
             popup.instance().isValidParams = jest.fn().mockReturnValue(true);
             popup.instance().getParams = jest.fn().mockReturnValue('valueParams');
-            popup.instance().handleSubmit(event);
+            popup.instance().handleSubmitForm(event);
 
             expect(props.setGroupMappingResult).toHaveBeenCalledWith(null);
             expect(props.updateGroupMapping).toHaveBeenCalledWith('valueParams');
@@ -356,7 +355,7 @@ describe('EditGroupMappingPopup', () => {
                 }
             };
 
-            popup.instance().initState = initState;
+            popup.instance().initUpdateGroupMappingState = initState;
             popup.instance().setState(state);
             const actual = popup.instance().isDirtyForm();
             expect(actual).toBeTrue;
@@ -395,7 +394,7 @@ describe('EditGroupMappingPopup', () => {
                 }
             };
 
-            popup.instance().initState = initState;
+            popup.instance().initUpdateGroupMappingState = initState;
             popup.instance().setState(state);
             const actual = popup.instance().isDirtyForm();
             expect(actual).toBeFalse;

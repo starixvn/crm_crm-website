@@ -48,7 +48,7 @@ export class EditGroupMappingPopup extends Component {
         };
 
         this.conversationGroupId = this.props.updateGroupMappingData.data.conversationGroupId;
-        this.initState = null;
+        this.initUpdateGroupMappingState = null;
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -76,7 +76,7 @@ export class EditGroupMappingPopup extends Component {
     }
 
     componentDidMount() {
-        this.initState = Object.assign({}, this.state.form);
+        this.initUpdateGroupMappingState = Object.assign({}, this.state.form);
         const initData = this.props.updateGroupMappingData.data;
         const recipientTypeId = initData.recipients.length > 0 ? initData.recipients[0].recipientTypeId : '';
         const selectedRecipientIds = initData.recipients.map(r => r.recipientId).toString();
@@ -139,7 +139,7 @@ export class EditGroupMappingPopup extends Component {
         this.handleChange('groupHeadlines', selectedItemsKey);
     }
 
-    renderOptions = (item, key) => {
+    renderEditGroupMappingOptions = (item, key) => {
         return (
             <option key={`${key}-${item.id}`} value={item.id}>
                 {item.name}
@@ -183,14 +183,14 @@ export class EditGroupMappingPopup extends Component {
             errMsg.push(LangHelper.getResource('RecipientRequired'));
         }
 
-        if (!data.groupHeadlines) {
-            isValid = false;
-            errMsg.push(LangHelper.getResource('GroupHeadlineRequired'));
-        }
-
         if (!data.languageId) {
             isValid = false;
             errMsg.push(LangHelper.getResource('LanguageRequired'));
+        }
+
+        if (!data.groupHeadlines) {
+            isValid = false;
+            errMsg.push(LangHelper.getResource('GroupHeadlineRequired'));
         }
 
         this.setState({
@@ -204,7 +204,7 @@ export class EditGroupMappingPopup extends Component {
         return isValid;
     }
 
-    isDirtyForm = () => JSON.stringify(this.initState) !== JSON.stringify(this.state.form);
+    isDirtyForm = () => JSON.stringify(this.initUpdateGroupMappingState) !== JSON.stringify(this.state.form);
 
     onClosePopup = () => {
         if (this.isDirtyForm()) {
@@ -234,7 +234,7 @@ export class EditGroupMappingPopup extends Component {
         };
     }
 
-    handleSubmit = e => {
+    handleSubmitForm = e => {
         this.setState({ isSubmitting: true });
         this.props.setGroupMappingResult(null);
         e.preventDefault();
@@ -255,7 +255,7 @@ export class EditGroupMappingPopup extends Component {
 
     renderForm = () => {
         return (
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmitForm}>
                 <Modal.Body>
                     {
                         this.state.validate.isShow &&
@@ -308,7 +308,7 @@ export class EditGroupMappingPopup extends Component {
                                 value={this.state.form.recipientTypeId}
                             >
                                 <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
-                                {this.props.settings.recipientTypes.map(this.renderOptions)}
+                                {this.props.settings.recipientTypes.map(this.renderEditGroupMappingOptions)}
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -352,16 +352,15 @@ export class EditGroupMappingPopup extends Component {
                         </Form.Label>
                         <Col sm="9" md="10">
                             <MultipleSelect
-                                width={'100%'}
-                                name="headlineIds"
-                                dataSource={this.state.settings.headlineOptions}
-                                keyField='id'
                                 valueField='name'
                                 statusField='checked'
                                 isSummited={false}
                                 onChange={this.handleGroupHeadlineChange}
                                 hasSearchBox
-
+                                width={'100%'}
+                                name="headlineIds"
+                                dataSource={this.state.settings.headlineOptions}
+                                keyField='id'
                             />
                         </Col>
                     </Form.Group>
@@ -384,7 +383,7 @@ export class EditGroupMappingPopup extends Component {
                                 value={this.state.form.languageId}
                             >
                                 <option value="" disabled hidden>{LangHelper.getResource('PleaseSelect')}</option>
-                                {this.props.settings.languages.map(this.renderOptions)}
+                                {this.props.settings.languages.map(this.renderEditGroupMappingOptions)}
                             </Form.Control>
                         </Col>
                     </Form.Group>
@@ -394,16 +393,16 @@ export class EditGroupMappingPopup extends Component {
                         </Form.Label>
                         <Col sm="9" md="10">
                             <Form.Control as="textarea" size="sm" className="shadow-none"
-                                rows={5}
                                 name="remark"
-                                onChange={e => this.handleChange('remark', e.target.value)}
+                                rows={5}
                                 value={this.state.form.remark}
+                                onChange={e => this.handleChange('remark', e.target.value)}
                             />
                         </Col>
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button type="submit" variant="primary" size="sm" disabled={this.state.isSubmitting}>
+                    <Button type="submit" variant="primary" size="sm" disabled={this.state.isSubmitting} id="edit-group-mapping-submit">
                         {LangHelper.getResource('Submit')}
                     </Button>
                     <Button type="button" variant="primary" size="sm" onClick={this.onClosePopup}>
@@ -417,7 +416,7 @@ export class EditGroupMappingPopup extends Component {
     render() {
         return (
             <Fragment>
-                <Modal show className="chat-type-mapping-modal" dialogAs={DraggableModalDialog}
+                <Modal show className="chat-type-mapping-modal update-group-mapping" dialogAs={DraggableModalDialog}
                     backdrop="static" keyboard={false} size="lg" centered
                     onHide={this.onClosePopup}
                 >
