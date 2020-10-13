@@ -61,7 +61,11 @@
         public async Task<IActionResult> GetSettings()
         {
             var bots = commonService.GetConversationBotAsync();
-            var lang = settingService.GetAsync(new GetSettingParam { SettingName = SettingName.NotificationTemplateLanguage, IsActive = 1 });
+            var lang = settingService.GetAsync(new GetSettingParam
+            {
+                SettingName = SettingName.NotificationTemplateLanguage,
+                IsActive = true
+            });
             var recipientTypes = commonService.GetRecipientTypeAsync();
 
             await Task.WhenAll(bots, lang, recipientTypes);

@@ -88,7 +88,7 @@
             var param = new GetSettingParam
             {
                 SettingName = SettingName.NotificationTemplateLanguage,
-                IsActive = 1
+                IsActive = true
             };
             IEnumerable<Setting> settings = await settingService.GetAsync(param);
             return Json(settings);
