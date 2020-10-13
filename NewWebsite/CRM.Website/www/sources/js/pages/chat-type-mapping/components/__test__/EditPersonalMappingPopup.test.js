@@ -122,7 +122,7 @@ describe('EditPersonalMappingPopup', () => {
             popup.instance().handleLetstalkSelect = jest.fn();
             popup.instance().handleChange = jest.fn();
             popup.instance().onClosePopup = jest.fn();
-            popup.instance().handleSubmit = jest.fn();
+            popup.instance().handleEditPersonalSubmitForm = jest.fn();
 
             popup.find(Form.Group).at(0).find(Form.Control).at(0).simulate('change', event);
             expect(popup.instance().handleChange).toHaveBeenCalledWith('botId', 'value');
@@ -217,27 +217,27 @@ describe('EditPersonalMappingPopup', () => {
             });
         });
 
-        it('renderOptions return expected result', () => {
+        it('renderEditPersonalSelectOptions return expected result', () => {
             const item = {
                 id: 1, name: 'test'
             };
             const expected = <option key={`${0}-${item.id}`} value={item.id}>{item.name}</option>;
-            const actual = popup.instance().renderOptions(item, 0);
+            const actual = popup.instance().renderEditPersonalSelectOptions(item, 0);
             expect(actual).toEqual(expected);
         });
 
-        it('renderLetstalkIds when state.letstalkIds is null return null', () => {
+        it('renderLetstalkIdsRadioButton when state.letstalkIds is null return null', () => {
             const state = {
                 settings: { letstalkIds: '' }
             };
             popup.instance().setState(state);
-            const actual = popup.instance().renderLetstalkIds();
+            const actual = popup.instance().renderLetstalkIdsRadioButton();
             expect(actual).toBe(null);
         });
 
-        it('renderLetstalkIds when state.letstalkIds is correct return expected radio input', () => {
+        it('renderLetstalkIdsRadioButton when state.letstalkIds is correct return expected radio input', () => {
             popup.instance().state.settings.letstalkIds = '1,2,3,4';
-            const actual = popup.instance().renderLetstalkIds();
+            const actual = popup.instance().renderLetstalkIdsRadioButton();
             expect(actual.length).toBe(4);
         });
 
@@ -307,7 +307,7 @@ describe('EditPersonalMappingPopup', () => {
         it('handleSumit will call expected props when InValid params', () => {
             const event = { preventDefault: jest.fn() };
             popup.instance().isValidParams = jest.fn().mockReturnValue(false);
-            popup.instance().handleSubmit(event);
+            popup.instance().handleEditPersonalSubmitForm(event);
             expect(props.setUpdatePersonalMappingResult).toHaveBeenCalledWith(null);
             expect(props.closeUpdatePersonalMappingPopup).not.toHaveBeenCalled();
             expect(props.getGridData).not.toHaveBeenCalled();
@@ -317,7 +317,7 @@ describe('EditPersonalMappingPopup', () => {
             const event = { preventDefault: jest.fn() };
             popup.instance().isValidParams = jest.fn().mockReturnValue(true);
             popup.instance().getParams = jest.fn().mockReturnValue('valueParams');
-            popup.instance().handleSubmit(event);
+            popup.instance().handleEditPersonalSubmitForm(event);
 
             expect(props.setUpdatePersonalMappingResult).toHaveBeenCalledWith(null);
             expect(props.updatePersonalMapping).toHaveBeenCalledWith('valueParams');
@@ -350,7 +350,7 @@ describe('EditPersonalMappingPopup', () => {
                 }
             };
 
-            popup.instance().initState = initState;
+            popup.instance().initEditPersonalMappingState = initState;
             popup.instance().setState(state);
             const actual = popup.instance().isDirtyForm();
             expect(actual).toBeTrue;
@@ -379,7 +379,7 @@ describe('EditPersonalMappingPopup', () => {
                 }
             };
 
-            popup.instance().initState = initState;
+            popup.instance().initEditPersonalMappingState = initState;
             popup.instance().setState(state);
             const actual = popup.instance().isDirtyForm();
             expect(actual).toBeFalse;
