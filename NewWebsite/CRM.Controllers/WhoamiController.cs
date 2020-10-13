@@ -1,6 +1,7 @@
 ﻿namespace CRM.Controllers
 {
     using System;
+    using System.Threading.Tasks;
     using CRM.Core.Extensions;
     using CRM.Letstalk.Client.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
@@ -14,9 +15,9 @@
             this.letstalkService = letstalkService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            letstalkService(100020).PushAsync("t381023", "Hi Oliver, I am Production bot");
+            await letstalkService(100021).PushAsync("t381023", "Hi Oliver, I am Production bot");
             return Content(WhoamiHelper.GetContent(HttpContext));
         }
     }
