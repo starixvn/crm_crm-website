@@ -272,6 +272,31 @@
         }
 
         [Fact]
+        public async Task PushAsync_WithMessageDueDate_WillCallsExpected()
+        {
+            // Arrange
+            var message = "message";
+            var formattedMessage = JsonConvert.SerializeObject(new { msg = message });
+            var msg = new Message
+            {
+                Content = message,
+                ExpiredTime = DateTime.Now
+            };
+            var hashContentKey = "HashContentKey";
+            cryptographyService.Hash(Arg.Any<string>()).Returns(hashContentKey);
+            cryptographyService.Encrypt(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns("ABC");
+
+            // Act
+            await letstalkService.PushAsync(new List<string> { "account" }, msg);
+
+            //Assert
+            cryptographyService.Received().Encrypt(
+                Arg.Is(formattedMessage),
+                Arg.Is(botConfig.ChatKey),
+                Arg.Is(hashContentKey));
+        }
+
+        [Fact]
         public void PushRoomAsync_WhenNullOrEmptyChatRoomToken_ThrowsArgumentNullException()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => letstalkService.PushRoomAsync(string.Empty, "message"));
