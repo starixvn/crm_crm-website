@@ -48,7 +48,13 @@ export class AutoRefresh extends Component {
                 countDown: this.props.autoRefresh.value
             });
 
-            this.props.getGridData(this.props.gridParams, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
+            const params = {
+                ...this.props.gridParams,
+                pageIndex: 1
+            };
+
+            this.props.setGridParams(params);
+            this.props.getGridData(params, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
         }
     }
 
@@ -71,7 +77,13 @@ export class AutoRefresh extends Component {
     }
 
     handleRefresh = () => {
-        this.props.getGridData(this.props.gridParams, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
+        const params = {
+            ...this.props.gridParams,
+            pageIndex: 1
+        };
+
+        this.props.setGridParams(params);
+        this.props.getGridData(params, data => functions.handleNewResendOptions(data, this.props.setResendOptions));
         this.props.setAutoRefresh({
             ...this.props.autoRefresh,
             countDown: this.props.autoRefresh.value

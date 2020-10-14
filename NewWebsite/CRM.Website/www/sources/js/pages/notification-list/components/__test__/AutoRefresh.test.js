@@ -319,7 +319,13 @@ describe('AutoRefresh', () => {
                 gridParams: {},
                 setAutoRefresh: jest.fn(),
                 getGridData: jest.fn((params, callback) => callback([])),
-                setResendOptions: jest.fn()
+                setResendOptions: jest.fn(),
+                setGridParams: jest.fn()
+            };
+
+            const expectedParams = {
+                ...props.params,
+                pageIndex: 1
             };
 
             const autoRefresh = shallow(<AutoRefresh {...props} />);
@@ -333,7 +339,8 @@ describe('AutoRefresh', () => {
                 ...props.autoRefresh,
                 countDown: props.autoRefresh.value
             });
-            expect(props.getGridData).toHaveBeenCalledWith(props.gridParams, expect.any(Function));
+            expect(props.setGridParams).toHaveBeenCalledWith(expectedParams);
+            expect(props.getGridData).toHaveBeenCalledWith(expectedParams, expect.any(Function));
         });
     });
 
@@ -426,7 +433,13 @@ describe('AutoRefresh', () => {
             gridParams: {},
             getGridData: jest.fn((params, callback) => callback([])),
             setAutoRefresh: jest.fn(),
-            setResendOptions: jest.fn()
+            setResendOptions: jest.fn(),
+            setGridParams: jest.fn()
+        };
+
+        const expectedParams = {
+            ...props.params,
+            pageIndex: 1
         };
 
         const autoRefresh = shallow(<AutoRefresh {...props} />);
@@ -439,7 +452,8 @@ describe('AutoRefresh', () => {
             ...props.autoRefresh,
             countDown: props.autoRefresh.value
         });
-        expect(props.getGridData).toHaveBeenCalledWith(props.gridParams, expect.any(Function));
+        expect(props.setGridParams).toHaveBeenCalledWith(expectedParams);
+        expect(props.getGridData).toHaveBeenCalledWith(expectedParams, expect.any(Function));
     });
 
     it('toggleAutoFreshDropdown runs correctly', () => {

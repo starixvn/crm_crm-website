@@ -172,6 +172,7 @@ export class Filter extends Component {
         e.preventDefault();
         this.props.setInvalidParams({});
         const params = this.getParams();
+        params.pageIndex = 1;
         if (this.isValidateParams(params)) {
             this.props.setGridParams(params);
             this.props.getGridData({ ...params }, data => handleNewResendOptions(data, this.props.setResendOptions));
