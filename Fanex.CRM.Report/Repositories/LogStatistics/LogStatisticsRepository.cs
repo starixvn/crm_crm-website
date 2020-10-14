@@ -31,6 +31,7 @@
                             SiteInfo = new Setting { Name = Converter.ToString2(reader["SiteName"]) },
                             Country = new Country { Name = Converter.ToString2(reader["CountryName"]) },
                             StatusName = Converter.ToString2(reader["Status"]),
+                            Language = Converter.ToString2(reader["Language"]),
                             Response = new Setting { Name = Converter.ToString2(reader["Response"]) },
                             Handler = Converter.ToString2(reader["CreatorName"]),
                             CreationTime = Converter.ToDateTime(reader["CreateDate"]),

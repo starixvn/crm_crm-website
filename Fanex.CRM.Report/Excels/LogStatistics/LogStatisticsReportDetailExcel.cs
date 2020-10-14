@@ -47,7 +47,7 @@
                 StartRow = 0,
                 StartColumn = 0,
                 CurrentRow = 0,
-                MaxColumnIndex = 21
+                MaxColumnIndex = 22
             };
 
             GenerateReportDetail(exportExcelInfo);
@@ -89,6 +89,7 @@
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Solution), textStyle);
             exportExcelInfo.RenderCell(info.NoInquiries, centerTextStyle);
             exportExcelInfo.RenderCell(info.StatusName, centerTextStyle);
+            exportExcelInfo.RenderCell(info.Language, centerTextStyle);
             exportExcelInfo.RenderCell(info.Response.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.Handler, centerTextStyle);
             exportExcelInfo.RenderCell(
@@ -133,7 +134,7 @@
             leftTitleStyle.Alignment = HorizontalAlignment.Left;
 
             exportExcelInfo.ResetCurrentColumn();
-            var columnWidths = new List<int> { 100, 100, 100, 100, 200, 140, 140, 100, 100, 250, 120, 120, 120, 300, 300, 480, 480, 130, 100, 100, 140, 120 };
+            var columnWidths = new List<int> { 100, 100, 100, 100, 200, 140, 140, 100, 100, 250, 120, 120, 120, 300, 300, 480, 480, 130, 100, 100, 100, 140, 120 };
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
             var title = _logStatisticsReportDetail != null ? _logStatisticsReportDetail.Name : string.Empty;
@@ -160,6 +161,7 @@
             exportExcelInfo.RenderCell(Labels.Solution, headerStyle);
             exportExcelInfo.RenderCell(Labels.NoOfInquiries, headerStyle);
             exportExcelInfo.RenderCell(Labels.Status, headerStyle);
+            exportExcelInfo.RenderCell(Labels.Language, headerStyle);
             exportExcelInfo.RenderCell(Labels.Response, headerStyle);
             exportExcelInfo.RenderCell(Labels.Handle_By, headerStyle);
             exportExcelInfo.RenderCell(Labels.Creation_Time, headerStyle);

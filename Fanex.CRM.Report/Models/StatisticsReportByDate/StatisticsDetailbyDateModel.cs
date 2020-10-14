@@ -134,6 +134,8 @@
 
         public string StatusName { get; set; }
 
+        public string Language { get; set; }
+
         public Setting Response { get; set; }
 
         public string Handler { get; set; }

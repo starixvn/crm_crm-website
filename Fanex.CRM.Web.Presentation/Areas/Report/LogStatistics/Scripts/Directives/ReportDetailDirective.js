@@ -72,6 +72,7 @@
                             { Name: "ColSolution", Value: info.Solution, CssClass: 'word-wrap-remark' },
                             { Name: "ColInquiries", Value: info.NoInquiries, CssClass: 'word-wrap-remark' },
                             { Name: "ColStatus", Value: info.StatusName },
+                            { Name: "ColLanguage", Value: info.Language },
                             { Name: "ColResponse", Value: info.Response.Name },
                             { Name: "ColHandler", Value: info.Handler },
                             { Name: "ColCreationTime", Value: info.CreationTimeString }
@@ -102,6 +103,7 @@
                 { HeaderText: viewResources.Solution, Width: 480, Name: "ColSolution", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.NoOfInquiries, Width: 60, Name: "ColInquiries", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Language, Width: 60, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Response, Width: 60, Name: "ColResponse", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Handle_By, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Creation_Time, Width: 80, Name: "ColCreationTime", HeaderAlign: "center", CellAlign: "center" }],
