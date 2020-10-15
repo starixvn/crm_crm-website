@@ -176,7 +176,7 @@ export default class MultipleSelect extends Component {
     }
 
     _renderOptionAll() {
-        if (this.props.hasAllOption) {
+        if (this.props.hasAllOption && this.props.dataSource.length > 0) {
             const checkedItemCount = this.state.dataSource.filter(x => x.checked).length;
             const checkedAll = checkedItemCount === this.state.dataSource.length;
             return (<OptionAll id={this.id} checked={checkedAll} language={this.props.language} onChange={this.checkAllHandler} />);
@@ -186,7 +186,7 @@ export default class MultipleSelect extends Component {
     }
 
     _renderSearchBox() {
-        if (!this.props.hasSearchBox) {
+        if (!this.props.hasSearchBox || this.props.dataSource.length === 0) {
             return null;
         }
 
