@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" ?>
 <Root>
     <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_SettingSel" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PICAssignmentSel" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PICAssignment" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PICAssignmentDel" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicSel" EnvironmentText="_xtest"></SpNameConfig>
