@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`NewNotificationTemplate methods renderForm should render correctly when languages do not have data 1`] = `ShallowWrapper {}`;
-
-exports[`NewNotificationTemplate methods renderForm should render correctly when languages have data 1`] = `ShallowWrapper {}`;
-
-exports[`NewNotificationTemplate methods renderForm should show response message 1`] = `ShallowWrapper {}`;
-
-exports[`NewNotificationTemplate should render correctly 1`] = `ShallowWrapper {}`;
