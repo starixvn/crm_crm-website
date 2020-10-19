@@ -7,7 +7,7 @@
     {
         public int Year { get; set; }
 
-        public int TimeSpan
+        public static int TimeSpan
         {
             get
             {

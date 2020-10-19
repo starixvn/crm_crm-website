@@ -223,14 +223,6 @@
             GetSettlementReportCriteria criteria,
             SettlementReportInfo settlementReport)
         {
-            if (settlementReport == null || settlementReport.ChildReports.Count == 0)
-            {
-                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.SettlementReport_SheetName);
-                ExportSettlementReportHeader(ref exportExcelInfo, criteria, settlementReport);
-                NpoiExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
-                return;
-            }
-
             var monthReportLength = settlementReport.ChildReports.Count;
             NpoiExtensions.SetColorAtIndex(exportExcelInfo, NpoiExtensions.EvenRowColor, NpoiExtensions.EvenRowColorIndex);
             NpoiExtensions.SetGrandTotalColorIndex(exportExcelInfo);
@@ -261,8 +253,6 @@
                         countryReport = monthReport.ChildReports[j];
                         oddRowWriter.WriteRow(exportExcelInfo, countryReport, monthReport, j);
                     }
-
-                    exportExcelInfo.Worksheet.GroupRow(exportExcelInfo.CurrentRow - countryReportLength, exportExcelInfo.CurrentRow - 2);
                 }
 
                 var total = settlementReport.Total;
@@ -287,10 +277,13 @@
                 new ExcelStyleParam());
 
             var currentColumn = exportExcelInfo.StartColumn;
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 200 * NpoiExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn, 180 * NpoiExtensions.FontWidth);
+            const int widthOfMonth = 140;
+            const int widthOfCountry = 200;
+            const int widthOfAmount = 180;
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, widthOfMonth * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, widthOfCountry * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, widthOfAmount * NpoiExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn, widthOfAmount * NpoiExtensions.FontWidth);
 
             string reportTitle = settlementReport != null ?
                 settlementReport.Name :
