@@ -48,7 +48,7 @@
 
             if (infoIndex == 0)
             {
-                ExportColumn(exportExcelInfo, groupInfo.ChildReports.Count, groupInfo.Name.ToUpper(), _centerTextStyle);
+                ExportColumn(exportExcelInfo, groupInfo.ChildReports.Count, groupInfo.Name.ToUpperInvariant(), _centerTextStyle);
             }
 
             currentColumn++;
