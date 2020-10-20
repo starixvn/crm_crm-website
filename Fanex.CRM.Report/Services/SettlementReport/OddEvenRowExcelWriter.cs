@@ -13,13 +13,11 @@
         private readonly ICellStyle _textStyle;
         private readonly ICellStyle _centerTextStyle;
         private readonly ICellStyle _centerIntStyle;
-        private readonly ExportExcelInfo _exportExcelInfo;
-        private readonly short _rowBackgroundColorIndex;
 
         public OddEvenRowExcelWriter(ExportExcelInfo exportExcelInfo, bool isEvenRow)
         {
-            _exportExcelInfo = exportExcelInfo;
-            _rowBackgroundColorIndex = isEvenRow ?
+            ExportExcelInfo _exportExcelInfo = exportExcelInfo;
+            short _rowBackgroundColorIndex = isEvenRow ?
                 NpoiExtensions.EvenRowColorIndex :
                 NpoiExtensions.BackgroundColorIndex;
 

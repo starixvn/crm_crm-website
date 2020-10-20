@@ -12,16 +12,14 @@
         private readonly ICellStyle _intStyle;
         private readonly ICellStyle _textStyle;
         private readonly ICellStyle _centerTextStyle;
-        private readonly ExportExcelInfo _exportExcelInfo;
-        private readonly short _rowBackgroundColorIndex;
         private readonly ICellStyle _centerIntStyle;
         private readonly bool _isFirstRow;
 
         public GrandTotalRowExcelWriter(ExportExcelInfo exportExcelInfo, bool isFirstRow)
         {
-            _exportExcelInfo = exportExcelInfo;
+            ExportExcelInfo _exportExcelInfo = exportExcelInfo;
             _isFirstRow = isFirstRow;
-            _rowBackgroundColorIndex = NpoiExtensions.GrandTotalRowColorIndex;
+            short _rowBackgroundColorIndex = NpoiExtensions.GrandTotalRowColorIndex;
 
             _intStyle = NpoiExtensions.GetIntegerNumberStyleGrandTotal(_exportExcelInfo.ExcelFile);
             _textStyle = NpoiExtensions.GetTextStyleGrandTotal(_exportExcelInfo.ExcelFile);
