@@ -8,7 +8,7 @@
 
     public interface IFeedbackRepository
     {
-        IEnumerable<FeedbackDetail> GetManagerFeedbacks(ManageFeedbackCriteria criteria);
+        IEnumerable<DeletedFeedback> GetManagerFeedbacks(ManageFeedbackCriteria criteria);
 
         IEnumerable<DeletedFeedback> GetDeletedFeedbacks(ICriteria criteria);
 

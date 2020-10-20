@@ -10,7 +10,7 @@
     var isCN88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
 }
 @section Styles{
-    @RazorHelper.RenderStyles("~/Content/site/ResultMessageStyles")
+    @RazorHelper.RenderStyles("~/Content/site/ResultMessageStyles", "~/Scripts/Tipsy-Tooltip/tipsy.css")
     <link rel="stylesheet" href="~/wwwroot/dist/styles/manage.feedback.css" />
 }
 <div ng-app="manageFeedbackModule">

@@ -78,7 +78,7 @@
                 }
                 
                 currentRow.push({ Name: 'ColRunningNo', Value: fb.FeedbackId });
-                currentRow.push({ Name: 'ColFeedback', Value: renderFeedbackColumn(fb) });
+                currentRow.push({ Name: 'ColFeedback', Value: renderFeedbackColumn(fb, i) });
                 currentRow.push({ Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' });
                 currentRow.push({ Name: 'ColCategory', Value: nameMapping.renderCategoryColumn(fb, mainCategories) });
                 currentRow.push({ Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' });
@@ -107,10 +107,19 @@
                 .fanexGrid(gridOptions);
 
             if (totalItems > 0) {
-                $('.desTooltip')
-                    .unbind('click')
+                var tooltips = element.find('.desTooltip');
+                tooltips.unbind('click')
                     .bind('click', function () {
-                        scope.openEditFeedbackPopup($(this).data('id'));
+                        var $this = $(this);
+                        $(".tipsy").remove();
+                        scope.openEditFeedbackPopup($this.data('id'));
+                    }).tipsy({
+                        fade: true,
+                        gravity: 'nw',
+                        html: true,
+                        title: function () {
+                            return feedbacks[$(this).data('index')].DescriptionTooltip;
+                        }
                     });
 
                 $('.desTitle')
@@ -162,10 +171,10 @@
             return '<div class="feed-back">' + manageFeedbackResources.Feedback + '</div>' + updateButtons;
         }
 
-        function renderFeedbackColumn(feedback) {
+        function renderFeedbackColumn(feedback, number) {
             var html = '<div style="margin:2px 0 0 2px;"> \
             <div class="lnksubject">\
-                <a class="desTooltip" href="javascript:;" data-id="' + feedback.FeedbackId + '">\
+                <a class="desTooltip" href="javascript:;" data-id="' + feedback.FeedbackId + '" data-index="' + number + '">\
                     <span class="b">' + sharedScriptManager.encodeHtml(feedback.Subject) + '</span>\
                 </a>\
             </div>\

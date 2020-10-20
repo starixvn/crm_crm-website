@@ -63,9 +63,25 @@
             };
         }
 
-        public IEnumerable<FeedbackDetail> GetManageFeedbacks(ManageFeedbackCriteria criteria)
+        public IEnumerable<DeletedFeedback> GetManageFeedbacks(ManageFeedbackCriteria criteria)
         {
-            return _feedbackRepository.GetManagerFeedbacks(criteria);
+            var feedbacks = _feedbackRepository.GetManagerFeedbacks(criteria);
+            foreach (var feedback in feedbacks)
+            {
+                var description = string.IsNullOrEmpty(feedback.Description) ?
+                       string.Empty :
+                       (new System.Text.RegularExpressions.Regex("\n")).Replace(feedback.Description, "<br>") + "<br>";
+                var descriptionText = "Description: <br>" + description;
+
+                var solution = string.IsNullOrEmpty(feedback.Solution) ?
+                        string.Empty :
+                        (new System.Text.RegularExpressions.Regex("\n")).Replace(feedback.Solution, "<br>") + "<br>";
+                var solutionText = "Solution: <br>" + solution;
+
+                feedback.DescriptionTooltip = descriptionText + solutionText;
+            }
+
+            return feedbacks;
         }
 
         public IEnumerable<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria)
@@ -111,10 +127,17 @@
             foreach (var feedback in feedbacks)
             {
                 feedback.Status = statusHash.ContainsKey(feedback.StatusId) ? statusHash[feedback.StatusId] : string.Empty;
-                var autoFieldText = string.IsNullOrEmpty(feedback.AutoField) ?
+                var description = string.IsNullOrEmpty(feedback.Description) ?
+                       string.Empty :
+                       (new System.Text.RegularExpressions.Regex("\n")).Replace(feedback.Description, "<br>") + "<br>";
+                var descriptionText = "Description: <br>" + description;
+
+                var solution = string.IsNullOrEmpty(feedback.Solution) ?
                         string.Empty :
-                        (new System.Text.RegularExpressions.Regex("\n")).Replace(feedback.AutoField, "<br>") + "<br><br>";
-                feedback.DescriptionTooltip = autoFieldText + feedback.Description;
+                        (new System.Text.RegularExpressions.Regex("\n")).Replace(feedback.Solution, "<br>") + "<br>";
+                var solutionText = "Solution: <br>" + solution;
+
+                feedback.DescriptionTooltip = descriptionText + solutionText;
             }
 
             return feedbacks;

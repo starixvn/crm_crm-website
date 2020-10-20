@@ -36,6 +36,7 @@
         private static void RegisterManageFeedbackBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/ManageFeedback/ManageFeedbackScripts").Include(
+                "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
                 BlockUI,
                 DirectiveManager,
                 DropdownList,

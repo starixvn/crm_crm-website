@@ -11,7 +11,7 @@
 
         dynamic GetAllSettings();
 
-        IEnumerable<FeedbackDetail> GetManageFeedbacks(ManageFeedbackCriteria criteria);
+        IEnumerable<DeletedFeedback> GetManageFeedbacks(ManageFeedbackCriteria criteria);
 
         IEnumerable<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria);
 

@@ -9,4 +9,12 @@
     <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicUpd" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicStatusUpd" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicUpdValidation" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_CustomerFeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_FeedbackInfoUpd" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_FeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_FeedbackUpd" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_GuestFeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_GuestFeedbackIns_Multiple" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_SourceSettingMappingSel" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

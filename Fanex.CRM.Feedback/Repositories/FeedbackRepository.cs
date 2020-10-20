@@ -12,13 +12,13 @@
 
     public class FeedbackRepository : IFeedbackRepository
     {
-        public IEnumerable<FeedbackDetail> GetManagerFeedbacks(ManageFeedbackCriteria criteria)
+        public IEnumerable<DeletedFeedback> GetManagerFeedbacks(ManageFeedbackCriteria criteria)
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var multi = db.QueryMultiple(criteria.GetSpParams()))
                 {
-                    var feedbacks = multi.Read<FeedbackDetail>();
+                    var feedbacks = multi.Read<DeletedFeedback>();
                     var settings = multi.Read<SettingItem>();
 
                     var outputParams = db.GetOuputParams();
