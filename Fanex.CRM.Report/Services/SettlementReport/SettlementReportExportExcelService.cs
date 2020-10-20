@@ -7,7 +7,9 @@
 
     public class SettlementReportExportExcelService
     {
-        public void ExportColumn(
+        protected SettlementReportExportExcelService() { }
+
+        public static void ExportColumn(
             ExportExcelInfo exportExcelInfo,
             int rowSpan,
             object cellValue,
