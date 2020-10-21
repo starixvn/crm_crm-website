@@ -128,7 +128,7 @@
 <div id="divErrorPoup" class="selector" style="display: none;"></div>
 <div id="div-resultpopup" class="selector display-none"></div>
 <div style="display: none;">
-    <iframe src="@string.Format("{0}auth/recheckin", AppSetting.ExternalSiteHostUrl)"></iframe>
+    <iframe src="@string.Format("{0}/auth/recheckin", ViewBag.ExternalDomain)"></iframe>
 </div>
 @section Scripts {
     <script type="text/javascript">
@@ -177,7 +177,6 @@
         var umUrl = '@Url.Action("Offline", "Common")';
         var userId = @(AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
         var clientTime = "@getClientTime";
-        var externalSiteHostUrl = '@AppSetting.ExternalSiteHostUrl';
         @if(AppSetting.IsLocalTest == false)
         {
             <text>

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.User.Controllers
 {
     using System;
+    using System.Linq;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
@@ -61,6 +62,20 @@
             }
         }
 
+        protected string ExternalDomain
+        {
+            get
+            {
+                var request = HttpContext.Request;
+                var domain = string.Format("{0}://{1}{2}", request.Url.Scheme,
+                    request.Url.Host,
+                    request.Url.IsDefaultPort ? string.Empty : ":" + request.Url.Port);
+                var mapping = AppSetting.ExternalRedirectMappings
+                    .FirstOrDefault(x => x.Domain.Equals(domain, StringComparison.OrdinalIgnoreCase));
+                return mapping != null ? mapping.ExternalDomain : string.Empty;
+            }
+        }
+
         public ActionResult Index()
         {
             if (_maintenanceService.IsUnderMaintenance())
@@ -109,8 +124,8 @@
             var loginStatus = _localService.Login(localLogin);
             if (loginStatus == LoginStatus.LoginSuccessful)
             {
-                var url = string.Format("{0}auth/SignIn?Username={1}&Password={2}&OnUserId={3}&Token={4}",
-                    AppSetting.ExternalSiteHostUrl,
+                var url = string.Format("{0}/auth/SignIn?Username={1}&Password={2}&OnUserId={3}&Token={4}",
+                    ExternalDomain,
                     localLogin.Username,
                     localLogin.Password,
                     Cryptography.CfsEnCrypt(AppSession.CurrentUser.OnUserId.ToString()),
@@ -152,8 +167,8 @@
             var loginStatus = _ssoService.SingleSignOn(ssoLogin);
             if (loginStatus == LoginStatus.LoginSuccessful)
             {
-                var url = string.Format("{0}auth/SingleSignOn?UserId={1}&OnUserId={2}&Time={3}",
-                    AppSetting.ExternalSiteHostUrl,
+                var url = string.Format("{0}/auth/SingleSignOn?UserId={1}&OnUserId={2}&Time={3}",
+                    ExternalDomain,
                     ssoLogin.UserId,
                     ssoLogin.OnUserId,
                     ssoLogin.Time);
@@ -174,7 +189,7 @@
                 LogExtensions.ExceptionHandler(exception);
             }
 
-            var url = string.Format("{0}auth/SignOut", AppSetting.ExternalSiteHostUrl);
+            var url = string.Format("{0}/auth/SignOut", ExternalDomain);
             return new RedirectResult(url, false);
         }
 

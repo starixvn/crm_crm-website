@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using Fanex.CRM.Common.Models;
 
     public static class AppSetting
     {
@@ -14,7 +15,6 @@
         public static string LoginLink => ConfigurationManager.AppSettings["loginUrl"];
         public static int TimeSpan => Convert.ToInt32(ConfigurationManager.AppSettings["timeSpan"]);
         public static DateTime MinReportDate => Convert.ToDateTime(ConfigurationManager.AppSettings["minReportDate"]);
-        public static string ExternalSiteHostUrl => ConfigurationManager.AppSettings["ExternalSiteHostUrl"];
 
         public static IDictionary<string, bool> ActionLogKey
         {
@@ -37,6 +37,27 @@
                 }
 
                 return actionLogKeyHash;
+            }
+        }
+
+        public static IList<ExternalRedirectMapping> ExternalRedirectMappings
+        {
+            get
+            {
+                var result = new List<ExternalRedirectMapping>();
+                var mappings = ConfigurationManager.AppSettings["ExternalRedirectMapping"]
+                        .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var mapping in mappings)
+                {
+                    var domains = mapping.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    result.Add(new ExternalRedirectMapping
+                    {
+                        Domain = domains[0],
+                        ExternalDomain = domains[1]
+                    });
+                }
+
+                return result;
             }
         }
 

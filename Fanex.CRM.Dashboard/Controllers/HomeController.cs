@@ -45,6 +45,7 @@
                 _langService.ChangeLanguage(language);
             }
 
+            ViewBag.ExternalDomain = ExternalDomain;
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
             ViewBag.CurrentCustomer = AppSession.CurrentCustomer;

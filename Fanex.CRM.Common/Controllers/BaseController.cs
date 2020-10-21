@@ -1,5 +1,7 @@
 ﻿namespace Fanex.CRM.Common.Controllers
 {
+    using System;
+    using System.Linq;
     using System.Web.Mvc;
     using Attributes;
     using Fanex.CRM.Common.Services;
@@ -47,6 +49,20 @@
         public Constant.Policy GetPolicy(string functionName)
         {
             return PermissionService.GetPolicy(functionName);
+        }
+
+        protected string ExternalDomain
+        {
+            get
+            {
+                var request = HttpContext.Request;
+                var domain = string.Format("{0}://{1}{2}", request.Url.Scheme,
+                    request.Url.Host,
+                    request.Url.IsDefaultPort ? string.Empty : ":" + request.Url.Port);
+                var mapping = AppSetting.ExternalRedirectMappings
+                    .FirstOrDefault(x => x.Domain.Equals(domain, StringComparison.OrdinalIgnoreCase));
+                return mapping != null ? mapping.ExternalDomain : string.Empty;
+            }
         }
     }
 }
