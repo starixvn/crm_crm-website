@@ -67,10 +67,11 @@
             get
             {
                 var request = HttpContext.Request;
+                var roorUrl = Url.Content("~");
                 var domain = string.Format("{0}://{1}{2}{3}", request.Url.Scheme,
                     request.Url.Host,
                     request.Url.IsDefaultPort ? string.Empty : ":" + request.Url.Port,
-                    Url.Content("~").Remove(Url.Content("~").Length - 1, 1));
+                    roorUrl.EndsWith("/") ? roorUrl.Substring(0, roorUrl.Length - 1) : roorUrl);
                 var mapping = AppSetting.ExternalRedirectMappings
                     .FirstOrDefault(x => x.Domain.Equals(domain, StringComparison.OrdinalIgnoreCase));
                 return mapping != null ? mapping.ExternalDomain : string.Empty;
