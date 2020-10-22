@@ -7,6 +7,7 @@
     using Enumerations;
     using Fanex.Common;
     using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Configuration.ExternalRedirectConfigs;
     using Fanex.CRM.User.Resources;
@@ -70,8 +71,10 @@
                 var roorUrl = Url.Content("~");
                 roorUrl = roorUrl.EndsWith("/") ? roorUrl.Substring(0, roorUrl.Length - 1) : roorUrl;
                 var config = string.Empty;
+                SerilogHelper.WriteInformation(request.Url.AbsoluteUri);
                 foreach (ExternalRedirectElement element in ExternalRedirectConfigs.GetConfigs())
                 {
+                    SerilogHelper.WriteInformation(element.DomainUri.AbsoluteUri);
                     var localPath = element.DomainUri.LocalPath.EndsWith("/")
                         ? element.DomainUri.LocalPath.Substring(0, element.DomainUri.LocalPath.Length - 1)
                         : element.DomainUri.LocalPath;
