@@ -1,10 +1,10 @@
 ﻿namespace Fanex.CRM.Common.Controllers
 {
     using System;
-    using System.Linq;
     using System.Web.Mvc;
     using Attributes;
     using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Configuration.ExternalRedirectConfigs;
     using Fanex.NAP.Core.Business;
     using ONEbook.UM.Filters;
 
@@ -56,14 +56,18 @@
             get
             {
                 var request = HttpContext.Request;
-                var roorUrl = Url.Content("~");
-                var domain = string.Format("{0}://{1}{2}{3}", request.Url.Scheme,
-                    request.Url.Host,
-                    request.Url.IsDefaultPort ? string.Empty : ":" + request.Url.Port,
-                    roorUrl.EndsWith("/") ? roorUrl.Substring(0, roorUrl.Length - 1) : roorUrl);
-                var mapping = AppSetting.ExternalRedirectMappings
-                    .FirstOrDefault(x => x.Domain.Equals(domain, StringComparison.OrdinalIgnoreCase));
-                return mapping != null ? mapping.ExternalDomain : string.Empty;
+                var config = string.Empty;
+                foreach (ExternalRedirectElement element in ExternalRedirectConfigs.GetConfigs())
+                {
+                    if (element.DomainUri.Host.Equals(request.Url.Host, StringComparison.OrdinalIgnoreCase)
+                        && (!element.IncludePort || request.Url.Port == element.DomainUri.Port)
+                        && element.DomainUri.LocalPath.Equals(Url.Content("~"), StringComparison.OrdinalIgnoreCase))
+                    {
+                        config = element.ExternalDomain;
+                    }
+                }
+
+                return config;
             }
         }
     }

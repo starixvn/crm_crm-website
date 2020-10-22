@@ -1,15 +1,14 @@
 ﻿namespace Fanex.CRM.User.Controllers
 {
     using System;
-    using System.Linq;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
     using Enumerations;
     using Fanex.Common;
     using Fanex.CRM.Common.Extensions;
-    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Configuration.ExternalRedirectConfigs;
     using Fanex.CRM.User.Resources;
     using Models;
     using NAP.Core.Configuration;
@@ -68,19 +67,18 @@
             get
             {
                 var request = HttpContext.Request;
-                var roorUrl = Url.Content("~");
-                var domain = string.Format("{0}://{1}{2}{3}", request.Url.Scheme,
-                    request.Url.Host,
-                    request.Url.IsDefaultPort ? string.Empty : ":" + request.Url.Port,
-                    roorUrl.EndsWith("/") ? roorUrl.Substring(0, roorUrl.Length - 1) : roorUrl);
+                var config = string.Empty;
+                foreach (ExternalRedirectElement element in ExternalRedirectConfigs.GetConfigs())
+                {
+                    if (element.DomainUri.Host.Equals(request.Url.Host, StringComparison.OrdinalIgnoreCase)
+                        && (!element.IncludePort || request.Url.Port == element.DomainUri.Port)
+                        && element.DomainUri.LocalPath.Equals(Url.Content("~"), StringComparison.OrdinalIgnoreCase))
+                    {
+                        config = element.ExternalDomain;
+                    }
+                }
 
-                SerilogHelper.WriteInformation(request.RawUrl);
-                SerilogHelper.WriteInformation(request.Url.ToString());
-                SerilogHelper.WriteInformation(request.Url.Authority);
-                SerilogHelper.WriteInformation(domain);
-                var mapping = AppSetting.ExternalRedirectMappings
-                    .FirstOrDefault(x => x.Domain.Equals(domain, StringComparison.OrdinalIgnoreCase));
-                return mapping != null ? mapping.ExternalDomain : string.Empty;
+                return config;
             }
         }
 

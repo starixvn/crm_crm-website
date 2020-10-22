@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
-    using Fanex.CRM.Common.Models;
 
     public static class AppSetting
     {
@@ -37,27 +36,6 @@
                 }
 
                 return actionLogKeyHash;
-            }
-        }
-
-        public static IList<ExternalRedirectMapping> ExternalRedirectMappings
-        {
-            get
-            {
-                var result = new List<ExternalRedirectMapping>();
-                var mappings = ConfigurationManager.AppSettings["ExternalRedirectMapping"]
-                        .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var mapping in mappings)
-                {
-                    var domains = mapping.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                    result.Add(new ExternalRedirectMapping
-                    {
-                        Domain = domains[0],
-                        ExternalDomain = domains[1]
-                    });
-                }
-
-                return result;
             }
         }
 

@@ -191,7 +191,6 @@
     <Compile Include="Models\CommandResult.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\CRMUser.cs" />
-    <Compile Include="Models\ExternalRedirectMapping.cs" />
     <Compile Include="Models\Fax.cs" />
     <Compile Include="Models\FeedbackDetail.cs" />
     <Compile Include="Models\Npoi\ExcelStyleParam.cs" />
@@ -222,6 +221,7 @@
     <Compile Include="Services\CacheService.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="Services\ExternalRedirectConfigs.cs" />
     <Compile Include="Services\ILanguageService.cs" />
     <Compile Include="Services\IPermissionService.cs" />
     <Compile Include="Services\LanguageService.cs" />
