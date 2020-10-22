@@ -73,6 +73,10 @@
                     request.Url.Host,
                     request.Url.IsDefaultPort ? string.Empty : ":" + request.Url.Port,
                     roorUrl.EndsWith("/") ? roorUrl.Substring(0, roorUrl.Length - 1) : roorUrl);
+
+                SerilogHelper.WriteInformation(request.RawUrl);
+                SerilogHelper.WriteInformation(request.Url.ToString());
+                SerilogHelper.WriteInformation(request.Url.Authority);
                 SerilogHelper.WriteInformation(domain);
                 var mapping = AppSetting.ExternalRedirectMappings
                     .FirstOrDefault(x => x.Domain.Equals(domain, StringComparison.OrdinalIgnoreCase));
