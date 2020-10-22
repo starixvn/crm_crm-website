@@ -3,6 +3,7 @@
     using System;
     using System.Web.Mvc;
     using Attributes;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Configuration.ExternalRedirectConfigs;
     using Fanex.NAP.Core.Business;
@@ -56,12 +57,19 @@
             get
             {
                 var request = HttpContext.Request;
+                var roorUrl = Url.Content("~");
+                roorUrl = roorUrl.EndsWith("/") ? roorUrl.Substring(0, roorUrl.Length - 1) : roorUrl;
                 var config = string.Empty;
+                SerilogHelper.WriteInformation(request.Url.AbsoluteUri);
                 foreach (ExternalRedirectElement element in ExternalRedirectConfigs.GetConfigs())
                 {
+                    SerilogHelper.WriteInformation(element.DomainUri.AbsoluteUri);
+                    var localPath = element.DomainUri.LocalPath.EndsWith("/")
+                           ? element.DomainUri.LocalPath.Substring(0, element.DomainUri.LocalPath.Length - 1)
+                           : element.DomainUri.LocalPath;
                     if (element.DomainUri.Host.Equals(request.Url.Host, StringComparison.OrdinalIgnoreCase)
                         && (!element.IncludePort || request.Url.Port == element.DomainUri.Port)
-                        && element.DomainUri.LocalPath.Equals(Url.Content("~"), StringComparison.OrdinalIgnoreCase))
+                        && localPath.Equals(roorUrl, StringComparison.OrdinalIgnoreCase))
                     {
                         config = element.ExternalDomain;
                     }

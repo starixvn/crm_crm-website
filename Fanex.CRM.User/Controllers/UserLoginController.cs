@@ -67,12 +67,17 @@
             get
             {
                 var request = HttpContext.Request;
+                var roorUrl = Url.Content("~");
+                roorUrl = roorUrl.EndsWith("/") ? roorUrl.Substring(0, roorUrl.Length - 1) : roorUrl;
                 var config = string.Empty;
                 foreach (ExternalRedirectElement element in ExternalRedirectConfigs.GetConfigs())
                 {
+                    var localPath = element.DomainUri.LocalPath.EndsWith("/")
+                        ? element.DomainUri.LocalPath.Substring(0, element.DomainUri.LocalPath.Length - 1)
+                        : element.DomainUri.LocalPath;
                     if (element.DomainUri.Host.Equals(request.Url.Host, StringComparison.OrdinalIgnoreCase)
                         && (!element.IncludePort || request.Url.Port == element.DomainUri.Port)
-                        && element.DomainUri.LocalPath.Equals(Url.Content("~"), StringComparison.OrdinalIgnoreCase))
+                        && localPath.Equals(roorUrl, StringComparison.OrdinalIgnoreCase))
                     {
                         config = element.ExternalDomain;
                     }
