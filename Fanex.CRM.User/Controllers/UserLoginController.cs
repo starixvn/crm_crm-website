@@ -8,6 +8,7 @@
     using Enumerations;
     using Fanex.Common;
     using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.User.Resources;
     using Models;
@@ -72,6 +73,7 @@
                     request.Url.Host,
                     request.Url.IsDefaultPort ? string.Empty : ":" + request.Url.Port,
                     roorUrl.EndsWith("/") ? roorUrl.Substring(0, roorUrl.Length - 1) : roorUrl);
+                SerilogHelper.WriteInformation(domain);
                 var mapping = AppSetting.ExternalRedirectMappings
                     .FirstOrDefault(x => x.Domain.Equals(domain, StringComparison.OrdinalIgnoreCase));
                 return mapping != null ? mapping.ExternalDomain : string.Empty;
