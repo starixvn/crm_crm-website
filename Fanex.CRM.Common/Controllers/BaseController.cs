@@ -61,7 +61,6 @@
                     request.Url.Host,
                     request.Url.IsDefaultPort ? string.Empty : ":" + request.Url.Port,
                     roorUrl.EndsWith("/") ? roorUrl.Substring(0, roorUrl.Length - 1) : roorUrl);
-                domain = domain.Substring(0, domain.Length - 1);
                 var mapping = AppSetting.ExternalRedirectMappings
                     .FirstOrDefault(x => x.Domain.Equals(domain, StringComparison.OrdinalIgnoreCase));
                 return mapping != null ? mapping.ExternalDomain : string.Empty;
