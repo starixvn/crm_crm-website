@@ -177,6 +177,7 @@
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Helpers\ArgumentChecker.cs" />
     <Compile Include="Helpers\DateTimeUtilize.cs" />
+    <Compile Include="Helpers\ExternalRedirectHelper.cs" />
     <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\IPHelper.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
