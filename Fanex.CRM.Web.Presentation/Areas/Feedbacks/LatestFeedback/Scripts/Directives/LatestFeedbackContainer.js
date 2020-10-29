@@ -93,7 +93,8 @@
                         gravity: 'nw',
                         html: true,
                         title: function () {
-                            return feedbacks[$(this).data('index')].DescriptionTooltip;
+                            var feedbacksTooltip = feedbacks[$(this).data('index')];
+                            return renderTooltipLatest(feedbacksTooltip);
                         }
                     });
 
@@ -142,6 +143,14 @@
             }
 
             return html;
+        }
+
+        function renderTooltipLatest(feedbacksLatest) {
+            var desctiptionText = !feedbacksLatest.Description ? '' : "Description: <br>" + feedbacksLatest.Description + "<br>";
+            var solutionText = !feedbacksLatest.Solution ? '' : "Solution: <br>" + feedbacksLatest.Solution + "<br>";
+            var tooltip = desctiptionText + solutionText;
+            var tooltipDisplayLatest = tooltip.length > 1000 ? tooltip.substring(0, 1000) + "..." : tooltip;
+            return tooltipDisplayLatest;
         }
 
         return {

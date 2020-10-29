@@ -11,7 +11,5 @@
         public string Solution { get; set; }
 
         public string AutoField { get; set; }
-
-        public string DescriptionTooltip { get; set; }
     }
 }

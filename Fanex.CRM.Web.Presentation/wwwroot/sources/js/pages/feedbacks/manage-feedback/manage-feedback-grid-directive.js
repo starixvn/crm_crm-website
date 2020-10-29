@@ -27,14 +27,14 @@
             if (scope.createUpdateFeedbackPermission) {
                 columns.push({ HeaderText: manageFeedbackResources.Update, Width: 50, Name: 'ColUpdate', HeaderAlign: 'center', CellAlign: 'center' });
             }
-            
+
             columns.push({ HeaderText: manageFeedbackResources.RunningNo, Width: 100, Name: 'ColRunningNo', HeaderAlign: 'center', CellAlign: 'center' });
             columns.push({ HeaderText: manageFeedbackResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' });
             columns.push({ HeaderText: manageFeedbackResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' });
             columns.push({ HeaderText: manageFeedbackResources.Category, Width: 270, Name: 'ColCategory', HeaderAlign: 'center', CellAlign: 'left' });
             columns.push({ HeaderText: manageFeedbackResources.Status, Width: 80, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' });
             columns.push({ HeaderText: manageFeedbackResources.RelatedCustomer, Width: 130, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left' });
-                
+
             return {
                 columns: columns,
                 showTitle: true,
@@ -76,7 +76,7 @@
                 if (scope.createUpdateFeedbackPermission) {
                     currentRow.push({ Name: 'ColUpdate', Value: '<span class="updateIcon"  data-id="' + fb.FeedbackId + '"></span>' });
                 }
-                
+
                 currentRow.push({ Name: 'ColRunningNo', Value: fb.FeedbackId });
                 currentRow.push({ Name: 'ColFeedback', Value: renderFeedbackColumn(fb, i) });
                 currentRow.push({ Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' });
@@ -118,7 +118,8 @@
                         gravity: 'nw',
                         html: true,
                         title: function () {
-                            return feedbacks[$(this).data('index')].DescriptionTooltip;
+                            var feedbacksTooltip = feedbacks[$(this).data('index')];
+                            return renderTooltipManage(feedbacksTooltip);
                         }
                     });
 
@@ -203,6 +204,14 @@
             }
 
             return html;
+        }
+
+        function renderTooltipManage(feedbacksManage) {
+            var desctiptionText = !feedbacksManage.Description ? '' : "Description: <br>" + feedbacksManage.Description + "<br>";
+            var solutionText = !feedbacksManage.Solution ? '' : "Solution: <br>" + feedbacksManage.Solution + "<br>";
+            var tooltip = desctiptionText + solutionText;
+            var tooltipDisplayManage = tooltip.length > 1000 ? tooltip.substring(0, 1000) + "..." : tooltip;
+            return tooltipDisplayManage;
         }
 
         return {

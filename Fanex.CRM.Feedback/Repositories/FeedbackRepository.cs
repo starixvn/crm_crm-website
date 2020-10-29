@@ -27,7 +27,7 @@
                         criteria.TotalRows = Converter.ToInt(outputParams["totalrows"]);
                     }
 
-                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
+                    return GenerateDeletedFeedbackWithSetting(feedbacks, settings);
                 }
             }
         }
@@ -41,7 +41,7 @@
                     var feedbacks = multi.Read<DeletedFeedback>();
                     var settings = multi.Read<SettingItem>();
 
-                    return GenerateFeedBackDetailWithSetting(feedbacks, settings);
+                    return GenerateDeletedFeedbackWithSetting(feedbacks, settings);
                 }
             }
         }
@@ -57,29 +57,11 @@
             }
         }
 
-        private static IEnumerable<FeedbackDetail> GenerateFeedBackDetailWithSetting(
-            IEnumerable<FeedbackDetail> feedbacks,
-            IEnumerable<SettingItem> settings)
-        {
-            Func<FeedbackDetail, List<SettingItem>, FeedbackDetail> regenerateFeedBackDetail = delegate (FeedbackDetail f, List<SettingItem> s)
-            {
-                f.Settings = s;
-                return f;
-            };
-            var result = from f in feedbacks
-                         join s in settings on f.FeedbackId equals s.FeedbackID
-                         select new { f, s } into t1
-                         group t1 by t1.f.FeedbackId into g
-                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
-
-            return result.ToList();
-        }
-
-        private static IEnumerable<DeletedFeedback> GenerateFeedBackDetailWithSetting(
+        private static IEnumerable<DeletedFeedback> GenerateDeletedFeedbackWithSetting(
             IEnumerable<DeletedFeedback> feedbacks,
             IEnumerable<SettingItem> settings)
         {
-            Func<DeletedFeedback, List<SettingItem>, DeletedFeedback> regenerateFeedBackDetail = delegate (DeletedFeedback f, List<SettingItem> s)
+            Func<DeletedFeedback, List<SettingItem>, DeletedFeedback> regenerateDeletedFeedback = delegate (DeletedFeedback f, List<SettingItem> s)
             {
                 f.Settings = s;
                 return f;
@@ -88,7 +70,7 @@
                          join s in settings on f.FeedbackId equals s.FeedbackID
                          select new { f, s } into t1
                          group t1 by t1.f.FeedbackId into g
-                         select regenerateFeedBackDetail(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
+                         select regenerateDeletedFeedback(g.FirstOrDefault().f, g.Select(i => i.s).ToList());
 
             return result.ToList();
         }
