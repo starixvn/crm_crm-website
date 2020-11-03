@@ -11,6 +11,8 @@
         [SpParam(SqlParamName = "parentid")]
         public int ParentId { get; set; }
 
+        public byte Active { get; set ; }
+
         public override string GetSettingKey()
         {
             return "Acc_CRM_SettingGetRelationBySettingName";

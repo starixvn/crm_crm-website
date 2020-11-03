@@ -27,7 +27,7 @@
 
         serviceInstance.getAllSetting = function () {
             var deferred = $q.defer();
-            $http.get(window.rootUrl + "Feedbacks/AllSetting", null)
+            $http.get(window.rootUrl + "Feedbacks/AllSettingDeleteFeedback", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

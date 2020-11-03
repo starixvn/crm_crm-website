@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Common.Enumerations;
     using Common.Services;
@@ -42,7 +43,7 @@
         [HttpPost]
         public ActionResult AllSetting()
         {
-            var languages = _settingService.GetAllLanguages();
+            var languages = _settingService.GetAllLanguages().Where(x => x.IsActive == true).ToList();
             languages.Insert(0, new Common.Models.Setting { Id = -1, Name = Labels.Symbol_NotApply, IsActive = true });
 
             var sites = (AppSession.CurrentUser.UserRole == UserRole.CN88Staff)
@@ -56,7 +57,7 @@
             var allSetting = new
             {
                 SiteList = sites,
-                CountryList = _settingService.GetAllCountries(),
+                CountryList = _settingService.GetAllCountries().Where(x => x.IsActive == true),
                 LanguageList = languages,
                 CustomerTypeList = _settingService.GetAllCustomerTypes(),
                 VIPTypeList = _settingService.GetAllVIPTypes(),

@@ -205,7 +205,8 @@
             var allTitles = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Title,
-                ParentId = 0
+                ParentId = 0,
+                Active = SettingConstants.Active
             });
 
             CacheService.Set(GetAllTitleSessionKey, allTitles);
@@ -221,7 +222,10 @@
                 return allCountry;
             }
 
-            allCountry = _settingRepositoryInstance.GetAllCountries(new GetAllCountryCriteria());
+            allCountry = _settingRepositoryInstance.GetAllCountries(new GetAllCountryCriteria
+            {
+                Active = SettingConstants.ActiveAndInactive
+            });
             CacheService.Set(GetAllCountrySessionKey, allCountry);
             return allCountry;
         }
@@ -239,7 +243,10 @@
                 return allLanguages;
             }
 
-            allLanguages = _settingRepositoryInstance.GetAllLanguages(new GetAllLanguageCriteria());
+            allLanguages = _settingRepositoryInstance.GetAllLanguages(new GetAllLanguageCriteria
+            {
+                Active = SettingConstants.ActiveAndInactive
+            });
             CacheService.Set(GetAllLanguageSessionKey, allLanguages);
             return allLanguages;
         }
@@ -255,7 +262,8 @@
             allExtensions = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Extension,
-                ParentId = 0
+                ParentId = 0,
+                Active = SettingConstants.Active
             })
             .Where(e => e.Id != NAConstants.GetExtentionNA(AppSession.CurrentUser.UserRole))
             .ToList();
@@ -269,7 +277,8 @@
             var allExtensions = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Extension,
-                ParentId = 0
+                ParentId = 0,
+                Active = SettingConstants.Active
             });
 
             return allExtensions.FirstOrDefault(e => e.Id == NAConstants.GetExtentionNA(AppSession.CurrentUser.UserRole));
@@ -280,7 +289,10 @@
             var tools = CacheService.Get<IList<Setting>>(GetAllCommunicationToolSessionKey);
             if (tools == null)
             {
-                tools = _settingRepositoryInstance.GetAllCommunicationTools(new GetAllCommunicationToolCriteria());
+                tools = _settingRepositoryInstance.GetAllCommunicationTools(new GetAllCommunicationToolCriteria
+                {
+                    Active = SettingConstants.ActiveAndInactive
+                });
                 CacheService.Set(GetAllCommunicationToolSessionKey, tools);
             }
 
@@ -294,7 +306,8 @@
             var products = GetSettingRelationByName<Product>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Product,
-                ParentId = 0
+                ParentId = 0,
+                Active = SettingConstants.Active
             });
 
             return products.FirstOrDefault(p => p.Id == NAConstants.GetProductNA(AppSession.CurrentUser.UserRole));
@@ -303,14 +316,20 @@
         public Product GetSubProductNA()
         {
             return _settingRepositoryInstance
-                .GetSubProducts(new SubProductCriteria())
+                .GetSubProducts(new SubProductCriteria
+                {
+                    Active = SettingConstants.Active
+                })
                 .FirstOrDefault(s => s.Id == NAConstants.GetSubProductNA(AppSession.CurrentUser.UserRole));
         }
 
         public Product GetBettypeNA()
         {
             return _settingRepositoryInstance
-                    .GetAllBetType(new GetAllBetTypeCriteria())
+                    .GetAllBetType(new GetAllBetTypeCriteria
+                    {
+                        Active = SettingConstants.Active
+                    })
                     .FirstOrDefault(b => b.Id == NAConstants.GetBettypeNA(AppSession.CurrentUser.UserRole));
         }
 
@@ -322,8 +341,14 @@
                 return cache;
             }
 
-            var mainCategories = _settingRepositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
-            var subCategories = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria());
+            var mainCategories = _settingRepositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria
+            {
+                Active = SettingConstants.ActiveAndInactive
+            });
+            var subCategories = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria
+            {
+                Active = SettingConstants.ActiveAndInactive
+            });
 
             foreach (var category in mainCategories)
             {
@@ -342,7 +367,10 @@
                 return cache;
             }
 
-            var mainCategories = _settingRepositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
+            var mainCategories = _settingRepositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria
+            {
+                Active = SettingConstants.ActiveAndInactive
+            });
 
             CacheService.Set(GetMainCategorySessionKey, mainCategories);
             return mainCategories;
@@ -356,7 +384,10 @@
                 return cache;
             }
 
-            var subCategories = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria());
+            var subCategories = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria
+            {
+                Active = SettingConstants.ActiveAndInactive
+            });
 
             CacheService.Set(GetSubCategorySessionKey, subCategories);
             return subCategories;
@@ -371,7 +402,10 @@
             }
 
             var mainCategories = GetAllSettings().Where(s => s.SettingType.Equals(SettingTypeConstants.MainCategory)).ToList();
-            var subCategories = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria());
+            var subCategories = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria
+            {
+                Active = SettingConstants.ActiveAndInactive
+            });
 
             foreach (var category in mainCategories)
             {
@@ -393,7 +427,8 @@
             var products = GetSettingRelationByName<Product>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Product,
-                ParentId = 0
+                ParentId = 0,
+                Active = SettingConstants.ActiveAndInactive
             });
 
             CacheService.Set(GetProductOnlySessionKey, products);
@@ -434,8 +469,14 @@
                 return cache;
             }
 
-            var subProducts = _settingRepositoryInstance.GetSubProducts(new SubProductCriteria());
-            var betTypes = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria());
+            var subProducts = _settingRepositoryInstance.GetSubProducts(new SubProductCriteria
+            {
+                Active = SettingConstants.ActiveAndInactive
+            });
+            var betTypes = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria
+            {
+                Active = SettingConstants.ActiveAndInactive
+            });
 
             var products = subProducts
                         .Where(sp => sp.Id != NAConstants.GetSubProductNA(AppSession.CurrentUser.UserRole))
@@ -487,7 +528,10 @@
             }
 
             var subProducts = _settingRepositoryInstance
-                                .GetSubProducts(new SubProductCriteria())
+                                .GetSubProducts(new SubProductCriteria
+                                {
+                                    Active = SettingConstants.ActiveAndInactive
+                                })
                                 .Where(p => p.Id != NAConstants.GetSubProductNA(AppSession.CurrentUser.UserRole) && p.ParentId != 0)
                                 .Select(p =>
                                 {
@@ -508,7 +552,10 @@
             }
 
             var betTypes = _settingRepositoryInstance
-                               .GetAllBetType(new GetAllBetTypeCriteria())
+                               .GetAllBetType(new GetAllBetTypeCriteria
+                               {
+                                   Active = SettingConstants.ActiveAndInactive
+                               })
                                .Where(b => b.Id != NAConstants.GetBettypeNA(AppSession.CurrentUser.UserRole))
                                .OrderBy(b => b.DisplayOrder)
                                .ToList();
@@ -582,7 +629,8 @@
             allRole = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Role,
-                ParentId = 0
+                ParentId = 0,
+                Active = SettingConstants.Active
             });
 
             CacheService.Set(GetAllRoleSessionKey, allRole);
@@ -600,7 +648,8 @@
             allResponse = GetSettingRelationByName<SettingRelation>(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Response,
-                ParentId = 0
+                ParentId = 0,
+                Active = SettingConstants.Active
             });
 
             CacheService.Set(GetAllResponseSessionKey, allResponse);

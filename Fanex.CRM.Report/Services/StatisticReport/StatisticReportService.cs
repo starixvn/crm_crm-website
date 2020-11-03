@@ -67,7 +67,7 @@
             try
             {
                 var allMainCategory = new List<Setting>();
-                var rawData = _serviceSetting.GetAllMainCategories();
+                var rawData = _serviceSetting.GetAllMainCategories().Where(x => x.IsActive == true);
                 var allSubSettingOption = new Setting
                 {
                     Id = SettingConstants.AllSetting,

@@ -7,6 +7,7 @@
     {
         [SpParam(SqlParamName = "ProductID")]
         public int ParentId { get; set; }
+        public byte Active { get; set; }
 
         public override string GetSettingKey()
         {

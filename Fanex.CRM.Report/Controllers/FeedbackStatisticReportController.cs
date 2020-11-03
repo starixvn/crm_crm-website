@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Common.Enumerations;
     using Common.Models;
@@ -66,7 +67,7 @@
                 var result = new
                 {
                     Report = _feedbackStatisticService.FeedbackStatisticDetail(criteria),
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true),
                 };
 
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -87,7 +88,7 @@
         {
             if (criteria.IsValid())
             {
-                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true);
                 _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria, mainCategories);
             }
 

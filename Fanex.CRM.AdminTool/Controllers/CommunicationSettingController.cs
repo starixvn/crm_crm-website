@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.CommunicationToolSetting;
     using Fanex.CRM.AdminTool.Models.CommunicationToolSetting;
@@ -42,9 +43,9 @@
         {
             var settings = new
             {
-                CommunicationTools = settingService.GetAllCommunicationTools(),
-                MainCategories = settingService.GetMainCategories(),
-                SubCategories = settingService.GetSubCategories()
+                CommunicationTools = settingService.GetAllCommunicationTools().Where(x => x.IsActive == true),
+                MainCategories = settingService.GetMainCategories().Where(x => x.IsActive == true),
+                SubCategories = settingService.GetSubCategories().Where(x => x.IsActive == true)
             };
 
             return Json(settings, JsonRequestBehavior.AllowGet);

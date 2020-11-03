@@ -63,6 +63,19 @@
             };
         }
 
+        public dynamic GetAllSettingsDeleteFb()
+        {
+            return new
+            {
+                CustomerType = GetCustomerTypes(),
+                Review = GetReviews(),
+                CustomerResponse = GetCustomerResponse(),
+                MainCategory = GetMainCategories().Where(x => x.IsActive == true).ToList(),
+                Communication = GetCommunicationTools().Where(x => x.IsActive == true).ToList(),
+                Status = GetStatus()
+            };
+        }
+
         public IEnumerable<DeletedFeedback> GetManageFeedbacks(ManageFeedbackCriteria criteria)
         {
             return _feedbackRepository.GetManagerFeedbacks(criteria);
@@ -158,6 +171,7 @@
             {
                 Id = SettingConstants.NotApply,
                 Name = Labels.All,
+                IsActive = true
             };
 
             var mainCategories = new List<Setting>
@@ -166,6 +180,7 @@
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.All,
+                    IsActive = true,
                     ChildSettings = new List<Setting>
                     {
                         allSubSettingOption

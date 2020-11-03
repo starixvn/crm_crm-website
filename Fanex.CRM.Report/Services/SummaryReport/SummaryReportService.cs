@@ -44,7 +44,7 @@
             }
 
             var siteTypes = _settingServices.GetAllSiteTypes();
-            var categories = _settingServices.GetAllMainCategories();
+            var categories = _settingServices.GetAllMainCategories().Where(x => x.IsActive == true);
             return new
             {
                 YearRange = yearRange,

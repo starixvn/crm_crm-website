@@ -4,6 +4,7 @@
 
     public class GetAllMainCategoryCriteria : BasedLanguageCriteria
     {
+        public byte Active { get; set; }
         public override string GetSettingKey()
         {
             return "Setting_SettingInfo_GetAllMainCategory";

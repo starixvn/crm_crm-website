@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Setting.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Common.Enumerations;
     using Common.Services;
@@ -41,7 +42,7 @@
         [HttpPost]
         public JsonResult AllCountry()
         {
-            var allCountry = _settingServiceInstance.GetAllCountries();
+            var allCountry = _settingServiceInstance.GetAllCountries().Where(x => x.IsActive == true);
             return Json(allCountry, JsonRequestBehavior.AllowGet);
         }
 
@@ -56,7 +57,7 @@
         [HttpPost]
         public JsonResult AllLanguage()
         {
-            var allLanguage = _settingServiceInstance.GetAllLanguages();
+            var allLanguage = _settingServiceInstance.GetAllLanguages().Where(x => x.IsActive == true);
             return Json(allLanguage, JsonRequestBehavior.AllowGet);
         }
 
@@ -70,14 +71,14 @@
         [HttpPost]
         public JsonResult AllCommunicationTool()
         {
-            var allCommunicationTool = _settingServiceInstance.GetAllCommunicationTools();
+            var allCommunicationTool = _settingServiceInstance.GetAllCommunicationTools().Where(x => x.IsActive == true);
             return Json(allCommunicationTool, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllMainCategory()
         {
-            var allCategory = _settingServiceInstance.GetAllMainCategories();
+            var allCategory = _settingServiceInstance.GetAllMainCategories().Where(x => x.IsActive == true);
             return Json(allCategory, JsonRequestBehavior.AllowGet);
         }
 

@@ -98,7 +98,7 @@
             var allSetting = new
             {
                 ExtensionList = serviceSetting.GetAllExtensions(),
-                CommunicationToolList = serviceSetting.GetAllCommunicationTools(),
+                CommunicationToolList = serviceSetting.GetAllCommunicationTools().Where(x => x.IsActive == true),
                 ProvinceList = serviceSetting.GetAllProvinces(),
                 StatusList = statues.Where(s => !string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase)),
                 RoleList = serviceSetting.GetAllRoles(),
@@ -107,11 +107,11 @@
                 SubProductNA = serviceSetting.GetSubProductNA(),
                 BettypeNA = serviceSetting.GetBettypeNA(),
                 ExtensionNA = serviceSetting.GetExtensionNA(),
-                ProductList = serviceSetting.GetProducts(),
-                SubProductList = serviceSetting.GetSubProducts(),
-                BettypeList = serviceSetting.GetBettypes(),
-                MainCategoryList = serviceSetting.GetMainCategories(),
-                SubCategoryList = serviceSetting.GetSubCategories(),
+                ProductList = serviceSetting.GetProducts().Where(x => x.IsActive == true),
+                SubProductList = serviceSetting.GetSubProducts().Where(x => x.IsActive == true),
+                BettypeList = serviceSetting.GetBettypes().Where(x => x.IsActive == true),
+                MainCategoryList = serviceSetting.GetMainCategories().Where(x => x.IsActive == true),
+                SubCategoryList = serviceSetting.GetSubCategories().Where(x => x.IsActive == true),
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
@@ -128,10 +128,10 @@
             var allSetting = new
             {
                 ExtensionList = serviceSetting.GetAllExtensions(),
-                CountryList = serviceSetting.GetAllCountries(),
+                CountryList = serviceSetting.GetAllCountries().Where(x => x.IsActive == true),
                 ProvinceList = serviceSetting.GetAllProvinces(),
-                CommunicationToolList = serviceSetting.GetAllCommunicationTools(),
-                LanguageList = serviceSetting.GetAllLanguages(),
+                CommunicationToolList = serviceSetting.GetAllCommunicationTools().Where(x => x.IsActive == true),
+                LanguageList = serviceSetting.GetAllLanguages().Where(x => x.IsActive == true),
                 StatusList = serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool),
                 SiteList = siteList,
                 RoleList = serviceSetting.GetAllRoles(),
@@ -141,11 +141,11 @@
                 SubProductNA = serviceSetting.GetSubProductNA(),
                 BettypeNA = serviceSetting.GetBettypeNA(),
                 ExtensionNA = serviceSetting.GetExtensionNA(),
-                ProductList = serviceSetting.GetProducts(),
-                SubProductList = serviceSetting.GetSubProducts(),
-                BettypeList = serviceSetting.GetBettypes(),
-                MainCategoryList = serviceSetting.GetMainCategories(),
-                SubCategoryList = serviceSetting.GetSubCategories(),
+                ProductList = serviceSetting.GetProducts().Where(x => x.IsActive == true),
+                SubProductList = serviceSetting.GetSubProducts().Where(x => x.IsActive == true),
+                BettypeList = serviceSetting.GetBettypes().Where(x => x.IsActive == true),
+                MainCategoryList = serviceSetting.GetMainCategories().Where(x => x.IsActive == true),
+                SubCategoryList = serviceSetting.GetSubCategories().Where(x => x.IsActive == true)
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

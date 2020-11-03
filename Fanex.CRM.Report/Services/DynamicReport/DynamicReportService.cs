@@ -75,7 +75,7 @@
 
         public IEnumerable<Product> GetAllSubProducts()
         {
-            var subProducts = _serviceSetting.GetAllSubProducts();
+            var subProducts = _serviceSetting.GetAllSubProducts().Where(x => x.IsActive == true).ToList();
             var notApplyItem = subProducts.FirstOrDefault(x => x.Id == SettingConstants.NotApply);
 
             if (notApplyItem == null)
@@ -98,7 +98,7 @@
 
         public IEnumerable<Product> GetAllProducts()
         {
-            var products = _serviceSetting.GetAllProducts();
+            var products = _serviceSetting.GetAllProducts().Where(x => x.IsActive == true).ToList();
             var itemProductAll = CreateItemAll();
 
             products.Insert(0, itemProductAll);
@@ -167,7 +167,7 @@
 
         public IEnumerable<Setting> GetAllCommunicationTools()
         {
-            var tools = _serviceSetting.GetAllCommunicationTools(true);
+            var tools = _serviceSetting.GetAllCommunicationTools(true).Where(x => x.IsActive == true).ToList();
             tools.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
 
             return tools;
@@ -176,7 +176,7 @@
         public IEnumerable<Setting> GetAllMainCategories()
         {
             var allMainCategory = new List<Setting>();
-            var rawData = _serviceSetting.GetAllMainCategories();
+            var rawData = _serviceSetting.GetAllMainCategories().Where(x => x.IsActive == true);
             var allSubSettingOption = new Setting
             {
                 Id = SettingConstants.NotApply,

@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Dashboard.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Common.Services;
     using Fanex.CRM.Common.Constants;
@@ -103,7 +104,7 @@
             var result = new
             {
                 CommunicationLogs = communicationLogs,
-                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true)
             };
 
             return Json(result, JsonRequestBehavior.AllowGet);

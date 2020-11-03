@@ -4,6 +4,7 @@
 
     public class GetAllCountryCriteria : BasedLanguageCriteria
     {
+        public byte Active { get; set; }
         public override string GetSettingKey()
         {
             return "Setting_SettingInfo_GetAllCountry";

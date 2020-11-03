@@ -11,6 +11,8 @@
 
         dynamic GetAllSettings();
 
+        dynamic GetAllSettingsDeleteFb();
+
         IEnumerable<DeletedFeedback> GetManageFeedbacks(ManageFeedbackCriteria criteria);
 
         IEnumerable<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria);

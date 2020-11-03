@@ -11,6 +11,7 @@
     using Models.DeletedFeedbackStatistics;
     using Setting.Services;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
 
@@ -47,7 +48,7 @@
                 return Json(new
                 {
                     ReportData = _deletedFeedbackStatisticsService.GetReport(criteria),
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true)
                 });
             }
 
@@ -67,7 +68,7 @@
             if (criteria.IsValid())
             {
                 var report = _deletedFeedbackStatisticsService.GetReport(criteria);
-                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true);
 
                 var excelFileName = Regex.Replace(report.Name, @"\W+", "_");
                 BaseExcel deletedFeedbackStatisticsExcel = new DeletedFeedbackStatisticsExcel(report, excelFileName, mainCategories);

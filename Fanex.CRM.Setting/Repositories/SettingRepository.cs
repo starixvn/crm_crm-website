@@ -51,7 +51,8 @@
                             Id = Converter.ToInt(reader["SettingId"]),
                             Value = Converter.ToString2(reader["SettingValue"]),
                             IsChild = Converter.ToInt(reader["IsSub"]) == 1,
-                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"])
+                            DisplayOrder = Converter.ToInt(reader["DisplayOrder"]),
+                            IsActive = Converter.ToBool(reader["IsActive"])
                         };
 
                         settings.Add(setting);

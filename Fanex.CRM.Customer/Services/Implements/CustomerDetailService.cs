@@ -1,5 +1,6 @@
 ﻿namespace Fanex.CRM.Customer.Services
 {
+    using System.Linq;
     using Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
@@ -64,10 +65,10 @@
             return new
             {
                 Titles = _settingService.GetAllTitles(),
-                Languages = _settingService.GetAllLanguages(),
+                Languages = _settingService.GetAllLanguages().Where(x => x.IsActive == true),
                 Sites = userRole == UserRole.CN88Staff ? _settingService.GetAllSitesCN88() : _settingService.GetAllSites(),
                 LicenseeTypes = _settingService.GetAllLicenseeTypes(),
-                Countries = _settingService.GetAllCountries(),
+                Countries = _settingService.GetAllCountries().Where(x => x.IsActive == true),
                 Provinces = _settingService.GetAllProvinces()
             };
         }

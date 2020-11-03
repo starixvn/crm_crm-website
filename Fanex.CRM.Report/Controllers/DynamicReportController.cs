@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Common.Attributes;
     using Fanex.CRM.Common.Constants;
@@ -63,7 +64,7 @@
                 var logs = _dynamicReportService.GetDynamicReport(criteria);
                 var result = new
                 {
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true),
                     Logs = logs
                 };
 
@@ -83,7 +84,7 @@
         {
             if (criteria.IsValid())
             {
-                var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+                var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true);
                 _dynamicReportService.ExportDynamicReport(criteria, mainCategory);
             }
 
