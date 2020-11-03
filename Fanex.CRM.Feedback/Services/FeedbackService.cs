@@ -70,8 +70,8 @@
                 CustomerType = GetCustomerTypes(),
                 Review = GetReviews(),
                 CustomerResponse = GetCustomerResponse(),
-                MainCategory = GetMainCategories().Where(x => x.IsActive == true).ToList(),
-                Communication = GetCommunicationTools().Where(x => x.IsActive == true).ToList(),
+                MainCategory = GetMainCategories().Where(x => x.IsActive).ToList(),
+                Communication = GetCommunicationTools().Where(x => x.IsActive).ToList(),
                 Status = GetStatus()
             };
         }

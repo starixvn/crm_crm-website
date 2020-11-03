@@ -65,10 +65,10 @@
             return new
             {
                 Titles = _settingService.GetAllTitles(),
-                Languages = _settingService.GetAllLanguages().Where(x => x.IsActive == true),
+                Languages = _settingService.GetAllLanguages().Where(x => x.IsActive),
                 Sites = userRole == UserRole.CN88Staff ? _settingService.GetAllSitesCN88() : _settingService.GetAllSites(),
                 LicenseeTypes = _settingService.GetAllLicenseeTypes(),
-                Countries = _settingService.GetAllCountries().Where(x => x.IsActive == true),
+                Countries = _settingService.GetAllCountries().Where(x => x.IsActive),
                 Provinces = _settingService.GetAllProvinces()
             };
         }

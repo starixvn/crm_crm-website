@@ -64,7 +64,7 @@
                 var logs = _dynamicReportService.GetDynamicReport(criteria);
                 var result = new
                 {
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true),
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive),
                     Logs = logs
                 };
 
@@ -84,7 +84,7 @@
         {
             if (criteria.IsValid())
             {
-                var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true);
+                var mainCategory = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive);
                 _dynamicReportService.ExportDynamicReport(criteria, mainCategory);
             }
 

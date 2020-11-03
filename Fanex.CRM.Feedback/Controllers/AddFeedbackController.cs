@@ -44,7 +44,7 @@
 
         public AllSettingToAddFeedback AllSettingToAddFeedback(UserRole userRole)
         {
-            var languages = ServiceSetting.GetAllLanguages().Where(x => x.IsActive == true).ToList();
+            var languages = ServiceSetting.GetAllLanguages().Where(x => x.IsActive).ToList();
             languages.Insert(
                 0,
                 new Setting
@@ -53,7 +53,7 @@
                     Name = Labels.Symbol_NA
                 });
 
-            var countries = ServiceSetting.GetAllCountries().Where(x => x.IsActive == true).ToList();
+            var countries = ServiceSetting.GetAllCountries().Where(x => x.IsActive).ToList();
             if (AppSession.CurrentUser.UserRole != UserRole.CN88Staff)
             {
                 countries.Insert(
@@ -70,10 +70,10 @@
             var settings = new AllSettingToAddFeedback
             {
                 ExtensionList = ServiceSetting.GetAllExtensions(),
-                CountryList = countries.Where(x => x.IsActive == true),
+                CountryList = countries.Where(x => x.IsActive),
                 ProvinceList = ServiceSetting.GetAllProvinces(),
-                CommunicationToolList = ServiceSetting.GetAllCommunicationTools().Where(x => x.IsActive == true),
-                LanguageList = languages.Where(x => x.IsActive == true),
+                CommunicationToolList = ServiceSetting.GetAllCommunicationTools().Where(x => x.IsActive),
+                LanguageList = languages.Where(x => x.IsActive),
                 SiteList = (userRole == UserRole.CN88Staff) ? ServiceSetting.GetAllSiteWithGroupCN88() : ServiceSetting.GetAllSiteWithGroup(),
                 ResponseList = ServiceSetting.GetAllResponses(),
                 StatusList = statusList,
@@ -83,11 +83,11 @@
                 SubProductNA = ServiceSetting.GetSubProductNA(),
                 BettypeNA = ServiceSetting.GetBettypeNA(),
                 ExtensionNA = ServiceSetting.GetExtensionNA(),
-                ProductList = ServiceSetting.GetProducts().Where(x => x.IsActive == true),
-                SubProductList = ServiceSetting.GetSubProducts().Where(x => x.IsActive == true),
-                BettypeList = ServiceSetting.GetBettypes().Where(x => x.IsActive == true),
-                MainCategoryList = ServiceSetting.GetMainCategories().Where(x => x.IsActive == true),
-                SubCategoryList = ServiceSetting.GetSubCategories().Where(x => x.IsActive == true),
+                ProductList = ServiceSetting.GetProducts().Where(x => x.IsActive),
+                SubProductList = ServiceSetting.GetSubProducts().Where(x => x.IsActive),
+                BettypeList = ServiceSetting.GetBettypes().Where(x => x.IsActive),
+                MainCategoryList = ServiceSetting.GetMainCategories().Where(x => x.IsActive),
+                SubCategoryList = ServiceSetting.GetSubCategories().Where(x => x.IsActive),
             };
 
             return settings;

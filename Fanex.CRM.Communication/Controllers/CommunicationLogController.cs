@@ -71,10 +71,10 @@
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
-                CountryList = _serviceSetting.GetAllCountries().Where(x => x.IsActive == true),
+                CountryList = _serviceSetting.GetAllCountries().Where(x => x.IsActive),
                 ProvinceList = _serviceSetting.GetAllProvinces(),
-                CommunicationToolList = _serviceSetting.GetAllCommunicationTools().Where(x => x.IsActive == true),
-                LanguageList = _serviceSetting.GetAllLanguages().Where(x => x.IsActive == true),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools().Where(x => x.IsActive),
+                LanguageList = _serviceSetting.GetAllLanguages().Where(x => x.IsActive),
                 StatusList = statusList,
                 SiteList = siteList,
                 RoleList = _serviceSetting.GetAllRoles(),
@@ -84,11 +84,11 @@
                 SubProductNA = _serviceSetting.GetSubProductNA(),
                 BettypeNA = _serviceSetting.GetBettypeNA(),
                 ExtensionNA = _serviceSetting.GetExtensionNA(),
-                ProductList = _serviceSetting.GetProducts().Where(x => x.IsActive == true),
-                SubProductList = _serviceSetting.GetSubProducts().Where(x => x.IsActive == true),
-                BettypeList = _serviceSetting.GetBettypes().Where(x => x.IsActive == true),
-                MainCategoryList = _serviceSetting.GetMainCategories().Where(x => x.IsActive == true),
-                SubCategoryList = _serviceSetting.GetSubCategories().Where(x => x.IsActive == true)
+                ProductList = _serviceSetting.GetProducts().Where(x => x.IsActive),
+                SubProductList = _serviceSetting.GetSubProducts().Where(x => x.IsActive),
+                BettypeList = _serviceSetting.GetBettypes().Where(x => x.IsActive),
+                MainCategoryList = _serviceSetting.GetMainCategories().Where(x => x.IsActive),
+                SubCategoryList = _serviceSetting.GetSubCategories().Where(x => x.IsActive)
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
@@ -105,10 +105,10 @@
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
-                CountryList = _serviceSetting.GetAllCountries().Where(x => x.IsActive == true),
+                CountryList = _serviceSetting.GetAllCountries().Where(x => x.IsActive),
                 ProvinceList = _serviceSetting.GetAllProvinces(),
-                CommunicationToolList = _serviceSetting.GetAllCommunicationTools().Where(x => x.IsActive == true),
-                LanguageList = _serviceSetting.GetAllLanguages().Where(x => x.IsActive == true),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools().Where(x => x.IsActive),
+                LanguageList = _serviceSetting.GetAllLanguages().Where(x => x.IsActive),
                 StatusList = _communicationServiceLog.AllStatusForInsert,
                 SiteList = siteList,
                 RoleList = _serviceSetting.GetAllRoles(),
@@ -119,11 +119,11 @@
                 SubProductNA = _serviceSetting.GetSubProductNA(),
                 BettypeNA = _serviceSetting.GetBettypeNA(),
                 ExtensionNA = _serviceSetting.GetExtensionNA(),
-                ProductList = _serviceSetting.GetProducts().Where(x => x.IsActive == true),
-                SubProductList = _serviceSetting.GetSubProducts().Where(x => x.IsActive == true),
-                BettypeList = _serviceSetting.GetBettypes().Where(x => x.IsActive == true),
-                MainCategoryList = _serviceSetting.GetMainCategories().Where(x => x.IsActive == true),
-                SubCategoryList = _serviceSetting.GetSubCategories().Where(x => x.IsActive == true)
+                ProductList = _serviceSetting.GetProducts().Where(x => x.IsActive),
+                SubProductList = _serviceSetting.GetSubProducts().Where(x => x.IsActive),
+                BettypeList = _serviceSetting.GetBettypes().Where(x => x.IsActive),
+                MainCategoryList = _serviceSetting.GetMainCategories().Where(x => x.IsActive),
+                SubCategoryList = _serviceSetting.GetSubCategories().Where(x => x.IsActive)
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
@@ -136,7 +136,7 @@
             var logs = _communicationServiceLog.GetLogsByCustomerId(criteria);
             var result = new
             {
-                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true),
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive),
                 Logs = logs
             };
 

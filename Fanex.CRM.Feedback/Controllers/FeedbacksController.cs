@@ -115,7 +115,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 {
                     Title = title.Trim(),
                     Feedbacks = feedbacks,
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true)
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive)
                 },
                 JsonRequestBehavior.AllowGet);
 
@@ -141,7 +141,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 {
                     Feedbacks = feedbacks,
                     TotalItems = criteria.TotalItems,
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true)
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive)
                 };
                 return Json(report, JsonRequestBehavior.DenyGet);
             }
@@ -164,7 +164,7 @@ namespace Fanex.CRM.Feedback.Controllers
             var title = string.Format(Labels.LatestFeedbackReportTitle, criteria.Top, fromCustomerText);
             var feedbacks = _feedbackService.GetLatestFeedbackReport(criteria);
 
-            var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true);
+            var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive);
             BaseExcel latestFeedbackExcel = new LatestFeedbackExcel(feedbacks, title.Trim(), mainCategories);
             latestFeedbackExcel.BuildWorkBook();
         }
@@ -194,7 +194,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 criteria.IsExportExcel = true;
                 var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
 
-                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true);
+                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive);
                 BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, mainCategories, Labels.DeletedFeedbackTitle);
                 deletedFeedbackExcel.BuildWorkBook();
             }

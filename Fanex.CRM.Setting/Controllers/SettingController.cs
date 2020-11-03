@@ -42,7 +42,7 @@
         [HttpPost]
         public JsonResult AllCountry()
         {
-            var allCountry = _settingServiceInstance.GetAllCountries().Where(x => x.IsActive == true);
+            var allCountry = _settingServiceInstance.GetAllCountries().Where(x => x.IsActive);
             return Json(allCountry, JsonRequestBehavior.AllowGet);
         }
 
@@ -57,7 +57,7 @@
         [HttpPost]
         public JsonResult AllLanguage()
         {
-            var allLanguage = _settingServiceInstance.GetAllLanguages().Where(x => x.IsActive == true);
+            var allLanguage = _settingServiceInstance.GetAllLanguages().Where(x => x.IsActive);
             return Json(allLanguage, JsonRequestBehavior.AllowGet);
         }
 
@@ -71,14 +71,14 @@
         [HttpPost]
         public JsonResult AllCommunicationTool()
         {
-            var allCommunicationTool = _settingServiceInstance.GetAllCommunicationTools().Where(x => x.IsActive == true);
+            var allCommunicationTool = _settingServiceInstance.GetAllCommunicationTools().Where(x => x.IsActive);
             return Json(allCommunicationTool, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllMainCategory()
         {
-            var allCategory = _settingServiceInstance.GetAllMainCategories().Where(x => x.IsActive == true);
+            var allCategory = _settingServiceInstance.GetAllMainCategories().Where(x => x.IsActive);
             return Json(allCategory, JsonRequestBehavior.AllowGet);
         }
 

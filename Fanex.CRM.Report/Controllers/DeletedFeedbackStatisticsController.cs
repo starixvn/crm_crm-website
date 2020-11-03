@@ -48,7 +48,7 @@
                 return Json(new
                 {
                     ReportData = _deletedFeedbackStatisticsService.GetReport(criteria),
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true)
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive)
                 });
             }
 
@@ -68,7 +68,7 @@
             if (criteria.IsValid())
             {
                 var report = _deletedFeedbackStatisticsService.GetReport(criteria);
-                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true);
+                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive);
 
                 var excelFileName = Regex.Replace(report.Name, @"\W+", "_");
                 BaseExcel deletedFeedbackStatisticsExcel = new DeletedFeedbackStatisticsExcel(report, excelFileName, mainCategories);

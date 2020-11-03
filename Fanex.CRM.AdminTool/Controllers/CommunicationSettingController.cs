@@ -43,9 +43,9 @@
         {
             var settings = new
             {
-                CommunicationTools = settingService.GetAllCommunicationTools().Where(x => x.IsActive == true),
-                MainCategories = settingService.GetMainCategories().Where(x => x.IsActive == true),
-                SubCategories = settingService.GetSubCategories().Where(x => x.IsActive == true)
+                CommunicationTools = settingService.GetAllCommunicationTools().Where(x => x.IsActive),
+                MainCategories = settingService.GetMainCategories().Where(x => x.IsActive),
+                SubCategories = settingService.GetSubCategories().Where(x => x.IsActive)
             };
 
             return Json(settings, JsonRequestBehavior.AllowGet);

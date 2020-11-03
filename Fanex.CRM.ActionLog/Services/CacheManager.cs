@@ -31,7 +31,7 @@
         {
             var settingService = new SettingService();
 
-            var countries = settingService.GetAllCountries().Where(x => x.IsActive == true)
+            var countries = settingService.GetAllCountries().Where(x => x.IsActive)
                 .Select(c => new Setting { Id = c.Id, Value = c.Name, SettingType = "Country" });
 
             var currencies = settingService.GetAllCurrencies(new GetAllCurrencyCriteria())

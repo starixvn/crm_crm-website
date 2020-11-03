@@ -67,7 +67,7 @@
                 var result = new
                 {
                     Report = _feedbackStatisticService.FeedbackStatisticDetail(criteria),
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true),
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive),
                 };
 
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -88,7 +88,7 @@
         {
             if (criteria.IsValid())
             {
-                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive == true);
+                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive);
                 _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria, mainCategories);
             }
 
