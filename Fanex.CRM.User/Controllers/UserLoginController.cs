@@ -10,6 +10,7 @@
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.User.Resources;
+    using Fanex.Logging;
     using Models;
     using NAP.Core.Configuration;
     using NAP.Core.Web;
@@ -143,6 +144,8 @@
         [HttpGet]
         public ActionResult SSO(SSOLogin ssoLogin)
         {
+            LogService.Warn(ssoLogin.Time);
+
             if (_maintenanceService.IsUnderMaintenance())
             {
                 return RedirectToAction("Offline", "Common");
@@ -155,11 +158,15 @@
             var loginStatus = _ssoService.SingleSignOn(ssoLogin);
             if (loginStatus == LoginStatus.LoginSuccessful)
             {
+                LogService.Info(ssoLogin.Time);
+                SerilogHelper.WriteInformation(ssoLogin.Time);
                 var url = string.Format("{0}/auth/SingleSignOn?UserId={1}&OnUserId={2}&Time={3}",
                     ExternalDomain,
                     ssoLogin.UserId,
                     ssoLogin.OnUserId,
                     ssoLogin.Time);
+                LogService.Info(url);
+                SerilogHelper.WriteInformation(url);
                 return new RedirectResult(url, false);
             }
 
