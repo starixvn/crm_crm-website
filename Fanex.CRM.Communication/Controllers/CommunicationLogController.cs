@@ -71,10 +71,10 @@
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.GetAllExtensions(),
-                CountryList = _serviceSetting.GetAllCountries().Where(x => x.IsActive),
+                CountryList = _serviceSetting.GetAllCountries(),
                 ProvinceList = _serviceSetting.GetAllProvinces(),
-                CommunicationToolList = _serviceSetting.GetAllCommunicationTools().Where(x => x.IsActive),
-                LanguageList = _serviceSetting.GetAllLanguages().Where(x => x.IsActive),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                LanguageList = _serviceSetting.GetAllLanguages(),
                 StatusList = statusList,
                 SiteList = siteList,
                 RoleList = _serviceSetting.GetAllRoles(),
@@ -84,11 +84,11 @@
                 SubProductNA = _serviceSetting.GetSubProductNA(),
                 BettypeNA = _serviceSetting.GetBettypeNA(),
                 ExtensionNA = _serviceSetting.GetExtensionNA(),
-                ProductList = _serviceSetting.GetProducts().Where(x => x.IsActive),
-                SubProductList = _serviceSetting.GetSubProducts().Where(x => x.IsActive),
-                BettypeList = _serviceSetting.GetBettypes().Where(x => x.IsActive),
-                MainCategoryList = _serviceSetting.GetMainCategories().Where(x => x.IsActive),
-                SubCategoryList = _serviceSetting.GetSubCategories().Where(x => x.IsActive)
+                ProductList = _serviceSetting.GetProducts(),
+                SubProductList = _serviceSetting.GetSubProducts(),
+                BettypeList = _serviceSetting.GetBettypes(),
+                MainCategoryList = _serviceSetting.GetMainCategories(),
+                SubCategoryList = _serviceSetting.GetSubCategories()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
@@ -111,8 +111,8 @@
                 LanguageList = _serviceSetting.GetAllLanguages().Where(x => x.IsActive),
                 StatusList = _communicationServiceLog.AllStatusForInsert,
                 SiteList = siteList,
-                RoleList = _serviceSetting.GetAllRoles(),
-                ResponseList = _serviceSetting.GetAllResponses(),
+                RoleList = _serviceSetting.GetAllRoles().Where(x => x.IsActive),
+                ResponseList = _serviceSetting.GetAllResponses().Where(x => x.IsActive),
                 LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
                 DefaultSettings = _communicationServiceLog.GetCustomerDefaultSetting(new GetDefaultSettingsCriteria { CustId = custId }),
                 ProductNA = _serviceSetting.GetProductNA(),
@@ -136,7 +136,7 @@
             var logs = _communicationServiceLog.GetLogsByCustomerId(criteria);
             var result = new
             {
-                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive),
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
                 Logs = logs
             };
 

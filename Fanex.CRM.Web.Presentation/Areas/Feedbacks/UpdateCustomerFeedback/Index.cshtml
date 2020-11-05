@@ -355,7 +355,7 @@
                                     <label for="ddlresponse">@Labels.Response</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlresponse" tabindex="72" data-ng-model="feedback.Response" data-ng-options="s.Value for s in settings.Responses track by s.Id"></select>
+                                    <select id="ddlresponse" tabindex="72" data-ng-model="feedback.Response" data-ng-options="s.Value for s in settingResponses track by s.Id"></select>
                                 </div>
                             </div>
                             <div class="row item">
@@ -363,7 +363,7 @@
                                     <label for="ddlrole">@Labels.Role</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlrole" tabindex="71" data-ng-model="feedback.Role" data-ng-options="s.Value for s in settings.Roles track by s.Id"></select>
+                                    <select id="ddlrole" tabindex="71" data-ng-model="feedback.Role" data-ng-options="s.Value for s in settingRoles track by s.Id"></select>
                                 </div>
                             </div>
                         </div>
@@ -407,7 +407,7 @@
                                     @Html.Raw(Labels.RequiredFieldTemplate)
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddllanguage" tabindex="69" data-ng-model="feedback.Language" data-ng-options="s.Name for s in settings.Languages track by s.Id"></select>
+                                    <select id="ddllanguage" tabindex="69" data-ng-model="feedback.Language" data-ng-options="s.Name for s in settingLanguages track by s.Id"></select>
                                 </div>
                             </div>
                             <div class="row item">
@@ -415,7 +415,7 @@
                                     <label for="ddlcountry">@Labels.Country</label>
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8">
-                                    <select id="ddlcountry" tabindex="68" data-ng-model="feedback.Country" data-ng-options="s.Name for s in settings.Countries track by s.Id"></select>
+                                    <select id="ddlcountry" tabindex="68" data-ng-model="feedback.Country" data-ng-options="s.Name for s in settingCountries track by s.Id"></select>
                                 </div>
                             </div>
                         </div>

@@ -486,6 +486,7 @@
     <Content Include="logs\log.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\ShareScripts\ActiveInActiveSetting.js" />
     <Content Include="wwwroot\dist\js\changes.log.js" />
     <Content Include="wwwroot\dist\styles\changes.log.css" />
     <Content Include="wwwroot\dist\styles\changes.log.js" />

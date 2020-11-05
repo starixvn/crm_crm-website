@@ -256,44 +256,66 @@
                             $scope.communicationDropdownSettings = {
                                 idMember: "Id",
                                 nameMember: "Name",
-                                sourceData: $scope.allSettings.CommunicationToolList
+                                sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                                    $scope.feedback.Settings,
+                                    $scope.allSettings.CommunicationToolList, "Communication", "Communication")
                             };
 
                             $scope.extensionDropdownSettings = {
                                 idMember: "Id",
                                 nameMember: "Value",
-                                sourceData: $scope.allSettings.ExtensionList
+                                sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                                    $scope.feedback.Settings,
+                                    $scope.allSettings.ExtensionList, "Station", "Station")
                             };
-
+                            
                             $scope.categoryDropdownSettings = {
                                 idMember: "Id",
                                 nameMember: "Name",
-                                sourceData: $scope.allSettings.MainCategoryList
+                                sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                                    $scope.feedback.Settings,
+                                    $scope.allSettings.MainCategoryList, "Category", "Category")
                             };
 
                             $scope.subCategoryDropdownSettings = {
                                 idMember: "Id",
                                 nameMember: "Name",
-                                sourceData: $scope.allSettings.SubCategoryList
+                                sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                                    $scope.feedback.Settings,
+                                    $scope.allSettings.SubCategoryList, "Category", "SubCategory")
                             };
 
                             $scope.productDropdownSettings = {
                                 idMember: "Id",
                                 nameMember: "Name",
-                                sourceData: $scope.allSettings.ProductList
+                                sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                                    $scope.feedback.Settings,
+                                    $scope.allSettings.ProductList, "Product", "Product")
                             };
 
                             $scope.subProductDropdownSettings = {
                                 idMember: "Id",
                                 nameMember: "Name",
-                                sourceData: $scope.allSettings.SubProductList
+                                sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                                    $scope.feedback.Settings,
+                                    $scope.allSettings.SubProductList, "Product", "SubProduct")
                             };
 
                             $scope.bettypeDropdownSettings = {
                                 idMember: "Id",
                                 nameMember: "Name",
-                                sourceData: $scope.allSettings.BettypeList
+                                sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                                     $scope.feedback.Settings,
+                                     $scope.allSettings.BettypeList, "Product", "Bettype")
                             };
+                            
+                            $scope.settingRoles = activeInActiveSetting.getActiveSettingRelation($scope.feedback, "updateFeedback", $scope.settings.Roles, "Role");
+
+                            $scope.settingResponses = activeInActiveSetting.getActiveSettingRelation($scope.feedback, "updateFeedback", $scope.settings.Responses, "Response");
+
+                            $scope.settingLanguages = activeInActiveSetting.getActiveSettingRelation($scope.feedback, "updateFeedback", $scope.settings.Languages, "Language");
+
+                            $scope.settingCountries = activeInActiveSetting.getActiveSettingRelation($scope.feedback, "updateFeedback", $scope.settings.Countries, "Country");
 
                             $scope.updateAllSettingsForFeedback();
                             $scope.initRelatedCustomer();

@@ -64,7 +64,7 @@
         {
             return new
             {
-                Titles = _settingService.GetAllTitles(),
+                Titles = _settingService.GetAllTitles().Where(x => x.IsActive),
                 Languages = _settingService.GetAllLanguages().Where(x => x.IsActive),
                 Sites = userRole == UserRole.CN88Staff ? _settingService.GetAllSitesCN88() : _settingService.GetAllSites(),
                 LicenseeTypes = _settingService.GetAllLicenseeTypes(),

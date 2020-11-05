@@ -617,18 +617,35 @@
                     var allSetting = data.Result;
                     $scope.allSettings = data.Result;
 
-                    $scope.countryList = allSetting.CountryList;
+                    $scope.countryList = activeInActiveSetting.getActiveSettingRelation(
+                        $scope.communicationLog,
+                        "editLog",
+                        allSetting.CountryList, "Country");
+
                     $scope.provinceList = allSetting.ProvinceList;
-                    $scope.languageList = allSetting.LanguageList;
+                    $scope.languageList = activeInActiveSetting.getActiveSettingRelation(
+                        $scope.communicationLog,
+                        "editLog",
+                        allSetting.LanguageList, "Language");
+
                     $scope.statusList = allSetting.StatusList;
                     $scope.siteList = allSetting.SiteList;
-                    $scope.roleList = allSetting.RoleList;
-                    $scope.responseList = allSetting.ResponseList;
+                    $scope.roleList = activeInActiveSetting.getActiveSettingRelation(
+                        $scope.communicationLog,
+                        "editLog",
+                        allSetting.RoleList, "Role");
+
+                    $scope.responseList = activeInActiveSetting.getActiveSettingRelation(
+                        $scope.communicationLog,
+                        "editLog",
+                        allSetting.ResponseList, "Response");
+
                     $scope.licenseeTypeOptions = {
                         DataList: allSetting.LicenseeType,
                         OnChangeEvent: $scope.updateSelectedLicenseeType,
                         SelectedId: $scope.communicationLog.LicenseeType.Id
                     };
+
                     $scope.selectedSite = $scope.communicationLog.SiteInfo;
                     $scope.siteDropdownSettings = {
                         idMember: "Id",
@@ -640,43 +657,58 @@
                     $scope.communicationDropdownSettings = {
                         idMember: "Id",
                         nameMember: "Name",
-                        sourceData: $scope.allSettings.CommunicationToolList
+                        sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                            $scope.communicationLog.Settings,
+                            $scope.allSettings.CommunicationToolList,
+                            "Communication", "Communication")
                     };
 
                     $scope.extensionDropdownSettings = {
                         idMember: "Id",
                         nameMember: "Value",
-                        sourceData: $scope.allSettings.ExtensionList
+                        sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                            $scope.communicationLog.Settings,
+                            $scope.allSettings.ExtensionList, "Station", "Station")
                     };
 
                     $scope.categoryDropdownSettings = {
                         idMember: "Id",
                         nameMember: "Name",
-                        sourceData: $scope.allSettings.MainCategoryList
+                        sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                            $scope.communicationLog.Settings,
+                            $scope.allSettings.MainCategoryList, "Category", "Category")
                     };
 
                     $scope.subCategoryDropdownSettings = {
                         idMember: "Id",
                         nameMember: "Name",
-                        sourceData: $scope.allSettings.SubCategoryList
+                        sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                            $scope.communicationLog.Settings,
+                            $scope.allSettings.SubCategoryList, "Category", "SubCategory")
                     };
 
                     $scope.productDropdownSettings = {
                         idMember: "Id",
                         nameMember: "Name",
-                        sourceData: $scope.allSettings.ProductList
+                        sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                            $scope.communicationLog.Settings,
+                            $scope.allSettings.ProductList, "Product", "Product")
                     };
 
                     $scope.subProductDropdownSettings = {
                         idMember: "Id",
                         nameMember: "Name",
-                        sourceData: $scope.allSettings.SubProductList
+                        sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                            $scope.communicationLog.Settings,
+                            $scope.allSettings.SubProductList, "Product", "SubProduct")
                     };
 
                     $scope.bettypeDropdownSettings = {
                         idMember: "Id",
                         nameMember: "Name",
-                        sourceData: $scope.allSettings.BettypeList
+                        sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
+                            $scope.communicationLog.Settings,
+                            $scope.allSettings.BettypeList, "Product", "Bettype")
                     };
 
                     $scope.updateAllSettingsForLog();

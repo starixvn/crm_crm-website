@@ -206,7 +206,7 @@
             {
                 SettingName = SettingTypeConstants.Title,
                 ParentId = 0,
-                Active = SettingConstants.Active
+                Active = SettingConstants.ActiveAndInactive
             });
 
             CacheService.Set(GetAllTitleSessionKey, allTitles);
@@ -630,7 +630,7 @@
             {
                 SettingName = SettingTypeConstants.Role,
                 ParentId = 0,
-                Active = SettingConstants.Active
+                Active = SettingConstants.ActiveAndInactive
             });
 
             CacheService.Set(GetAllRoleSessionKey, allRole);
@@ -649,7 +649,7 @@
             {
                 SettingName = SettingTypeConstants.Response,
                 ParentId = 0,
-                Active = SettingConstants.Active
+                Active = SettingConstants.ActiveAndInactive
             });
 
             CacheService.Set(GetAllResponseSessionKey, allResponse);

@@ -111,6 +111,7 @@
             feedback.Response.Name = settings.First(s => s.Id == feedback.Response.Id).Value;
             feedback.Status.Name = settings.First(s => s.Id == feedback.Status.Id).Value;
             feedback.Role.Name = settings.First(s => s.Id == feedback.Role.Id).Value;
+
         }
 
         public void UpdateFeedback(UpdateCustomerFeedbackCriteria criteria)

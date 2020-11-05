@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.Report.Excels.LogStatistics
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
@@ -62,6 +63,21 @@
             ICellStyle centerTextStyle)
         {
             var duration = info.Duration;
+            var inactivecommunications = _communicationToolList.Where(x => !x.IsActive && x.Id == info.CommunicationID);
+            var communications = inactivecommunications.Any() ? _communicationToolList : _communicationToolList.Where(x => x.IsActive);
+
+            var inactiveExtensions = _extensionList.Where(x => !x.IsActive && x.Id == info.StationID);
+            var extensions = inactiveExtensions.Any() ? _extensionList : _extensionList.Where(x => x.IsActive); 
+
+            var inactiveProducts = _productList.Where(x => !x.IsActive && x.Id == info.ProductID);
+            var products = inactiveProducts.Any() ? _productList : _productList.Where(x => x.IsActive);
+
+            var inactiveSubproducts = _subProductList.Where(x => !x.IsActive && x.Id == info.SubProductID);
+            var subproducts = inactiveSubproducts.Any() ? _subProductList : _subProductList.Where(x => x.IsActive);
+
+            var inactiveMainCategory = _mainCategory.Where(x => !x.IsActive && x.Id == info.CategoryID);
+            var mainCategories = inactiveMainCategory.Any() ? _mainCategory : _mainCategory.Where(x => x.IsActive);
+
             var durationText = string.Format(
                 "{0}:{1}:{2}",
                 duration.Days.ToString("00"),
@@ -76,15 +92,15 @@
             exportExcelInfo.RenderCell(durationText, centerTextStyle);
             exportExcelInfo.RenderCell(info.Username, centerTextStyle);
             exportExcelInfo.RenderCell(info.SiteInfo.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(NameMapping.GetCommunicationName(info.CommunicationID, _communicationToolList), centerTextStyle);
-            exportExcelInfo.RenderCell(NameMapping.GetExtensionName(info.StationID, _extensionList), centerTextStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetCommunicationName(info.CommunicationID, communications), centerTextStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetExtensionName(info.StationID, extensions), centerTextStyle);
             exportExcelInfo.RenderCell(info.Role, textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Contact), textStyle);
-            exportExcelInfo.RenderCell(NameMapping.GetProductName(info.ProductID, _productList), textStyle);
-            exportExcelInfo.RenderCell(NameMapping.GetSubProductName(info.SubProductID, _subProductList), textStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetProductName(info.ProductID, products), textStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetSubProductName(info.SubProductID, subproducts), textStyle);
             exportExcelInfo.RenderCell(info.Country.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(NameMapping.GetMainCategoryName(info.CategoryID, _mainCategory), textStyle);
-            exportExcelInfo.RenderCell(NameMapping.GetSubCategoryName(info.CategoryID, info.SubCategoryID, _mainCategory), textStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetMainCategoryName(info.CategoryID, mainCategories), textStyle);
+            exportExcelInfo.RenderCell(NameMapping.GetSubCategoryName(info.CategoryID, info.SubCategoryID, mainCategories), textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.RemarkText), textStyle);
             exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Solution), textStyle);
             exportExcelInfo.RenderCell(info.NoInquiries, centerTextStyle);

@@ -131,6 +131,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/CRMConstants.js",
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
                 "~/Scripts/ShareScripts/NameMapping.js",
+                "~/Scripts/ShareScripts/ActiveInActiveSetting.js",
                 "~/Scripts/ShareScripts/FilterScripts.js",
                 "~/Scripts/ShareScripts/AutoTextScripts.js",
                 "~/Scripts/ShareScripts/KeyboardManager.js"));

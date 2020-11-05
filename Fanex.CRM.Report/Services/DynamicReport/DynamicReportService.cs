@@ -139,7 +139,7 @@
 
         public IEnumerable<SettingRelation> GetAllResponses()
         {
-            var data = _serviceSetting.GetAllResponses();
+            var data = _serviceSetting.GetAllResponses().Where(x => x.IsActive).ToList();
             data.Insert(
                 0,
                 new SettingRelation
@@ -153,7 +153,7 @@
 
         public IEnumerable<SettingRelation> GetAllRoles()
         {
-            var data = _serviceSetting.GetAllRoles();
+            var data = _serviceSetting.GetAllRoles().Where(x => x.IsActive).ToList();
             data.Insert(
                 0,
                 new SettingRelation

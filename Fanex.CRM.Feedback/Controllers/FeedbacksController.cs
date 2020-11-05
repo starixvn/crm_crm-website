@@ -115,7 +115,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 {
                     Title = title.Trim(),
                     Feedbacks = feedbacks,
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive)
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
                 },
                 JsonRequestBehavior.AllowGet);
 

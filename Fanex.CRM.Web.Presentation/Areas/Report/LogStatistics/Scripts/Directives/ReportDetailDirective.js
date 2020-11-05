@@ -44,6 +44,21 @@
             if (childReportLength > 0) {
                 for (var i = 0; i < childReportLength; i++) {
                     var info = report.ChildReports[i];
+                    var communications = activeInActiveSetting.getActiveOrInactiveSettingsDetail(
+                        info.CommunicationID,
+                        scope.detailReportOptions.CommunicationToolList);
+
+                    var stations = activeInActiveSetting.getActiveOrInactiveSettingsDetail(
+                        info.StationID, scope.detailReportOptions.ExtensionList);
+
+                    var products = activeInActiveSetting.getActiveOrInactiveSettingsDetail(
+                        info.ProductID, scope.detailReportOptions.ProductList);
+
+                    var subproducts = activeInActiveSetting.getActiveOrInactiveSettingsDetail(
+                        info.SubProductID, scope.detailReportOptions.SubProductList);
+                    
+                    var categorys = activeInActiveSetting.getActiveOrInactiveSettingsDetail(
+                        info.CategoryID, scope.detailReportOptions.mainCategory);
 
                     bodyData.push({
                         Columns: [
@@ -59,14 +74,14 @@
                             },
                             { Name: "ColCustomer", Value: info.Username, CssClass: 'word-wrap-customer' },
                             { Name: "ColSite", Value: info.SiteInfo.Name },
-                            { Name: "ColTypeOfContact", Value: nameMapping.getCommunicationName(info.CommunicationID, scope.detailReportOptions.CommunicationToolList) },
-                            { Name: "ColExtension", Value: nameMapping.getExtensionName(info.StationID, scope.detailReportOptions.ExtensionList) },
+                            { Name: "ColTypeOfContact", Value: nameMapping.getCommunicationName(info.CommunicationID, communications) },
+                            { Name: "ColExtension", Value: nameMapping.getExtensionName(info.StationID, stations) },
                             { Name: "ColRole", Value: info.Role },
                             { Name: "ColContact", Value: info.Contact, CssClass: 'word-wrap-contactinfo' },
-                            { Name: "ColProduct", Value: nameMapping.getProductName(info.ProductID, scope.detailReportOptions.ProductList) },
-                            { Name: "ColSubProduct", Value: nameMapping.getProductName(info.SubProductID, scope.detailReportOptions.SubProductList) },
+                            { Name: "ColProduct", Value: nameMapping.getProductName(info.ProductID, products) },
+                            { Name: "ColSubProduct", Value: nameMapping.getProductName(info.SubProductID, subproducts) },
                             { Name: "ColCountry", Value: info.Country.Name },
-                            { Name: "ColCategory", Value: nameMapping.getMainCategoryName(info.CategoryID, scope.detailReportOptions.mainCategory) },
+                            { Name: "ColCategory", Value: nameMapping.getMainCategoryName(info.CategoryID, categorys) },
                             { Name: "ColSubCategory", Value: nameMapping.getSubCategoryName(info.CategoryID, info.SubCategoryID, scope.detailReportOptions.mainCategory) },
                             { Name: "ColRemark", Value: info.RemarkText, CssClass: 'word-wrap-remark' },
                             { Name: "ColSolution", Value: info.Solution, CssClass: 'word-wrap-remark' },

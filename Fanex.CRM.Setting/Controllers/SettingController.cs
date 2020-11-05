@@ -35,7 +35,7 @@
         [HttpPost]
         public JsonResult AllTitle()
         {
-            var allTitle = _settingServiceInstance.GetAllTitles();
+            var allTitle = _settingServiceInstance.GetAllTitles().Where(x => x.IsActive);
             return Json(allTitle, JsonRequestBehavior.AllowGet);
         }
 
@@ -99,14 +99,14 @@
         [HttpPost]
         public JsonResult AllRole()
         {
-            var allRole = _settingServiceInstance.GetAllRoles();
+            var allRole = _settingServiceInstance.GetAllRoles().Where(x => x.IsActive);
             return Json(allRole, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult AllResponse()
         {
-            var allResponse = _settingServiceInstance.GetAllResponses();
+            var allResponse = _settingServiceInstance.GetAllResponses().Where(x => x.IsActive);
             return Json(allResponse, JsonRequestBehavior.AllowGet);
         }
 
