@@ -18,6 +18,12 @@
         private readonly IFeedbackRepository _feedbackRepository;
         private readonly ISettingService _serviceSetting;
 
+        private const int NUMBER_10 = 10;
+        private const int NUMBER_20 = 20;
+        private const int NUMBER_30 = 30;
+        private const int NUMBER_40 = 40;
+        private const int NUMBER_50 = 50;
+
         public FeedbackService() : this(null, null)
         {
         }
@@ -35,11 +41,11 @@
             {
                 return new List<BaseModel>
                 {
-                    new BaseModel { Id = 10, Name = "10" },
-                    new BaseModel { Id = 20, Name = "20" },
-                    new BaseModel { Id = 30, Name = "30" },
-                    new BaseModel { Id = 40, Name = "40" },
-                    new BaseModel { Id = 50, Name = "50" }
+                    new BaseModel { Id = NUMBER_10, Name = "10" },
+                    new BaseModel { Id = NUMBER_20, Name = "20" },
+                    new BaseModel { Id = NUMBER_30, Name = "30" },
+                    new BaseModel { Id = NUMBER_40, Name = "40" },
+                    new BaseModel { Id = NUMBER_50, Name = "50" }
                 };
             }
         }
