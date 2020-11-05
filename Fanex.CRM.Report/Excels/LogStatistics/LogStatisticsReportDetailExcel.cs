@@ -63,20 +63,14 @@
             ICellStyle centerTextStyle)
         {
             var duration = info.Duration;
-            var inactivecommunications = _communicationToolList.Where(x => !x.IsActive && x.Id == info.CommunicationID);
-            var communications = inactivecommunications.Any() ? _communicationToolList : _communicationToolList.Where(x => x.IsActive);
+            var communications = getActiveInactiveSettingType(info.CommunicationID, _communicationToolList);
+            var mainCategories = getActiveInactiveSettingType(info.CommunicationID, _mainCategory);
 
             var inactiveExtensions = _extensionList.Where(x => !x.IsActive && x.Id == info.StationID);
-            var extensions = inactiveExtensions.Any() ? _extensionList : _extensionList.Where(x => x.IsActive); 
+            var extensions = inactiveExtensions.Any() ? _extensionList : _extensionList.Where(x => x.IsActive);
 
-            var inactiveProducts = _productList.Where(x => !x.IsActive && x.Id == info.ProductID);
-            var products = inactiveProducts.Any() ? _productList : _productList.Where(x => x.IsActive);
-
-            var inactiveSubproducts = _subProductList.Where(x => !x.IsActive && x.Id == info.SubProductID);
-            var subproducts = inactiveSubproducts.Any() ? _subProductList : _subProductList.Where(x => x.IsActive);
-
-            var inactiveMainCategory = _mainCategory.Where(x => !x.IsActive && x.Id == info.CategoryID);
-            var mainCategories = inactiveMainCategory.Any() ? _mainCategory : _mainCategory.Where(x => x.IsActive);
+            var products = getActiveInactiveProductType(info.ProductID, _productList);
+            var subproducts = getActiveInactiveProductType(info.SubProductID, _subProductList);
 
             var durationText = string.Format(
                 "{0}:{1}:{2}",
@@ -112,6 +106,18 @@
                 info.CreationTime.ToShortFormatedDate() + "\n" + info.CreationTime.ToLongTimeString(),
                 centerTextStyle);
             exportExcelInfo.CurrentRow++;
+        }
+
+        private IEnumerable<Common.Models.Setting> getActiveInactiveSettingType (int Id, IEnumerable<Common.Models.Setting> settings)
+        {
+            var inactiveSetting = settings.Where(x => !x.IsActive && x.Id == Id);
+            return inactiveSetting.Any() ? settings : settings.Where(x => x.IsActive);
+        }
+
+        private IEnumerable<Common.Models.Product> getActiveInactiveProductType(int Id, IEnumerable<Common.Models.Product> settings)
+        {
+            var inactiveProduct = settings.Where(x => !x.IsActive && x.Id == Id);
+            return inactiveProduct.Any() ? settings : settings.Where(x => x.IsActive);
         }
 
         private void GenerateReportDetail(ExportExcelInfo exportExcelInfo)
