@@ -108,13 +108,13 @@
             exportExcelInfo.CurrentRow++;
         }
 
-        private IEnumerable<Common.Models.Setting> getActiveInactiveSettingType (int Id, IEnumerable<Common.Models.Setting> settings)
+        private static IEnumerable<Common.Models.Setting> getActiveInactiveSettingType (int Id, IEnumerable<Common.Models.Setting> settings)
         {
             var inactiveSetting = settings.Where(x => !x.IsActive && x.Id == Id);
             return inactiveSetting.Any() ? settings : settings.Where(x => x.IsActive);
         }
 
-        private IEnumerable<Common.Models.Product> getActiveInactiveProductType(int Id, IEnumerable<Common.Models.Product> settings)
+        private static IEnumerable<Common.Models.Product> getActiveInactiveProductType(int Id, IEnumerable<Common.Models.Product> settings)
         {
             var inactiveProduct = settings.Where(x => !x.IsActive && x.Id == Id);
             return inactiveProduct.Any() ? settings : settings.Where(x => x.IsActive);
