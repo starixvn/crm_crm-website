@@ -69,7 +69,7 @@
             {
                 CustomerType = GetCustomerTypes(),
                 Review = GetReviews(),
-                CustomerResponse = GetCustomerResponse(),
+                CustomerResponse = GetCustomerResponse().Where(x => x.IsActive).ToList(),
                 MainCategory = GetMainCategories().Where(x => x.IsActive).ToList(),
                 Communication = GetCommunicationTools().Where(x => x.IsActive).ToList(),
                 Status = GetStatus()
