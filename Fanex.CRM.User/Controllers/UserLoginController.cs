@@ -117,7 +117,7 @@
                     ExternalDomain,
                     localLogin.Username,
                     localLogin.Password,
-                    Cryptography.CfsEnCrypt(AppSession.CurrentUser.OnUserId.ToString()),
+                    Cryptography.CfsEnCrypt(AppSession.CurrentUser.OnUserId.ToString()).Replace(" ", "+"),
                     localLogin.LoginToken);
                 return new RedirectResult(url, false);
             }
@@ -162,9 +162,9 @@
                 SerilogHelper.WriteInformation(ssoLogin.Time);
                 var url = string.Format("{0}/auth/SingleSignOn?UserId={1}&OnUserId={2}&Time={3}",
                     ExternalDomain,
-                    ssoLogin.UserId,
-                    ssoLogin.OnUserId,
-                    ssoLogin.Time);
+                    ssoLogin.UserId.Replace(" ", "+"),
+                    ssoLogin.OnUserId.Replace(" ", "+"),
+                    ssoLogin.Time.Replace(" ", "+"));
                 LogService.Info(url);
                 SerilogHelper.WriteInformation(url);
                 return new RedirectResult(url, false);
