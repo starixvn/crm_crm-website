@@ -82,7 +82,7 @@
                             { Name: "ColSubProduct", Value: nameMapping.getProductName(info.SubProductID, subproducts) },
                             { Name: "ColCountry", Value: info.Country.Name },
                             { Name: "ColCategory", Value: nameMapping.getMainCategoryName(info.CategoryID, categorys) },
-                            { Name: "ColSubCategory", Value: nameMapping.getSubCategoryName(info.CategoryID, info.SubCategoryID, scope.detailReportOptions.mainCategory) },
+                            { Name: "ColSubCategory", Value: nameMapping.getSubCategoryName(info.CategoryID, info.SubCategoryID, categorys) },
                             { Name: "ColRemark", Value: info.RemarkText, CssClass: 'word-wrap-remark' },
                             { Name: "ColSolution", Value: info.Solution, CssClass: 'word-wrap-remark' },
                             { Name: "ColInquiries", Value: info.NoInquiries, CssClass: 'word-wrap-remark' },
