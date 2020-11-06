@@ -211,7 +211,8 @@
             var solutionText = !feedbacksManage.Solution ? '' : "Solution: <br>" + feedbacksManage.Solution + "<br>";
             var tooltipDesctiption = desctiptionText.length > 650 ? desctiptionText.substring(0, 650) + " ... <br><br>" : desctiptionText;
             var tooltipSolution = solutionText.length > 650 ? solutionText.substring(0, 650) + " ... <br><br>" : solutionText;
-            return tooltipDesctiption + tooltipSolution;
+            var displayTooltips = tooltipDesctiption + tooltipSolution;
+            return displayTooltips
         }
 
         return {
