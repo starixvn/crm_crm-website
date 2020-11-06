@@ -55,8 +55,12 @@ var ActiveInActiveSetting = function () {
         var activeSettings = allSettings.filter(function (item) {
             return item.IsActive;
         });
+        var inactiveSettingSeleted = allSettings.filter(function (item) {
+            return distinctFeedbackIds.indexOf(item.Id) !== -1;
+        });
 
         var isActive = true;
+        var inActiveSettings = activeSettings.slice();
         for (var i = 0; i < inactive.length; i++) {
             if (distinctFeedbackIds.indexOf(inactive[i]) !== -1) {
                 isActive = false;
@@ -64,10 +68,15 @@ var ActiveInActiveSetting = function () {
             }
         }
 
-        if (isActive) {
-            return activeSettings;
+        if (!isActive) {
+            inactiveSettingSeleted.map(function (item) {
+                if (activeSettings.filter(distinct => distinct.Name === item.Name).length <= 0) {
+                    inActiveSettings.push(item);
+                }
+            });
+            return inActiveSettings;
         }
-        return allSettings;
+        return activeSettings;
     };
 
     self.getActiveOrInactiveSettingsDetail = function (settingId, allSettings) {
@@ -80,13 +89,21 @@ var ActiveInActiveSetting = function () {
         var activeSettingsDetails = allSettings.filter(function (item) {
             return item.IsActive;
         });
+        var inactiveSettingSeleted = allSettings.filter(function (item) {
+            return settingId === item.Id;
+        });
 
         var isActive = inactive.indexOf(settingId) !== -1;
-
-        if (isActive) {
-            return activeSettingsDetails;
+        var inActiveSettingsDetails = activeSettingsDetails.slice();
+        if (!isActive) {
+            inactiveSettingSeleted.map(function (item) {
+                if (activeSettingsDetails.filter(distinct => distinct.Name === item.Name).length <= 0) {
+                    inActiveSettingsDetails.push(item);
+                }
+            });
+            return inactiveSettingSeleted;
         }
-        return allSettings;
+        return activeSettingsDetails;
     };
 
     self.getActiveSettingRelation = function (feedback, functionName, settingRelations, settingName) {
@@ -119,19 +136,27 @@ var ActiveInActiveSetting = function () {
         var activeRelationSettings = settingRelations.filter(function (item) {
             return item.IsActive;
         });
+        var inactiveSettingSeleted = settingRelations.filter(function (item) {
+            return distinctRelationIds.indexOf(item.Id) !== -1;
+        });
 
         var isActive = true;
+        var inActiveSettings = activeRelationSettings.slice();
         for (var i = 0; i < inactiveRelation.length; i++) {
             if (distinctRelationIds.indexOf(inactiveRelation[i]) !== -1) {
                 isActive = false;
                 break;
             }
         }
-
-        if (isActive) {
-            return activeRelationSettings;
+        if (!isActive) {
+            inactiveSettingSeleted.map(function (item) {
+                if (activeRelationSettings.filter(distinct => distinct.Name === item.Name).length <= 0) {
+                    inActiveSettings.push(item);
+                }
+            });
+            return inActiveSettings;
         }
-        return settingRelations;
+        return activeRelationSettings;
     };
 };
 
