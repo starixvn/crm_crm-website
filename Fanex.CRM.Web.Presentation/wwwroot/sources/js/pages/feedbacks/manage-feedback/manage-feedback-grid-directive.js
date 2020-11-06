@@ -209,9 +209,9 @@
         function renderTooltipManage(feedbacksManage) {
             var desctiptionText = !feedbacksManage.Description ? '' : "Description: <br>" + feedbacksManage.Description + "<br>";
             var solutionText = !feedbacksManage.Solution ? '' : "Solution: <br>" + feedbacksManage.Solution + "<br>";
-            var tooltip = desctiptionText + solutionText;
-            var tooltipDisplayManage = tooltip.length > 1000 ? tooltip.substring(0, 1000) + "..." : tooltip;
-            return tooltipDisplayManage;
+            var tooltipDesctiption = desctiptionText.length > 650 ? desctiptionText.substring(0, 650) + " ... <br><br>" : desctiptionText;
+            var tooltipSolution = solutionText.length > 650 ? solutionText.substring(0, 650) + " ... <br><br>" : solutionText;
+            return tooltipDesctiption + tooltipSolution;
         }
 
         return {

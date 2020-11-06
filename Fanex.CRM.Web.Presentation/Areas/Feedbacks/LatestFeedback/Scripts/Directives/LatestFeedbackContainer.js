@@ -148,9 +148,9 @@
         function renderTooltipLatest(feedbacksLatest) {
             var desctiptionText = !feedbacksLatest.Description ? '' : "Description: <br>" + feedbacksLatest.Description + "<br>";
             var solutionText = !feedbacksLatest.Solution ? '' : "Solution: <br>" + feedbacksLatest.Solution + "<br>";
-            var tooltip = desctiptionText + solutionText;
-            var tooltipDisplayLatest = tooltip.length > 1000 ? tooltip.substring(0, 1000) + "..." : tooltip;
-            return tooltipDisplayLatest;
+            var tooltipDescription = desctiptionText.length > 650 ? desctiptionText.substring(0, 650) + " ... <br><br>" : desctiptionText;
+            var tooltipSolution = solutionText.length > 650 ? solutionText.substring(0, 650) + " ... <br><br>" : solutionText;
+            return tooltipDescription + tooltipSolution;
         }
 
         return {
