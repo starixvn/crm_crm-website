@@ -591,21 +591,21 @@
         $scope.getSubProducts = function (selectedProducts) {
             return filterScripts.getSubProducts(
                 selectedProducts,
-                $scope.allSettings.SubProductList,
+                $scope.subProductListActive,
                 $scope.selectedSubProductIds);
         }
 
         $scope.getBettypes = function (selectedSubProducts) {
             return filterScripts.getBettypes(
                 selectedSubProducts,
-                $scope.allSettings.BettypeList,
+                $scope.bettypeListActive,
                 $scope.selectedBettypeIds);
         }
 
         $scope.getSubCategories = function (selectedCategories) {
             return filterScripts.getSubCategories(
                 selectedCategories,
-                $scope.allSettings.SubCategoryList,
+                $scope.subCategoryListActive,
                 $scope.selectedSubCategoryIds);
         }
 
@@ -616,6 +616,17 @@
                 .then(function (data) {
                     var allSetting = data.Result;
                     $scope.allSettings = data.Result;
+                    $scope.subCategoryListActive = activeInActiveSetting.getActiveOrInactiveSettings(
+                        $scope.communicationLog.Settings,
+                        $scope.allSettings.SubCategoryList, "Category", "SubCategory");
+
+                    $scope.subProductListActive = activeInActiveSetting.getActiveOrInactiveSettings(
+                        $scope.communicationLog.Settings,
+                        $scope.allSettings.SubProductList, "Product", "SubProduct");
+
+                    $scope.bettypeListActive = activeInActiveSetting.getActiveOrInactiveSettings(
+                        $scope.communicationLog.Settings,
+                        $scope.allSettings.BettypeList, "Product", "Bettype");
 
                     $scope.countryList = activeInActiveSetting.getActiveSettingRelation(
                         $scope.communicationLog,
@@ -682,9 +693,7 @@
                     $scope.subCategoryDropdownSettings = {
                         idMember: "Id",
                         nameMember: "Name",
-                        sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
-                            $scope.communicationLog.Settings,
-                            $scope.allSettings.SubCategoryList, "Category", "SubCategory")
+                        sourceData: $scope.subCategoryListActive
                     };
 
                     $scope.productDropdownSettings = {
@@ -698,17 +707,13 @@
                     $scope.subProductDropdownSettings = {
                         idMember: "Id",
                         nameMember: "Name",
-                        sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
-                            $scope.communicationLog.Settings,
-                            $scope.allSettings.SubProductList, "Product", "SubProduct")
+                        sourceData: $scope.subProductListActive
                     };
 
                     $scope.bettypeDropdownSettings = {
                         idMember: "Id",
                         nameMember: "Name",
-                        sourceData: activeInActiveSetting.getActiveOrInactiveSettings(
-                            $scope.communicationLog.Settings,
-                            $scope.allSettings.BettypeList, "Product", "Bettype")
+                        sourceData: $scope.bettypeListActive
                     };
 
                     $scope.updateAllSettingsForLog();

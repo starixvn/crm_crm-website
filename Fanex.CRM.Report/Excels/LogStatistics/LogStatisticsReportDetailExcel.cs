@@ -64,7 +64,7 @@
         {
             var duration = info.Duration;
             var communications = getActiveInactiveSettingType(info.CommunicationID, _communicationToolList);
-            var mainCategories = getActiveInactiveSettingType(info.CommunicationID, _mainCategory);
+            var mainCategories = getActiveInactiveSettingType(info.CategoryID, _mainCategory);
 
             var inactiveExtensions = _extensionList.Where(x => !x.IsActive && x.Id == info.StationID);
             var extensions = inactiveExtensions.Any() ? _extensionList : _extensionList.Where(x => x.IsActive);

@@ -93,20 +93,11 @@
         };
 
         $scope.updateSelectedMainCategory = function (mainCategory) {
+            var subActive = mainCategory.ChildSettings.filter(function (item) {
+                return item.IsActive;
+            });
             $scope.searchCriteria.MainCategory = mainCategory;
-            $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
-            $scope.searchCriteria.SubCategory = mainCategory.ChildSettings[0];
-            $scope.$apply();
-        };
-
-        $scope.updateSelectedSubCategory = function (subCategory) {
-            $scope.searchCriteria.SubCategory = subCategory;
-            $scope.$apply();
-        };
-
-        $scope.updateSelectedMainCategory = function (mainCategory) {
-            $scope.searchCriteria.MainCategory = mainCategory;
-            $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
+            $scope.subCategoryOptions.DataList = subActive;
             $scope.searchCriteria.SubCategory = mainCategory.ChildSettings[0];
             $scope.$apply();
         };

@@ -104,7 +104,7 @@
             var result = new
             {
                 CommunicationLogs = communicationLogs,
-                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive)
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
             };
 
             return Json(result, JsonRequestBehavior.AllowGet);

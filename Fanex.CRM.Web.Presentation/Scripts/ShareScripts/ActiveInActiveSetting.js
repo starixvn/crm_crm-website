@@ -93,7 +93,7 @@ var ActiveInActiveSetting = function () {
             return settingId === item.Id;
         });
 
-        var isActive = inactive.indexOf(settingId) !== -1;
+        var isActive = inactive.indexOf(settingId) === -1;
         var inActiveSettingsDetails = activeSettingsDetails.slice();
         if (!isActive) {
             inactiveSettingSeleted.map(function (item) {

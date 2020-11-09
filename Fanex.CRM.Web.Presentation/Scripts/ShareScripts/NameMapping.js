@@ -8,6 +8,8 @@ var NameMapping = function () {
                 return mainCategories[i].Value;
             }
         }
+
+        return "N/A";
     }
 
     self.getSubCategoryName = function (mainCategoryId, subCategoryId, mainCategories) {
@@ -67,7 +69,7 @@ var NameMapping = function () {
             categoryHtml += '</div>';
             result += categoryHtml;
         }
-        
+
         return result;
     }
 

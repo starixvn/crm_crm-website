@@ -136,7 +136,7 @@
             var logs = _communicationServiceLog.GetLogsByCustomerId(criteria);
             var result = new
             {
-                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings(),
+                MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where( x => x.IsActive),
                 Logs = logs
             };
 
