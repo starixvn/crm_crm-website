@@ -91,7 +91,6 @@
         [HttpPost]
         public ActionResult Index(LocalLogin localLogin)
         {
-            CacheService.Clear();
             if (_maintenanceService.IsUnderMaintenance())
             {
                 return RedirectToAction("Offline", "Common");
