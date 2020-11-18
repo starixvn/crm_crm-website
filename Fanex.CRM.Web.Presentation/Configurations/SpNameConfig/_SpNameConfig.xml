@@ -9,22 +9,22 @@
     <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicUpd" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicStatusUpd" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicUpdValidation" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_CustomerFeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_FeedbackInfoUpd" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_FeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_FeedbackUpd" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_GuestFeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_GuestFeedbackIns_Multiple" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_SourceSettingMappingSel" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_CountryList" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_CommunicationToolList" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_SubCategoryList" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_MainCategoryList" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_LanguageList" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_BetTypeList" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_SubProductList" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_SystemSettingMappingSel" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_SettingGetRelationBySettingName" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_CommunicationLogUpd" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_CustomerFeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_FeedbackInfoUpd" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_FeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_FeedbackUpd" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_GuestFeedbackIns" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_GuestFeedbackIns_Multiple" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_SourceSettingMappingSel" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_CountryList" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_CommunicationToolList" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_SubCategoryList" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_MainCategoryList" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_LanguageList" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_BetTypeList" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_SubProductList" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_SystemSettingMappingSel" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_SettingGetRelationBySettingName" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT, PRO" SpName="Acc_CRM_CommunicationLogUpd" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
