@@ -50,7 +50,8 @@
                 new Setting
                 {
                     Id = 0,
-                    Name = Labels.Symbol_NA
+                    Name = Labels.Symbol_NA,
+                    IsActive = true
                 });
 
             var countries = ServiceSetting.GetAllCountries().Where(x => x.IsActive).ToList();
@@ -61,7 +62,8 @@
                     new Country
                     {
                         Id = 0,
-                        Name = Labels.Symbol_NA
+                        Name = Labels.Symbol_NA,
+                        IsActive = true
                     });
             }
 
