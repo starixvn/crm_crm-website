@@ -27,4 +27,6 @@
     <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_SystemSettingMappingSel" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_SettingGetRelationBySettingName" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_CommunicationLogUpd" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_MainInformationSpecialRemarkSel" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_CustomerRemarkSel" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
