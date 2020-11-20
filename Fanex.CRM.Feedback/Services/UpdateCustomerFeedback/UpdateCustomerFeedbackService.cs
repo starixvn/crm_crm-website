@@ -33,11 +33,11 @@
             var countries = _settingService.GetAllCountries();
             if (AppSession.CurrentUser.UserRole != UserRole.CN88Staff)
             {
-                countries.Insert(0, new Country { Id = 0, Name = Labels.Symbol_NA });
+                countries.Insert(0, new Country { Id = 0, Name = Labels.Symbol_NA, IsActive = true });
             }
 
             var languages = _settingService.GetAllLanguages();
-            languages.Insert(0, new Setting { Id = 0, Name = Labels.Symbol_NA });
+            languages.Insert(0, new Setting { Id = 0, Name = Labels.Symbol_NA, IsActive = true });
 
             var statusRawData = _settingService.GetAllStatuses(ViewTypeConstants.CommunicationTool);
             if (!hasDeleteFeedbackPermission)
