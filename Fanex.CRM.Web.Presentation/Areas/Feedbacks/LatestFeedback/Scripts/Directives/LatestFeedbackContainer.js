@@ -148,8 +148,17 @@
         function renderTooltipLatest(feedbacksLatest) {
             var desctiptionText = !feedbacksLatest.Description ? '' : "Description: <br>" + feedbacksLatest.Description + "<br>";
             var solutionText = !feedbacksLatest.Solution ? '' : "Solution: <br>" + feedbacksLatest.Solution + "<br>";
-            var tooltipDescription = desctiptionText.length > 580 ? desctiptionText.substring(0, 580) + " ... <br><br>" : desctiptionText;
-            var tooltipSolution = solutionText.length > 580 ? solutionText.substring(0, 580) + " ... <br><br>" : solutionText;
+
+            var lastCharacterSlit = desctiptionText.substring(578, 580);
+            var isEscapseWord = "<br />".includes(lastCharacterSlit);
+            var subLength = isEscapseWord ? 592 : 580;
+
+            var lastCharacterSlitSolution = solutionText.substring(578, 580);
+            var isEscapseWordSolution = "<br />".includes(lastCharacterSlitSolution);
+            var subLengthSolution = isEscapseWordSolution ? 592 : 580;
+
+            var tooltipDescription = desctiptionText.length > subLength ? desctiptionText.substring(0, subLength) + " ... <br><br>" : desctiptionText;
+            var tooltipSolution = solutionText.length > subLengthSolution ? solutionText.substring(0, subLengthSolution) + " ... <br><br>" : solutionText;
             return tooltipDescription + tooltipSolution;
         }
 
