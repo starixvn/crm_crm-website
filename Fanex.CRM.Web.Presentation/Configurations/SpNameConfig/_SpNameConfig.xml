@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" ?>
 <Root>
-    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_SettingSel" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PICAssignmentSel" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PICAssignment" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PICAssignmentDel" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicSel" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicIns" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicUpd" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicStatusUpd" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT" SpName="Acc_CRM_PicUpdValidation" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_MainInformationSpecialRemarkSel" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, UAT, SIT" SpName="Acc_CRM_CustomerRemarkSel" EnvironmentText="_xtest"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_ManageFeedbackList" EnvironmentText="_xpre"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_RelatedCustomerVerify" EnvironmentText="_xpre"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL" SpName="CRM_MultipleLogs_VerifyCustomer" EnvironmentText="_xpre"></SpNameConfig>
 </Root>

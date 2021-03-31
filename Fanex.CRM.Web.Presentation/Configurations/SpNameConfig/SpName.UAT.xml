@@ -11,7 +11,7 @@
     <Setting Key="Customer_CustomerInfoDetail_Update" SpName="Acc_CRM_CustomerUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_CustomerInfoDetail_Update_New" SpName="Acc_CRM_CustomerUpd_New" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetCustomerInfo" SpName="Acc_CRM_MainInformationVerifySel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Customer_Dashboard_GetCustomerRemarks" SpName="Acc_CRM_MainInformationSpecialRemarkSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_Dashboard_GetCustomerRemarks" SpName="Acc_CRM_MainInformationSpecialRemarkSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetRedemptionLogs" SpName="Acc_CRM_MainInformationRedemptionSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_GetCommunicationLogs" SpName="Acc_CRM_MainInformationCommunicationLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Customer_Dashboard_UpdateVerifyFlag" SpName="Acc_CRM_CustomerInformationVerify" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -91,7 +91,7 @@
     <Setting Key="Acc_CRM_CN88_SettingUpd" SpName="Acc_CRM_CN88_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingSel" SpName="Acc_CRM_CN88_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CN88_SettingNameSelByName" SpName="Acc_CRM_CN88_SettingNameSelByName" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet"></Setting>
+    <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet"></Setting>
     <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SourceSettingMappingSel" SpName="Acc_CRM_SourceSettingMappingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllCountry" SpName="Acc_CRM_CountryList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -135,7 +135,7 @@
     <Setting Key="Acc_CRM_SourceSettingMappingUpd" SpName="Acc_CRM_SourceSettingMappingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Remark">
-    <Setting Key="Acc_CRM_CustomerRemarkSel" SpName="Acc_CRM_CustomerRemarkSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_CustomerRemarkSel" SpName="Acc_CRM_CustomerRemarkSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_CustomerRemarkUpd" SpName="Acc_CRM_CustomerRemarkUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Action Log">
@@ -220,16 +220,16 @@
     <Setting Key="MultipleLogs_VerifyRelatedCustomer" SpName="CRM_MultipleLogs_VerifyRelatedCustomer" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Pic and Headline">
-    <Setting Key="Acc_CRM_PicIns" SpName="Acc_CRM_PicIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_PicSel" SpName="Acc_CRM_PicSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_PicUpd" SpName="Acc_CRM_PicUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PicIns" SpName="Acc_CRM_PicIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PicSel" SpName="Acc_CRM_PicSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PicUpd" SpName="Acc_CRM_PicUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PicManagementSel" SpName="Acc_CRM_PicManagementSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_PICStatusUpd" SpName="Acc_CRM_PicStatusUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PICStatusUpd" SpName="Acc_CRM_PICStatusUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_HeadlineSel" SpName="Acc_CRM_HeadlineSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PICAssignmentValidation" SpName="Acc_CRM_PICAssignmentValidation" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_PICAssignmentSel" SpName="Acc_CRM_PICAssignmentSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_PICAssignment" SpName="Acc_CRM_PICAssignment_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_PICAssignmentDel" SpName="Acc_CRM_PICAssignmentDel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PICAssignmentSel" SpName="Acc_CRM_PICAssignmentSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PICAssignment" SpName="Acc_CRM_PICAssignment" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PICAssignmentDel" SpName="Acc_CRM_PICAssignmentDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PicDefaultIns" SpName="Acc_CRM_PicDefaultIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_PicDefaultDel" SpName="Acc_CRM_PicDefaultDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_SiteSel_Credit" SpName="Acc_SiteSel_Credit" DbName="DBAGE.bodb02.bodbAdminNet" />
@@ -239,7 +239,7 @@
     </Setting>
     <Setting Key="Acc_CRM_PicLogSel" SpName="Acc_CRM_PicLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_DirectAccountLogSel" SpName="Acc_CRM_DirectAccountLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_PicUpdValidation" SpName="Acc_CRM_PicUpdValidation_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_PicUpdValidation" SpName="Acc_CRM_PicUpdValidation" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 </Functions>
 		

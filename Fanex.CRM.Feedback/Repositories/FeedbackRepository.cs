@@ -63,7 +63,9 @@
         {
             Func<DeletedFeedback, List<SettingItem>, DeletedFeedback> regenerateDeletedFeedback = delegate (DeletedFeedback f, List<SettingItem> s)
             {
-                f.Settings = s;
+                f.Settings = s.GroupBy(m => new { m.FeedbackID, m.SettingIdLv1, m.SettingIdLv2, m.SettingIdLv3, m.SettingType })
+                            .Select(group => group.First())
+                            .ToList();
                 return f;
             };
             var result = from f in feedbacks

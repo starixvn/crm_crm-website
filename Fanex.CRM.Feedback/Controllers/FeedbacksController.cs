@@ -80,7 +80,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
                 var report = new
                 {
-                    Feedbacks = feedbacks,
+                    Feedbacks = feedbacks.OrderByDescending(x => x.FeedbackDate).ThenByDescending(y => y.FeedbackId),
                     TotalItems = criteria.TotalRows,
                     MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
                 };
