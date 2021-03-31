@@ -191,16 +191,10 @@
         }
 
         function renderRelatedCustomerColumn(feedback) {
-            var html = feedback.Username;
-
-            if (!feedback.IsRelated) {
-                var customers = feedback.RelatedCustomer.split(',');
-                if (customers.length > 20) {
-                    html = '<a class="viewRelatedCustomer" href="javascript:;" data-id="' + feedback.FeedbackId + '">'
-                        + customers.length + ' customers</a>';
-                } else {
-                    html = customers.join(', ');
-                }
+            var html = feedback.RelatedCustomer;
+            if (html.length > 20) {
+                html = '<a class="viewRelatedCustomer" href="javascript:;" data-id="' + feedback.FeedbackId + '">'
+                    + html.length + ' customers</a>';
             }
 
             return html;
