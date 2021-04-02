@@ -34,15 +34,31 @@
 
                     collumns.push(
                         { Name: "ColSettingId", Value: setting.Id },
-                        { Name: "ColOrder", Value: setting.DisplayOrder },
-                        {
-                            Name: "ColEdit",
-                            Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"><i class="fa fa-pencil"></i></a>'
-                        },
-                        {
-                            Name: "ColActive",
-                            Value: '<input type="checkbox" class="activeSetting"' + checked + ' data-row-index="' + i + '" />'
-                        });
+                        { Name: "ColOrder", Value: setting.DisplayOrder }
+                    )
+
+                    if (isHost) {
+                        collumns.push(
+                            {
+                                Name: "ColEdit",
+                                Value: '<a class="c hand editSetting" href="JavaScript:void(0);" data-row-index="' + i + '"><i class="fa fa-pencil"></i></a>'
+                            },
+                            {
+                                Name: "ColActive",
+                                Value: '<input type="checkbox" class="activeSetting"' + checked + ' data-row-index="' + i + '" />'
+                            });
+                    }
+                    else {
+                        collumns.push(
+                            {
+                                Name: "ColEdit",
+                                Value: '<i class="fa fa-pencil"></i>'
+                            },
+                            {
+                                Name: "ColActive",
+                                Value: '<input type="checkbox" disabled="true" class="activeSetting"' + checked + ' data-row-index="' + i + '" />'
+                            });
+                    }
 
                     bodyData.push({
                         Columns: collumns,

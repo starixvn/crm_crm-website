@@ -21,17 +21,20 @@
                         <span class="hotkey">S</span>earch
                     </button>
                 </div>
-                <div class="item afterButton">
-                    <button id="btn-insert-newsetting" class="btn pull-left btn" ng-click="insertNewSetting();">
-                        <span>@Labels.Insert_New_Setting</span>
-                    </button>
-                </div>
-                <div class="item afterButton">
-                    <button id="btn-insert-newsettingvaluefor" class="btn pull-left btn" ng-click="insertSubSetting();">
-                        <span data-ng-bind="sharedScriptManager.stringFormat('{0} {1}', ['@Labels.Insert_Setting_value_for', getSettingRelationsParams.MainSetting.SettingType])">
-                        </span>
-                    </button>
-                </div>
+                @if (isHost)
+                {
+                    <div class="item afterButton">
+                        <button id="btn-insert-newsetting" class="btn pull-left btn" ng-click="insertNewSetting();">
+                            <span>@Labels.Insert_New_Setting</span>
+                        </button>
+                    </div>
+                    <div class="item afterButton">
+                        <button id="btn-insert-newsettingvaluefor" class="btn pull-left btn" ng-click="insertSubSetting();">
+                            <span data-ng-bind="sharedScriptManager.stringFormat('{0} {1}', ['@Labels.Insert_Setting_value_for', getSettingRelationsParams.MainSetting.SettingType])">
+                            </span>
+                        </button>
+                    </div>
+                }
                 <div class="item afterButton">
                     <button id="btn-insert-newsettingvaluefor" class="btn pull-left btn" ng-click="openLicenseeMappingPopup()">Licensee Mapping</button>
                 </div>

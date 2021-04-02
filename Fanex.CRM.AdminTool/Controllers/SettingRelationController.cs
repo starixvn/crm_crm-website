@@ -25,6 +25,7 @@
 
         public ActionResult Index()
         {
+            ViewBag.IsHost = PermissionService.HasHostPermission(FunctionPermissions.SettingRelationManagement);
             return View("~/Areas/AdminTool/SettingRelation/ViewList/Index.cshtml");
         }
 
