@@ -50,60 +50,61 @@
                             { Name: "ColOrder", Value: setting.DisplayOrder }],
                         SubRows: subRows,
                         CssClass: 'editlog-link-row row-index-' + i
-                    }
+                    });
+                }
             }
 
-                var gridOptions = {
-                    columns: [
-                        {
-                            HeaderText: viewResources.Setting,
-                            Width: 400,
-                            Name: "ColSettingName",
-                            HeaderAlign: "center",
-                            CellAlign: "left",
-                            ShowCollapseExpand: true
-                        },
-                        { HeaderText: viewResources.Relation, Width: 60, Name: "ColRelation", HeaderAlign: "center", CellAlign: "center" },
-                        { HeaderText: viewResources.Setting_Id, Width: 80, Name: "ColSettingId", HeaderAlign: "center", CellAlign: "right" },
-                        { HeaderText: viewResources.Order, Width: 60, Name: "ColOrder", HeaderAlign: "center", CellAlign: "right" }],
-                    showTitle: true,
-                    titleInfo: {
-                        text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingType])
+            var gridOptions = {
+                columns: [
+                    {
+                        HeaderText: viewResources.Setting,
+                        Width: 400,
+                        Name: "ColSettingName",
+                        HeaderAlign: "center",
+                        CellAlign: "left",
+                        ShowCollapseExpand: true
                     },
-                    bodyRows: bodyData,
-                    numberOfFrozenColumn: 1,
-                    fullWidth: true,
-                    fullHeight: true,
-                    gridHeight: 0,
-                    showDistinctRow: false,
-                    showHighlightRow: true,
-                    showTree: true,
-                    treeParentPaddingLeft: 5,
-                    headerColumnHeight: 29,
-                    bodyRowHeight: 25
-                };
-
-                tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-
-                var addIcons = tableSetting.find(".addSetting");
-                if (isHost == 'True') {
-                    addIcons.unbind("click");
-                    addIcons.click(function () {
-                        var rowIndex = parseInt($(this).attr("data-row-index"));
-                        selfScope.addRelation(settingRelationView[rowIndex]);
-                    });
-                }
-            }
-
-            return {
-                restrict: 'C',
-                scope: true,
-                link: function (scope, element, attrs) {
-                    scope.$watch(attrs.ngModel, function (oldval, newval) {
-                        /* jshint unused: false */
-                        renderSettingRelations(scope, element);
-                    });
-                }
+                    { HeaderText: viewResources.Relation, Width: 60, Name: "ColRelation", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Setting_Id, Width: 80, Name: "ColSettingId", HeaderAlign: "center", CellAlign: "right" },
+                    { HeaderText: viewResources.Order, Width: 60, Name: "ColOrder", HeaderAlign: "center", CellAlign: "right" }],
+                showTitle: true,
+                titleInfo: {
+                    text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingType])
+                },
+                bodyRows: bodyData,
+                numberOfFrozenColumn: 1,
+                fullWidth: true,
+                fullHeight: true,
+                gridHeight: 0,
+                showDistinctRow: false,
+                showHighlightRow: true,
+                showTree: true,
+                treeParentPaddingLeft: 5,
+                headerColumnHeight: 29,
+                bodyRowHeight: 25
             };
-        });
+
+            tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+
+            var addIcons = tableSetting.find(".addSetting");
+            if (isHost == 'True') {
+                addIcons.unbind("click");
+                addIcons.click(function () {
+                    var rowIndex = parseInt($(this).attr("data-row-index"));
+                    selfScope.addRelation(settingRelationView[rowIndex]);
+                });
+            }
+        }
+
+        return {
+            restrict: 'C',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (oldval, newval) {
+                    /* jshint unused: false */
+                    renderSettingRelations(scope, element);
+                });
+            }
+        };
+    });
 })();
