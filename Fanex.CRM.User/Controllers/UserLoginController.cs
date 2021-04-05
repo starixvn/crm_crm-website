@@ -144,8 +144,6 @@
         [HttpGet]
         public ActionResult SSO(SSOLogin ssoLogin)
         {
-            LogService.Warn(ssoLogin.Time);
-
             if (_maintenanceService.IsUnderMaintenance())
             {
                 return RedirectToAction("Offline", "Common");
@@ -158,13 +156,11 @@
             var loginStatus = _ssoService.SingleSignOn(ssoLogin);
             if (loginStatus == LoginStatus.LoginSuccessful)
             {
-                LogService.Info(ssoLogin.Time);
                 var url = string.Format("{0}/auth/SingleSignOn?UserId={1}&OnUserId={2}&Time={3}",
                     ExternalDomain,
                     ssoLogin.UserId.Replace(" ", "+"),
                     ssoLogin.OnUserId.Replace(" ", "+"),
                     ssoLogin.Time.Replace(" ", "+"));
-                LogService.Info(url);
                 return new RedirectResult(url, false);
             }
 
