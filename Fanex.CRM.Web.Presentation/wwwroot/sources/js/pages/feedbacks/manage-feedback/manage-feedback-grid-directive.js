@@ -192,11 +192,13 @@
 
         function renderRelatedCustomerColumn(feedback) {
             var html = feedback.RelatedCustomer;
-            if (html.length > 20) {
+            var customers = feedback.RelatedCustomer.split(',');
+            if (customers.length > 20) {
                 html = '<a class="viewRelatedCustomer" href="javascript:;" data-id="' + feedback.FeedbackId + '">'
-                    + html.length + ' customers</a>';
+                    + customers.length + ' customers</a>';
+            } else {
+                html = customers.join(', ');
             }
-
             return html;
         }
 
