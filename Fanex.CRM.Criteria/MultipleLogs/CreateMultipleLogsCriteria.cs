@@ -93,8 +93,12 @@
 
         [SpParam(SqlParamName = "RelatedCustomers")]
         public string RelatedCustomerXml => SerializerHelper.SerializeList(RelatedCustomers);
-
+        
         public bool IsManualMultiple { get; set; } = false;
+
+        public int LanguageID { get; set; }
+
+        public string CountryName { get; set; }
 
         public override string GetSettingKey() => "MultipleLogsInsert";
 

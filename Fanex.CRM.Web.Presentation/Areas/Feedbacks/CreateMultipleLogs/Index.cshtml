@@ -48,7 +48,7 @@
                                 <span class="fa fa-exclamation-circle pull-right"
                                       tooltip-class="note-tooltip"
                                       tooltip-placement="bottom-right"
-                                      uib-tooltip="Country, Language, Role, Site, Licensee Type shall be update automatically by system!"></span>
+                                      uib-tooltip="Role, Site, Licensee Type shall be update automatically by system!"></span>
                             </div>
                         </div>
                         <div class="row item" ng-show="verifyCustomerResults.length > 0">
@@ -70,14 +70,14 @@
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <label for="startTime">@Labels.Start_Time</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <input type="text" id="startTime" class="txtcalendar textbox timepicker" readonly
                                        onselect="onStartTimeChanged()" ng-model="multipleLogs.StartTime" datetimepicker />
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                                 <label for="ext">@Labels.Ext</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <multileveldropdowntree text-settings="TextSettings"
                                                         ng-model="selectedExtensions"
                                                         data-settings="extensionDropdownSettings"></multileveldropdowntree>
@@ -87,17 +87,25 @@
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <label for="endTime">@Labels.End_Time</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <input type="text" id="endTime" class="txtcalendar textbox timepicker" readonly
                                        ng-model="multipleLogs.EndTime" datetimepicker />
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                                 <label>@Labels.Country</label>
+                                <span ng-show="!multipleLogs.isUseDefaultCountry">@Html.Raw(Resources.Language.Html_Template_MandatoryField)</span>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                                <select disabled>
-                                    <option value="">@CommonLabels.Symbol_NotApply</option>
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
+                                <select ng-model="multipleLogs.Country"
+                                        ng-options="item.Name for item in countrySettings track by item.Id"
+                                        ng-disabled="multipleLogs.isUseDefaultCountry">
                                 </select>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="ckb-use-default-comm-tool"
+                                       ng-model="multipleLogs.isUseDefaultCountry"
+                                       tooltip-placement="bottom-right"
+                                       uib-tooltip="Apply default Country."/>
                             </div>
                         </div>
                         <div class="row item">
@@ -105,7 +113,7 @@
                                 <label>@Labels.Communication_Tool</label>
                                 <span ng-show="!multipleLogs.isUseDefaultCommunicationTool">@Html.Raw(Resources.Language.Html_Template_MandatoryField)</span>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-md-3-dropdown">
                                 <multileveldropdowntree text-settings="TextSettings"
                                                         data-ng-model="selectedCommunications"
                                                         data-settings="communicationDropdownSettings"
@@ -119,13 +127,21 @@
                                        tooltip-placement="bottom-left"
                                        uib-tooltip="Apply default communication tool." />
                             </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <label>@Labels.Language</label>
+                                <span ng-show="!multipleLogs.isUseDefaultLanguage">@Html.Raw(Resources.Language.Html_Template_MandatoryField)</span>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                                <select disabled>
-                                    <option value="">@CommonLabels.Symbol_NotApply</option>
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
+                                <select ng-model="multipleLogs.Language"
+                                        ng-options="item.Name for item in languageSettings track by item.Id"
+                                        ng-disabled="multipleLogs.isUseDefaultLanguage">
                                 </select>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="ckb-use-default-comm-tool"
+                                       ng-model="multipleLogs.isUseDefaultLanguage"
+                                       tooltip-placement="bottom-right"
+                                       uib-tooltip="Apply default Language."/>
                             </div>
                         </div>
                         <div class="row item">
@@ -135,7 +151,7 @@
                                     @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                                 </label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <multileveldropdowntree text-settings="TextSettings"
                                                         ng-model="selectedCategories"
                                                         ng-change="categoryChangedHandler()"
@@ -147,7 +163,7 @@
                                     @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                                 </label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <multileveldropdowntree text-settings="TextSettings"
                                                         ng-change="subCategoryChangedHandler()"
                                                         ng-model="selectedSubCategories"
@@ -158,7 +174,7 @@
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <label for="product">@Labels.Product</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <multileveldropdowntree text-settings="TextSettings"
                                                         ng-model="selectedProducts"
                                                         ng-change="productChangedHandler()"
@@ -167,7 +183,7 @@
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                                 <label for="subproduct">@Labels.SubProduct</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <multileveldropdowntree text-settings="TextSettings"
                                                         ng-model="selectedSubProducts"
                                                         ng-change="subProductChangedHandler()"
@@ -178,14 +194,14 @@
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <label for="status">@Labels.Status</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <select ng-model="multipleLogs.Status"
                                         ng-options="item.Name for item in statusList track by item.Id"></select>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                                 <label for="betType">@Labels.Bet_Type</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <multileveldropdowntree text-settings="TextSettings"
                                                         ng-model="selectedBettypes"
                                                         data-settings="bettypeDropdownSettings"
@@ -196,7 +212,7 @@
                             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                                 <label>@Labels.Role</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <select disabled>
                                     <option value="">@CommonLabels.Symbol_NotApply</option>
                                 </select>
@@ -204,7 +220,7 @@
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                                 <label>@Labels.Site</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <select disabled>
                                     <option value="">@CommonLabels.Symbol_NotApply</option>
                                 </select>
@@ -214,14 +230,14 @@
                             <div class="col-xs-2 col-sm-2 col-md-2">
                                 <label>@Labels.Response</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <select ng-model="multipleLogs.Response"
                                         ng-options="item.Value for item in responseList track by item.Id"></select>
                             </div>
                             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 @hideLicenseeTypeClass">
                                 <label for="licensee-type">@Labels.Licensee_Type</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3 @hideLicenseeTypeClass">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown @hideLicenseeTypeClass">
                                 <select disabled>
                                     <option value="">@CommonLabels.Symbol_NotApply</option>
                                 </select>
@@ -231,7 +247,7 @@
                             <div class="col-xs-2 col-sm-2 col-md-2">
                                 <label for="response">@Labels.NoOfInquiries</label>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-3 col-sm-3 col-md-3-dropdown">
                                 <input class="textbox" type="number" name="input" ng-keydown="validateInquiriesInput($event);" oninput="validity.valid||value < 1 && (value=1)||value > 32000 && (value=32000);" min="1" max="32000" data-ng-model="multipleLogs.NoInquiries" />
                             </div>
                         </div>

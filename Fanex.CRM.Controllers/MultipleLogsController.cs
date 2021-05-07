@@ -94,6 +94,28 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult GetSettings()
         {
+            var languages = serviceSetting.GetAllLanguages().Where(x => x.IsActive).ToList();
+            languages.Insert(
+                0,
+                new Setting
+                {
+                    Id = 0,
+                    Name = Labels.Symbol_NotApply,
+                    IsActive = true
+                });
+
+            var countries = serviceSetting.GetAllCountries().Where(x => x.IsActive).ToList();
+            if (AppSession.CurrentUser.UserRole != UserRole.CN88Staff)
+            {
+                countries.Insert(
+                    0,
+                    new Country
+                    {
+                        Id = 0,
+                        Name = Labels.Symbol_NotApply,
+                        IsActive = true
+                    });
+            }
             IEnumerable<BaseModel> statues = serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool);
             var allSetting = new
             {
@@ -112,6 +134,8 @@
                 BettypeList = serviceSetting.GetBettypes().Where(x => x.IsActive),
                 MainCategoryList = serviceSetting.GetMainCategories().Where(x => x.IsActive),
                 SubCategoryList = serviceSetting.GetSubCategories().Where(x => x.IsActive),
+                LanguagesList = languages,
+                CountryList = countries
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

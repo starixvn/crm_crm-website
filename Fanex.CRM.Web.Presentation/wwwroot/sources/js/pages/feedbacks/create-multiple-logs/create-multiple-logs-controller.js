@@ -9,7 +9,8 @@
             EndTime: new Date(currentTime),
             CommunicationTool: { Id: 0, Value: '' },
             Extension: { Id: 0, Value: '' },
-            LanguageId: 0,
+            Language: { Id: 0, Value: '' },
+            Country: { Id: 0, Value: '' },
             MainCategory: { Name: '' },
             SubCategory: { Name: '' },
             Product: { Id: 0, Value: '' },
@@ -23,6 +24,8 @@
             Solution: '',
             NoInquiries: null,
             isUseDefaultCommunicationTool: true,
+            isUseDefaultLanguage: true,
+            isUseDefaultCountry: true
         };
         $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
         $scope.communicationToolList = null;
@@ -31,6 +34,8 @@
         $scope.subCategoryList = null;
         $scope.betTypeList = null;
         $scope.statusList = null;
+        $scope.countrySettings = null;
+        $scope.languageSettings = null;
         $scope.responseList = null;
         $scope.feedbackSubjectTemplateList = [];
         $scope.feedbackSubjectTemplateTotalPage = 0;
@@ -331,6 +336,9 @@
                         sourceData: $scope.allSettings.BettypeList
                     };
 
+                    $scope.languageSettings = $scope.allSettings.LanguagesList;
+                    $scope.countrySettings = $scope.allSettings.CountryList;
+
                     $scope.completedLoadFilterInfo();
                 }, function () {
                     $scope.completedLoadFilterInfo();
@@ -392,6 +400,8 @@
             $scope.multipleLogs.CommunicationTool = $scope.communicationToolList === null ? $scope.multipleLogs.CommunicationTool : $scope.communicationToolList[0];
             $scope.multipleLogs.Status = $scope.statusList[0];
             $scope.multipleLogs.Response = $scope.responseList[0];
+            $scope.multipleLogs.Country = $scope.countrySettings[0];
+            $scope.multipleLogs.Language = $scope.languageSettings[0];
 
             $scope.initRemarkPrefix();
             $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
@@ -493,7 +503,8 @@
                 StartTime: moment(new Date($scope.multipleLogs.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 EndTime: moment(new Date($scope.multipleLogs.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
                 CommunicationIds: $scope.multipleLogs.isUseDefaultCommunicationTool ? '' : filterScripts.GetCommunicationParams($scope.selectedCommunications),
-                LanguageId: $scope.multipleLogs.LanguageId,
+                LanguageID: $scope.multipleLogs.isUseDefaultLanguage ? 0 : $scope.multipleLogs.Language.Id,
+                CountryName: $scope.multipleLogs.isUseDefaultCountry ? '' : $scope.multipleLogs.Country.Name,
                 StatusId: $scope.multipleLogs.Status.Id,
                 LicenseeTypeId: $scope.multipleLogs.LicenseeType.Id,
                 ResponseId: $scope.multipleLogs.Response.Id,
