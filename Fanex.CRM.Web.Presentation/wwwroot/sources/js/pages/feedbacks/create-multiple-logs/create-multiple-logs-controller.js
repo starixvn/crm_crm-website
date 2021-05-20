@@ -22,7 +22,7 @@
             Remark: "<div><font color=\"#ff0000\">" + viewResources.Remark_Multiple_Log_Note + "</font></div><br/>",
             Solution: '',
             NoInquiries: null,
-            isUseDefaultCommunicationTool: true
+            isUseDefaultCommunicationTool: true,
         };
         $scope.oldmultipleLogs = angular.copy($scope.multipleLogs);
         $scope.communicationToolList = null;
@@ -37,6 +37,7 @@
         $scope.isLoadedFeedbackSubjectTemplate = false;
         $scope.lastRemarkPrefix = '';
         $scope.isSuccessful = false;
+        $scope.isDisableButton = false;
         $scope.isShowResultMessage = false;
         $scope.resultMessage = '';
         $scope.isShowRemarkBox = true;
@@ -510,7 +511,8 @@
                 CategoryIds: $scope.selectedCategories.map(cat => cat.Id).sort().join(','),
                 SubCategoryIds: $scope.selectedSubCategories.map(subcat => subcat.Id).sort().join(','),
                 isUseDefaultCommunicationTool: $scope.multipleLogs.isUseDefaultCommunicationTool,
-                relatedCustomers: getRelatedCustomers()
+                relatedCustomers: getRelatedCustomers(),
+                IsManualMultiple: true
             };
             if ($scope.validateInsertMultipleLogsCriteria(insertCriteria)) {
                 if ($scope.multipleLogs.isUseDefaultCommunicationTool) {
@@ -546,11 +548,13 @@
             parent.dialogManager.confirm(viewResources.Confirm_Changes, confirmMessage,
                 function () {
                     $uiBlockerService.blockUI();
+                    $scope.isDisableButton = true;
                     createMultipleLogsFactory.createMultipleLogs(criteria)
                         .success(function (data) {
                             $scope.showResult(data);
                             $uiBlockerService.unblockUI();
                         }).error(function () {
+                            $scope.isDisableButton = false;
                             $uiBlockerService.unblockUI();
                         });
                 }
@@ -563,6 +567,7 @@
             $scope.isShowResultMessage = true;
 
             if (!result.IsSuccessful) {
+                $scope.isDisableButton = false;
                 $scope.isSuccessful = false;
                 $uiBlockerService.unblockUI();
                 return;

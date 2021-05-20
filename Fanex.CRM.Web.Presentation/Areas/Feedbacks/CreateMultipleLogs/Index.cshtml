@@ -281,7 +281,7 @@
                 </div>
             </div>
             <div class="row btn-group">
-                <button class="btn btn-save" ng-click="insertMultipleLogs();">
+                <button class="btn btn-save" ng-disabled="isDisableButton" ng-click="insertMultipleLogs();">
                     @Html.Raw(@CommonLabels.Btn_HotKey_Save)
                 </button>
             </div>
