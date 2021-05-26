@@ -627,7 +627,11 @@
                 $scope.resultMessage = viewResources.Multiple_Logs_NACommmunicationTool;
                 result = false;
             }
-
+            if (result && !$scope.multipleLogs.isUseDefaultLanguage && criteria.LanguageID === 0) {
+                $scope.resultMessage = viewResources.Multiple_Logs_NALanguage;
+                result = false;
+            }
+            
             if (result && criteria.Categories.length === 0) {
                 $scope.resultMessage = viewResources.Error_NA_MainSubCategory;
                 result = false;
