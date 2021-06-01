@@ -14,6 +14,7 @@
         $scope.createUpdateFeedbackPermission = createUpdateFeedbackPermission;
 
         $scope.customerInfo = null;
+        $scope.allSites = null;
         $scope.customerRemarks = null;
         $scope.redemptionLogs = null;
         $scope.communicationLogs = null;
@@ -27,10 +28,14 @@
         $scope.isLoadedCustomerRemarks = false;
         $scope.isLoadedRedemptionLogs = false;
         $scope.isLoadedCommunicationLogs = false;
+        $scope.isLoadedSites = false;
+        $scope.isInactiveSite = false
+        $scope.isAfterInactive = false;
         $scope.initController = function () {
             $scope.BlockUI();
             $scope.getCustomerRemarks();
             $scope.getCustomerInfo();
+            $scope.getAllSite();
             $scope.getRedemptionLogs();
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,
@@ -44,16 +49,24 @@
                 $scope.getCommunicationLogs();
                 return;
             }
+            if ($scope.isLoadedCustomerInfo &&
+                !$scope.isLoadedSites) {
+                $scope.getAllSite();
+                return;
+            }
 
             if ($scope.isLoadedCustomerInfo &&
                 $scope.isLoadedCustomerRemarks &&
                 $scope.isLoadedRedemptionLogs &&
-                $scope.isLoadedCommunicationLogs) {
-                $scope.unblockUI();
+                $scope.isLoadedCommunicationLogs &&
+                $scope.isLoadedSites) {
+                if (!$scope.isAfterInactive) {
+                    $scope.isInactiveSite = $scope.checkInactiveSite();
+                }
+                    $scope.unblockUI();
             }
         };
         $scope.getCustomerInfo = function () {
-            $scope.BlockUI();
             $scope.isLoadedCustomerInfo = false;
             var selectedCriteria = {
                 CustomerId: $scope.customerId
@@ -69,6 +82,22 @@
                     $scope.completedLoadDashboard();
                 });
         };
+
+        $scope.getAllSite = function () {
+            $scope.isLoadedSites = false;
+            $dashboardService.getAllSite()
+                .then(function (data) {
+                    $scope.isLoadedSites = true;
+                    $scope.allSites = data.Result;
+                    $scope.completedLoadDashboard();
+                },
+                function () {
+                    $scope.isLoadedSites = true;
+                    $scope.completedLoadDashboard();
+            });
+        };
+
+        $scope.checkInactiveSite = function () {            $scope.isAfterInactive = true;            const siteLicensee = $scope.allSites[1].ChildSites;            const siteId = $scope.customerInfo.SiteID;            for (var index = 0; index < siteLicensee.length; index++) {                var site = siteLicensee[index];                if (site.Id === siteId) {                    return false;                }            }            return true;        };
         $scope.getCustomerRemarks = function () {
             $scope.isLoadedCustomerRemarks = false;
             var selectedCriteria = {

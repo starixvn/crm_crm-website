@@ -70,7 +70,7 @@
         @if (customerInfoPolicy == Constant.Policy.Host)
         {
             <div class="row btn-group">
-                <button id="buttoninsert" class="btn" data-ng-click="insertCommunicationLog();">
+                <button ng-disabled="isInactive" id="buttoninsert" class="btn" data-ng-click="insertCommunicationLog();">
                     @Html.Raw(@CommonLabels.Btn_HotKey_InsertCase)</button>
             </div>
         }

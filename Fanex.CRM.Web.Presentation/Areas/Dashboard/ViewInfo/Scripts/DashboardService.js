@@ -46,6 +46,29 @@
 
             return deferred.promise;
         };
+
+        serviceInstance.getAllSite = function () {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "Setting/AllSite", null)
+                .success(function (data, status, headers, config) {
+                    deferred.resolve({
+                        Result: data,
+                        Status: status,
+                        Headers: headers,
+                        Config: config
+                    });
+                }).error(function (data, status, headers, config) {
+                    deferred.reject({
+                        Result: data,
+                        Status: status,
+                        Headers: headers,
+                        Config: config
+                    });
+                });
+
+            return deferred.promise;
+        };
+
         serviceInstance.getRedemptionLogs = function (selectedCriteria) {
             var deferred = $q.defer();
             $http.post(window.rootUrl + "Dashboard/GetRedemptionLogs", selectedCriteria)

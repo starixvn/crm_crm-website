@@ -393,4 +393,7 @@
   <data name="Btn_HotKey_Save_Continue" xml:space="preserve">
     <value>S&lt;span class="hotkey"&gt;a&lt;/span&gt;ve &amp; Continue</value>
   </data>
+  <data name="InActiveSiteMessage" xml:space="preserve">
+    <value>Cannot create feedback for Inactive Site member.</value>
+  </data>
 </root>

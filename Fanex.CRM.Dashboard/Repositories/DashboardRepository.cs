@@ -101,7 +101,8 @@
                 RoleId = Converter.ToInt(reader["RoleId"]),
                 IsCredit = Converter.ToBool(reader["IsCredit"]),
                 BetCredit = Converter.ToDecimal(reader["BetCredit"]),
-                GivenCredit = Converter.ToDecimal(reader["GivenCredit"])
+                GivenCredit = Converter.ToDecimal(reader["GivenCredit"]),
+                SiteID = Converter.ToInt(reader["SiteID"])
             };
 
             return customerInfo;

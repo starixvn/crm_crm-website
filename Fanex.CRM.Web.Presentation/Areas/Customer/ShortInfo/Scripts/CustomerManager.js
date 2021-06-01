@@ -52,7 +52,6 @@
             isLoadedCountry: false,
             isLoadedProvince: false,
             isLoadedLanguage: false,
-
             controllerScope: null
         };
 
@@ -143,6 +142,7 @@
             self.DOMElements.divContent.removeClass("display-none");
             return true;
         };
+
         self.goToBlankPage = function () {
             try {
                 self.DOMElements.centerFrame.attr({
@@ -256,7 +256,6 @@
                 self.unblockUI();
                 return;
             }           
-
             self.getAllSite();
             self.getAllCountry();
             self.getAllProvince();
@@ -303,9 +302,21 @@
                 childrenMember: "ChildSites"
             };          
 
+            var siteLicensee = result[1].ChildSites;
+            self.CacheData.controllerScope.showInactiveSite = self.checkInactiveSite(siteLicensee);
             self.CacheData.controllerScope.$apply();
             self.CacheData.isLoadedSite = true;
-        };       
+        };   
+
+        self.checkInactiveSite = function (siteLicensee) {
+            for (var index = 0; index < siteLicensee.length; index++) {
+                var site = siteLicensee[index];
+                if (site.Id === self.CacheData.currentCustomer.SiteSetting.Id) {
+                    return false;
+                }
+            }
+            return true;
+        };
 
         self.getAllCountry = function () {
             self.CacheData.isLoadedCountry = false;
@@ -550,6 +561,7 @@
         self.enableGuestSearch = function () {
             self.DOMElements.checkboxIsGuest.attr("checked", "checked");
         };
+
     };
 
     window.customerManager = new CustomerManager();

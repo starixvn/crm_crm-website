@@ -49,7 +49,12 @@
                     });
                     dataColumns.push({ Name: "ColHandler", Value: info.Handler });
                     dataColumns.push({ Name: "ColReviewer", Value: info.Reviewer });
-                    dataColumns.push({ Name: "ColDuplicate", Value: '<button class="btn duplicate-btn" data-logid="' + info.RunningNumber + '">' + viewResources.Duplicate + '</button>' });
+                    if (!scope.isInactiveSite) {
+                        dataColumns.push({ Name: "ColDuplicate", Value: '<button class="btn duplicate-btn" data-logid="' + info.RunningNumber + '">' + viewResources.Duplicate + '</button>' });
+                    }
+                    else {
+                        dataColumns.push({ Name: "ColDuplicate", Value: '<button disabled class="btn duplicate-btn" data-logid="' + info.RunningNumber + '">' + viewResources.Duplicate + '</button>' });
+                    }
 
                     bodyData.push({
                         Columns: dataColumns,
@@ -119,12 +124,13 @@
                 .bind('click', function () {
                     scope.openQuickUpdateFeedbackPopup($(this).data('id'));
                 });
-
-            var duplicateBtns = tableCommunicationLogs.find(".duplicate-btn");
-            duplicateBtns.unbind("click");
-            duplicateBtns.click(function () {
-                scope.duplicateCommunicationLog($(this).attr("data-logid"));
-            });
+            if(!scope.isInactiveSite) {
+                var duplicateBtns = tableCommunicationLogs.find(".duplicate-btn");
+                duplicateBtns.unbind("click");
+                duplicateBtns.click(function () {
+                    scope.duplicateCommunicationLog($(this).attr("data-logid"));
+                });
+            }
         }
 
         return {

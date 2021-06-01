@@ -96,6 +96,14 @@
                                           hide-NA="isCN88"></selectwithsearchtree>
                 </div>
             </div>
+
+            <div class="row item no-border-bg" data-ng-show="showInactiveSite">
+                <label class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                </label>
+                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                    <span class="red-color"> @CommonLabels.InActiveSiteMessage</span></span>
+                </div>
+            </div>
             <div class="row item no-border-bg">
                 <label for="customerinfo-countryoptions" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                     @Labels.Country
@@ -248,11 +256,11 @@
                         <li><a data-ng-href="#" data-ng-click="viewCRMInfo();">@Labels.CRM_Info</a></li>
                         @if (customerInfoPolicy == Constant.Policy.Host)
                         {
-                            <li><a data-ng-href="#" data-ng-click="addFeedback();">@Labels.Add_Feedback</a></li>
+                            <li data-ng-show="!showInactiveSite"><a data-ng-href="#" data-ng-click="addFeedback();">@Labels.Add_Feedback</a></li>
                         }
                     </ul>
                     <ul class="list-unstyled list-menu pull-left no-margin">
-                        <li>
+                        <li >
                             <a data-ng-href="#" data-ng-click="viewLatestFeedback();">
                                 @Labels.Latest_Feedback
                             </a>

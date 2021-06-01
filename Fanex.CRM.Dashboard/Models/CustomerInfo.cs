@@ -33,5 +33,7 @@
         public decimal BetCredit { get; set; }
 
         public decimal GivenCredit { get; set; }
+
+        public int SiteID { get; set; }
     }
 }

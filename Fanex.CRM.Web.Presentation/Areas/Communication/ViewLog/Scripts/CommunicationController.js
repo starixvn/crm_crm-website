@@ -19,6 +19,10 @@
         $scope.statusList = [];
         $scope.isUpdatingDate = false;
         $scope.isSearched = true;
+        $scope.isLoadedLicensee = false;
+        $scope.customerLicenseeInfor = null;
+        $scope.allSites = null;
+        $scope.isInactive = false;
         $scope.searchCriteria = {
             CustomerId: $scope.customerId,
             FromDate: initFromDate,
@@ -32,11 +36,72 @@
 
         $scope.initController = function () {
             $scope.getAllStatus();
+            $scope.BlockUI();
+            $scope.getLicenseeSiteByCustomerId();
+            $scope.getAllSites();
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,
                 Id: "CustomerCommunicationLogs"
             });
         };
+
+        $scope.completedLoadCommunication = function () {
+            if ($scope.isLoadedLicensee &&
+                !$scope.isLoadedSite) {
+                $scope.getAllSites()
+                return;
+            }
+            if ($scope.isLoadedLicensee && $scope.isLoadedSite) {
+                $scope.isInactive = $scope.checkInactiveSite();
+                console.log("isInactiveSite");
+                $scope.unblockUI();
+            }
+        };
+
+        $scope.getLicenseeSiteByCustomerId = function () {
+            $scope.isLoadedLicensee = false;
+            var getLogByCustomerIdParams = {
+                CustomerId: $scope.customerId
+            };
+
+            $communicationService.getCustomerInfo(getLogByCustomerIdParams)
+                .then(function (data) {
+                    $scope.isLoadedLicensee = true;
+                    $scope.customerLicenseeInfor = data.Result;
+                    $scope.completedLoadCommunication();
+                },
+                    function () {
+                        $scope.isLoadedLicensee = true;
+                        $scope.completedLoadCommunication();
+                    });
+        };
+
+        $scope.getAllSites = function () {
+            $scope.isLoadedSite = false;
+            $communicationService.getAllSite()
+                .then(function (data) {
+                    $scope.allSites = data.Result;
+                    $scope.isLoadedSite = true;
+                },
+                    function () {
+                        $scope.isLoadedSite = true;
+                        $scope.completedLoadCommunication();
+                    });
+        };
+
+        $scope.checkInactiveSite = function () {
+            const siteLicensee = $scope.allSites[1].ChildSites;
+            const siteId = $scope.customerLicenseeInfor.SiteID;
+            $scope.unblockUI();
+            for (var index = 0; index < siteLicensee.length; index++) {
+                var site = siteLicensee[index];
+                if (site.Id === siteId) {
+                    return false;
+                }
+            }
+            return true;
+        };
+
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlI = function () {
             $scope.insertCommunicationLog();
