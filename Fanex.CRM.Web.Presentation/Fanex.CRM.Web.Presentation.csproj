@@ -483,6 +483,7 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\PicOfHeadlineService.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\removeAssignmentController.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\setDefaultPicController.js" />
+    <Content Include="Configurations\SpNameConfig\SpName.AWS.xml" />
     <Content Include="logs\log.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -777,16 +778,7 @@
     <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\SpNameConfig\SpName.CN88PRO.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\SpName.CN88UAT.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
     <Content Include="Configurations\SpNameConfig\SpName.LOCAL.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\SpName.MASTER.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
     <Content Include="Configurations\SpNameConfig\SpName.PRO.xml">
@@ -815,19 +807,10 @@
     <Content Include="Configurations\Web.backupMNL.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Configurations\Web.CN88LOCAL.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\Web.CN88UAT.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Configurations\Web.DEV.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Configurations\Web.LOCAL.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Configurations\Web.Master.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Configurations\Web.PRO.config">
@@ -1462,9 +1445,6 @@
     <Content Include="Configurations\WebConfigTransforms\DEV.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\WebConfigTransforms\Master.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Configurations\WebConfigTransforms\UAT.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1491,30 +1471,20 @@
     <Content Include="Areas\User\LogIn\UnknowUserRole.cshtml" />
     <Content Include="Areas\User\LogIn\Index.CN88.cshtml" />
     <Content Include="Configurations\ConnectionStrings\backupMNL.ConnectionStrings.config" />
-    <Content Include="Configurations\ConnectionStrings\CN88UAT.ConnectionStrings.config" />
     <Content Include="Configurations\ConnectionStrings\dev.ConnectionStrings.config" />
     <Content Include="Configurations\ConnectionStrings\Local.ConnectionStrings.config" />
-    <Content Include="Configurations\ConnectionStrings\Master.ConnectionStrings.config" />
     <Content Include="Configurations\ConnectionStrings\PRO.ConnectionStrings.config" />
     <Content Include="Configurations\ConnectionStrings\UAT.ConnectionStrings.config" />
     <Content Include="Configurations\ConnectionStrings\UATSandBox.ConnectionStrings.config" />
     <Content Include="Configurations\ConnectionStrings\SIT.ConnectionStrings.config" />
     <Content Include="Configurations\AppSettings\backupMNL.Web.Setting.config" />
-    <Content Include="Configurations\AppSettings\CN88Local.Web.Setting.config" />
-    <Content Include="Configurations\AppSettings\CN88UAT.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\dev.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\Web.Setting.Local.config" />
-    <Content Include="Configurations\AppSettings\Master.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\PRO.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\UAT.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\UATSandBox.Web.Setting.config" />
     <Content Include="Configurations\AppSettings\SIT.Web.Setting.config" />
     <Content Include="Configurations\TemplateFilemanager.CS.ttinclude" />
-    <Content Include="Configurations\ConnectionStrings\CN88PRO.ConnectionStrings.config" />
-    <Content Include="Configurations\AppSettings\CN88PRO.Web.Setting.config" />
-    <Content Include="Configurations\Web.CN88PRO.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Areas\AdminTool\SettingManagementCN88\DeleteSetting\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagementCN88\DeleteSetting\Styles\DeleteSetting.less" />
     <Content Include="Areas\AdminTool\SettingManagementCN88\EditSetting\Index.cshtml" />
@@ -1554,17 +1524,16 @@
     <Content Include="Areas\PicAndHeadline\ChangesLog\Index.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\_SetDefaultPIC.cshtml" />
     <Content Include="Areas\PicAndHeadline\PicManagement\_ValidateEditConfirm.cshtml" />
+    <Content Include="Configurations\ConnectionStrings\AWS.ConnectionStrings.config" />
+    <Content Include="Configurations\AppSettings\AWS.Web.Setting.config" />
+    <Content Include="Configurations\Web.AWS.config" />
     <None Include="Configurations\Web.config" />
-    <Content Include="Configurations\WebConfigTransforms\CN88LOCAL.config" />
-    <Content Include="Configurations\WebConfigTransforms\CN88UAT.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Configurations\Web.UATSandBox.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Configurations\WebConfigTransforms\CN88PRO.config" />
     <Content Include="Fanex.CRM.Web.Presentation.ruleset" />
     <Content Include="Configurations\Web.SIT.config" />
+    <Content Include="Configurations\WebConfigTransforms\AWS.config" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CRM.pubxml" />
     <Content Include="wwwroot\dist\styles\fonts\fontawesome-webfont.eot" />
