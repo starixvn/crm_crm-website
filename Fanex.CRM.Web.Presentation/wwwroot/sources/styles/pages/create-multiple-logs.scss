@@ -84,6 +84,11 @@ select:disabled {
     padding-left: 5px;
 }
 
+.relate-inactive-site {
+    border-left: 17px solid #AAAA00;
+    padding-left: 5px;
+}
+
 .verify-customer-result {
     border: 1px solid $border-color;
     height: auto;
@@ -118,6 +123,10 @@ select:disabled {
 
         .invalid {
             color: red;
+        }
+
+        .inactive {
+            color: #AAAA00;
         }
     }
 

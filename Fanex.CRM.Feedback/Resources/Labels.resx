@@ -614,4 +614,10 @@
   <data name="QuickUpdateTitle" xml:space="preserve">
     <value>Quick update</value>
   </data>
+  <data name="InactiveSite" xml:space="preserve">
+    <value>Inactive Site</value>
+  </data>
+  <data name="InactiveSiteCreateErrorMessage" xml:space="preserve">
+    <value>Cannot create Feedback for Inactive Site. Please recheck information.</value>
+  </data>
 </root>

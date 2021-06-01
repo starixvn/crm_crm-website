@@ -126,6 +126,12 @@
             }).length > 0;
         }
 
+        function checkExistInactiveSite() {
+            return $scope.verifyCustomerResults.filter(function (item) {
+                return item.IsSiteActive === false && item.CustId !== 0
+            }).length > 0;
+        }
+
         function combineCustomers(customers, newCustomers) {
             customers = customers.concat(newCustomers);
             for (var i = 0; i < customers.length; ++i) {
@@ -612,6 +618,11 @@
             var result = true;
             var feedbackTime = new Date(criteria.StartTime);
             var resolutionTime = new Date(criteria.EndTime);
+            var isContainInactiveSite = checkExistInactiveSite();
+            if (isContainInactiveSite) {
+                $scope.resultMessage = viewResources.ErrorCreateInactiveSite;
+                result = false;
+            }
 
             if (criteria.Customers.length === 0) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptyListOfCustomers;

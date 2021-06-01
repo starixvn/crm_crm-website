@@ -33,6 +33,13 @@
         }
 
         [HttpPost]
+        public JsonResult AllSitesLicenseeInactive()
+        {
+            var allSite = _settingServiceInstance.GetAllSitesLicenseeInactive();
+            return Json(allSite, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult AllTitle()
         {
             var allTitle = _settingServiceInstance.GetAllTitles().Where(x => x.IsActive);

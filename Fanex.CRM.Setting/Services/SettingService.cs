@@ -137,7 +137,7 @@
             }
             var sites = baseService.GetData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
 
-            var allSites = (from n in sites
+           var allSites = (from n in sites
                             where n.IsActive
                             group n by n.IsLicensee into g
                             orderby g.Key
@@ -155,6 +155,15 @@
                             }).ToList();
 
             CacheService.Set(GetAllSiteSessionKey, allSites);
+            return allSites;
+        }
+
+        public IEnumerable<SiteInfo> GetAllSitesLicenseeInactive(GetAllSiteCriteria criteria = null)
+        {
+            var sites = baseService.GetData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
+
+            var allSites = sites.Where(x => !x.IsActive && x.IsLicensee);
+
             return allSites;
         }
 

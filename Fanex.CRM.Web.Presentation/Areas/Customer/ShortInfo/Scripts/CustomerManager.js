@@ -49,6 +49,7 @@
             currentCustomer: null,
 
             isLoadedSite: false,
+            isLoadedInactiveSite: false,
             isLoadedCountry: false,
             isLoadedProvince: false,
             isLoadedLanguage: false,
@@ -257,6 +258,7 @@
                 return;
             }           
             self.getAllSite();
+            self.getAllSitesLicenseeInactive();
             self.getAllCountry();
             self.getAllProvince();
             self.getAllLanguage();
@@ -276,6 +278,7 @@
         };
         self.completedLoadLeftPanel = function () {
             if (self.CacheData.isLoadedSite &&
+            self.CacheData.isLoadedInactiveSite &&
             self.CacheData.isLoadedCountry &&
             self.CacheData.isLoadedProvince &&                
             self.CacheData.isLoadedLanguage) {
@@ -283,14 +286,41 @@
             }
         };
 
+        self.getAllSitesLicenseeInactive = function () {
+            self.CacheData.isLoadedInactiveSite = false;
+            sharedScriptManager.CallAjax(self,
+                window.rootUrl + "Setting/AllSitesLicenseeInactive",
+            null,
+            self.renderAllSitesLicenseeInactive,
+            null,
+            self.completedLoadLeftPanel);
+        };
+
+        self.renderAllSitesLicenseeInactive = function (result) {
+            var siteLicensee = result;
+            self.CacheData.controllerScope.showInactiveSite = self.checkInactiveSite(siteLicensee);
+            self.CacheData.controllerScope.$apply();
+            self.CacheData.isLoadedInactiveSite = true;
+        }; 
+
+        self.checkInactiveSite = function (siteLicensee) {
+            for (var index = 0; index < siteLicensee.length; index++) {
+                var site = siteLicensee[index];
+                if (site.Id === self.CacheData.currentCustomer.SiteSetting.Id) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
         self.getAllSite = function () {
             self.CacheData.isLoadedSite = false;
             sharedScriptManager.CallAjax(self,
-            window.rootUrl + "Setting/AllSite",
-            null,
-            self.renderAllSiteResult,
-            null,
-            self.completedLoadLeftPanel);
+                window.rootUrl + "Setting/AllSite",
+                null,
+                self.renderAllSiteResult,
+                null,
+                self.completedLoadLeftPanel);
         };
 
         self.renderAllSiteResult = function (result) {
@@ -301,22 +331,9 @@
                 sourceData: result,
                 childrenMember: "ChildSites"
             };          
-
-            var siteLicensee = result[1].ChildSites;
-            self.CacheData.controllerScope.showInactiveSite = self.checkInactiveSite(siteLicensee);
             self.CacheData.controllerScope.$apply();
             self.CacheData.isLoadedSite = true;
         };   
-
-        self.checkInactiveSite = function (siteLicensee) {
-            for (var index = 0; index < siteLicensee.length; index++) {
-                var site = siteLicensee[index];
-                if (site.Id === self.CacheData.currentCustomer.SiteSetting.Id) {
-                    return false;
-                }
-            }
-            return true;
-        };
 
         self.getAllCountry = function () {
             self.CacheData.isLoadedCountry = false;

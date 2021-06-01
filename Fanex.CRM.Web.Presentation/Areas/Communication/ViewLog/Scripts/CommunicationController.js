@@ -53,7 +53,6 @@
             }
             if ($scope.isLoadedLicensee && $scope.isLoadedSite) {
                 $scope.isInactive = $scope.checkInactiveSite();
-                console.log("isInactiveSite");
                 $scope.unblockUI();
             }
         };
@@ -90,16 +89,16 @@
         };
 
         $scope.checkInactiveSite = function () {
-            const siteLicensee = $scope.allSites[1].ChildSites;
+            const siteLicensee = $scope.allSites;
             const siteId = $scope.customerLicenseeInfor.SiteID;
             $scope.unblockUI();
             for (var index = 0; index < siteLicensee.length; index++) {
                 var site = siteLicensee[index];
                 if (site.Id === siteId) {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         };
 
         /* jshint camelcase: false */

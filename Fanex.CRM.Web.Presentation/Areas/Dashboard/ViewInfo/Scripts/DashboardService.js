@@ -49,7 +49,7 @@
 
         serviceInstance.getAllSite = function () {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "Setting/AllSite", null)
+            $http.post(window.rootUrl + "Setting/AllSitesLicenseeInactive", null)
                 .success(function (data, status, headers, config) {
                     deferred.resolve({
                         Result: data,

@@ -12,10 +12,10 @@
         void ClearAllCaches(string key = "");
 
         List<Setting> GetAllSettings();
-
         Setting GetSettingById(GetSettingByIdCriteria criteria);
 
         IList<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null);
+        IEnumerable<SiteInfo> GetAllSitesLicenseeInactive(GetAllSiteCriteria criteria = null);
 
         IList<SiteInfo> GetAllSitesCN88();
 

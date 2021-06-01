@@ -97,7 +97,7 @@
             });
         };
 
-        $scope.checkInactiveSite = function () {            $scope.isAfterInactive = true;            const siteLicensee = $scope.allSites[1].ChildSites;            const siteId = $scope.customerInfo.SiteID;            for (var index = 0; index < siteLicensee.length; index++) {                var site = siteLicensee[index];                if (site.Id === siteId) {                    return false;                }            }            return true;        };
+        $scope.checkInactiveSite = function () {            $scope.isAfterInactive = true;            const siteLicensee = $scope.allSites;            const siteId = $scope.customerInfo.SiteID;            for (var index = 0; index < siteLicensee.length; index++) {                var site = siteLicensee[index];                if (site.Id === siteId) {                    return true;                }            }            return false;        };
         $scope.getCustomerRemarks = function () {
             $scope.isLoadedCustomerRemarks = false;
             var selectedCriteria = {
