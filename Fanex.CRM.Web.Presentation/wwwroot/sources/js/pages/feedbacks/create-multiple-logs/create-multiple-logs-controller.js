@@ -59,6 +59,7 @@
         $scope.selectedSubCategoryIds = [];
         $scope.customersInput = '';
         $scope.verifyCustomerResults = [];
+        $scope.reVerifyResult = [];
         $scope.relatedCustomerResults = [];
         $scope.showAddRelatedCustomer = false;
         var dateTimeAndToolPattern = 'Date Time & Tool: \\d{8}\\/\\d{2}:\\d{2}\\D{2}\\/';
@@ -127,9 +128,27 @@
         }
 
         function checkExistInactiveSite() {
-            return $scope.verifyCustomerResults.filter(function (item) {
-                return item.IsSiteActive === false && item.CustId !== 0
-            }).length > 0;
+            var listInactiveCusts = [];
+            angular.forEach($scope.reVerifyResult, function (customer) {
+                if (customer.IsSiteActive === false && customer.CustId !== 0) {
+                   listInactiveCusts.push(customer.Username);
+                }
+            });
+            return listInactiveCusts;
+        }
+
+        $scope.reCheckInactiveSite = function(){
+            $uiBlockerService.blockUI();
+            var userNamesVerify = $scope.verifyCustomerResults.map(x => x.Username).join(",");
+            createMultipleLogsFactory.verifyCustomer({ Username: userNamesVerify })
+                .success(function (data) {
+                    $scope.verifyCustomerResults = data;
+                    $scope.reVerifyResult = data;
+                    $scope.insertMultipleLogsCriteria();
+                    $uiBlockerService.unblockUI();
+                }).error(function () {
+                    $uiBlockerService.unblockUI();
+                });
         }
 
         function combineCustomers(customers, newCustomers) {
@@ -500,10 +519,12 @@
         };
 
         $scope.insertMultipleLogs = function () {
+            $scope.reCheckInactiveSite();
+        }
+        $scope.insertMultipleLogsCriteria = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccessful = true;
             var autoFields = splitAutoFieldWhenUseDefaultCommunicationTool();
-
             var insertCriteria = {
                 Customers: getCustomers(),
                 StartTime: moment(new Date($scope.multipleLogs.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
@@ -618,12 +639,11 @@
             var result = true;
             var feedbackTime = new Date(criteria.StartTime);
             var resolutionTime = new Date(criteria.EndTime);
-            var isContainInactiveSite = checkExistInactiveSite();
-            if (isContainInactiveSite) {
-                $scope.resultMessage = viewResources.ErrorCreateInactiveSite;
+            var inactiveSites = checkExistInactiveSite();
+            if (inactiveSites.length > 0) {
+                $scope.resultMessage = viewResources.ErrorCreateInactiveSite + inactiveSites.map(inactive => inactive).join(", ");
                 result = false;
             }
-
             if (criteria.Customers.length === 0) {
                 $scope.resultMessage = viewResources.Multiple_Logs_EmptyListOfCustomers;
                 result = false;

@@ -628,7 +628,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot create Feedback for Inactive Site. Please recheck information..
+        ///   Looks up a localized string similar to Cannot create Feedback for customers belonging to Inactive Site: .
         /// </summary>
         public static string InactiveSiteCreateErrorMessage {
             get {
