@@ -61,7 +61,7 @@
                             <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xs-8 col-sm-8 col-md-8 verify-customer-result">
                                 <div class="result-item" ng-repeat="item in verifyCustomerResults track by $index">
                                     <span class="fa fa-times" ng-click="removeCustomer(item)"></span>
-                                    <span ng-class="item.CustId > 0 && item.IsSiteActive ? 'customer' : item.CustId < 0 && item.IsSiteActive ? 'guest' : !item.IsSiteActive && item.CustId !== 0 ? 'inactive' : 'invalid'" 
+                                    <span ng-class="!item.IsSiteActive && item.IsLicensee && item.CustId !== 0 ? 'inactive' : item.CustId > 0 ? 'customer': item.CustId < 0 ? 'guest' : 'invalid'"
                                           ng-bind="item.Username">
                                     </span>
                                 </div>

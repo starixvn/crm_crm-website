@@ -60,13 +60,15 @@
 
                     if (reader.NextResult())
                     {
-                        var relatedCustomers = new List<BaseModel>();
+                        var relatedCustomers = new List<RelatedCustomer>();
                         while (reader.Read())
                         {
-                            relatedCustomers.Add(new BaseModel
+                            relatedCustomers.Add(new RelatedCustomer
                             {
                                 Id = Converter.ToInt(reader["CustID"]),
-                                Name = Converter.ToString2(reader["UserName"])
+                                Name = Converter.ToString2(reader["UserName"]),
+                                IsSiteActive = Converter.ToBool(reader["IsSiteActive"]),
+                                IsLicensee = Converter.ToBool(reader["IsLicensee"])
                             });
                         }
 
@@ -165,7 +167,9 @@
                 Reviewer = Converter.ToString2(reader["reviewer"]),
                 ReviewedTimeString = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["SolveDate"])).ToLongFormatedDateTime(),
 
-                LicenseeType = new Setting { Id = Converter.ToInt(reader["LicenseeType"]) }
+                LicenseeType = new Setting { Id = Converter.ToInt(reader["LicenseeType"]) },
+                IsSiteActive = Converter.ToBool(reader["IsSiteActive"]),
+                IsLicensee = Converter.ToBool(reader["IsLicensee"])
             };
 
             return logInfo;

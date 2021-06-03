@@ -310,7 +310,7 @@
     @RazorHelper.RenderScripts("~/Scripts/common.js")
     @RazorHelper.RenderScripts("~/Scripts/Directives/selectwithsearch/selectwithsearch.js")
     @RazorHelper.RenderScripts("~/Areas/Communication/InsertLogScripts")
-    <script type="text/javascript">
+<script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var customerId = '@customerId';
@@ -351,7 +351,8 @@
             FeedbackDuplicationError: '@Labels.FeedbackDuplicationError',
             Confirm_Changes: '@Labels.Confirm_Changes',
             Confirm_Changes_Message: '@Labels.Confirm_Changes_Message',
-            CreateInactiveSiteErrorMessage: '@Labels.CreateInactiveSiteErrorMessage'
+            Error_Create_InactiveSite: '@Labels.CreateInactiveSiteErrorMessage',
+            Error_InactiveSite_Member: '@Labels.InactiveSiteMemberErrorMessage'
         };
-    </script>
+</script>
 }

@@ -80,5 +80,9 @@
         public int NoInquiries { get; set; }
 
         public List<SettingItem> Settings { get; set; }
+
+        public bool IsSiteActive { get; set; }
+        public bool IsLicensee { get; set; }
+        
     }
 }

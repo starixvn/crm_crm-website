@@ -112,7 +112,7 @@
         $scope.selectedSubProductIds = [];
         $scope.selectedBettypeIds = [];
         $scope.selectedSubCategoryIds = [];
-
+        $scope.reVerifyResult = [];
         $scope.customersInput = '';
 
         $scope.isUpdatingTime = false;
@@ -510,7 +510,25 @@
                 $scope.allSettings.SubCategoryList);
         }
 
+        $scope.reCheckInactiveSite = function (relatedCustomerName) {
+            $insertLogService.recheckVerifyUserName({ Username: relatedCustomerName })
+                .then(function (data) {
+                    $scope.relatedCustomerResultDirective.loadRelatedCustomers(data.Result);
+                    $scope.reVerifyResult = data.Result;
+                    $scope.validateParamsBeforeInsert();
+                    $scope.unblockUI();
+                }, function () {
+                        $scope.unblockUI();
+                });
+        }
+
         $scope.insertLog = function () {
+            $scope.BlockUI();
+            var relatedCustomerName = $scope.relatedCustomerResultDirective.getRelatedCustomerName();
+            $scope.reCheckInactiveSite(relatedCustomerName);
+        };
+
+        $scope.validateParamsBeforeInsert = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
 
@@ -546,7 +564,7 @@
                     }
                 );
             }
-        };
+        }
 
         $scope.checkDuplicationThenCreateFeedback = function (params) {
             var checkParams = {
@@ -632,6 +650,18 @@
             var result = true;
             var feedbackTime = new Date(criteria.StartTime);
             var resolutionTime = new Date(criteria.EndTime);
+
+            if (!$scope.copiedCommunicationLog.IsSiteActive && $scope.copiedCommunicationLog.IsLicensee) {
+                $scope.resultMessage = viewResources.Error_InactiveSite_Member;
+                result = false;
+            }
+
+            var inactiveSites = $scope.relatedCustomerResultDirective.checkExistInactiveSite($scope.reVerifyResult);
+            if (inactiveSites.length > 0) {
+                $scope.resultMessage = viewResources.Error_Create_InactiveSite + inactiveSites.map(x => x).join(", ");
+                result = false;
+            }
+
             if (feedbackTime > resolutionTime) {
                 $scope.resultMessage = viewResources.Communication_Log_ErrorEndTime;
                 result = false;

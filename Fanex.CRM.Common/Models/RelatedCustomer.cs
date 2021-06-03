@@ -2,7 +2,7 @@
 {
     public class RelatedCustomer : BaseModel
     {
-        public int SiteId { get; set; }
         public bool IsSiteActive { get; set; }
+        public bool IsLicensee { get; set; }
     }
 }

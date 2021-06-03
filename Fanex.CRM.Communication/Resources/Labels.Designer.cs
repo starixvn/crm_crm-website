@@ -520,6 +520,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to InActiveSiteMessage	Cannot create feedback for Inactive Site member..
+        /// </summary>
+        public static string InactiveSiteMemberErrorMessage {
+            get {
+                return ResourceManager.GetString("InactiveSiteMemberErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert Communication Log.
         /// </summary>
         public static string Insert_Communication_Log {

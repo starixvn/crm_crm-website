@@ -520,6 +520,15 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\removeAssignmentController.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\setDefaultPicController.js" />
     <Content Include="Configurations\SpNameConfig\SpName.AWS.xml" />
+    <Content Include="Configurations\SpNameConfig\SpName.CN88PRO.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\SpName.CN88UAT.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\SpName.MASTER.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
     <Content Include="logs\log.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

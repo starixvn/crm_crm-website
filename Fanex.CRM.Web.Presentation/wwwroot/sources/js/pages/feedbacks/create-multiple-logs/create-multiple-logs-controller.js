@@ -130,7 +130,7 @@
         function checkExistInactiveSite() {
             var listInactiveCusts = [];
             angular.forEach($scope.reVerifyResult, function (customer) {
-                if (customer.IsSiteActive === false && customer.CustId !== 0) {
+                if (!customer.IsSiteActive && customer.CustId !== 0 && customer.IsLicensee) {
                    listInactiveCusts.push(customer.Username);
                 }
             });

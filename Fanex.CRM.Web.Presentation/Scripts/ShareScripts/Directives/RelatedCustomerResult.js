@@ -13,8 +13,17 @@
 
                     var html;
                     var customerName = escapeHtml(customer.Name);
-                    if (customer && customer.Id !== 0) {
-                        if (customer.Id > 0 && customer.IsSiteActive) {
+                    var IsInActive = !customerName.IsSiteActive && customerName.IsLicensee;
+                    if (IsInActive && customer.Id !== 0) {
+                        html = '<td id="' + customer.Id + '" value="' + customerName + '">\
+                                <div rel="friend" class="txt-inactive">\
+                                    <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></div>\
+                                    <div class="customer-name">' + customerName + '</div>\
+                                </div>\
+                        </td>';
+                    }
+                    else {
+                        if (customer.Id > 0) {
                             html = '<td id="' + customer.Id + '" value="' + customerName + '">\
                                 <div rel="friend" class="txt-customer">\
                                     <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></div>\
@@ -22,7 +31,7 @@
                                 </div>\
                          </td>';
                         }
-                        else if (customer.Id < 0 && customer.IsSiteActive){
+                        else if (customer.Id < 0) {
                             html = '<td id="' + customer.Id + '" value="' + customerName + '">\
                                 <div rel="friend" class="txt-guest">\
                                     <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></div>\
@@ -30,22 +39,14 @@
                                 </div>\
                         </td>';
                         }
-                        else if (!customer.IsSiteActive && customer.Id !== 0){
-                            html = '<td id="' + customer.Id + '" value="' + customerName + '">\
-                                <div rel="friend" class="txt-inactive">\
-                                    <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></div>\
-                                    <div class="customer-name">' + customerName + '</div>\
-                                </div>\
-                        </td>';
-                        }
-                    }
-                    else {
-                        html = '<td class="invalidcustomers" id="' + customer.Id + '" value="' + customerName + '">\
+                        else {
+                            html = '<td class="invalidcustomers" id="' + customer.Id + '" value="' + customerName + '">\
                                 <div rel="friend" class="txt-invalid">\
                                     <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-all-invalid"></div>\
                                     <div class="customer-name">' + customerName + '</div>\
                                 </div>\
                         </td>';
+                        }
                     }
 
                     return html;
@@ -157,7 +158,7 @@
                                 var customers = [];
                                 angular.forEach(data.Result, function (customer, index) {
                                     /* jshint unused: false */
-                                    customers.push({ Id: customer.Id, Name: customer.Name, SiteId: customer.SiteId, IsSiteActive: customer.IsSiteActive });
+                                    customers.push({ Id: customer.Id, Name: customer.Name, IsSiteActive: customer.IsSiteActive, IsLicensee: customer.IsSiteActive });
                                 });
 
                                 scope.relatedCustomerResultDirective.relatedCustomers = combineCustomers(scope.relatedCustomerResultDirective.relatedCustomers, customers);
@@ -222,11 +223,10 @@
                         };
 
 
-
                         scope.relatedCustomerResultDirective.checkExistInactiveSite = function (relatedCustomers){
                             var listInactiveCusts = [];
                             angular.forEach(relatedCustomers, function (customer) {
-                                if (customer.IsSiteActive === false && customer.CustId !== 0) {
+                                if (!customer.IsSiteActive && customer.CustId !== 0 && customer.IsLicensee) {
                                     listInactiveCusts.push(customer.Name);
                                 }
                             });
