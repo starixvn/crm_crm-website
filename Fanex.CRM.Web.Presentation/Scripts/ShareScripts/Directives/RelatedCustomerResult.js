@@ -14,7 +14,7 @@
                     var html;
                     var customerName = escapeHtml(customer.Name);
                     if (customer && customer.Id !== 0) {
-                        if (customer.Id > 0) {
+                        if (customer.Id > 0 && customer.IsSiteActive) {
                             html = '<td id="' + customer.Id + '" value="' + customerName + '">\
                                 <div rel="friend" class="txt-customer">\
                                     <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></div>\
@@ -22,9 +22,17 @@
                                 </div>\
                          </td>';
                         }
-                        else {
+                        else if (customer.Id < 0 && customer.IsSiteActive){
                             html = '<td id="' + customer.Id + '" value="' + customerName + '">\
                                 <div rel="friend" class="txt-guest">\
+                                    <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></div>\
+                                    <div class="customer-name">' + customerName + '</div>\
+                                </div>\
+                        </td>';
+                        }
+                        else if (!customer.IsSiteActive && customer.Id !== 0){
+                            html = '<td id="' + customer.Id + '" value="' + customerName + '">\
+                                <div rel="friend" class="txt-inactive">\
                                     <div data-customer-id="' + customer.Id + '" class="icon-del icon-del-single"></div>\
                                     <div class="customer-name">' + customerName + '</div>\
                                 </div>\
@@ -149,7 +157,7 @@
                                 var customers = [];
                                 angular.forEach(data.Result, function (customer, index) {
                                     /* jshint unused: false */
-                                    customers.push({ Id: customer.Id, Name: customer.Name });
+                                    customers.push({ Id: customer.Id, Name: customer.Name, SiteId: customer.SiteId, IsSiteActive: customer.IsSiteActive });
                                 });
 
                                 scope.relatedCustomerResultDirective.relatedCustomers = combineCustomers(scope.relatedCustomerResultDirective.relatedCustomers, customers);
@@ -212,6 +220,18 @@
                             renderRelatedCustomers(scope, relatedCustomers);
                             scope.relatedCustomerResultDirective.relatedCustomers = relatedCustomers;
                         };
+
+
+
+                        scope.relatedCustomerResultDirective.checkExistInactiveSite = function (relatedCustomers){
+                            var listInactiveCusts = [];
+                            angular.forEach(relatedCustomers, function (customer) {
+                                if (customer.IsSiteActive === false && customer.CustId !== 0) {
+                                    listInactiveCusts.push(customer.Name);
+                                }
+                            });
+                            return listInactiveCusts;
+                        }
                     }
                 };
             }]);

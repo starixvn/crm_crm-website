@@ -19,7 +19,7 @@ namespace Fanex.CRM.Communication.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Labels {
@@ -340,6 +340,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot create Feedback for customers belonging to Inactive Site:.
+        /// </summary>
+        public static string CreateInactiveSiteErrorMessage {
+            get {
+                return ResourceManager.GetString("CreateInactiveSiteErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Multiple Logs.
         /// </summary>
         public static string CreateMultipleLogs {
@@ -498,6 +507,15 @@ namespace Fanex.CRM.Communication.Resources {
         public static string Handler {
             get {
                 return ResourceManager.GetString("Handler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inactive Site.
+        /// </summary>
+        public static string InactiveSite {
+            get {
+                return ResourceManager.GetString("InactiveSite", resourceCulture);
             }
         }
         

@@ -383,4 +383,10 @@
   <data name="Update" xml:space="preserve">
     <value>Update</value>
   </data>
+  <data name="InactiveSite" xml:space="preserve">
+    <value>Inactive Site</value>
+  </data>
+  <data name="CreateInactiveSiteErrorMessage" xml:space="preserve">
+    <value>Cannot create Feedback for customers belonging to Inactive Site:</value>
+  </data>
 </root>

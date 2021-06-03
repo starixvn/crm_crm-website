@@ -82,7 +82,8 @@
         [HttpPost]
         public JsonResult VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
-            return Json(_customerService.VerifyUsername(criteria), JsonRequestBehavior.AllowGet);
+            var customerResult = _customerService.VerifyUsername(criteria);
+            return Json(customerResult, JsonRequestBehavior.AllowGet);
         }
     }
 }

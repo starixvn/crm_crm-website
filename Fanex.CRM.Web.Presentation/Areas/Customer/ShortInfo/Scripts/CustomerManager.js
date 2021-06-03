@@ -325,6 +325,7 @@
 
         self.renderAllSiteResult = function (result) {
             self.CacheData.controllerScope.selectedSite = self.CacheData.currentCustomer.SiteSetting;
+            self.getAllSitesLicenseeInactive();
             self.CacheData.controllerScope.siteDropdownSettings = {
                 idMember: "Id",
                 nameMember: "Name",

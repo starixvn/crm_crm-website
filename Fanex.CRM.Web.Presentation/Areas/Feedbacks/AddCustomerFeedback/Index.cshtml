@@ -535,6 +535,9 @@
                                     <div class="col-sm-2 col-md-2 relate-invalid">
                                         @Language.Invalid
                                     </div>
+                                    <div class="col-xs-2 col-sm-2 col-md-2 relate-inactive-site">
+                                        @Labels.InactiveSite
+                                    </div>
                                 </div>
                                 <div id="trRelatedInfo" class="row relatedFeedback" data-ng-show="addCustomerFeedbackParams.HasRelated && relatedCustomerResultDirective.relatedCustomers.length > 0">
                                     <table id="related" data-ng-model="relatedCustomerResultDirective.relatedCustomers" relatedcustomerresult></table>
@@ -636,7 +639,7 @@
     @RazorHelper.RenderScripts("~/Scripts/TimePicker",
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts")
-    <script type="text/javascript">
+<script type="text/javascript">
         parent.document.title = '@Resources.Language.Title_AddFeedback';
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId;
@@ -667,7 +670,8 @@
             SolutionMaxLengthError: '@Labels.SolutionMaxLengthError',
             FeedbackDuplicationError: '@Labels.FeedbackDuplicationError',
             Confirm_Changes: '@Labels.Confirm_Changes',
-            Confirm_Changes_Message: '@Labels.Confirm_Changes_Message'
+            Confirm_Changes_Message: '@Labels.Confirm_Changes_Message',
+            Error_Create_InactiveSite: '@Labels.InactiveSiteCreateErrorMessage'
      };
-    </script>
+</script>
 }

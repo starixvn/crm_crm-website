@@ -24,6 +24,10 @@
         serviceInstance.addFeedback = function (params) {
             var url = window.rootUrl + "AddGuestFeedback/AddGuestFeedback";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
+        }; 
+        serviceInstance.recheckVerifyUserName = function (params) {
+            var url = window.rootUrl + "CustomerSetting/VerifyUsername";
+            return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
 
         return serviceInstance;

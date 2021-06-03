@@ -204,6 +204,7 @@
     <Compile Include="Models\PersonalInfoContact.cs" />
     <Compile Include="Models\Phone.cs" />
     <Compile Include="Models\Province.cs" />
+    <Compile Include="Models\RelatedCustomer.cs" />
     <Compile Include="Models\SearchedCustomer.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\SettingCN88.cs" />

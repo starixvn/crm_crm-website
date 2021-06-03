@@ -43,6 +43,7 @@
         $scope.selectedSubProductIds = [];
         $scope.selectedBettypeIds = [];
         $scope.selectedSubCategoryIds = [];
+        $scope.reVerifyResult = [];
 
         $scope.addCustomerFeedbackParams = {
             OverrideCRMInfo: false,
@@ -379,6 +380,11 @@
 
         $scope.addFeedback = function () {
             $uiBlockerService.blockUI();
+            var relatedCustomerName = $scope.relatedCustomerResultDirective.getRelatedCustomerName();
+            $scope.reCheckInactiveSite(relatedCustomerName);
+        };
+
+        $scope.validateParamsBeforeInsert = function () {
             $scope.GetCommunicationParams();
             $scope.GetExtensionParams();
             $scope.GetProductParams();
@@ -402,7 +408,19 @@
                     $scope.checkDuplicationThenCreateFeedback(params);
                 }
             );
-        };
+        }
+
+        $scope.reCheckInactiveSite = function (relatedCustomerName) {
+            addCustomerFeedbackService.recheckVerifyUserName({ Username: relatedCustomerName })
+                .then(function (data) {
+                    $scope.relatedCustomerResultDirective.loadRelatedCustomers(data.Result);
+                    $scope.reVerifyResult = data.Result;
+                    $scope.validateParamsBeforeInsert();
+                    $uiBlockerService.unblockUI();
+                }, function () {
+                    $uiBlockerService.unblockUI();
+                });
+        }
 
         $scope.checkDuplicationThenCreateFeedback = function (params) {
             var checkParams = {
@@ -444,6 +462,11 @@
         $scope.validateAddParams = function (params) {
             var result = true;
             var message = '';
+            var inactiveSites = $scope.relatedCustomerResultDirective.checkExistInactiveSite($scope.reVerifyResult);
+            if (inactiveSites.length > 0) {
+                message = viewResources.Error_Create_InactiveSite + inactiveSites.map(x => x).join(", ");
+                result = false;
+            }
             var feedbackTime = new Date(params.StartTime);
             var resolutionTime = new Date(params.EndTime);
             if (feedbackTime > resolutionTime) {

@@ -17,6 +17,6 @@
 
         IEnumerable<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria);
 
-        IEnumerable<BaseModel> VerifyUsername(VerifyRelatedCustomerCriteria criteria);
+        IEnumerable<RelatedCustomer> VerifyUsername(VerifyRelatedCustomerCriteria criteria);
     }
 }

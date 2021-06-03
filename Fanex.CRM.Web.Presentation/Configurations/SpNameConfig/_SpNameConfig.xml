@@ -3,5 +3,6 @@
     <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_MainInformationVerifySel" EnvironmentText="_UAT1"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_RelatedCustomerVerify" EnvironmentText="_UAT1"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL" SpName="CRM_MultipleLogs_VerifyCustomer" EnvironmentText="_UAT1"></SpNameConfig>
+    <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_RelatedCustomerVerify" EnvironmentText="_UAT1"></SpNameConfig>
 </Root>
 
