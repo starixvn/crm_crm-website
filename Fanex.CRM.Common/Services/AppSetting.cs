@@ -67,5 +67,8 @@
         public static string SiteId => ConfigurationManager.AppSettings["SiteId"];
         public static string CN88SiteId => ConfigurationManager.AppSettings["CN88SiteId"];
         public static bool EnableManualLogging => ConfigurationManager.AppSettings["EnableManualLogging"] == "true";
+
+        public static string SentryCategory => ConfigurationManager.AppSettings["SentryCategory"];
+        public static string SentryDNS => ConfigurationManager.AppSettings["SentryDNS"];
     }
 }
