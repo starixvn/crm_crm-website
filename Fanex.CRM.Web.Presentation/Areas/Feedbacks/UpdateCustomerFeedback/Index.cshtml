@@ -516,6 +516,9 @@
                                     <div class="col-sm-2 col-md-2 relate-invalid">
                                         @Labels.Invalid
                                     </div>
+                                    <div class="col-xs-2 col-sm-2 col-md-2 relate-inactive-site">
+                                        @Labels.InactiveSite
+                                    </div>
                                 </div>
                                 <div id="trRelatedInfo" class="row relatedFeedback" data-ng-show="feedback.HasRelated && relatedCustomerResultDirective.relatedCustomers.length > 0">
                                     <table id="related" data-ng-model="relatedCustomerResultDirective.relatedCustomers" relatedcustomerresult></table>
@@ -645,7 +648,7 @@
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackScripts")
     @{ var currentTime = DateTimeUtilize.CurrentClientTime(); }
-    <script type="text/javascript">
+<script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var feedbackId = @ViewBag.FeedbackId;
         var hasReviewFeedbackPermission = '@hasReviewFeedbackPermission.ToString()';
@@ -677,7 +680,8 @@
             DescriptionMaxLengthError: '@Labels.DescriptionMaxLengthError',
             SolutionMaxLengthError: '@Labels.SolutionMaxLengthError',
             Confirm_Changes: '@Labels.Confirm_Changes',
-            Confirm_Changes_Message: '@Labels.Confirm_Changes_Message'
+            Confirm_Changes_Message: '@Labels.Confirm_Changes_Message',
+            InactiveSite_Create_ErrorMessage: '@Labels.InactiveSiteCreateErrorMessage'
         };
-    </script>
+</script>
 }

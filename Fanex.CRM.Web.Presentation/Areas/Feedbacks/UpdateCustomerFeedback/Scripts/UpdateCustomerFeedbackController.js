@@ -21,6 +21,7 @@
         $scope.selectedSubProductIds = [];
         $scope.selectedBettypeIds = [];
         $scope.selectedSubCategoryIds = [];
+        $scope.reVerifyResult = [];
 
         var oldReview;
         $scope.panelManager = {
@@ -465,12 +466,40 @@
             }
         };
 
+        $scope.validateParamsBeforeUpdate = function () {
+            if (!$scope.validateFeedback()) {
+                return;
+            }
+            parent.dialogManager.confirm(updateFeedbackResources.Confirm_Changes, updateFeedbackResources.Confirm_Changes_Message,
+                function () {
+                    var feedback = $scope.feedback;
+                    if (!feedback.OverrideCRMInfo) {
+                        $scope.updateCustomerFeedback(feedback);
+                        return;
+                    }
+
+                    parent.homeManager.showConfirmOverrideCRMInfo(updateFeedbackResources.ConfirmOverrideCRMInfo, function (bool) {
+                        if (bool) { $scope.updateCustomerFeedback(feedback); }
+                    });
+                }
+            );
+        }
+        
+
         $scope.validateFeedback = function () {
             $scope.hideMessage();
 
             var feedback = $scope.feedback;
             var feedbackTime = new Date(feedback.FeedbackTimeString);
             var resolutionTime = new Date(feedback.ResolutionTimeString);
+
+            var inactiveSites = $scope.relatedCustomerResultDirective.checkExistInactiveSite($scope.reVerifyResult);
+            if (inactiveSites.length > 0) {
+                var errorInactive = updateFeedbackResources.InactiveSite_Create_ErrorMessage + inactiveSites.map(x => x).join(", ");
+                $scope.errorMessage(errorInactive);
+                return false;
+            }
+
             if (feedbackTime > resolutionTime) {
                 $scope.errorMessage(updateFeedbackResources.ErrorFeedbackResolutionTime);
                 return false;
@@ -534,24 +563,22 @@
         };
 
         $scope.updateFeedback = function () {
-            if (!$scope.validateFeedback()) {
-                return;
-            }
-
-            parent.dialogManager.confirm(updateFeedbackResources.Confirm_Changes, updateFeedbackResources.Confirm_Changes_Message,
-                function () {
-                    var feedback = $scope.feedback;
-                    if (!feedback.OverrideCRMInfo) {
-                        $scope.updateCustomerFeedback(feedback);
-                        return;
-                    }
-
-                    parent.homeManager.showConfirmOverrideCRMInfo(updateFeedbackResources.ConfirmOverrideCRMInfo, function (bool) {
-                        if (bool) { $scope.updateCustomerFeedback(feedback); }
-                    });
-                }
-            );
+            $uiBlockerService.blockUI();
+            var relatedCustomerName = $scope.relatedCustomerResultDirective.getRelatedCustomerName();
+            $scope.reCheckInactiveSite(relatedCustomerName);
         };
+
+        $scope.reCheckInactiveSite = function (relatedCustomerName) {
+            feedbackService.recheckVerifyUserName({ Username: relatedCustomerName })
+                .then(function (data) {
+                    $scope.relatedCustomerResultDirective.loadRelatedCustomers(data.Result);
+                    $scope.reVerifyResult = data.Result;
+                    $scope.validateParamsBeforeUpdate();
+                    $uiBlockerService.unblockUI();
+                }, function () {
+                    $uiBlockerService.unblockUI();
+                });
+        }
 
         $scope.GetCommunicationParams = function () {
             $scope.feedback.CommunicationIds = filterScripts.GetCommunicationParams($scope.selectedCommunications);

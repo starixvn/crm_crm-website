@@ -520,14 +520,41 @@
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\removeAssignmentController.js" />
     <Content Include="Areas\PicAndHeadline\PicOfHeadline\Scripts\setDefaultPicController.js" />
     <Content Include="Configurations\SpNameConfig\SpName.AWS.xml" />
+    <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
     <Content Include="Configurations\SpNameConfig\SpName.CN88PRO.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
     <Content Include="Configurations\SpNameConfig\SpName.CN88UAT.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
+    <Content Include="Configurations\SpNameConfig\SpName.LOCAL.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
     <Content Include="Configurations\SpNameConfig\SpName.MASTER.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\SpName.PRO.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\SpName.SIT.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\SpName.UAT.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\SpName.xml">
+      <DependentUpon>_SpName.tt</DependentUpon>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\_SpName.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_SpName.txt</LastGenOutput>
+    </Content>
+    <Content Include="Configurations\SpNameConfig\_SpName.txt">
+      <DependentUpon>_SpName.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Content>
     <Content Include="logs\log.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -820,33 +847,6 @@
     <Content Include="Areas\User\LogIn\Styles\Images\english-flag.png" />
     <Content Include="Areas\User\LogIn\Styles\Images\logo-cn88.png" />
     <Content Include="Areas\User\LogIn\Styles\Images\small-arrow-down.png" />
-    <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\SpName.LOCAL.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\SpName.PRO.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\SpName.SIT.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\SpName.UAT.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\SpName.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\_SpName.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\_SpName.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>_SpName.txt</LastGenOutput>
-    </Content>
     <Content Include="Configurations\SpNameConfig\_SpNameConfig.xml" />
     <Content Include="Configurations\SpNameConfig\SpNameOriginal.xml" />
     <Content Include="Configurations\Web.backupMNL.config">

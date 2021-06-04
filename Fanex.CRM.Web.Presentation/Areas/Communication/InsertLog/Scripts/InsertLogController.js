@@ -650,12 +650,13 @@
             var result = true;
             var feedbackTime = new Date(criteria.StartTime);
             var resolutionTime = new Date(criteria.EndTime);
-
-            if (!$scope.copiedCommunicationLog.IsSiteActive && $scope.copiedCommunicationLog.IsLicensee) {
-                $scope.resultMessage = viewResources.Error_InactiveSite_Member;
-                result = false;
+            if ($scope.copiedCommunicationLog !== null) {
+                if (!$scope.copiedCommunicationLog.IsSiteActive && $scope.copiedCommunicationLog.IsLicensee) {
+                    $scope.resultMessage = viewResources.Error_InactiveSite_Member;
+                    result = false;
+                }
             }
-
+            
             var inactiveSites = $scope.relatedCustomerResultDirective.checkExistInactiveSite($scope.reVerifyResult);
             if (inactiveSites.length > 0) {
                 $scope.resultMessage = viewResources.Error_Create_InactiveSite + inactiveSites.map(x => x).join(", ");

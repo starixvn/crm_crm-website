@@ -13,7 +13,7 @@
 
                     var html;
                     var customerName = escapeHtml(customer.Name);
-                    var IsInActive = !customerName.IsSiteActive && customerName.IsLicensee;
+                    var IsInActive = !customer.IsSiteActive && customer.IsLicensee;
                     if (IsInActive && customer.Id !== 0) {
                         html = '<td id="' + customer.Id + '" value="' + customerName + '">\
                                 <div rel="friend" class="txt-inactive">\
@@ -158,7 +158,7 @@
                                 var customers = [];
                                 angular.forEach(data.Result, function (customer, index) {
                                     /* jshint unused: false */
-                                    customers.push({ Id: customer.Id, Name: customer.Name, IsSiteActive: customer.IsSiteActive, IsLicensee: customer.IsSiteActive });
+                                    customers.push({ Id: customer.Id, Name: customer.Name, IsSiteActive: customer.IsSiteActive, IsLicensee: customer.IsLicensee });
                                 });
 
                                 scope.relatedCustomerResultDirective.relatedCustomers = combineCustomers(scope.relatedCustomerResultDirective.relatedCustomers, customers);
