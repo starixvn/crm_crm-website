@@ -68,7 +68,7 @@
                                 Id = Converter.ToInt(reader["CustID"]),
                                 Name = Converter.ToString2(reader["UserName"]),
                                 IsSiteActive = Converter.ToBool(reader["IsSiteActive"]),
-                                IsLicensee = Converter.ToBool(reader["IsLicensee"])
+                                IsLicensee = Convert.ToBoolean(reader["IsLicensee"])
                             });
                         }
 
@@ -169,7 +169,7 @@
 
                 LicenseeType = new Setting { Id = Converter.ToInt(reader["LicenseeType"]) },
                 IsSiteActive = Converter.ToBool(reader["IsSiteActive"]),
-                IsLicensee = Converter.ToBool(reader["IsLicensee"])
+                IsLicensee = Convert.ToBoolean(reader["IsLicensee"])
             };
 
             return logInfo;

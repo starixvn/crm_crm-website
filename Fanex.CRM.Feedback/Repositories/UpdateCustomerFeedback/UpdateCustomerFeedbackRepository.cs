@@ -32,10 +32,12 @@
                             var relatedCustomers = new List<BaseModel>();
                             while (reader.Read())
                             {
-                                relatedCustomers.Add(new BaseModel
+                                relatedCustomers.Add(new RelatedCustomer
                                 {
                                     Id = Converter.ToInt(reader["CustID"]),
-                                    Name = Converter.ToString2(reader["UserName"])
+                                    Name = Converter.ToString2(reader["UserName"]),
+                                    IsSiteActive = Converter.ToBool(reader["IsSiteActive"]),
+                                    IsLicensee = Convert.ToBoolean(reader["IsLicensee"])
                                 });
                             }
 
@@ -172,7 +174,9 @@
                 ReviewerName = Converter.ToString2(reader["ReviewerName"]),
                 Review = Converter.ToString2(reader["Review"]),
                 AutoField = Converter.ToString2(reader["AutoField"]),
-                NoInquiries = Converter.ToInt(reader["NoInquiries"])
+                NoInquiries = Converter.ToInt(reader["NoInquiries"]),
+                IsSiteActive = Converter.ToBool(reader["IsSiteActive"]),
+                IsLicensee = Convert.ToBoolean(reader["IsLicensee"])
             };
 
             return feedback;

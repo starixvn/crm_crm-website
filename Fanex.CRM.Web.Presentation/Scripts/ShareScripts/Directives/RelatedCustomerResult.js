@@ -216,6 +216,34 @@
 
                             return customerName;
                         };
+                        scope.relatedCustomerResultDirective.combineCustomersEdit = function (currentCustomers, newCustomers) {
+                           return combineCustomers(currentCustomers, newCustomers);
+                        }
+                        
+
+                        scope.relatedCustomerResultDirective.getNewRelatedCustomerName = function (oldRelatedCustIds) {
+                            var customerName = "";
+                            var relatedCustomers = scope.relatedCustomerResultDirective.relatedCustomers || [];
+                            var newrelatedCustomers = relatedCustomers.filter(compare2Arrrays(oldRelatedCustIds));
+                            if (newrelatedCustomers.length > 0) {
+                                var relatedCustomerNames = [];
+                                angular.forEach(newrelatedCustomers, function (customer) {
+                                    relatedCustomerNames.push(customer.Name);
+                                });
+
+                                customerName = relatedCustomerNames.join(',');
+                            }
+
+                            return customerName;
+                        };
+
+                        function compare2Arrrays(otherArray) {
+                            return function (current) {
+                                return otherArray.filter(function (other) {
+                                    return other.Id !== current.Id && other.Id !== 0
+                                }).length > 0;
+                            }
+                        }
 
                         scope.relatedCustomerResultDirective.loadRelatedCustomers = function (relatedCustomers) {
                             renderRelatedCustomers(scope, relatedCustomers);

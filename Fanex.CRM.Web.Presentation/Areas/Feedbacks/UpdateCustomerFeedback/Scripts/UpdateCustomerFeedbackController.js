@@ -564,14 +564,16 @@
 
         $scope.updateFeedback = function () {
             $uiBlockerService.blockUI();
-            var relatedCustomerName = $scope.relatedCustomerResultDirective.getRelatedCustomerName();
+            var oldRelatedCustIds = $scope.feedback.RelatedCustomers;
+            var relatedCustomerName = $scope.relatedCustomerResultDirective.getNewRelatedCustomerName(oldRelatedCustIds);
             $scope.reCheckInactiveSite(relatedCustomerName);
         };
 
         $scope.reCheckInactiveSite = function (relatedCustomerName) {
             feedbackService.recheckVerifyUserName({ Username: relatedCustomerName })
                 .then(function (data) {
-                    $scope.relatedCustomerResultDirective.loadRelatedCustomers(data.Result);
+                    var loadRelateAfterVerify = $scope.relatedCustomerResultDirective.combineCustomersEdit(data.Result, $scope.feedback.RelatedCustomers)
+                    $scope.relatedCustomerResultDirective.loadRelatedCustomers(loadRelateAfterVerify);
                     $scope.reVerifyResult = data.Result;
                     $scope.validateParamsBeforeUpdate();
                     $uiBlockerService.unblockUI();
