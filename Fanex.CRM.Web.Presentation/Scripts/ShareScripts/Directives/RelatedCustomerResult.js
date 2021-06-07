@@ -79,6 +79,7 @@
                     if (row !== "") {
                         rows.push("<tr>" + row + "</tr>");
                     }
+                    scope.relatedCustomerResultDirective.removeCustomer = scope.relatedCustomerResultDirective.removeCustomer || [];
 
                     var table = $('#related');
                     table.html(rows.join(''));
@@ -86,6 +87,9 @@
                         var custId = parseInt($(this).data('customer-id'));
                         $('#' + custId).parent().remove();
                         scope.relatedCustomerResultDirective.relatedCustomers = customers.filter(function (value) {
+                            if (value.Id === custId) {
+                                scope.relatedCustomerResultDirective.removeCustomer.push({ Name: value.Name });
+                            }
                             return value.Id !== custId;
                         });
                         scope.relatedCustomerResultDirective.verifyUsernamesAtLeastOneTime = true;
@@ -173,6 +177,7 @@
                             return username.trim().replace(/,\s+/g, ",").replace(/^,+|,+$/g, "").replace(/,{2,}/g, ",");
                         };
 
+
                         scope.relatedCustomerResultDirective.isValidUsername = function (username) {
                             var usernameList = username.split(",").filter(function (value) {
                                 return value.length > 50;
@@ -180,6 +185,13 @@
 
                             return usernameList.length === 0;
                         };
+
+                        scope.relatedCustomerResultDirective.customerRemoveRemain = function (oldRelatedCustomer) {
+                            var removeCust = scope.relatedCustomerResultDirective.removeCustomer;
+                            var usernameList = oldRelatedCustomer.filter(compare2Arrrays(removeCust));
+                            return usernameList;
+                        };
+                        
 
                         scope.relatedCustomerResultDirective.getRelatedCustomerId = function () {
                             var IdString = "";
@@ -221,10 +233,11 @@
                         }
                         
 
-                        scope.relatedCustomerResultDirective.getNewRelatedCustomerName = function (oldRelatedCustIds) {
+                        scope.relatedCustomerResultDirective.getNewRelatedCustomerName = function (oldRelatedCust) {
                             var customerName = "";
                             var relatedCustomers = scope.relatedCustomerResultDirective.relatedCustomers || [];
-                            var newrelatedCustomers = relatedCustomers.filter(compare2Arrrays(oldRelatedCustIds));
+                            var newrelatedCustomers = relatedCustomers.filter(compare2Arrrays(oldRelatedCust));
+
                             if (newrelatedCustomers.length > 0) {
                                 var relatedCustomerNames = [];
                                 angular.forEach(newrelatedCustomers, function (customer) {
@@ -240,8 +253,8 @@
                         function compare2Arrrays(otherArray) {
                             return function (current) {
                                 return otherArray.filter(function (other) {
-                                    return other.Id !== current.Id && other.Id !== 0
-                                }).length > 0;
+                                    return other.Name === current.Name
+                                }).length === 0;
                             }
                         }
 

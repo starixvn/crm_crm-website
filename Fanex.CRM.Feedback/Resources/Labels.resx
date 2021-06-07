@@ -620,4 +620,7 @@
   <data name="InactiveSiteCreateErrorMessage" xml:space="preserve">
     <value>Cannot create Feedback for customers belonging to Inactive Site: </value>
   </data>
+  <data name="InactiveSiteMemberErrorMessage" xml:space="preserve">
+    <value>Cannot create feedback for Inactive Site member.</value>
+  </data>
 </root>

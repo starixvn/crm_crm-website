@@ -637,6 +637,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot create feedback for Inactive Site member..
+        /// </summary>
+        public static string InactiveSiteMemberErrorMessage {
+            get {
+                return ResourceManager.GetString("InactiveSiteMemberErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert Edit Block.
         /// </summary>
         public static string Insert_Edit_Block {

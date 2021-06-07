@@ -490,6 +490,13 @@
             $scope.hideMessage();
 
             var feedback = $scope.feedback;
+
+            if (feedback !== null) {
+                if (!feedback.IsSiteActive && feedback.IsLicensee) {
+                    $scope.errorMessage(updateFeedbackResources.InactiveSite_Member_ErrorMessage);
+                    return false;
+                }
+            }
             var feedbackTime = new Date(feedback.FeedbackTimeString);
             var resolutionTime = new Date(feedback.ResolutionTimeString);
 
@@ -572,7 +579,9 @@
         $scope.reCheckInactiveSite = function (relatedCustomerName) {
             feedbackService.recheckVerifyUserName({ Username: relatedCustomerName })
                 .then(function (data) {
-                    var loadRelateAfterVerify = $scope.relatedCustomerResultDirective.combineCustomersEdit(data.Result, $scope.feedback.RelatedCustomers)
+                    var loadRelateAfterVerify = data.Result;
+                    var customerRemain = $scope.relatedCustomerResultDirective.customerRemoveRemain($scope.feedback.RelatedCustomers);
+                    loadRelateAfterVerify = $scope.relatedCustomerResultDirective.combineCustomersEdit(data.Result, customerRemain);
                     $scope.relatedCustomerResultDirective.loadRelatedCustomers(loadRelateAfterVerify);
                     $scope.reVerifyResult = data.Result;
                     $scope.validateParamsBeforeUpdate();

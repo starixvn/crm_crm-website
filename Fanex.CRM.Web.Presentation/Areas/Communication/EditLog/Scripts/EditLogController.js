@@ -327,7 +327,22 @@
                 $scope.allSettings.SubCategoryList);
         }
 
-        $scope.updateLog = function () {
+        $scope.reCheckInactiveSite = function (relatedCustomerName) {
+            $editLogService.recheckVerifyUserName({ Username: relatedCustomerName })
+                .then(function (data) {
+                    var loadRelateAfterVerify = data.Result;
+                    var customerRemain = $scope.relatedCustomerResultDirective.customerRemoveRemain($scope.communicationLog.RelatedCustomers);
+                    loadRelateAfterVerify = $scope.relatedCustomerResultDirective.combineCustomersEdit(data.Result, customerRemain);
+                    $scope.relatedCustomerResultDirective.loadRelatedCustomers(loadRelateAfterVerify);
+                    $scope.reVerifyResult = data.Result;
+                    $scope.validateParamsBeforeUpdate();
+                    $scope.unblockUI();
+                }, function () {
+                        $scope.unblockUI();
+                });
+        }
+
+        $scope.validateParamsBeforeUpdate = function () {
             $scope.isShowResultMessage = false;
             $scope.isSuccess = true;
 
@@ -387,6 +402,13 @@
                     }
                 );
             }
+        }
+
+        $scope.updateLog = function () {
+            $scope.BlockUI();
+            var oldRelatedCustIds = $scope.communicationLog.RelatedCustomers;
+            var relatedCustomerName = $scope.relatedCustomerResultDirective.getNewRelatedCustomerName(oldRelatedCustIds);
+            $scope.reCheckInactiveSite(relatedCustomerName);
         };
         $scope.showUpdateResult = function (updateResult) {
             updateResult = sharedScriptManager.formatAjaxResult(updateResult);
@@ -436,10 +458,24 @@
                 parent.homeManager.CachedData.isChangingDataPopUp = false;
             }
         };
-        $scope.validateUpdateLogCriteria = function (criteria) {
+        $scope.validateUpdateLogCriteria = function(criteria) {
             var result = true;
             var feedbackTime = new Date(criteria.StartTime);
             var resolutionTime = new Date(criteria.EndTime);
+
+            if ($scope.oldCommunicationLog !== null) {
+                if (!$scope.oldCommunicationLog.IsSiteActive && $scope.oldCommunicationLog.IsLicensee) {
+                    $scope.resultMessage = viewResources.Error_InactiveSite_Member;
+                    result = false;
+                }
+            }
+            var inactiveSites = $scope.relatedCustomerResultDirective.checkExistInactiveSite($scope.reVerifyResult);
+            if (inactiveSites.length > 0) {
+                var errorInactive = viewResources.Error_Create_InactiveSite + inactiveSites.map(x => x).join(", ");
+                $scope.resultMessage = errorInactive;
+                result = false;
+            }
+
             if (feedbackTime > resolutionTime) {
                 $scope.resultMessage = viewResources.Communication_Log_ErrorEndTime;
                 result = false;

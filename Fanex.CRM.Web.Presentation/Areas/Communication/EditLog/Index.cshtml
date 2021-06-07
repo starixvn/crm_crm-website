@@ -233,6 +233,9 @@
                     <div class="col-xs-2 col-sm-2 col-md-2 relate-invalid">
                         @Labels.Invalid
                     </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 relate-inactive-site">
+                        @Labels.InactiveSite
+                    </div>
                 </div>
                 <div id="related-container" class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xs-8 col-sm-8 col-md-8 related"
                      data-ng-show="relatedCustomerResultDirective.relatedCustomers.length > 0">
@@ -328,7 +331,7 @@
     @RazorHelper.RenderScripts("~/Scripts/common.js")
     @RazorHelper.RenderScripts("~/Scripts/Directives/selectwithsearch/selectwithsearch.js")
     @RazorHelper.RenderScripts("~/Areas/Communication/EditLogScripts")
-    <script type="text/javascript">
+<script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var communicationLog = @Html.Raw(jsonLogInfo);
@@ -364,7 +367,9 @@
             DescriptionMaxLengthError: '@Labels.DescriptionMaxLengthError',
             SolutionMaxLengthError: '@Labels.SolutionMaxLengthError',
             Confirm_Changes: '@Labels.Confirm_Changes',
-            Confirm_Changes_Message: '@Labels.Confirm_Changes_Message'
+            Confirm_Changes_Message: '@Labels.Confirm_Changes_Message',
+            Error_Create_InactiveSite: '@Labels.CreateInactiveSiteErrorMessage',
+            Error_InactiveSite_Member: '@Labels.InactiveSiteMemberErrorMessage'
         };
-    </script>
+</script>
 }
