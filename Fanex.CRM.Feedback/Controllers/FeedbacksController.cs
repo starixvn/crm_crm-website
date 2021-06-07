@@ -14,8 +14,10 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services;
     using Fanex.CRM.Feedback.ViewModels;
+    using Fanex.Logging;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Newtonsoft.Json;
     using Setting.Services;
 
     public class FeedbacksController : ReadOnlyBaseController
@@ -203,8 +205,16 @@ namespace Fanex.CRM.Feedback.Controllers
         [HttpPost]
         public ActionResult CheckFeedbackDuplication(CheckFeedbackDuplicationCriteria criteria)
         {
-            var result = _feedbackService.CheckFeedbackDuplication(criteria);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var result = _feedbackService.CheckFeedbackDuplication(criteria);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                LogService.Error("CheckFeedbackDuplication Error: " + JsonConvert.SerializeObject(criteria));
+                throw;
+            }
         }
     }
 }
