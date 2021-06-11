@@ -2,31 +2,25 @@
 {
     using Fanex.Caching;
     using Newtonsoft.Json;
+    using System;
 
     public static class CacheService
     {
-        private const int TIMEOUT = 300; // 5 minutes.
-
-        private static readonly ICache Cache = Caching.CacheService.CreateInstance(CacheType.MemoryCache);
+        private const int TIMEOUT = 5; // 5 minutes.
 
         public static T Get<T>(string key)
         {
-            return DeepClone(Cache.Get<T>(GetKeyForLanguage(key)));
+            return DeepClone(ConfiguredCacheService.Get<T>(GetKeyForLanguage(key)));
         }
 
         public static void Set<T>(string key, T value)
         {
-            Cache.Set(GetKeyForLanguage(key), DeepClone(value), TIMEOUT);
-        }
-
-        public static void Clear()
-        {
-            Cache.Clear();
+            ConfiguredCacheService.Set(GetKeyForLanguage(key), DeepClone(value), new CacheItemOptions().SetSlidingExpiration(TimeSpan.FromMinutes(TIMEOUT)));
         }
 
         public static void Delete(string key)
         {
-            Cache.Remove(GetKeyForLanguage(key));
+            ConfiguredCacheService.Remove(GetKeyForLanguage(key));
         }
 
         private static string GetKeyForLanguage(string key)

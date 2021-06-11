@@ -15,7 +15,7 @@
     {
         private readonly ISettingService _settingService;
         private readonly IBaseService baseService;
-
+        public const string GetAllSettingSessionKey = "Fanex.CRM.Setting.GetAllSettingSessionKey";
         public SettingManagementService() : this(null, null)
         {
         }
@@ -48,7 +48,7 @@
             if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_InsertSetting_InsertSuccess;
-                _settingService.ClearCache();
+                CacheService.Delete(GetAllSettingSessionKey);
             }
 
             return result;
@@ -82,7 +82,7 @@
             {
                 result.Message = criteria.OldSetting.IsActive ?
                     Labels.DeactiveSettingSuccessMessage : Labels.ActiveSettingSuccessMessage;
-                _settingService.ClearCache();
+                _settingService.Delete(GetAllSettingSessionKey);
             }
 
             return result;
@@ -104,7 +104,7 @@
             if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_EditSetting_EditSuccess;
-                _settingService.ClearCache();
+                _settingService.Delete(GetAllSettingSessionKey);
             }
 
             return result;
@@ -143,7 +143,7 @@
             if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_EditSetting_EditSuccess;
-                _settingService.ClearCache();
+                _settingService.Delete(GetAllSettingSessionKey);
             }
 
             return result;
@@ -155,7 +155,7 @@
             if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_InsertSetting_InsertSuccess;
-                _settingService.ClearCache();
+                _settingService.Delete(GetAllSettingSessionKey);
             }
 
             return result;

@@ -55,6 +55,11 @@
         {
         }
 
+        public void Delete(string key)
+        {
+            CacheService.Delete(key);
+        }
+
         public SettingService(ISettingRepository settingRepositoryInstance, IBaseService baseService)
         {
             _settingRepositoryInstance = settingRepositoryInstance ?? new SettingRepository();
@@ -99,7 +104,6 @@
                 allSettings = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
                 CacheService.Set(GetAllSettingSessionKey, allSettings);
             }
-
             return allSettings;
         }
 
@@ -927,11 +931,6 @@
                 new BaseModel { Id = FeedbackStatisticFilterType.ByCommunicationTool, Name = Labels.ByCommunicationTool },
                 new BaseModel { Id = FeedbackStatisticFilterType.ByProvince, Name = Labels.ByProvince },
             };
-        }
-
-        public void ClearCache()
-        {
-            CacheService.Clear();
         }
 
         public IList<Setting> GetMainSettings()

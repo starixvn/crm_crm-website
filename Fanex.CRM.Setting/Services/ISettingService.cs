@@ -7,6 +7,8 @@
 
     public interface ISettingService
     {
+        void Delete(string key);
+
         List<Setting> GetAllSettings();
 
         Setting GetSettingById(GetSettingByIdCriteria criteria);
@@ -68,8 +70,6 @@
         BaseModel[] GetFeedbackStatisticFilterTypes();
 
         BaseModel[] GetFeedbackStatisticFilterTypesCN88();
-
-        void ClearCache();
 
         IList<Setting> GetMainSettings();
 
