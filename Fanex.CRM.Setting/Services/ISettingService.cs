@@ -9,6 +9,8 @@
     {
         void Delete(string key);
 
+        void ClearAllCaches(string key = "");
+
         List<Setting> GetAllSettings();
 
         Setting GetSettingById(GetSettingByIdCriteria criteria);

@@ -15,7 +15,6 @@
     public class SettingRelationService : ISettingRelationService
     {
         private const string AllSettingRelationSessionKey = "Fanex.CRM.AdminTool.Services.SettingRelation.GetAllSettingRelationSessionKey";
-        public const string GetAllSettingSessionKey = "Fanex.CRM.Setting.GetAllSettingSessionKey";
 
         private readonly ISettingRelationRepository _settingRelationRepository;
         private readonly ISettingService _settingService;
@@ -85,8 +84,7 @@
             if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingRelation_AddRelation_UpdateSuccess;
-                CacheService.Delete(AllSettingRelationSessionKey);
-                CacheService.Delete(GetAllSettingSessionKey);
+                _settingService.ClearAllCaches(AllSettingRelationSessionKey);
             }
 
             return result;

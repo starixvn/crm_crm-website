@@ -48,7 +48,7 @@
             if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_InsertSetting_InsertSuccess;
-                CacheService.Delete(GetAllSettingSessionKey);
+                _settingService.ClearAllCaches();
             }
 
             return result;
@@ -82,7 +82,7 @@
             {
                 result.Message = criteria.OldSetting.IsActive ?
                     Labels.DeactiveSettingSuccessMessage : Labels.ActiveSettingSuccessMessage;
-                _settingService.Delete(GetAllSettingSessionKey);
+                _settingService.ClearAllCaches();
             }
 
             return result;
@@ -104,7 +104,7 @@
             if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_EditSetting_EditSuccess;
-                _settingService.Delete(GetAllSettingSessionKey);
+                _settingService.ClearAllCaches();
             }
 
             return result;
@@ -143,7 +143,7 @@
             if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_EditSetting_EditSuccess;
-                _settingService.Delete(GetAllSettingSessionKey);
+                _settingService.ClearAllCaches();
             }
 
             return result;
@@ -155,7 +155,7 @@
             if (result.IsSuccessful)
             {
                 result.Message = Labels.SettingManagement_InsertSetting_InsertSuccess;
-                _settingService.Delete(GetAllSettingSessionKey);
+                _settingService.ClearAllCaches();
             }
 
             return result;

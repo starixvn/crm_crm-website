@@ -60,6 +60,27 @@
             CacheService.Delete(key);
         }
 
+        public void ClearAllCaches(string key= "")
+        {
+            var SessionKeys = new List<string>
+            {
+                GetAllSettingSessionKey, GetAllCountrySessionKey, GetAllTitleSessionKey,GetAllFeedbackTemplateSubjectSessionKey,
+                GetInformHeadlineStatusesSessionKey, GetAllSiteSessionKey, GetAllSiteWithGroupSessionKey, GetAllLanguageSessionKey,
+                GetAllExtensionSessionKey, GetAllCommunicationToolSessionKey, GetAllMainCategorySessionKey, GetAllMainCategoryFromAllSettingsSessionKey,
+                GetProductOnlySessionKey, GetAllProductSessionKey, GetAllSubProductSessionKey, GetAllStatusSessionKey, GetAllStatusCommunicationTool,
+                GetAllStatusRedemption,GetAllRoleSessionKey, GetAllResponseSessionKey, GetAllActivityLogActionKey,GetAllSettingLogActionKey,
+                GetAllInformHeadlineSettingKey, GetAllLicenseeTypeSessionKey, GetAllCurrencySessionKey, GetAllCurrencyRedemptionSessionKey,
+                GetProductsSessionKey, GetSubProductsSessionKey, GetBettypesSessionKey, GetMainCategorySessionKey, GetSubCategorySessionKey
+            };
+
+            if(!string.IsNullOrEmpty(key))
+            {
+                SessionKeys.Add(key);
+            }    
+
+            CacheService.ClearCache(SessionKeys);
+        }
+
         public SettingService(ISettingRepository settingRepositoryInstance, IBaseService baseService)
         {
             _settingRepositoryInstance = settingRepositoryInstance ?? new SettingRepository();
