@@ -254,7 +254,7 @@
 
                 modalInstance.result.then(function (isSuccess) {
                     if (isSuccess) {
-                        $scope.getReport();
+                        $scope.reloadTemplate();
                     }
                     else {
                         if (picItem.IsActive) {
