@@ -120,12 +120,14 @@
                     return;
                 }
 
+                var param = angular.copy($scope.lastSelectedParams);
+
                 var getReportCriteria = {
                     Username: $scope.searchCriteria.Username,
                     HeadlineName: $scope.searchCriteria.HeadlineName,
                     Role: $scope.selectedRoles.map(role => role.Id).join(','),
-                    PageIndex: $scope.searchCriteria.PageIndex,
-                    PageSize: $scope.searchCriteria.PageSize
+                    PageIndex: param.PageIndex,
+                    PageSize: param.PageSize
                 };
 
                 $scope.lastSelectedParams = getReportCriteria;
