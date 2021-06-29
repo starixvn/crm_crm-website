@@ -120,14 +120,13 @@
                     return;
                 }
 
-                var param = angular.copy($scope.lastSelectedParams);
 
                 var getReportCriteria = {
                     Username: $scope.searchCriteria.Username,
                     HeadlineName: $scope.searchCriteria.HeadlineName,
                     Role: $scope.selectedRoles.map(role => role.Id).join(','),
-                    PageIndex: param.PageIndex,
-                    PageSize: param.PageSize
+                    PageIndex: $scope.searchCriteria.PageIndex,
+                    PageSize: $scope.searchCriteria.PageSize
                 };
 
                 $scope.lastSelectedParams = getReportCriteria;
@@ -138,6 +137,21 @@
                         $scope.reportOptions.IsUpdateGrid = true;
                         $uiBlockerService.unblockUI();
                     }, function () {
+                        $uiBlockerService.unblockUI();
+                    });
+            };
+
+            $scope.reloadTemplate = function () {
+                $uiBlockerService.blockUI();
+                var param = angular.copy($scope.lastSelectedParams);
+                $picManagementFactory.getReport(param)
+                    .then(function (data) {
+                        $scope.errorMessage = '';
+                        $scope.reportOptions.DataList = data.Result;
+                        $scope.reportOptions.IsUpdateGrid = true;
+                        $uiBlockerService.unblockUI();
+                    },
+                    function () {
                         $uiBlockerService.unblockUI();
                     });
             };
@@ -171,7 +185,7 @@
 
                 modalInstance.result.then(function (isSuccess) {
                     if (isSuccess) {
-                        $scope.getReport();
+                        $scope.reloadTemplate();
                     }
                 });
             };
@@ -194,7 +208,7 @@
 
                 modalInstance.result.then(function (isSuccess) {
                     if (isSuccess) {
-                        $scope.getReport();
+                        $scope.reloadTemplate();
                     }
                 });
             };
