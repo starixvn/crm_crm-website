@@ -70,8 +70,13 @@
         [HttpPost]
         public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
-            var updateResult = _customerService.UpdateCustomerSuggestion(criteria);
-            return Json(updateResult, JsonRequestBehavior.AllowGet);
+            if (criteria.IsValid())
+            {
+                var updateResult = _customerService.UpdateCustomerSuggestion(criteria);
+                return Json(updateResult, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(false, JsonRequestBehavior.DenyGet);
         }
 
         [HttpPost]
