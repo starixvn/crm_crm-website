@@ -4,9 +4,7 @@
     <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_CommunicationLogSel" EnvironmentText="_UAT1"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_CommunicationLogUpd" EnvironmentText="_UAT1"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_FeedbackInfoUpd" EnvironmentText="_UAT1"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_FeedbackIns" EnvironmentText="_UAT1"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_FeedbackSelByID" EnvironmentText="_UAT1"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_FeedbackUpd" EnvironmentText="_UAT1"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_GuestFeedbackIns" EnvironmentText="_UAT1"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_GuestFeedbackIns_Multiple" EnvironmentText="_UAT1"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL" SpName="Acc_CRM_MainInformationVerifySel" EnvironmentText="_UAT1"></SpNameConfig>
