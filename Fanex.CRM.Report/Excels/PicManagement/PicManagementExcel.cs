@@ -112,7 +112,7 @@
             ICellStyle centerTextStyle)
         {
             NpoiExtensions.RenderCell(row, currentColumn++, indexNumber, centerTextStyle);
-            NpoiExtensions.RenderCell(row, currentColumn++, picInfo.PicType, centerTextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, picInfo.PicTypeName, centerTextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, picInfo.Username, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, picInfo.RoleName, exportExcelInfo.TextStyle);
 

@@ -6,5 +6,4 @@
     <SpNameConfig Environment="DEV, LOCAL, SIT, UAT" SpName="Acc_CRM_PicIns" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL, SIT, UAT" SpName="Acc_CRM_PicLogSel" EnvironmentText="_xtest"></SpNameConfig>
     <SpNameConfig Environment="DEV, LOCAL, SIT, UAT" SpName="Acc_CRM_PicUpd" EnvironmentText="_xtest"></SpNameConfig>
-    <SpNameConfig Environment="DEV, LOCAL, SIT, UAT" SpName="Acc_CRM_PicRoleSel" EnvironmentText="_xtest"></SpNameConfig>
 </Root>

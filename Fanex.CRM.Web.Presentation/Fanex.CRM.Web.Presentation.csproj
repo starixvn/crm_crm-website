@@ -523,16 +523,7 @@
     <Content Include="Configurations\SpNameConfig\SpName.BACKUPMNL.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
-    <Content Include="Configurations\SpNameConfig\SpName.CN88PRO.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\SpName.CN88UAT.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
     <Content Include="Configurations\SpNameConfig\SpName.LOCAL.xml">
-      <DependentUpon>_SpName.tt</DependentUpon>
-    </Content>
-    <Content Include="Configurations\SpNameConfig\SpName.MASTER.xml">
       <DependentUpon>_SpName.tt</DependentUpon>
     </Content>
     <Content Include="Configurations\SpNameConfig\SpName.PRO.xml">
