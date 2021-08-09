@@ -56,7 +56,15 @@
 
         public IEnumerable<Setting> SettingByType(GetSettingByTypeCriteria criteria)
         {
-            var allSettings = _settingService.GetAllSettings();
+            var allSettings = Enumerable.Empty<Setting>();
+            if (criteria.MainSetting.SettingType == "Site")
+            {
+                allSettings = _settingService.GetAllSettingsRemoveCache();
+            }
+            else
+            {
+                allSettings = _settingService.GetAllSettings();
+            }
             return allSettings
                 .Where(s => s.SettingType == criteria.MainSetting.SettingType)
                 .OrderBy(s => s.DisplayOrder)

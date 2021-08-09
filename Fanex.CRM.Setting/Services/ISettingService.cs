@@ -14,6 +14,8 @@
         List<Setting> GetAllSettings();
         Setting GetSettingById(GetSettingByIdCriteria criteria);
 
+        List<Setting> GetAllSettingsRemoveCache();
+
         IList<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null);
         IEnumerable<SiteInfo> GetAllSitesLicenseeInactive(GetAllSiteCriteria criteria = null);
 

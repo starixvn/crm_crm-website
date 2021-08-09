@@ -128,6 +128,12 @@
             return allSettings;
         }
 
+        public List<Setting> GetAllSettingsRemoveCache()
+        {
+             var  allSettings = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
+            return allSettings;
+        }
+
         public IList<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null)
         {
             var cache = CacheService.Get<IList<SiteInfo>>(GetAllSiteSessionKey);
