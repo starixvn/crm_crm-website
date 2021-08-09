@@ -69,8 +69,8 @@
                 { HeaderText: viewResources.No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.LogId, Width: 80, Name: "ColLogId", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.LogDate, Width: 120, Name: "ColLogTime", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.EditBy, Width: 80, Name: "ColEditBy", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.HeadlineDA, Width: 120, Name: "ColHeadlineDA", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.EditBy, Width: 100, Name: "ColEditBy", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.HeadlineDA, Width: 140, Name: "ColHeadlineDA", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Action, Width: 250, Name: "ColAction", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Detail, Width: 600, Name: "ColDetail", HeaderAlign: "center", CellAlign: "center" },
             ];

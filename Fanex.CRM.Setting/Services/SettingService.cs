@@ -126,7 +126,13 @@
             return allSettings;
         }
 
-        public List<Setting> GetAllSettingsRemoveCache()
+        public List<Setting> GetRolesByPic(int picType)
+        {
+            var allSettings = _settingRepositoryInstance.GetRoleListByPic(new GetRoleByPicType{ PicType = picType });
+            return allSettings;
+        }
+
+	public List<Setting> GetAllSettingsRemoveCache()
         {
              var  allSettings = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
             return allSettings;

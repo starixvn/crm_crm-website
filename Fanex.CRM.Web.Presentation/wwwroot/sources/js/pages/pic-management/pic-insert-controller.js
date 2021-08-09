@@ -6,7 +6,7 @@
 		vm.isDiabled = false;
 		vm.username = '';
 		vm.roles = [];
-		vm.selectedRole = { Id: 0, Value: viewResources.Selected };
+		vm.initSelectedRole = { Id: 0, Value: viewResources.Selected };
 		vm.languageDropdownSettings = {
 			idMember: 'Value',
 			nameMember: 'Value',
@@ -45,8 +45,9 @@
 			$picManagementFactory.getAllSetting()
 				.then(function (data) {
 					let allSetting = data.Result;
-					vm.roles = allSetting.RoleList;
-					vm.roles.unshift(vm.selectedRole);
+					vm.picTypes = allSetting.PicTypeList;
+					vm.selectedPicType = vm.picTypes[0];
+					vm.getRolesByPic(vm.selectedPicType.Id);
 					vm.communicationTools = allSetting.CommunicationTools;
 					vm.communicationTools.unshift(vm.initialSelectedComm);
 					let languages = angular.copy(allSetting.Languages);
@@ -60,6 +61,21 @@
 
 					vm.countries = allSetting.Countries;
 					vm.countries.unshift(vm.selectedCountry);
+					vm.isDiabled = false;
+				}, function () {
+					vm.isDiabled = false;
+				});
+		};
+
+		vm.getRolesByPic = function (selectedPicType) {
+			vm.isDiabled = true;
+			const param = { PicType: selectedPicType };
+			$picManagementFactory.getRolesByPic(param)
+				.then(function (data) {
+					const roles = data.Result;
+					vm.roles = roles;
+					vm.selectedRole = vm.initSelectedRole
+					vm.roles.unshift(vm.selectedRole);
 					vm.isDiabled = false;
 				}, function () {
 					vm.isDiabled = false;
@@ -84,6 +100,7 @@
 
 			let criteria = {
 				Username: vm.username,
+				PicType: vm.selectedPicType.Id,
 				Role: vm.selectedRole.Id,
 				Remark: vm.remark,
 				CommunicationTools: communicationToolItems.map(commItem => {
@@ -114,6 +131,9 @@
 			let message = '';
 			if (params.Username === '') {
 				message = viewResources.Username + ' ' + viewResources.IsRequired;
+			}
+			else if (params.picType < 0) {
+				message = viewResources.PicType + ' ' + viewResources.IsRequired;
 			}
 			else if (params.Role <= 0) {
 				message = viewResources.Role + ' ' + viewResources.IsRequired;
@@ -184,6 +204,7 @@
 		vm.isParamsChange = function () {
 			let result = false;
 			if (vm.username !== '' ||
+				vm.selectedPicType.Id > 0 ||
 				vm.selectedRole.Id > 0 ||
 				vm.remark !== '' ||
 				vm.selectedLanguages.length > 0 ||

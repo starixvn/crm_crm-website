@@ -12,6 +12,8 @@
         void ClearAllCaches(string key = "");
 
         List<Setting> GetAllSettings();
+        List<Setting> GetRolesByPic(int picType);
+
         Setting GetSettingById(GetSettingByIdCriteria criteria);
 
         List<Setting> GetAllSettingsRemoveCache();

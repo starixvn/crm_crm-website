@@ -9,6 +9,8 @@
     {
         List<Setting> GetAllSettings(GetAllSettingCriteria criteria);
 
+        List<Setting> GetRoleListByPic(GetRoleByPicType criteria);
+
         IList<T> GetSettingRelations<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new();
 
         IList<Country> GetAllCountries(GetAllCountryCriteria criteria);

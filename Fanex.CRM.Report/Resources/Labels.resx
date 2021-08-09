@@ -954,4 +954,7 @@
   <data name="DefaultPIC" xml:space="preserve">
     <value>Default PIC</value>
   </data>
+  <data name="PicType" xml:space="preserve">
+    <value>Pic Type</value>
+  </data>
 </root>

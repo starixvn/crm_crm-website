@@ -10,6 +10,8 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
 {
     public class EditPicCriteria : BasedCriteria
     {
+        public int PicType { get; set; }
+
         public int PicId { get; set; }
 
         public string Username { get; set; }
@@ -54,6 +56,7 @@ namespace Fanex.CRM.Criteria.PicAndHeadline
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();
+            param.Add("PicType", PicType);
             param.Add("PicId", PicId);
             param.Add("Picname", Username);
             param.Add("Role", Role);

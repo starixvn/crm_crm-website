@@ -12,6 +12,21 @@
         <div class="row">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                 <label>
+                    @Labels.PicType
+                    <span class="mandatoryfield">*</span>
+                </label>
+            </div>
+            <div class="col-xs-9 col-sm-9 col-md-9">
+                <select 
+                    ng-model="picInsertCtrl.selectedPicType"
+                    ng-options="item.Value for item in picInsertCtrl.picTypes"
+                    ng-change="picInsertCtrl.getRolesByPic(picInsertCtrl.selectedPicType.Id)">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <label>
                     @Labels.Name
                     <span class="mandatoryfield">*</span>
                 </label>

@@ -5,8 +5,9 @@
         vm.isDiabled = false;
         $rootScope.validateMessage = '';
         vm.username = picItem.Username;
+        vm.initSelectedRole = { Id: 0, Value: viewResources.Selected };
+        vm.picTyped = '';
         vm.roles = [];
-        vm.selectedRole = { Id: 0, Value: viewResources.Selected };
         vm.languageDropdownSettings = {
             idMember: 'Value',
             nameMember: 'Value',
@@ -47,14 +48,11 @@
             $picManagementFactory.getAllSetting()
                 .then(function (data) {
                     let allSetting = data.Result;
-                    vm.roles = allSetting.RoleList;
-                    vm.roles.unshift(vm.selectedRole);
-                    let selectedRole = { Id: picItem.RoleId, Value: picItem.RoleName };
-                    if (vm.roles.filter(role => role.Id === picItem.RoleId).length === 0) {
-                        vm.roles.push(selectedRole);
-                    }
-                    
-                    vm.selectedRole = vm.roles.filter(role => role.Id === picItem.RoleId)[0];
+                    vm.picTypes = allSetting.PicTypeList;
+                    vm.picTyped = picItem.PicType;
+                    vm.selectedPicType = vm.picTypes.filter(type => type.Id === picItem.PicType)[0];
+                    vm.GetRoleByPic(vm.selectedPicType.Id);
+
                     vm.communicationTools = allSetting.CommunicationTools;
                     vm.communicationTools.unshift(vm.initialSelectedComm);
                     if (picItem.CommunicationTools && picItem.CommunicationTools.length > 0) {
@@ -106,6 +104,25 @@
                 });
         };
 
+        vm.GetRoleByPic = function (selectedPicType) {
+            vm.isDiabled = true;
+            const param = { PicType: selectedPicType };
+            $picManagementFactory.getRolesByPic(param)
+                .then(function (data) {
+                    vm.roles = data.Result;
+                    if (vm.roles.filter(role => role.Id === picItem.RoleId).length === 0) {
+                        vm.selectedRole = vm.initSelectedRole
+                        vm.roles.unshift(vm.selectedRole);
+                    }
+                    else {
+                        vm.selectedRole = vm.roles.filter(role => role.Id === picItem.RoleId)[0];
+                    }
+                    vm.isDiabled = false;
+                }, function () {
+                    vm.isDiabled = false;
+                });
+        };
+
         vm.savePic = function () {
             vm.isDiabled = true;
 
@@ -124,6 +141,7 @@
 
             let criteria = {
                 PicId: picItem.PicId,
+                PicType: vm.selectedPicType.Id,
                 Username: vm.username,
                 Role: vm.selectedRole.Id,
                 Remark: vm.remark,
@@ -190,6 +208,9 @@
             let message = '';
             if (params.Username === '') {
                 message = viewResources.Username + ' ' + viewResources.IsRequired;
+            }
+            else if (params.PicType <= 0) {
+                message = viewResources.PicType + ' ' + viewResources.IsRequired;
             }
             else if (params.Role <= 0) {
                 message = viewResources.Role + ' ' + viewResources.IsRequired;
@@ -260,6 +281,7 @@
         vm.isParamsChange = function () {
             let result = false;
             if (vm.username !== picItem.Username ||
+                vm.selectedPicType.Id !== picItem.PicType ||
                 vm.selectedRole.Id !== picItem.RoleId ||
                 vm.remark !== picItem.Remark ||
                 vm.isLanguageChanged() ||

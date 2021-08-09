@@ -117,6 +117,7 @@
     <Compile Include="Constants\VIPTypeConstants.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Criteria\GetAllProvinceCriteria.cs" />
+    <Compile Include="Criteria\GetRoleByPicType.cs" />
     <Compile Include="Criteria\GetSourceSettingMappingCriteria.cs" />
     <Compile Include="Criteria\GetStationsCriteria.cs" />
     <Compile Include="Criteria\GetAllReportByRedemptionCriteria.cs" />

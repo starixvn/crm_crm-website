@@ -17,8 +17,8 @@
     {
         private readonly PicReport _picReport;
         private readonly IEnumerable<BaseModel> _communicationTools;
-        private const int _baseColumnIndex = 8;
-        private const int _startCommToolsIndex = 6;
+        private const int _baseColumnIndex = 9;
+        private const int _startCommToolsIndex = 7;
 
         public PICManagementExcel(PicReport picReport, IEnumerable<BaseModel> communicationTools, string excelFileName)
             : base(excelFileName)
@@ -73,7 +73,7 @@
             
             var columnHeaders = new List<string>
             {
-                Labels.NumberColumn, Labels.Name, Labels.Role, Labels.Language, Labels.Country, Labels.Group_Headline
+                Labels.NumberColumn, Labels.PicType ,Labels.Name, Labels.Role, Labels.Language, Labels.Country, Labels.Group_Headline
             };
 
             columnHeaders.AddRange(_communicationTools.Select(tool => tool.Name));
@@ -112,6 +112,7 @@
             ICellStyle centerTextStyle)
         {
             NpoiExtensions.RenderCell(row, currentColumn++, indexNumber, centerTextStyle);
+            NpoiExtensions.RenderCell(row, currentColumn++, picInfo.PicType, centerTextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, picInfo.Username, exportExcelInfo.TextStyle);
             NpoiExtensions.RenderCell(row, currentColumn++, picInfo.RoleName, exportExcelInfo.TextStyle);
 

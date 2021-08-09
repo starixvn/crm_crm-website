@@ -360,4 +360,10 @@
   <data name="IsGroupHeadline" xml:space="preserve">
     <value>Is Group Headline</value>
   </data>
+  <data name="PicType" xml:space="preserve">
+    <value>Pic Type</value>
+  </data>
+  <data name="HeadlinePIC" xml:space="preserve">
+    <value>Headline PIC</value>
+  </data>
 </root>

@@ -25,6 +25,28 @@
             return deferred.promise;
         };
 
+        serviceInstance.getRolesByPic = function(param){
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "PicManagement/GetRoleByPic", param)
+                .success(function (data, status, headers, config) {
+                    deferred.resolve({
+                        Result: data,
+                        Status: status,
+                        Headers: headers,
+                        Config: config
+                    });
+                }).error(function (data, status, headers, config) {
+                    deferred.reject({
+                        Result: data,
+                        Status: status,
+                        Headers: headers,
+                        Config: config
+                    });
+                });
+
+            return deferred.promise;
+        };
+
         serviceInstance.getReport = function (getReportCriteria) {
             var deferred = $q.defer();
             $http.post(window.rootUrl + "PicManagement/GetReport", getReportCriteria)

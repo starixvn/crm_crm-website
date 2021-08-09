@@ -41,6 +41,7 @@
                         { Name: "ColLogId", Value: `<div class="padding-5px">${data.LogId}</div>`, CellAlign: "center" },
                         { Name: "ColLogTime", Value: `<div class="padding-5px">${data.LogTime}</div>`, CellAlign: "center" },
                         { Name: "ColEditBy", Value: `<div class="padding-5px">${data.EditBy}</div>`, CellAlign: "center" },
+                        { Name: "ColPicType", Value: `<div class="padding-5px">${data.PicTypeName}</div>`, CellAlign: "center" },
                         { Name: "ColPIC", Value: `<div class="padding-5px">${data.PIC}</div>`, CellAlign: "center" },
                         { Name: "ColAction", Value: `<div class="padding-5px">${data.Action}</div>`, CellAlign: "left" },
                         { Name: "ColDetail", Value: detailValue },
@@ -57,8 +58,9 @@
                 { HeaderText: viewResources.LogId, Width: 80, Name: "ColLogId", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.LogDate, Width: 120, Name: "ColLogTime", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.EditBy, Width: 80, Name: "ColEditBy", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.PIC, Width: 120, Name: "ColPIC", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Action, Width: 250, Name: "ColAction", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.PicType, Width: 120, Name: "ColPicType", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.PIC, Width: 115, Name: "ColPIC", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Action, Width: 170, Name: "ColAction", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Detail, Width: 600, Name: "ColDetail", HeaderAlign: "center", CellAlign: "center" },
             ];
 

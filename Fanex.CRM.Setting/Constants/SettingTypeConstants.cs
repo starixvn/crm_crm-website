@@ -14,6 +14,7 @@
         public static readonly string Title = "title";
         public static readonly string LicenseeType = "Licensee Type";
         public static readonly string PicRole = "PICRole";
+        public static readonly string PicType = "PICType";
         public static readonly string PicCommunicationTool = "PICCommunicationTool";
     }
 }

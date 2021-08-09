@@ -13,6 +13,8 @@
 
         public string PIC { get; set; }
 
+        public string PicTypeName { get; set; }
+
         public int ActionId { get; set; }
 
         public string Action { get; set; }

@@ -37,6 +37,28 @@
             }
         }
 
+        public List<Setting> GetRoleListByPic(GetRoleByPicType criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
+                {
+                    var settings = new List<Setting>();
+                    while (reader.Read())
+                    {
+                        settings.Add(new Setting
+                        {
+                            Id = Converter.ToInt(reader["settingid"]),
+                            Value = Converter.ToString2(reader["settingvalue"]),
+                            DisplayOrder = Converter.ToInt(reader["displayorder"]),
+                        });
+                    }
+
+                    return settings;
+                }
+            }
+        }
+
         public IList<T> GetSettingRelations<T>(GetSettingRelationByNameCriteria criteria) where T : SettingRelation, new()
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))

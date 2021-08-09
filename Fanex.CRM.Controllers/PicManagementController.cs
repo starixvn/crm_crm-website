@@ -46,12 +46,20 @@ namespace Fanex.CRM.Controllers
             {
                 RoleListWithInActive = _settingService.GetPicSettings(SettingTypeConstants.PicRole),
                 RoleList = _settingService.GetPicSettings(SettingTypeConstants.PicRole, true),
+                PicTypeList = _settingService.GetPicSettings(SettingTypeConstants.PicType, true),
                 CommunicationTools = _settingService.GetPicSettings(SettingTypeConstants.PicCommunicationTool, true),
                 Languages = _settingService.GetPicSettings(SettingTypeConstants.Language, true),
                 Countries = _settingService.GetAllCountries().Where(country => country.IsActive)
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult GetRoleByPic(int PicType)
+        {
+            var roles = _settingService.GetRolesByPic(PicType);
+            return Json(roles, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
