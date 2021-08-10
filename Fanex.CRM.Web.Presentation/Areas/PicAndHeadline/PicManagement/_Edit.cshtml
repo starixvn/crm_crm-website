@@ -20,7 +20,6 @@
                 <select ng-model="picEditCtrl.selectedPicType"
                         ng-options="item.Value for item in picEditCtrl.picTypes"
                         ng-change="picEditCtrl.GetRoleByPic(picEditCtrl.selectedPicType.Id)"
-                        ng-disabled="picEditCtrl.picTyped === 51001"
                 >
                 </select>
             </div>
