@@ -199,6 +199,7 @@
 
         function getDetailValueInsertNewPic(data) {
             let languages = preExcecuteArray(data.NewPicInfo.Languages);
+            let picTypes = preExcecuteArray(data.NewPicInfo.PicTypes);
             let countryValue = data.NewPicInfo.Country ? data.NewPicInfo.Country.Name : '-';
             let newCommunicationTool = [];
             recursiveTool(data.NewPicInfo.CommunicationTools, newCommunicationTool);
@@ -206,6 +207,20 @@
             let remarkValue = preExecuteValue(data.NewPicInfo.Remark);
 
             return `
+                 <div class="container-detail">
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.PicType}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail">
+                    <div class="padding-5px">${picTypes}</div>
+                    </div>
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.CommunicationTool}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail">
+                    <div class="padding-5px">${newCommunicationToolValue}</div>
+                    </div>
+                </div>
                 <div class="container-detail">
                     <div class="detail-child-col col-title-detail">
                     <div class="padding-5px">${viewResources.Name}</div>
@@ -236,13 +251,7 @@
                     </div>
                     </div>
                 </div>
-                <div class="container-detail">
-                    <div class="detail-child-col col-title-detail">
-                    <div class="padding-5px">${viewResources.CommunicationTool}</div>
-                    </div>
-                    <div class="detail-child-col col-value-detail">
-                    <div class="padding-5px">${newCommunicationToolValue}</div>
-                    </div>
+                <div class="container-detail border-bottom-none">
                     <div class="detail-child-col col-title-detail">
                     <div class="padding-5px">${viewResources.IsActive}</div>
                     </div>
@@ -251,12 +260,10 @@
                         <div class="padding-5px">Yes</div>
                     </div>
                     </div>
-                </div>
-                <div class="container-detail border-bottom-none">
                     <div class="detail-child-col col-title-detail">
                     <div class="padding-5px">${viewResources.Remark}</div>
                     </div>
-                    <div class="detail-child-col col-value-larger border-right-none">
+                    <div class="detail-child-col border-right-none">
                     <div>
                         <div class="padding-5px">${remarkValue}</div>
                     </div>
@@ -268,6 +275,9 @@
         function getDetailValueUpdatePic(data) {
             let roleValue = changeValueToHtmlString(preExecuteObject(data.OldPicInfo.Role), preExecuteObject(data.NewPicInfo.Role));
             let nameValue = changeValueToHtmlString(data.OldPicInfo.Name, data.NewPicInfo.Name);
+            let newPicType = preExcecuteArray(data.NewPicInfo.PicTypes);
+            let oldPicType = preExcecuteArray(data.OldPicInfo.PicTypes);
+            let picTypeValue = changeValueToHtmlString(oldPicType, newPicType);
             let newLanguage = preExcecuteArray(data.NewPicInfo.Languages);
             let oldLanguage = preExcecuteArray(data.OldPicInfo.Languages);
             let languageValue = changeValueToHtmlString(oldLanguage, newLanguage)
@@ -282,6 +292,22 @@
             let remarkValue = changeValueToHtmlString(preExecuteValue(data.OldPicInfo.Remark), preExecuteValue(data.NewPicInfo.Remark));
 
             return `
+                <div class="container-detail">
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.PicType}</div>
+                    </div>
+                    <div class="detail-child-col col-value-detail${picTypeValue.backgroundChange}">
+                    ${picTypeValue.valueChange}
+                    </div>
+                    <div class="detail-child-col col-title-detail">
+                    <div class="padding-5px">${viewResources.CommunicationTool}</div>
+                    </div>
+                    <div
+                    class="detail-child-col col-value-detail${communicationToolValue.backgroundChange}"
+                    >
+                    ${communicationToolValue.valueChange}
+                    </div>
+                </div>
                 <div class="container-detail">
                     <div class="detail-child-col col-title-detail">
                     <div class="padding-5px">${viewResources.Name}</div>
@@ -317,14 +343,6 @@
                     </div>
                 </div>
                 <div class="container-detail border-bottom-none">
-                    <div class="detail-child-col col-title-detail">
-                    <div class="padding-5px">${viewResources.CommunicationTool}</div>
-                    </div>
-                    <div
-                    class="detail-child-col col-value-detail${communicationToolValue.backgroundChange}"
-                    >
-                    ${communicationToolValue.valueChange}
-                    </div>
                     <div class="detail-child-col col-title-detail">
                     <div class="padding-5px">${viewResources.Remark}</div>
                     </div>

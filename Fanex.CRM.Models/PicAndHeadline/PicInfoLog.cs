@@ -13,6 +13,9 @@
         [XmlElement(ElementName = "Language")]
         public List<BaseModel> Languages { get; set; }
 
+        [XmlElement(ElementName = "PicType")]
+        public List<BaseModel> PicTypes { get; set; }
+
         [XmlElement(ElementName = "CommunicationTool")]
         public List<SettingValue> CommunicationTools { get; set; }
 
