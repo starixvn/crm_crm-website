@@ -46,8 +46,7 @@
         };
 
         $scope.completedLoadCommunication = function () {
-            if ($scope.isLoadedLicensee &&
-                !$scope.isLoadedSite) {
+            if ($scope.isLoadedLicensee && !$scope.isLoadedSite) {
                 $scope.getAllSites()
                 return;
             }
@@ -69,10 +68,10 @@
                     $scope.customerLicenseeInfor = data.Result;
                     $scope.completedLoadCommunication();
                 },
-                    function () {
-                        $scope.isLoadedLicensee = true;
-                        $scope.completedLoadCommunication();
-                    });
+                function () {
+                    $scope.isLoadedLicensee = true;
+                    $scope.completedLoadCommunication();
+                });
         };
 
         $scope.getAllSites = function () {
@@ -81,11 +80,12 @@
                 .then(function (data) {
                     $scope.allSites = data.Result;
                     $scope.isLoadedSite = true;
+                    $scope.completedLoadCommunication();
                 },
-                    function () {
-                        $scope.isLoadedSite = true;
-                        $scope.completedLoadCommunication();
-                    });
+                function () {
+                    $scope.isLoadedSite = true;
+                    $scope.completedLoadCommunication();
+                });
         };
 
         $scope.checkInactiveSite = function () {
