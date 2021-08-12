@@ -490,13 +490,7 @@
             $scope.hideMessage();
 
             var feedback = $scope.feedback;
-
-            if (feedback !== null) {
-                if (!feedback.IsSiteActive && feedback.IsLicensee) {
-                    $scope.errorMessage(updateFeedbackResources.InactiveSite_OwnerCreate_ErrorMessage + feedback.CustomerInfo.Name);
-                    return false;
-                }
-            }
+            
             var feedbackTime = new Date(feedback.FeedbackTimeString);
             var resolutionTime = new Date(feedback.ResolutionTimeString);
 

@@ -462,13 +462,7 @@
             var result = true;
             var feedbackTime = new Date(criteria.StartTime);
             var resolutionTime = new Date(criteria.EndTime);
-
-            if ($scope.oldCommunicationLog !== null) {
-                if (!$scope.oldCommunicationLog.IsSiteActive && $scope.oldCommunicationLog.IsLicensee) {
-                    $scope.resultMessage = viewResources.ErrorMessage_InactiveSite_OwnerCreate + $scope.oldCommunicationLog.CustomerName;
-                    result = false;
-                }
-            }
+            
             var inactiveSites = $scope.relatedCustomerResultDirective.checkExistInactiveSite($scope.reVerifyResult);
             if (inactiveSites.length > 0) {
                 var errorInactive = viewResources.ErrorMessage_InactiveSite_Relate + inactiveSites.map(x => x).join(", ");
