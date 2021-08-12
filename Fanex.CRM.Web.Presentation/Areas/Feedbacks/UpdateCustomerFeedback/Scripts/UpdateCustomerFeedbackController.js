@@ -493,7 +493,7 @@
 
             if (feedback !== null) {
                 if (!feedback.IsSiteActive && feedback.IsLicensee) {
-                    $scope.errorMessage(updateFeedbackResources.InactiveSite_Member_ErrorMessage);
+                    $scope.errorMessage(updateFeedbackResources.InactiveSite_OwnerCreate_ErrorMessage + feedback.CustomerInfo.Name);
                     return false;
                 }
             }
@@ -502,7 +502,7 @@
 
             var inactiveSites = $scope.relatedCustomerResultDirective.checkExistInactiveSite($scope.reVerifyResult);
             if (inactiveSites.length > 0) {
-                var errorInactive = updateFeedbackResources.InactiveSite_Create_ErrorMessage + inactiveSites.map(x => x).join(", ");
+                var errorInactive = updateFeedbackResources.InactiveSite_Relate_ErrorMessage + inactiveSites.map(x => x).join(", ");
                 $scope.errorMessage(errorInactive);
                 return false;
             }

@@ -467,7 +467,7 @@
 
             var inactiveSites = $scope.relatedCustomerResultDirective.checkExistInactiveSite($scope.reVerifyResult);
             if (inactiveSites.length > 0) {
-                message = viewResources.Error_Create_InactiveSite + inactiveSites.map(x => x).join(", ");
+                message = viewResources.ErrorMessage_InactiveSite_Relate + inactiveSites.map(x => x).join(", ");
                 result = false;
             }
             var feedbackTime = new Date(params.StartTime);

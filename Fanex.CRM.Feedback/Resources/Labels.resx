@@ -617,10 +617,10 @@
   <data name="InactiveSite" xml:space="preserve">
     <value>Inactive Site</value>
   </data>
-  <data name="InactiveSiteCreateErrorMessage" xml:space="preserve">
+  <data name="InactiveSiteOwnerCreateErrorMessage" xml:space="preserve">
     <value>Cannot create Feedback for customers belonging to Inactive Site: </value>
   </data>
-  <data name="InactiveSiteMemberErrorMessage" xml:space="preserve">
-    <value>Cannot create feedback for Inactive Site member.</value>
+  <data name="InactiveSiteRelateErrorMessage" xml:space="preserve">
+    <value>Some Usernames belong to Inactive Site:</value>
   </data>
 </root>

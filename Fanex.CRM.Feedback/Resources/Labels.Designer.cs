@@ -630,18 +630,18 @@ namespace Fanex.CRM.Feedback.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cannot create Feedback for customers belonging to Inactive Site: .
         /// </summary>
-        public static string InactiveSiteCreateErrorMessage {
+        public static string InactiveSiteOwnerCreateErrorMessage {
             get {
-                return ResourceManager.GetString("InactiveSiteCreateErrorMessage", resourceCulture);
+                return ResourceManager.GetString("InactiveSiteOwnerCreateErrorMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot create feedback for Inactive Site member..
+        ///   Looks up a localized string similar to Some Usernames belong to Inactive Site:.
         /// </summary>
-        public static string InactiveSiteMemberErrorMessage {
+        public static string InactiveSiteRelateErrorMessage {
             get {
-                return ResourceManager.GetString("InactiveSiteMemberErrorMessage", resourceCulture);
+                return ResourceManager.GetString("InactiveSiteRelateErrorMessage", resourceCulture);
             }
         }
         

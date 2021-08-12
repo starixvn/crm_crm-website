@@ -641,7 +641,7 @@
             var resolutionTime = new Date(criteria.EndTime);
             var inactiveSites = checkExistInactiveSite();
             if (inactiveSites.length > 0) {
-                $scope.resultMessage = viewResources.ErrorCreateInactiveSite + inactiveSites.map(inactive => inactive).join(", ");
+                $scope.resultMessage = viewResources.ErrorMessage_InactiveSite_OwnerCreate + inactiveSites.map(inactive => inactive).join(", ");
                 result = false;
             }
             if (criteria.Customers.length === 0) {

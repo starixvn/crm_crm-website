@@ -340,15 +340,6 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot create Feedback for customers belonging to Inactive Site:.
-        /// </summary>
-        public static string CreateInactiveSiteErrorMessage {
-            get {
-                return ResourceManager.GetString("CreateInactiveSiteErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create Multiple Logs.
         /// </summary>
         public static string CreateMultipleLogs {
@@ -520,11 +511,20 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to InActiveSiteMessage	Cannot create feedback for Inactive Site member..
+        ///   Looks up a localized string similar to Cannot create Feedback for customers belonging to Inactive Site:.
         /// </summary>
-        public static string InactiveSiteMemberErrorMessage {
+        public static string InactiveSiteOwnerCreateErrorMessage {
             get {
-                return ResourceManager.GetString("InactiveSiteMemberErrorMessage", resourceCulture);
+                return ResourceManager.GetString("InactiveSiteOwnerCreateErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some Usernames belong to Inactive Site:.
+        /// </summary>
+        public static string InactiveSiteRelateErrorMessage {
+            get {
+                return ResourceManager.GetString("InactiveSiteRelateErrorMessage", resourceCulture);
             }
         }
         

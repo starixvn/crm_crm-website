@@ -652,7 +652,7 @@
             var resolutionTime = new Date(criteria.EndTime);
             if ($scope.copiedCommunicationLog !== null) {
                 if (!$scope.copiedCommunicationLog.IsSiteActive && $scope.copiedCommunicationLog.IsLicensee) {
-                    $scope.resultMessage = viewResources.Error_InactiveSite_Member;
+                    $scope.resultMessage = viewResources.ErrorMessage_InactiveSite_OwnerCreate + $scope.copiedCommunicationLog.CustomerName;
                     result = false;
                 }
             }
