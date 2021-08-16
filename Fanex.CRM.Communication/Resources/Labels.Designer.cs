@@ -511,7 +511,7 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot create Feedback for customers belonging to Inactive Site:.
+        ///   Looks up a localized string similar to Cannot create Feedback for customers belonging to Inactive Site: .
         /// </summary>
         public static string InactiveSiteOwnerCreateErrorMessage {
             get {
@@ -520,7 +520,7 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Some Usernames belong to Inactive Site:.
+        ///   Looks up a localized string similar to Some Usernames belong to Inactive Site: .
         /// </summary>
         public static string InactiveSiteRelateErrorMessage {
             get {

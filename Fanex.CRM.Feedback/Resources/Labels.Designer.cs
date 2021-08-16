@@ -637,7 +637,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Some Usernames belong to Inactive Site:.
+        ///   Looks up a localized string similar to Some Usernames belong to Inactive Site: .
         /// </summary>
         public static string InactiveSiteRelateErrorMessage {
             get {
