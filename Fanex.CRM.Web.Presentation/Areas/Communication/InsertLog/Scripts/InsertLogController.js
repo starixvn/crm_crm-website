@@ -659,7 +659,7 @@
             
             var inactiveSites = $scope.relatedCustomerResultDirective.checkExistInactiveSite($scope.reVerifyResult);
             if (inactiveSites.length > 0) {
-                $scope.resultMessage = viewResources.Error_Create_InactiveSite + inactiveSites.map(x => x).join(", ");
+                $scope.resultMessage = viewResources.ErrorMessage_InactiveSite_Relate + inactiveSites.map(x => x).join(", ");
                 result = false;
             }
 
