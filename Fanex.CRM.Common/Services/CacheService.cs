@@ -16,7 +16,7 @@
 
         public static void Set<T>(string key, T value)
         {
-            ConfiguredCacheService.Set(GetKeyForLanguage(key), DeepClone(value), new CacheItemOptions().SetSlidingExpiration(TimeSpan.FromMinutes(TIMEOUT)));
+            ConfiguredCacheService.Set(GetKeyForLanguage(key), DeepClone(value), new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(TIMEOUT)));
         }
 
         public static void ClearCache(List<string> SessionKeys)

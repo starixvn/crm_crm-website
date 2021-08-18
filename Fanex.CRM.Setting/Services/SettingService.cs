@@ -21,8 +21,6 @@
         public const string GetAllFeedbackTemplateSubjectSessionKey = "Fanex.CRM.Setting.GetAllFeedbackTemplateSubjectSessionKey";
 
         public const string GetInformHeadlineStatusesSessionKey = "Fanex.CRM.Setting.GetInformHeadlineStatusesSessionKey";
-        public const string GetAllSiteSessionKey = "Fanex.CRM.Setting.GetAllSiteSessionKey";
-        public const string GetAllSiteWithGroupSessionKey = "Fanex.CRM.Setting.GetAllSiteWithGroupSessionKey";
         public const string GetAllLanguageSessionKey = "Fanex.CRM.Setting.GetAllLanguageSessionKey";
         public const string GetAllExtensionSessionKey = "Fanex.CRM.Setting.GetAllExtensionSessionKey";
         public const string GetAllCommunicationToolSessionKey = "Fanex.CRM.Setting.GetAllCommunicationToolSessionKey";
@@ -65,7 +63,7 @@
             var SessionKeys = new List<string>
             {
                 GetAllSettingSessionKey, GetAllCountrySessionKey, GetAllTitleSessionKey,GetAllFeedbackTemplateSubjectSessionKey,
-                GetInformHeadlineStatusesSessionKey, GetAllSiteSessionKey, GetAllSiteWithGroupSessionKey, GetAllLanguageSessionKey,
+                GetInformHeadlineStatusesSessionKey, GetAllLanguageSessionKey,
                 GetAllExtensionSessionKey, GetAllCommunicationToolSessionKey, GetAllMainCategorySessionKey, GetAllMainCategoryFromAllSettingsSessionKey,
                 GetProductOnlySessionKey, GetAllProductSessionKey, GetAllSubProductSessionKey, GetAllStatusSessionKey, GetAllStatusCommunicationTool,
                 GetAllStatusRedemption,GetAllRoleSessionKey, GetAllResponseSessionKey, GetAllActivityLogActionKey,GetAllSettingLogActionKey,
@@ -136,13 +134,7 @@
 
         public IList<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null)
         {
-            var cache = CacheService.Get<IList<SiteInfo>>(GetAllSiteSessionKey);
-            if (cache != null)
-            {
-                return cache;
-            }
-            var sites = baseService.GetData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
-
+           var sites = baseService.GetData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
            var allSites = (from n in sites
                             where n.IsActive
                             group n by n.IsLicensee into g
@@ -160,7 +152,6 @@
                                               }).ToList()
                             }).ToList();
 
-            CacheService.Set(GetAllSiteSessionKey, allSites);
             return allSites;
         }
 
@@ -209,12 +200,6 @@
 
         public IList<SiteSetting> GetAllSiteWithGroup()
         {
-            var cache = CacheService.Get<IList<SiteSetting>>(GetAllSiteWithGroupSessionKey);
-            if (cache != null)
-            {
-                return cache;
-            }
-
             var sites = new List<SiteSetting>();
             var rawdata = baseService.GetData<SiteInfo>(new GetAllSiteCriteria());
             foreach (var item in rawdata)
@@ -230,7 +215,6 @@
             }
 
             sites = sites.OrderBy(s => s.AliasName).ThenBy(s => s.Name).ToList();
-            CacheService.Set(GetAllSiteWithGroupSessionKey, sites);
             return sites;
         }
 
