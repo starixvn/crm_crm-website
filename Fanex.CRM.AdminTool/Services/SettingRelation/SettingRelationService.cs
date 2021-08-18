@@ -41,7 +41,15 @@
 
         public IEnumerable<Setting> GetSettingByTypes(GetSettingByTypeCriteria criteria)
         {
-            IEnumerable<Setting> allSettings = _settingService.GetAllSettings();
+            var allSettings = Enumerable.Empty<Setting>();
+            if (criteria.MainSetting.SettingType == "Site" || criteria.MainSetting.SettingType == "SiteCategory")
+            {
+                allSettings = _settingService.GetAllSettingsRemoveCache();
+            }
+            else
+            {
+                allSettings = _settingService.GetAllSettings();
+            }
             IEnumerable<Setting> relations = GetAllSettingRelations();
             IEnumerable<Setting> result = allSettings
                 .Where(s => s.SettingType == criteria.MainSetting.SettingType)
