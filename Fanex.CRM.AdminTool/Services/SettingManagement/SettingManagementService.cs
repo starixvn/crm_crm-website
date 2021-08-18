@@ -57,7 +57,7 @@
         public IEnumerable<Setting> SettingByType(GetSettingByTypeCriteria criteria)
         {
             var allSettings = Enumerable.Empty<Setting>();
-            if (criteria.MainSetting.SettingType == "Site")
+            if (criteria.MainSetting.SettingType == "Site" || criteria.MainSetting.SettingType == "SiteCategory")
             {
                 allSettings = _settingService.GetAllSettingsRemoveCache();
             }
