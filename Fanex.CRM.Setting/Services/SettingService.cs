@@ -132,9 +132,9 @@
             return allSettings;
         }
 
-	public List<Setting> GetAllSettingsRemoveCache()
+	    public List<Setting> GetAllSettingsRemoveCache()
         {
-             var  allSettings = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
+            var  allSettings = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
             return allSettings;
         }
 
