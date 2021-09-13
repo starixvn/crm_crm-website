@@ -22,12 +22,13 @@
         {
         }
 
+        public ISettingService ServiceSetting { get; set; }
+
         public AddFeedbackController(ISettingService serviceSetting)
         {
             ServiceSetting = serviceSetting ?? new SettingService();
         }
 
-        public ISettingService ServiceSetting { get; set; }
 
         [HttpPost]
         public ActionResult AllSetting()
@@ -93,6 +94,6 @@
             };
 
             return settings;
-        }
+        } 
     }
 }

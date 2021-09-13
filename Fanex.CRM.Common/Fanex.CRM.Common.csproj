@@ -118,9 +118,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -231,7 +228,6 @@
     <Compile Include="Services\CacheService.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Services\CustomDelegatingHandler.cs" />
     <Compile Include="Services\ExternalRedirectConfigs.cs" />
     <Compile Include="Services\ILanguageService.cs" />
     <Compile Include="Services\IPermissionService.cs" />
@@ -239,7 +235,6 @@
     <Compile Include="Services\LoggingHelper.cs" />
     <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\BaseService.cs" />
-    <Compile Include="Services\TicketRefService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Labels.zh-CN.resx" />

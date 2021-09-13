@@ -396,4 +396,14 @@
   <data name="InActiveSiteMessage" xml:space="preserve">
     <value>Cannot create feedback for Inactive Site member.</value>
   </data>
+  <data name="TicketRefNo" xml:space="preserve">
+    <value>Ticket Ref. No</value>
+  </data>
+  <data name="Helper_TicketRefMessage" xml:space="preserve">
+    <value>Automatically fill in Description with Event Details from ticket.
+Support tickets of Sportsbook, Virtual Sports, Virtual Sports 2, Number Game, NG2, Keno, Lottery, Virtual Game, Table Game, Indo 4D with Win Loss Date from</value>
+  </data>
+  <data name="FillEventDetails" xml:space="preserve">
+    <value>Fill Event Details</value>
+  </data>
 </root>

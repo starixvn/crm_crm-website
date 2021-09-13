@@ -502,6 +502,15 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fill Event Details.
+        /// </summary>
+        public static string FillEventDetails {
+            get {
+                return ResourceManager.GetString("FillEventDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Guest.
         /// </summary>
         public static string Guest {
@@ -525,6 +534,16 @@ namespace Fanex.CRM.Common.Resources {
         public static string Helper_RelatedCustomerInputMessage {
             get {
                 return ResourceManager.GetString("Helper_RelatedCustomerInputMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatically fill in Description with Event Details from ticket.
+        ///Support tickets of Sportsbook, Virtual Sports, Virtual Sports 2, Number Game, NG2, Keno, Lottery, Virtual Game, Table Game, Indo 4D with Win Loss Date from.
+        /// </summary>
+        public static string Helper_TicketRefMessage {
+            get {
+                return ResourceManager.GetString("Helper_TicketRefMessage", resourceCulture);
             }
         }
         
@@ -858,6 +877,15 @@ namespace Fanex.CRM.Common.Resources {
         public static string There_is_no_data {
             get {
                 return ResourceManager.GetString("There_is_no_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket Ref. No.
+        /// </summary>
+        public static string TicketRefNo {
+            get {
+                return ResourceManager.GetString("TicketRefNo", resourceCulture);
             }
         }
         

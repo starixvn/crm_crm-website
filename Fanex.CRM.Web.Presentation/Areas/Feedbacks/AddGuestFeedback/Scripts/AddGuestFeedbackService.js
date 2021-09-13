@@ -29,7 +29,14 @@
             var url = window.rootUrl + "CustomerSetting/VerifyUsername";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
-
+        serviceInstance.getTicketInfoByRefno = function (param) {
+            var url = window.rootUrl + "Feedbacks/GetTicketInfoByRefNoAsync";
+            return sharedScriptManager.registerAngularService($http, $q, url, param);
+        }; 
+        serviceInstance.getBalanceUpday = function () {
+            var url = window.rootUrl + "Feedbacks/GetBalanceUpday";
+            return sharedScriptManager.registerAngularService($http, $q, url, null);
+        }; 
         return serviceInstance;
     } ]);
 })();

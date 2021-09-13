@@ -504,6 +504,37 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row ">
+                        <div class="col-md-4">
+                            <div class="row item">
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <label>@CommonLabels.TicketRefNo</label>
+                                </div>
+                                <div class="col-xs-1 col-sm-1 col-md-1">
+                                    <span type="button" id="btnRelatedHelp" class="btnHelp pull-left"
+                                          tooltip-class="helper-tooltip-ticket"
+                                          tooltip-placement="bottom-left"
+                                          uib-tooltip="@CommonLabels.Helper_TicketRefMessage  {{balanceUpday}}"></span>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8">
+                                    <input type="number" 
+                                           class="textbox" id="refNo" name="refNo"
+                                           oninput="javascript: if (this.value.length > 15) this.value = this.value.slice(0, 15);"
+                                           maxlength="15" 
+                                           ng-model="refNo" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row item">
+                                <div class="col-xs-1 col-sm-1 col-md-1">
+                                    <button id="btnverify" class="btn" data-ng-click="getTicketInfo(refNo)" data-ng-disabled="refNo === ''">
+                                        @Html.Raw(@CommonLabels.FillEventDetails)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="row item">
                             <div class="col-xs-3 col-sm-2 col-md-2 lblSubject">
@@ -514,12 +545,10 @@
                             </div>
                             <div class="col-xs-9 col-sm-10 col-md-10 subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
                                 <input type="text" id="subject" class="textbox subject-auto-complete txtSubject"
-                                       autocomplete="off" tabindex="81" data-ng-model="subjectOptions.Subject" />
+                                        autocomplete="off" tabindex="81" data-ng-model="subjectOptions.Subject" />
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
             <div class="row panel-group" data-ng-class="isShowDescriptionPreview ? 'hidden' : '' ">
                 <div class="row title">
                     <div class="pull-left hand">
@@ -609,7 +638,6 @@
             Select: '@Labels.Select',
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',
             Confirm_Ignore_Feedback_AddGuestFeedback: '@Html.Raw(Resources.Language.Confirm_Ignore_Feedback_AddGuestFeedback)',
-
             ErrorFeedbackResolutionTime: '@Labels.Error_FeedbackResolutionTime',
             NoSubcategoryError: '@Labels.NoSubcategoryError',
             Error_NACommmunicationTool: '@Labels.Error_NACommmunicationTool',

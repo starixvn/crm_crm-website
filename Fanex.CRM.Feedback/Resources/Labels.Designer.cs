@@ -1456,6 +1456,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ticket Ref. No.
+        /// </summary>
+        public static string TicketRefNo {
+            get {
+                return ResourceManager.GetString("TicketRefNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title {

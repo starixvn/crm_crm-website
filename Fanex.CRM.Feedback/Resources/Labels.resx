@@ -623,4 +623,7 @@
   <data name="InactiveSiteRelateErrorMessage" xml:space="preserve">
     <value>Some Usernames belong to Inactive Site: </value>
   </data>
+  <data name="TicketRefNo" xml:space="preserve">
+    <value>Ticket Ref. No</value>
+  </data>
 </root>
