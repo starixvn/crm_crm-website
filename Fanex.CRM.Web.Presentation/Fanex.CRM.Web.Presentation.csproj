@@ -351,6 +351,7 @@
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListController_Options.js" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListController_Update.js" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListService.js" />
+    <Content Include="Areas\Communication\InsertLog\Styles\Images\help.png" />
     <Content Include="Areas\Communication\ViewLog\Styles\Images\icon-edit.png" />
     <Content Include="Areas\Communication\ViewLog\Styles\Images\quick-edit-hover.png" />
     <Content Include="Areas\Communication\ViewLog\Styles\Images\quick-edit.png" />

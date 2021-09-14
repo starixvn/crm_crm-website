@@ -133,6 +133,50 @@
             return deferred.promise;
         };
 
+        serviceInstance.getTicketInfoByRefno = function (params) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "Feedbacks/GetTicketInfoByRefNoAsync", params)
+                .success(function (data, status, headers, config) {
+                    deferred.resolve({
+                        Result: data,
+                        Status: status,
+                        Headers: headers,
+                        Config: config
+                    });
+                }).error(function (data, status, headers, config) {
+                    deferred.reject({
+                        Result: data,
+                        Status: status,
+                        Headers: headers,
+                        Config: config
+                    });
+                });
+
+            return deferred.promise;
+        };
+
+        serviceInstance.getBalanceUpday = function () {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + "Feedbacks/GetBalanceUpday", null)
+                .success(function (data, status, headers, config) {
+                    deferred.resolve({
+                        Result: data,
+                        Status: status,
+                        Headers: headers,
+                        Config: config
+                    });
+                }).error(function (data, status, headers, config) {
+                    deferred.reject({
+                        Result: data,
+                        Status: status,
+                        Headers: headers,
+                        Config: config
+                    });
+                });
+
+            return deferred.promise;
+        };
+
         return serviceInstance;
     } ]);
 })();

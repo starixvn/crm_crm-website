@@ -9,7 +9,8 @@
         /* jshint maxstatements: 80 */
         $scope.customerInfo = parent.homeManager.CachedData.currentCustomer;
         $scope.copiedCommunicationLog = copiedCommunicationLog;
-
+        $scope.refNo = '';
+        $scope.balanceUpday = null;
         $scope.communicationLog = {
             RunningNumber: 0,
             FeedbackDate: new Date(currentTime),
@@ -119,6 +120,7 @@
         $scope.initController = function () {
             $scope.getAllSettingForInsert($scope.customerInfo.Id);
             $scope.getNumberOfFeedbackSubjectTemplate();
+            $scope.getBalanceUpday();
         };
 
         $scope.validateInquiriesInput = function (event) {
@@ -129,6 +131,39 @@
             if (!event.ctrlKey && !event.key.match(/^\d+$/)) {
                 event.preventDefault();
             }
+        };
+
+        $scope.getBalanceUpday = function () {
+            $scope.BlockUI();
+            $insertLogService.getBalanceUpday()
+                .then(function (data) {
+                    $scope.isLoadBalanceUpday = true;
+                    $scope.balanceUpday = data.Result;
+                    $scope.completedLoadFilterInfo();
+                }, function () {
+                    $scope.isLoadBalanceUpday = true;
+                    $scope.completedLoadFilterInfo();
+                });
+        };
+
+        $scope.getTicketInfo = function (refNo) {
+            $scope.BlockUI();
+            $insertLogService.getTicketInfoByRefno({ Refno: refNo })
+                .then(function (data) {
+                    if (data.Result.ErrorCode !== "0") {
+                        $scope.resultMessage = data.Result.Description;
+                        $scope.isShowResultMessage = true;
+                        $scope.communicationLog.Remark = "";
+                    }
+                    else {
+                        $scope.resultMessage = "";
+                        $scope.isShowResultMessage = false;
+                        $scope.communicationLog.Remark = data.Result.Description;
+                    }
+                }, function () {
+                        $scope.unblockUI();
+                });
+            $scope.unblockUI();
         };
 
         $scope.getNumberOfFeedbackSubjectTemplate = function () {
@@ -173,7 +208,7 @@
             $scope.unblockUI();
         };
         $scope.initSelectedLogInfo = function () {
-            if ($scope.defaultSettings === null) {
+            if ($scope.defaultSettings === null || !$scope.isLoadBalanceUpday) {
                 return;
             }
 
@@ -893,9 +928,9 @@
 
                     $scope.completedLoadFilterInfo();
                 },
-                    function () {
-                        $scope.completedLoadFilterInfo();
-                    });
+                function () {
+                    $scope.completedLoadFilterInfo();
+                });
         };
 
         $scope.verifyRelatedCustomer = function () {
