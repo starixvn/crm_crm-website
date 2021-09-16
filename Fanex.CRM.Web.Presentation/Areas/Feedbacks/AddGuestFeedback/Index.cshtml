@@ -537,13 +537,13 @@
                     </div>
                     <div class="row">
                         <div class="row item">
-                            <div class="col-xs-3 col-sm-2 col-md-2 lblSubject">
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-subject-width">
                                 <label for="txtsubject">
                                     @Language.Subject
                                 </label>
                                 @Html.Raw(Language.RequiredFieldTemplate)
                             </div>
-                            <div class="col-xs-9 col-sm-10 col-md-10 subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
+                            <div class="col-xs-10 col-sm-10 col-md-10 subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
                                 <input type="text" id="subject" class="textbox subject-auto-complete txtSubject"
                                         autocomplete="off" tabindex="81" data-ng-model="subjectOptions.Subject" />
                             </div>
