@@ -9,7 +9,7 @@
         /* jshint maxstatements: 80 */
         $scope.customerInfo = parent.homeManager.CachedData.currentCustomer;
         $scope.copiedCommunicationLog = copiedCommunicationLog;
-        $scope.refNo = '';
+        $scope.refNo = null;
         $scope.balanceUpday = null;
         $scope.communicationLog = {
             RunningNumber: 0,

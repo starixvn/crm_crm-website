@@ -61,7 +61,7 @@
         };
 
         $scope.customersInput = '';
-        $scope.refNo = '';
+        $scope.refNo = null;
         $scope.balanceUpday = null;
         $scope.isShowCustomerDetailBox = true;
         $scope.isShowFeedbackDetailBox = true;
@@ -129,6 +129,16 @@
                     $scope.isLoadedAllSettings = true;
                     $scope.completedLoadFilterInfo();
                 });
+        };
+
+        $scope.validateInquiriesInput = function (event) {
+            if ([8, 46, 37, 39, 35, 36].includes(event.which)) {
+                return;
+            }
+
+            if (!event.ctrlKey && !event.key.match(/^\d+$/)) {
+                event.preventDefault();
+            }
         };
 
         $scope.getBalanceUpday = function () {

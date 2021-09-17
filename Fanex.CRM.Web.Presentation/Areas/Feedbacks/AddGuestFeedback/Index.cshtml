@@ -518,6 +518,7 @@
                                 </div>
                                 <div class="col-xs-8 col-sm-8 col-md-8 ref-ticket-input">
                                     <input type="number" 
+                                           ng-keydown="validateInquiriesInput($event);"
                                            class="textbox" id="refNo" name="refNo"
                                            oninput="javascript: if (this.value.length > 15) this.value = this.value.slice(0, 15);"
                                            maxlength="15" 
@@ -528,7 +529,7 @@
                         <div class="col-md-4">
                             <div class="row item">
                                 <div class="col-xs-1 col-sm-1 col-md-1">
-                                    <button id="btnverify" class="btn" data-ng-click="getTicketInfo(refNo)" data-ng-disabled="refNo === ''">
+                                    <button id="btnverify" class="btn" data-ng-click="getTicketInfo(refNo)" data-ng-disabled="refNo === null">
                                         @Html.Raw(@CommonLabels.FillEventDetails)
                                     </button>
                                 </div>
