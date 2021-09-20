@@ -123,7 +123,6 @@
                 }, function () {
                     $uiBlockerService.unblockUI();
                 });
-            $uiBlockerService.unblockUI();
         };
         $scope.getCustomerInfoById = function (custId) {
             $uiBlockerService.blockUI();

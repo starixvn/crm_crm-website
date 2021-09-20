@@ -171,7 +171,6 @@
                 }, function () {
                         $uiBlockerService.unblockUI();
                 });
-            $uiBlockerService.unblockUI();
         };
 
         $scope.getSubProducts = function (selectedProducts) {

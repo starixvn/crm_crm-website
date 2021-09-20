@@ -165,7 +165,6 @@
                 }, function () {
                         $scope.unblockUI();
                 });
-            $scope.unblockUI();
         };
 
         $scope.getNumberOfFeedbackSubjectTemplate = function () {
