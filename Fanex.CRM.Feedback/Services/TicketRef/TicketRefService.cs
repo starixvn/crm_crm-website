@@ -36,9 +36,9 @@
                 CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
                 HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
                 var response = await client.GetAsync(NapUrl + "BetListApi/GetBetListByRefNo?refno=" + refno);
-                LogService.Error("URL: " + response);
+                LogService.Info("URL: " + response);
                 var jsonString = await response.Content.ReadAsStringAsync();
-                LogService.Error("jsonString: " + jsonString);
+                LogService.Info("jsonString: " + jsonString);
                 if (jsonString != null)
                 {
                     return JsonConvert.DeserializeObject<TicketInfo>(jsonString);
