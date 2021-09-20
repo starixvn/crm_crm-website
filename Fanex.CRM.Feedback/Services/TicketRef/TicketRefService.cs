@@ -9,6 +9,7 @@
     using Newtonsoft.Json;
     using Fanex.CRM.Feedback.Models;
     using Fanex.Logging;
+    using Fanex.CRM.Common.Helpers;
 
     public interface ITicketRefService
     {
@@ -37,7 +38,7 @@
                 CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
                 HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
                 var response = await client.GetAsync(NapUrl + "BetListApi/GetBetListByRefNo?refno=" + refno);
-                LogService.Info("URL: " + response);
+                SerilogHelper.WriteInformation("Response: " + response);
                 var jsonString = await response.Content.ReadAsStringAsync();
                 LogService.Info("jsonString: " + jsonString);
                 if (jsonString != null)
@@ -52,6 +53,7 @@
             catch(Exception e)
             {
                 LogService.Error("GetTicketInfoByRefNoAsync Error: " + e.Message, e.StackTrace);
+                SerilogHelper.WriteInformation("ERROR: " + e.Message);
                 throw;
             }
         }
