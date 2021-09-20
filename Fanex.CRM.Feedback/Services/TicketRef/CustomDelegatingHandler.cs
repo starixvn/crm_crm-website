@@ -10,12 +10,13 @@
     using System.Threading.Tasks;
     public class CustomDelegatingHandler : DelegatingHandler
     {
-        private static string APIKey => ConfigurationManager.AppSettings["APIKey"];
+        //private static string APIKey => ConfigurationManager.AppSettings["APIKey"];
 
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             try
             {
+                var APIKey = "kJCrpsMovfqAWrlY1E5sV1+ZpP5/vndJ9gE/QcSbYac=";
                 string nonce = Guid.NewGuid().ToString("N");
                 string signatureRawData = APIKey + ":" + nonce;
                 using (HMACSHA256 hmac = new HMACSHA256(Convert.FromBase64String(APIKey)))

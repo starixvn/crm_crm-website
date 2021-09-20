@@ -28,11 +28,12 @@
         {
             this.baseService = baseService ?? new BaseService();
         }
-        private static string NapUrl => ConfigurationManager.AppSettings["NapUrl"];
+        //private static string NapUrl => ConfigurationManager.AppSettings["NapUrl"];
         public async Task<TicketInfo> GetTicketByRefNoAsync(long refno)
         {
             try
             {
+                var NapUrl = "http://nap.starixuat.com/V5/";
                 CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
                 HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
                 var response = await client.GetAsync(NapUrl + "BetListApi/GetBetListByRefNo?refno=" + refno);
