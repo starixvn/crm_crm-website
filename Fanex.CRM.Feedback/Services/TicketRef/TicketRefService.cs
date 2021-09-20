@@ -8,6 +8,7 @@
     using Fanex.CRM.Common.Services;
     using Newtonsoft.Json;
     using Fanex.CRM.Feedback.Models;
+    using Fanex.Logging;
 
     public interface ITicketRefService
     {
@@ -30,17 +31,27 @@
         private static string NapUrl => ConfigurationManager.AppSettings["NapUrl"];
         public async Task<TicketInfo> GetTicketByRefNoAsync(long refno)
         {
-            CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
-            HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
-            var response = await client.GetAsync(NapUrl + "BetListApi/GetBetListByRefNo?refno=" + refno);
-            var jsonString = await response.Content.ReadAsStringAsync();
-            if (jsonString != null)
+            try
             {
-                return JsonConvert.DeserializeObject<TicketInfo>(jsonString);
+                CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
+                HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
+                var response = await client.GetAsync(NapUrl + "BetListApi/GetBetListByRefNo?refno=" + refno);
+                LogService.Error("URL: " + response);
+                var jsonString = await response.Content.ReadAsStringAsync();
+                LogService.Error("jsonString: " + jsonString);
+                if (jsonString != null)
+                {
+                    return JsonConvert.DeserializeObject<TicketInfo>(jsonString);
+                }
+                else
+                {
+                    return await Task.FromResult<TicketInfo>(null);
+                }
             }
-            else
+            catch(Exception e)
             {
-                return await Task.FromResult<TicketInfo>(null);
+                LogService.Error("GetTicketInfoByRefNoAsync Error: " + e.Message, e.StackTrace);
+                throw;
             }
         }
 
