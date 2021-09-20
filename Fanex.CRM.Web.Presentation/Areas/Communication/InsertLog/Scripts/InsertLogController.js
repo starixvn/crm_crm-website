@@ -154,11 +154,13 @@
                         $scope.resultMessage = data.Result.Description;
                         $scope.isShowResultMessage = true;
                         $scope.communicationLog.Remark = "";
+                        $scope.unblockUI();
                     }
                     else {
                         $scope.resultMessage = "";
                         $scope.isShowResultMessage = false;
                         $scope.communicationLog.Remark = data.Result.Description;
+                        $scope.unblockUI();
                     }
                 }, function () {
                         $scope.unblockUI();

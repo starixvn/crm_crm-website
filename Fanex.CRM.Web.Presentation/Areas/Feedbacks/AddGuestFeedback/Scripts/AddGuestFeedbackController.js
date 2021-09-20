@@ -161,10 +161,12 @@
                     if (data.Result.ErrorCode !== "0") {
                         $scope.messageResultOptions = new MessageResult(data.Result.Description, true, false);
                         $scope.descriptionOptions.SelectedText = ""
+                        $uiBlockerService.unblockUI();
                     }
                     else {
                         $scope.messageResultOptions = "";
                         $scope.descriptionOptions.SelectedText = data.Result.Description;
+                        $uiBlockerService.unblockUI();
                     }
                 }, function () {
                         $uiBlockerService.unblockUI();
