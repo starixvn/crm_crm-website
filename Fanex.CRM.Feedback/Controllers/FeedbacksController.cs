@@ -230,7 +230,7 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             try
             {
-                SerilogHelper.WriteInformation("Refno: " + Refno);
+                await LogService.InfoAsync("GetTicketInfoByRefNoAsync: " + Refno);
                 var tickets = await _ticketRefService.GetTicketByRefNoAsync(Refno);
                 if (tickets.ErrorCode == "0")
                 {
@@ -240,7 +240,7 @@ namespace Fanex.CRM.Feedback.Controllers
             }
             catch(Exception e)
             {
-                SerilogHelper.WriteInformation("GetTicketInfoByRefNoAsync Error: " + e.Message);
+                LogService.Error("CheckFeedbackDuplication Error: " + e.Message);
                 throw;
             }
         }

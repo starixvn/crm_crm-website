@@ -32,25 +32,17 @@
         private static string NapUrl => ConfigurationManager.AppSettings["NapUrl"];
         public async Task<TicketInfo> GetTicketByRefNoAsync(long refno)
         {
-            try
+            CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
+            HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
+            var response = await client.GetAsync(NapUrl + "BetListApi/GetBetListByRefNo?refno=" + refno);
+            var jsonString = await response.Content.ReadAsStringAsync();
+            if (jsonString != null)
             {
-                CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
-                HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
-                var response = await client.GetAsync(NapUrl + "BetListApi/GetBetListByRefNo?refno=" + refno);
-                var jsonString = await response.Content.ReadAsStringAsync();
-                if (jsonString != null)
-                {
-                    return JsonConvert.DeserializeObject<TicketInfo>(jsonString);
-                }
-                else
-                {
-                    return await Task.FromResult<TicketInfo>(null);
-                }
+                return JsonConvert.DeserializeObject<TicketInfo>(jsonString);
             }
-            catch(Exception e)
+            else
             {
-                SerilogHelper.WriteInformation("ERROR: " + e.Message);
-                throw;
+                return await Task.FromResult<TicketInfo>(null);
             }
         }
 
