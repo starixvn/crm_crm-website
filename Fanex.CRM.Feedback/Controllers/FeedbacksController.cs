@@ -240,7 +240,7 @@ namespace Fanex.CRM.Feedback.Controllers
             }
             catch(Exception e)
             {
-                LogService.Error("CheckFeedbackDuplication Error: " + e.Message);
+                LogService.Error("GetTicketInfoByRefNoAsync Error: " + e.Message);
                 throw;
             }
         }
