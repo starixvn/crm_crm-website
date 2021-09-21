@@ -10,6 +10,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Excel;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Excels;
     using Fanex.CRM.Feedback.Excels.LatestFeedback;
@@ -229,6 +230,7 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             try
             {
+                SerilogHelper.WriteInformation("Refno: " + Refno);
                 var tickets = await _ticketRefService.GetTicketByRefNoAsync(Refno);
                 if (tickets.ErrorCode == "0")
                 {
@@ -238,7 +240,7 @@ namespace Fanex.CRM.Feedback.Controllers
             }
             catch(Exception e)
             {
-                LogService.Error("GetTicketInfoByRefNoAsync Error: " + e.Message, e.StackTrace);
+                SerilogHelper.WriteInformation("GetTicketInfoByRefNoAsync Error: " + e.Message);
                 throw;
             }
         }

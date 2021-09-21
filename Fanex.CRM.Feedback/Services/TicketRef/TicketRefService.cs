@@ -29,18 +29,15 @@
         {
             this.baseService = baseService ?? new BaseService();
         }
-        //private static string NapUrl => ConfigurationManager.AppSettings["NapUrl"];
+        private static string NapUrl => ConfigurationManager.AppSettings["NapUrl"];
         public async Task<TicketInfo> GetTicketByRefNoAsync(long refno)
         {
             try
             {
-                var NapUrl = "http://nap.starixuat.com/V5/";
                 CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
                 HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
                 var response = await client.GetAsync(NapUrl + "BetListApi/GetBetListByRefNo?refno=" + refno);
-                SerilogHelper.WriteInformation("Response: " + response);
                 var jsonString = await response.Content.ReadAsStringAsync();
-                LogService.Info("jsonString: " + jsonString);
                 if (jsonString != null)
                 {
                     return JsonConvert.DeserializeObject<TicketInfo>(jsonString);
@@ -52,7 +49,6 @@
             }
             catch(Exception e)
             {
-                LogService.Error("GetTicketInfoByRefNoAsync Error: " + e.Message, e.StackTrace);
                 SerilogHelper.WriteInformation("ERROR: " + e.Message);
                 throw;
             }
