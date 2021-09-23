@@ -173,6 +173,12 @@
                 });
         };
 
+        $scope.pasteRefTicketHandler = function (event) {
+            if (event.originalEvent.clipboardData.getData('Text').match(/[^\d]/)) {
+                event.preventDefault();
+            }
+        };
+
         $scope.getSubProducts = function (selectedProducts) {
             return filterScripts.getSubProducts(
                 selectedProducts,

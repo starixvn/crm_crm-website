@@ -167,6 +167,12 @@
                 });
         };
 
+        $scope.pasteRefTicketHandler = function (event) {
+            if (event.originalEvent.clipboardData.getData('Text').match(/[^\d]/)) {
+                event.preventDefault();
+            }
+        };
+
         $scope.getNumberOfFeedbackSubjectTemplate = function () {
             $scope.BlockUI();
             $insertLogService.getNumberOfFeedbackSubjectTemplate()

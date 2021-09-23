@@ -561,6 +561,7 @@
                                     <input type="number"
                                            class="textbox" id="refNo" name="refNo"
                                            ng-keydown="validateInquiriesInput($event);"
+                                           ng-paste="pasteRefTicketHandler($event)"
                                            oninput="javascript: if (this.value.length > 15) this.value = this.value.slice(0, 15);"
                                            maxlength="15"
                                            ng-model="refNo" />

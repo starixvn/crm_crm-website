@@ -124,6 +124,14 @@
                     $uiBlockerService.unblockUI();
                 });
         };
+
+        $scope.pasteRefTicketHandler = function (event) {
+            if (event.originalEvent.clipboardData.getData('Text').match(/[^\d]/)) {
+                event.preventDefault();
+            }
+        };
+
+
         $scope.getCustomerInfoById = function (custId) {
             $uiBlockerService.blockUI();
 

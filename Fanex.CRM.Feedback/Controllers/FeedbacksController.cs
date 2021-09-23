@@ -231,7 +231,7 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             try
             {
-                if(Refno == 0 || Refno == null)
+                if(Refno == 0)
                 {
                     Json(new TicketInfo() , JsonRequestBehavior.AllowGet);
                 }
