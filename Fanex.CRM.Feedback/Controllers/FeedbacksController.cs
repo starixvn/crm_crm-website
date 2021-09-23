@@ -14,6 +14,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Excels;
     using Fanex.CRM.Feedback.Excels.LatestFeedback;
+    using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services;
     using Fanex.CRM.Feedback.Services.TicketRef;
@@ -230,6 +231,10 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             try
             {
+                if(Refno == 0 || Refno == null)
+                {
+                    Json(new TicketInfo() , JsonRequestBehavior.AllowGet);
+                }
                 var tickets = await _ticketRefService.GetTicketByRefNoAsync(Refno);
                 if (tickets.ErrorCode == "0")
                 {
