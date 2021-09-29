@@ -160,6 +160,7 @@
             addGuestFeedbackService.getTicketInfoByRefno({ Refno: refNo })
                 .then(function (data) {
                     document.getElementById('refNo').value = '';
+                    $scope.refNo = null;
                     if (data.Result.ErrorCode !== "0") {
                         $scope.messageResultOptions = new MessageResult(data.Result.Description, true, false);
                         $uiBlockerService.unblockUI();
@@ -171,7 +172,8 @@
                             $scope.descriptionOptions.SelectedText = replaceTextDescription;
                         }
                         else {
-                            $scope.descriptionOptions.SelectedText = data.Result.Description;
+                            var appendTextDescription = data.Result.Description + $scope.descriptionOptions.SelectedText;
+                            $scope.descriptionOptions.SelectedText = appendTextDescription;
                         }
                         $uiBlockerService.unblockUI();
                     }
