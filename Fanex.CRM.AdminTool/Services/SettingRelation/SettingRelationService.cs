@@ -152,11 +152,11 @@
 
         private IEnumerable<Setting> GetAllSettingRelations()
         {
-            var settingRelations = CacheService.Get<IEnumerable<Setting>>(AllSettingRelationSessionKey);
+            var settingRelations = RedisCacheService.Get<IEnumerable<Setting>>(AllSettingRelationSessionKey);
             if (settingRelations == null)
             {
                 settingRelations = _settingRelationRepository.GetAllSettingRelations(new GetAllSettingRelationCriteria());
-                CacheService.Set(AllSettingRelationSessionKey, settingRelations);
+                RedisCacheService.Set(AllSettingRelationSessionKey, settingRelations);
             }
 
             return settingRelations;

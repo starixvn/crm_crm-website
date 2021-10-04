@@ -45,7 +45,7 @@
                     Labels.ActiveFeedbackSubjectSuccessMessage :
                     Labels.DeactiveFeedbackSubjectSuccessMessage;
 
-                CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
+                RedisCacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
             }
 
             return result;
@@ -57,7 +57,7 @@
             if (result.IsSuccessful)
             {
                 result.Message = Labels.Feedback_FeedbackSubjectManagement_EditSuccess;
-                CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
+                RedisCacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
             }
 
             return result;
@@ -69,7 +69,7 @@
             if (result.IsSuccessful)
             {
                 result.Message = Labels.Feedback_FeedbackSubjectManagement_InsertSuccess;
-                CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
+                RedisCacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
             }
 
             return result;

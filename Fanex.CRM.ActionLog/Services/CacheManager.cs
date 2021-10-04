@@ -16,11 +16,11 @@
         {
             get
             {
-                var result = CacheService.Get<IDictionary<string, string>>(GetAllSettingSessionKey);
+                var result = RedisCacheService.Get<IDictionary<string, string>>(GetAllSettingSessionKey);
                 if (result == null)
                 {
                     result = GetAllSettings();
-                    CacheService.Set(GetAllSettingSessionKey, result);
+                    RedisCacheService.Set(GetAllSettingSessionKey, result);
                 }
 
                 return result;

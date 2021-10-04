@@ -1,6 +1,7 @@
 ﻿namespace Fanex.CRM.Web.View
 {
     using System;
+    using System.Configuration;
     using System.Diagnostics;
     using System.Threading;
     using System.Web;
@@ -8,6 +9,8 @@
     using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
+    using Fanex.Caching;
+    using Fanex.Caching.Redis;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Web.View.AppStart;
     using Fanex.Logging;
@@ -21,6 +24,9 @@
 
     public class MvcApplication : HttpApplication
     {
+        private static string RedisApplicationName => ConfigurationManager.AppSettings["RedisApplicationName"];
+        private static string RedisConnectionString => ConfigurationManager.AppSettings["RedisConnectionString"];
+
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -80,6 +86,13 @@
             ExceptionHandler
                 .UseConfig(new LoggingConfiguration())
                 .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
+
+            CacheServiceManager.Use(() => new RedisCache(new RedisCacheOptions
+            {
+                ConnectionString = RedisConnectionString,
+                ApplicationName = RedisApplicationName
+            }));
+
         }
 
         protected void Application_Error(object sender, EventArgs e)

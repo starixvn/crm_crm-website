@@ -259,7 +259,7 @@
     </Compile>
     <Compile Include="Services\AppSession.cs" />
     <Compile Include="Services\AppSetting.cs" />
-    <Compile Include="Services\CacheService.cs">
+    <Compile Include="Services\RedisCacheService.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Services\ExternalRedirectConfigs.cs" />

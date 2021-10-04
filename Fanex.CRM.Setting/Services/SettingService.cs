@@ -55,7 +55,7 @@
 
         public void Delete(string key)
         {
-            CacheService.Delete(key);
+            RedisCacheService.Delete(key);
         }
 
         public void ClearAllCaches(string key= "")
@@ -76,7 +76,7 @@
                 SessionKeys.Add(key);
             }    
 
-            CacheService.ClearCache(SessionKeys);
+            RedisCacheService.ClearCache(SessionKeys);
         }
 
         public SettingService(ISettingRepository settingRepositoryInstance, IBaseService baseService)
@@ -117,11 +117,11 @@
 
         public List<Setting> GetAllSettings()
         {
-            var allSettings = CacheService.Get<List<Setting>>(GetAllSettingSessionKey);
+            var allSettings = RedisCacheService.Get<List<Setting>>(GetAllSettingSessionKey);
             if (allSettings == null)
             {
                 allSettings = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
-                CacheService.Set(GetAllSettingSessionKey, allSettings);
+                RedisCacheService.Set(GetAllSettingSessionKey, allSettings);
             }
             return allSettings;
         }
@@ -226,7 +226,7 @@
 
         public IList<SettingRelation> GetAllTitles()
         {
-            var cache = CacheService.Get<IList<SettingRelation>>(GetAllTitleSessionKey);
+            var cache = RedisCacheService.Get<IList<SettingRelation>>(GetAllTitleSessionKey);
             if (cache != null)
             {
                 return cache;
@@ -239,14 +239,14 @@
                 Active = SettingConstants.ActiveAndInactive
             });
 
-            CacheService.Set(GetAllTitleSessionKey, allTitles);
+            RedisCacheService.Set(GetAllTitleSessionKey, allTitles);
 
             return allTitles;
         }
 
         public IList<Country> GetAllCountries()
         {
-            var allCountry = CacheService.Get<IList<Country>>(GetAllCountrySessionKey);
+            var allCountry = RedisCacheService.Get<IList<Country>>(GetAllCountrySessionKey);
             if (allCountry != null)
             {
                 return allCountry;
@@ -256,7 +256,7 @@
             {
                 Active = SettingConstants.ActiveAndInactive
             });
-            CacheService.Set(GetAllCountrySessionKey, allCountry);
+            RedisCacheService.Set(GetAllCountrySessionKey, allCountry);
             return allCountry;
         }
 
@@ -267,7 +267,7 @@
 
         public IList<Setting> GetAllLanguages()
         {
-            var allLanguages = CacheService.Get<IList<Setting>>(GetAllLanguageSessionKey);
+            var allLanguages = RedisCacheService.Get<IList<Setting>>(GetAllLanguageSessionKey);
             if (allLanguages != null)
             {
                 return allLanguages;
@@ -277,13 +277,13 @@
             {
                 Active = SettingConstants.ActiveAndInactive
             });
-            CacheService.Set(GetAllLanguageSessionKey, allLanguages);
+            RedisCacheService.Set(GetAllLanguageSessionKey, allLanguages);
             return allLanguages;
         }
 
         public IList<SettingRelation> GetAllExtensions()
         {
-            var allExtensions = CacheService.Get<IList<SettingRelation>>(GetAllExtensionSessionKey);
+            var allExtensions = RedisCacheService.Get<IList<SettingRelation>>(GetAllExtensionSessionKey);
             if (allExtensions != null)
             {
                 return allExtensions;
@@ -298,7 +298,7 @@
             .Where(e => e.Id != NAConstants.GetExtentionNA(AppSession.CurrentUser.UserRole))
             .ToList();
 
-            CacheService.Set(GetAllExtensionSessionKey, allExtensions);
+            RedisCacheService.Set(GetAllExtensionSessionKey, allExtensions);
             return allExtensions;
         }
 
@@ -316,14 +316,14 @@
 
         public IList<Setting> GetAllCommunicationTools(bool isIncludeNA = false)
         {
-            var tools = CacheService.Get<IList<Setting>>(GetAllCommunicationToolSessionKey);
+            var tools = RedisCacheService.Get<IList<Setting>>(GetAllCommunicationToolSessionKey);
             if (tools == null)
             {
                 tools = _settingRepositoryInstance.GetAllCommunicationTools(new GetAllCommunicationToolCriteria
                 {
                     Active = SettingConstants.ActiveAndInactive
                 });
-                CacheService.Set(GetAllCommunicationToolSessionKey, tools);
+                RedisCacheService.Set(GetAllCommunicationToolSessionKey, tools);
             }
 
             return isIncludeNA
@@ -365,7 +365,7 @@
 
         public IList<Setting> GetAllMainCategories()
         {
-            var cache = CacheService.Get<IList<Setting>>(GetAllMainCategorySessionKey);
+            var cache = RedisCacheService.Get<IList<Setting>>(GetAllMainCategorySessionKey);
             if (cache != null)
             {
                 return cache;
@@ -385,13 +385,13 @@
                 category.ChildSettings = subCategories.Where(x => x.ParentId == category.Id).OrderBy(s => s.DisplayOrder).ToList();
             }
 
-            CacheService.Set(GetAllMainCategorySessionKey, mainCategories);
+            RedisCacheService.Set(GetAllMainCategorySessionKey, mainCategories);
             return mainCategories;
         }
 
         public IList<Setting> GetMainCategories()
         {
-            var cache = CacheService.Get<IList<Setting>>(GetMainCategorySessionKey);
+            var cache = RedisCacheService.Get<IList<Setting>>(GetMainCategorySessionKey);
             if (cache != null)
             {
                 return cache;
@@ -402,13 +402,13 @@
                 Active = SettingConstants.ActiveAndInactive
             });
 
-            CacheService.Set(GetMainCategorySessionKey, mainCategories);
+            RedisCacheService.Set(GetMainCategorySessionKey, mainCategories);
             return mainCategories;
         }
 
         public IList<Setting> GetSubCategories()
         {
-            var cache = CacheService.Get<IList<Setting>>(GetSubCategorySessionKey);
+            var cache = RedisCacheService.Get<IList<Setting>>(GetSubCategorySessionKey);
             if (cache != null)
             {
                 return cache;
@@ -419,13 +419,13 @@
                 Active = SettingConstants.ActiveAndInactive
             });
 
-            CacheService.Set(GetSubCategorySessionKey, subCategories);
+            RedisCacheService.Set(GetSubCategorySessionKey, subCategories);
             return subCategories;
         }
 
         public IList<Setting> GetAllMainCategoriesFromAllSettings()
         {
-            var cache = CacheService.Get<IList<Setting>>(GetAllMainCategoryFromAllSettingsSessionKey);
+            var cache = RedisCacheService.Get<IList<Setting>>(GetAllMainCategoryFromAllSettingsSessionKey);
             if (cache != null)
             {
                 return cache;
@@ -442,13 +442,13 @@
                 category.ChildSettings = subCategories.Where(x => x.ParentId == category.Id).OrderBy(s => s.DisplayOrder).ToList();
             }
 
-            CacheService.Set(GetAllMainCategoryFromAllSettingsSessionKey, mainCategories);
+            RedisCacheService.Set(GetAllMainCategoryFromAllSettingsSessionKey, mainCategories);
             return mainCategories;
         }
 
         public IList<Product> GetProductsOnly()
         {
-            var cache = CacheService.Get<IList<Product>>(GetProductOnlySessionKey);
+            var cache = RedisCacheService.Get<IList<Product>>(GetProductOnlySessionKey);
             if (cache != null)
             {
                 return cache;
@@ -461,14 +461,14 @@
                 Active = SettingConstants.ActiveAndInactive
             });
 
-            CacheService.Set(GetProductOnlySessionKey, products);
+            RedisCacheService.Set(GetProductOnlySessionKey, products);
 
             return products;
         }
 
         public IList<Product> GetAllProducts()
         {
-            var cache = CacheService.Get<IList<Product>>(GetAllProductSessionKey);
+            var cache = RedisCacheService.Get<IList<Product>>(GetAllProductSessionKey);
             if (cache != null)
             {
                 return cache;
@@ -486,14 +486,14 @@
                         })
                         .ToList();
 
-            CacheService.Set(GetAllProductSessionKey, products);
+            RedisCacheService.Set(GetAllProductSessionKey, products);
 
             return products;
         }
 
         public IList<Product> GetAllSubProducts()
         {
-            var cache = CacheService.Get<IList<Product>>(GetAllSubProductSessionKey);
+            var cache = RedisCacheService.Get<IList<Product>>(GetAllSubProductSessionKey);
             if (cache != null)
             {
                 return cache;
@@ -525,13 +525,13 @@
                         })
                         .ToList();
 
-            CacheService.Set(GetAllSubProductSessionKey, products);
+            RedisCacheService.Set(GetAllSubProductSessionKey, products);
             return products;
         }
 
         public IList<Product> GetProducts()
         {
-            var cache = CacheService.Get<IList<Product>>(GetProductsSessionKey);
+            var cache = RedisCacheService.Get<IList<Product>>(GetProductsSessionKey);
             if (cache != null)
             {
                 return cache;
@@ -545,13 +545,13 @@
                                   return p;
                               }).ToList();
 
-            CacheService.Set(GetProductsSessionKey, products);
+            RedisCacheService.Set(GetProductsSessionKey, products);
             return products;
         }
 
         public IList<Product> GetSubProducts()
         {
-            var cache = CacheService.Get<IList<Product>>(GetSubProductsSessionKey);
+            var cache = RedisCacheService.Get<IList<Product>>(GetSubProductsSessionKey);
             if (cache != null)
             {
                 return cache;
@@ -569,13 +569,13 @@
                                     return p;
                                 }).ToList();
 
-            CacheService.Set(GetSubProductsSessionKey, subProducts);
+            RedisCacheService.Set(GetSubProductsSessionKey, subProducts);
             return subProducts;
         }
 
         public IList<Product> GetBettypes()
         {
-            var cache = CacheService.Get<IList<Product>>(GetBettypesSessionKey);
+            var cache = RedisCacheService.Get<IList<Product>>(GetBettypesSessionKey);
             if (cache != null)
             {
                 return cache;
@@ -590,7 +590,7 @@
                                .OrderBy(b => b.DisplayOrder)
                                .ToList();
 
-            CacheService.Set(GetBettypesSessionKey, betTypes);
+            RedisCacheService.Set(GetBettypesSessionKey, betTypes);
             return betTypes;
         }
 
@@ -606,14 +606,14 @@
                 key = GetAllStatusRedemption;
             }
 
-            var allStatus = CacheService.Get<List<BaseModel>>(key);
+            var allStatus = RedisCacheService.Get<List<BaseModel>>(key);
             if (allStatus != null)
             {
                 return allStatus;
             }
 
             allStatus = _settingRepositoryInstance.GetAllStatus(new GetAllStatusCriteria(statusType)).ToList();
-            CacheService.Set(key, allStatus);
+            RedisCacheService.Set(key, allStatus);
 
             return allStatus;
         }
@@ -621,7 +621,7 @@
         public IList<Status> GetInformHeadlineStatuses()
         {
             const string key = GetInformHeadlineStatusesSessionKey;
-            var allStatus = CacheService.Get<IList<Status>>(key);
+            var allStatus = RedisCacheService.Get<IList<Status>>(key);
             if (allStatus != null)
             {
                 return allStatus;
@@ -630,7 +630,7 @@
             allStatus = baseService.GetData<Status>(new GetAllStatusCriteria(ViewTypeConstants.InformHeadline))
                 .OrderBy(s => s.DisplayOrder)
                 .ToList();
-            CacheService.Set(key, allStatus);
+            RedisCacheService.Set(key, allStatus);
 
             return allStatus;
         }
@@ -638,11 +638,11 @@
         public List<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria)
         {
             const string key = GetAllCurrencyRedemptionSessionKey;
-            var currencies = CacheService.Get<List<BaseModel>>(key);
+            var currencies = RedisCacheService.Get<List<BaseModel>>(key);
             if (currencies == null)
             {
                 currencies = _settingRepositoryInstance.GetAllCurrencyRedemptions(criteria).ToList();
-                CacheService.Set(key, currencies);
+                RedisCacheService.Set(key, currencies);
             }
 
             return currencies;
@@ -650,7 +650,7 @@
 
         public IList<SettingRelation> GetAllRoles()
         {
-            var allRole = CacheService.Get<IList<SettingRelation>>(GetAllRoleSessionKey);
+            var allRole = RedisCacheService.Get<IList<SettingRelation>>(GetAllRoleSessionKey);
             if (allRole != null)
             {
                 return allRole;
@@ -663,13 +663,13 @@
                 Active = SettingConstants.ActiveAndInactive
             });
 
-            CacheService.Set(GetAllRoleSessionKey, allRole);
+            RedisCacheService.Set(GetAllRoleSessionKey, allRole);
             return allRole;
         }
 
         public IList<SettingRelation> GetAllResponses()
         {
-            var allResponse = CacheService.Get<IList<SettingRelation>>(GetAllResponseSessionKey);
+            var allResponse = RedisCacheService.Get<IList<SettingRelation>>(GetAllResponseSessionKey);
             if (allResponse != null)
             {
                 return allResponse;
@@ -682,7 +682,7 @@
                 Active = SettingConstants.ActiveAndInactive
             });
 
-            CacheService.Set(GetAllResponseSessionKey, allResponse);
+            RedisCacheService.Set(GetAllResponseSessionKey, allResponse);
             return allResponse;
         }
 
@@ -790,7 +790,7 @@
         public IList<BaseModel> GetAllLicenseeTypes()
         {
             const string key = GetAllLicenseeTypeSessionKey;
-            var cache = CacheService.Get<IList<BaseModel>>(key);
+            var cache = RedisCacheService.Get<IList<BaseModel>>(key);
             if (cache != null)
             {
                 return cache;
@@ -805,14 +805,14 @@
                     Name = Labels.Symbol_NotApply
                 });
 
-            CacheService.Set(key, licenseeTypes);
+            RedisCacheService.Set(key, licenseeTypes);
             return licenseeTypes;
         }
 
         public IList<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true)
         {
             const string key = GetAllCurrencySessionKey;
-            var cache = CacheService.Get<IList<BaseModel>>(key);
+            var cache = RedisCacheService.Get<IList<BaseModel>>(key);
             if (cache != null)
             {
                 return cache;
@@ -831,7 +831,7 @@
                     });
             }
 
-            CacheService.Set(key, currencies);
+            RedisCacheService.Set(key, currencies);
 
             return currencies;
         }
@@ -845,7 +845,7 @@
         public IList<FeedbackTemplate> GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria)
         {
             int multipleNum = SettingConstants.MaxFeedbackSubjectTemplateNumberOnLoad;
-            var feedbackTemplates = CacheService.Get<IList<FeedbackTemplate>>(GetAllFeedbackTemplateSubjectSessionKey);
+            var feedbackTemplates = RedisCacheService.Get<IList<FeedbackTemplate>>(GetAllFeedbackTemplateSubjectSessionKey);
 
             if (feedbackTemplates == null)
             {
@@ -862,14 +862,14 @@
             string cachedKey = criteria.ActionType == SettingConstants.ActivityLog
                 ? GetAllActivityLogActionKey
                 : GetAllSettingLogActionKey;
-            var actions = CacheService.Get<IList<BaseModel>>(cachedKey);
+            var actions = RedisCacheService.Get<IList<BaseModel>>(cachedKey);
             if (actions != null)
             {
                 return actions;
             }
 
             actions = _settingRepositoryInstance.GetAllLogActions(criteria);
-            CacheService.Set(cachedKey, actions);
+            RedisCacheService.Set(cachedKey, actions);
             return actions;
         }
 
@@ -889,7 +889,7 @@
             try
             {
                 const string cachedKey = GetAllInformHeadlineSettingKey;
-                var settings = CacheService.Get<InformHeadlineSetting>(cachedKey);
+                var settings = RedisCacheService.Get<InformHeadlineSetting>(cachedKey);
                 if (settings != null)
                 {
                     return settings;
@@ -918,7 +918,7 @@
                     Extensions = GetAllExtensions()
                 };
 
-                CacheService.Set(cachedKey, settings);
+                RedisCacheService.Set(cachedKey, settings);
                 return settings;
             }
             catch (Exception ex)
@@ -1000,7 +1000,7 @@
                 TemplateId = 0
             }).Where(s => s.IsActive).ToList();
 
-            CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, feedbackTemplates);
+            RedisCacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, feedbackTemplates);
             return feedbackTemplates;
         }
 
