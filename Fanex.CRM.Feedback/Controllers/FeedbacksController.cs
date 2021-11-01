@@ -241,9 +241,9 @@ namespace Fanex.CRM.Feedback.Controllers
                 }
                 return Json(tickets, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception e)
+            catch(Exception exception)
             {
-                LogService.Error("GetTicketInfoByRefNoAsync Error: " + e.Message);
+                LoggingHelper.Error(exception, Refno);
                 throw;
             }
         }
