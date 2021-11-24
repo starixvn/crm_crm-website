@@ -199,9 +199,9 @@
 
         private bool CheckValidToken(string loginToken)
         {
-            LogService.Info(loginToken);
-            LogService.Info(FormToken);
-            LogService.Info(Request.Cookies[FormTokenName].Value);
+            LogService.Info($"Login token: {loginToken}");
+            LogService.Info($"FormToken: {FormToken}");
+            LogService.Info($"Request cookie: {Request.Cookies[FormTokenName].Value}");
 
             return !string.IsNullOrWhiteSpace(loginToken)
                 && FormToken == loginToken
