@@ -39,7 +39,7 @@
             return await DoWithRetryAsync(() => GetTicketInfo(refno), TimeSpan.FromSeconds(timeSleep), tryCount: retryCount);
         }
 
-        private async Task<TicketInfo> GetTicketInfo(long refno)
+        private static async Task<TicketInfo> GetTicketInfo(long refno)
         {
             CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
             HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
@@ -56,7 +56,7 @@
             }
         }
 
-        private async Task<TicketInfo> DoWithRetryAsync(Func<Task<TicketInfo>> func, TimeSpan sleepPeriod, int tryCount = 3)
+        private static async Task<TicketInfo> DoWithRetryAsync(Func<Task<TicketInfo>> func, TimeSpan sleepPeriod, int tryCount = 3)
         {
             while (true)
             {
