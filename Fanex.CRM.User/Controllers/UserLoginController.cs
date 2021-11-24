@@ -214,7 +214,7 @@
             string loginToken = Guid.NewGuid().ToString("N");
             FormToken = loginToken;
             ViewBag.LoginToken = loginToken;
-
+            LogService.Info($"FormToken from session {FormToken}");
             AddTokenToCookie(loginToken);
         }
 
