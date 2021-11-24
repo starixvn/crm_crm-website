@@ -201,7 +201,6 @@
         {
             LogService.Info(loginToken);
             LogService.Info(FormToken);
-            LogService.Info(Request.Cookies[FormTokenName]);
             LogService.Info(Request.Cookies[FormTokenName].Value);
 
             return !string.IsNullOrWhiteSpace(loginToken)
