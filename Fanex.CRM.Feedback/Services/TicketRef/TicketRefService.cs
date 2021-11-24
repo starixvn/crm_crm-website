@@ -10,6 +10,8 @@
     using Fanex.CRM.Feedback.Models;
     using Fanex.Logging;
     using Fanex.CRM.Common.Helpers;
+    using System.Collections.Generic;
+    using System.Threading;
 
     public interface ITicketRefService
     {
@@ -21,6 +23,8 @@
     public class TicketRefService: ITicketRefService
     {
         private readonly IBaseService baseService;
+        private const short timeSleep = 2;
+        private const short retryCount = 3;
         public TicketRefService(): this(null)
         {
         }
@@ -32,9 +36,15 @@
         private static string NapUrl => ConfigurationManager.AppSettings["NapUrl"];
         public async Task<TicketInfo> GetTicketByRefNoAsync(long refno)
         {
+            return await DoWithRetryAsync(() => GetTicketInfo(refno), TimeSpan.FromSeconds(timeSleep), tryCount: retryCount);
+        }
+
+        private async Task<TicketInfo> GetTicketInfo(long refno)
+        {
             CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
             HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
-            var response = await client.GetAsync(NapUrl + "BetListApi/GetBetListByRefNo?refno=" + refno);
+            var url = new Uri(NapUrl + "BetListApi/GetBetListByRefNo?refno=" + refno);
+            var response = await client.GetAsync(url);
             var jsonString = await response.Content.ReadAsStringAsync();
             if (jsonString != null)
             {
@@ -43,6 +53,25 @@
             else
             {
                 return await Task.FromResult<TicketInfo>(null);
+            }
+        }
+
+        private async Task<TicketInfo> DoWithRetryAsync(Func<Task<TicketInfo>> func, TimeSpan sleepPeriod, int tryCount = 3)
+        {
+            while (true)
+            {
+                try
+                {
+                    return await func();
+                }
+                catch
+                {
+                    if (tryCount-- == 0)
+                    {
+                        throw;
+                    }
+                    await Task.Delay(sleepPeriod);
+                }
             }
         }
 
