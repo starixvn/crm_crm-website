@@ -10,7 +10,6 @@
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.User.Resources;
-    using Fanex.Logging;
     using Models;
     using NAP.Core.Configuration;
     using NAP.Core.Web;
@@ -199,10 +198,6 @@
 
         private bool CheckValidToken(string loginToken)
         {
-            LogService.Info($"Login token: {loginToken}");
-            LogService.Info($"FormToken: {FormToken}");
-            LogService.Info($"Request cookie: {Request.Cookies[FormTokenName].Value}");
-
             return !string.IsNullOrWhiteSpace(loginToken)
                 && FormToken == loginToken
                 && Request.Cookies[FormTokenName] != null
@@ -214,7 +209,6 @@
             string loginToken = Guid.NewGuid().ToString("N");
             FormToken = loginToken;
             ViewBag.LoginToken = loginToken;
-            LogService.Info($"FormToken from session {FormToken}");
             AddTokenToCookie(loginToken);
         }
 
