@@ -23,8 +23,6 @@
     public class TicketRefService: ITicketRefService
     {
         private readonly IBaseService baseService;
-        private const short timeSleep = 2;
-        private const short retryCount = 3;
         public TicketRefService(): this(null)
         {
         }
@@ -35,11 +33,6 @@
         }
         private static string NapUrl => ConfigurationManager.AppSettings["NapUrl"];
         public async Task<TicketInfo> GetTicketByRefNoAsync(long refno)
-        {
-            return await DoWithRetryAsync(() => GetTicketInfo(refno), TimeSpan.FromSeconds(timeSleep), tryCount: retryCount);
-        }
-
-        private static async Task<TicketInfo> GetTicketInfo(long refno)
         {
             CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
             HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
@@ -53,25 +46,6 @@
             else
             {
                 return await Task.FromResult<TicketInfo>(null);
-            }
-        }
-
-        private static async Task<TicketInfo> DoWithRetryAsync(Func<Task<TicketInfo>> func, TimeSpan sleepPeriod, int tryCount = 3)
-        {
-            while (true)
-            {
-                try
-                {
-                    return await func();
-                }
-                catch
-                {
-                    if (tryCount-- == 0)
-                    {
-                        throw;
-                    }
-                    await Task.Delay(sleepPeriod);
-                }
             }
         }
 
