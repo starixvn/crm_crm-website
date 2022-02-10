@@ -52,22 +52,7 @@
         [NapAuth(FunctionKey = FunctionPermissions.SettingLog, Policy = Constant.Policy.Read)]
         public ActionResult SettingLog()
         {
-            return View("~/Areas/ActionLog/SettingLog/Index.cshtml");
-        }
-
-        [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.SettingLog, Policy = Constant.Policy.Read)]
-        public ActionResult GetSettingLog(GetSettingLogCriteria criteria)
-        {
-            var settingLogs = _actionLogService.GetSettingLogs(criteria);
-
-            return Json(
-                new
-                {
-                    SettingLogs = settingLogs,
-                    TotalItems = settingLogs.TotalItems
-                },
-                JsonRequestBehavior.AllowGet);
+            return new RedirectResult(string.Format("{0}/SettingLog", ExternalDomain), false);
         }
     }
 }
