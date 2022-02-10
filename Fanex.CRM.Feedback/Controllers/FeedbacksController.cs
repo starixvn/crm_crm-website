@@ -76,139 +76,32 @@ namespace Fanex.CRM.Feedback.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult ManageFeedback(ManageFeedbackViewModel model)
         {
-            ViewBag.CreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
-            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
-            return View("~/Areas/Feedbacks/ManageFeedback/Index.cshtml", model);
+            return Redirect(string.Format("{0}/ManageFeedback", ExternalDomain));
         }
-
-        [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-        public ActionResult SearchManageFeedback(ManageFeedbackCriteria criteria)
-        {
-            if (criteria.IsValid())
-            {
-                var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
-                var report = new
-                {
-                    Feedbacks = feedbacks.OrderByDescending(x => x.FeedbackDate).ThenByDescending(y => y.FeedbackId),
-                    TotalItems = criteria.TotalRows,
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
-                };
-                return Json(report, JsonRequestBehavior.DenyGet);
-            }
-
-            return Json(new { Feedbacks = new List<FeedbackDetail>() }, JsonRequestBehavior.DenyGet);
-        }
-
+        
         [HttpGet]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult LatestFeedback(int custId = 0, string custName = null)
         {
-            ViewBag.CustId = custId;
-            ViewBag.Username = custName;
-            ViewBag.CreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
-            return View("~/Areas/Feedbacks/LatestFeedback/Index.cshtml", _feedbackService.GetTopItems);
+            return Redirect(string.Format("{0}/LatestFeedback", ExternalDomain));
         }
 
-        [HttpGet]
-        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
-        public ActionResult GetLatestFeedback(LatestFeedbackCriteria criteria)
-        {
-            var feedbacks = _feedbackService.GetLatestFeedbackReport(criteria);
-            var fromCustomerText = criteria.CustId != 0 ?
-                                    string.Format(Labels.FromCustomer, criteria.Username) :
-                                    string.Empty;
-            var title = string.Format(Labels.LatestFeedbackReportTitle, criteria.Top, fromCustomerText);
-
-            var jsonResult = Json(
-                new
-                {
-                    Title = title.Trim(),
-                    Feedbacks = feedbacks,
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
-                },
-                JsonRequestBehavior.AllowGet);
-
-            jsonResult.MaxJsonLength = int.MaxValue;
-            return jsonResult;
-        }
 
         [HttpGet]
         [NapAuth(FunctionKey = FunctionPermissions.DeleteFeedback, Policy = Constant.Policy.Read)]
         public ActionResult DeletedFeedback()
         {
-            return View("~/Areas/Feedbacks/DeletedFeedback/Index.cshtml");
+            return Redirect(string.Format("{0}/DeletedFeedback", ExternalDomain));
         }
-
-        [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.DeleteFeedback, Policy = Constant.Policy.Read)]
-        public ActionResult SearchDeletedFeedback(DeletedFeedbackCriteria criteria)
-        {
-            if (criteria.IsValid())
-            {
-                var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
-                var report = new
-                {
-                    Feedbacks = feedbacks,
-                    TotalItems = criteria.TotalItems,
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive)
-                };
-                return Json(report, JsonRequestBehavior.DenyGet);
-            }
-
-            return Json(new { Feedbacks = new List<Models.DeletedFeedback>() }, JsonRequestBehavior.DenyGet);
-        }
+        
 
         [HttpGet]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult CreateMultipleLogs()
         {
-            return View("~/Areas/Feedbacks/ManageFeedback/Index.cshtml");
+            return Redirect(string.Format("{0}/MultipleLogs", ExternalDomain));
         }
 
-        public void ExportLatestFeedbacks(LatestFeedbackCriteria criteria)
-        {
-            var fromCustomerText = criteria.CustId != 0 ?
-                                    string.Format(Labels.FromCustomer, criteria.Username) :
-                                    string.Empty;
-            var title = string.Format(Labels.LatestFeedbackReportTitle, criteria.Top, fromCustomerText);
-            var feedbacks = _feedbackService.GetLatestFeedbackReport(criteria);
-
-            var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive);
-            BaseExcel latestFeedbackExcel = new LatestFeedbackExcel(feedbacks, title.Trim(), mainCategories);
-            latestFeedbackExcel.BuildWorkBook();
-        }
-
-        public void ExportManageFeedbacks(ManageFeedbackCriteria criteria)
-        {
-            if (criteria.IsValid())
-            {
-                criteria.PageIndex = 0;
-                var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
-
-                var fromCustomerText = string.IsNullOrEmpty(criteria.Username) ?
-                                        string.Empty :
-                                        string.Format(Labels.FromCustomer, criteria.Username);
-                var title = Labels.Feedback + " " + fromCustomerText;
-
-                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
-                BaseExcel manageFeedbackExcel = new FeedbackExcel(feedbacks, mainCategories, title.Trim());
-                manageFeedbackExcel.BuildWorkBook();
-            }
-        }
-
-        public void ExportDeletedFeedbacks(DeletedFeedbackCriteria criteria)
-        {
-            if (criteria.IsValid())
-            {
-                criteria.IsExportExcel = true;
-                var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
-
-                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive);
-                BaseExcel deletedFeedbackExcel = new FeedbackExcel(feedbacks, mainCategories, Labels.DeletedFeedbackTitle);
-                deletedFeedbackExcel.BuildWorkBook();
-            }
-        }
 
         [HttpPost]
         public ActionResult CheckFeedbackDuplication(CheckFeedbackDuplicationCriteria criteria)
