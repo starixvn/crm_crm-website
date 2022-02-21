@@ -56,9 +56,7 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult Create()
         {
-            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
-            ViewBag.CN88SiteId = SiteConstants.CN88;
-            return View("~/Areas/Feedbacks/CreateMultipleLogs/Index.cshtml");
+            return Redirect(string.Format("{0}/MultipleLogs/Create", ExternalDomain));
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
