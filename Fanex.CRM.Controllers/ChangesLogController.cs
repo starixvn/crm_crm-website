@@ -31,7 +31,7 @@ namespace Fanex.CRM.Controllers
 
         public ActionResult Index()
         {
-            return View("~/Areas/PicAndHeadline/ChangesLog/Index.cshtml");
+            return new RedirectResult(string.Format("{0}/ChangesLog", ExternalDomain), false);
         }
 
         public ActionResult GetHeadlineDAReport(GetHeadlineDALogReportCriteria criteria)
