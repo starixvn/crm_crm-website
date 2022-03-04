@@ -31,14 +31,7 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult Index(int custid, string custName)
         {
-            var customerInfo = new CustomerInfo
-            {
-                Id = custid,
-                Name = custName
-            };
-            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
-
-            return View("~/Areas/Feedbacks/AddCustomerFeedback/Index.cshtml", customerInfo);
+            return Redirect(string.Format("{0}/AddCustomerFeedback?custid={1}&custname={2}", ExternalDomain, custid, custName));
         }
 
         [HttpPost]
