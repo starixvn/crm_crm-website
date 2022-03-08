@@ -17,11 +17,63 @@
 
     public class DeletedFeedbackStatisticsController : ReadOnlyBaseController
     {
+        private readonly IDeletedFeedbackStatisticsService _deletedFeedbackStatisticsService;
+        private readonly ISettingService _serviceSetting;
+
+        public DeletedFeedbackStatisticsController()
+            : this(null, null)
+        {
+        }
+
+        public DeletedFeedbackStatisticsController(
+            IDeletedFeedbackStatisticsService deletedFeedbackStatisticsService,
+            ISettingService serviceSetting)
+        {
+            _deletedFeedbackStatisticsService = deletedFeedbackStatisticsService ?? new DeletedFeedbackStatisticsService();
+            _serviceSetting = serviceSetting ?? new SettingService();
+        }
 
         [NapAuth(FunctionKey = FunctionPermissions.DeletedFeedbackStatistic, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
-            return new RedirectResult(string.Format("{0}/DeletedFeedbackStatistic", ExternalDomain), false);
+            return View("~/Areas/Report/DeletedFeedbackStatistics/Index.cshtml");
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.DeletedFeedbackStatistic, Policy = Constant.Policy.Read)]
+        public ActionResult GetReport(DeletedFeedbackStatisticsCriteria criteria)
+        {
+            if (criteria.IsValid())
+            {
+                return Json(new
+                {
+                    ReportData = _deletedFeedbackStatisticsService.GetReport(criteria),
+                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive)
+                });
+            }
+
+            return Json(new
+            {
+                ReportData = new DeletedFeedbackStatisticsViewModel
+                {
+                    Name = string.Empty,
+                    GrandTotal = 0,
+                    DeletedFeedbackByHandlers = new List<DeletedFeedbackByHandler>()
+                }
+            });
+        }
+
+        public void ExportReport(DeletedFeedbackStatisticsCriteria criteria)
+        {
+            if (criteria.IsValid())
+            {
+                var report = _deletedFeedbackStatisticsService.GetReport(criteria);
+                var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings().Where(x => x.IsActive);
+
+                var excelFileName = Regex.Replace(report.Name, @"\W+", "_");
+                BaseExcel deletedFeedbackStatisticsExcel = new DeletedFeedbackStatisticsExcel(report, excelFileName, mainCategories);
+                deletedFeedbackStatisticsExcel.BuildWorkBook();
+            }
         }
     }
 }

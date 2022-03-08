@@ -8,9 +8,9 @@
 
     public class InformHeadlineController : ReadOnlyBaseController
     {
-        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
         [HttpGet]
-        public ActionResult ContactInform()
+        public ActionResult Index()
         {
             return new RedirectResult(string.Format("{0}/InformHeadline", ExternalDomain), false);
         }
