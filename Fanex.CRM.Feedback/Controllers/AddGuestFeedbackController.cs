@@ -5,7 +5,6 @@
     using System.Web.Mvc;
     using Common.Services;
     using Fanex.CRM.Common.Constants;
-    using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
@@ -32,7 +31,8 @@
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult Index()
         {
-            return new RedirectResult(string.Format("{0}/AddGuestFeedback", ExternalDomain), false);
+            ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+            return View("~/Areas/Feedbacks/AddGuestFeedback/Index.cshtml");
         }
 
         [HttpPost]
