@@ -20,6 +20,7 @@
     using Fanex.Logging.Sentry.RavenClient;
     using Fanex.NAP.Core.Auth;
     using Fanex.NAP.Core.Web.Auth;
+    using Newtonsoft.Json;
     using SharpRaven;
 
     public class MvcApplication : HttpApplication
@@ -98,9 +99,14 @@
         protected void Application_Error(object sender, EventArgs e)
         {
             var exception = Server.GetLastError();
-            ExceptionHandler.Handle(
-                                exception,
-                                TraceEventType.Error);
+            var errMessage = "Message: " + exception.Message + Environment.NewLine +
+                            "DATABASE INFO:" + Environment.NewLine +
+                             JsonConvert.SerializeObject(DatabaseInfoGetters.GetDbExceptionInfo(exception), Formatting.Indented);
+            var logMessage = new LogMessage(errMessage)
+                        .AddSection("Server Info", CommonInfoGetters.GetServerInfo())
+                        .AddSection("Exception Info", CommonInfoGetters.GetExceptionInfo(exception))
+                        .ToString();
+            Logger.Log.Error(logMessage);
         }
     }
 }

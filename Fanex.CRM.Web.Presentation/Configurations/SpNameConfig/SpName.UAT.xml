@@ -73,7 +73,7 @@
       <Mapping DataField="SubSettingID" ObjectProperty="SettingIdLv2" />
       <Mapping DataField="SubSettingIDLevel3" ObjectProperty="SettingIdLv3" />
     </Setting>
-    <Setting Key="MultipleLogsInsert" SpName="Acc_CRM_GuestFeedbackIns_Multiple_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="MultipleLogsInsert" SpName="Acc_CRM_GuestFeedbackIns_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="MultipleLogsUpdate" SpName="Acc_CRM_GuestFeedbackUpd_Multiple" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="UpdMultipleReviewAndStatus" SpName="Acc_CRM_UpdMultipleReviewAndStatus" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_FeedbackQuickSel" SpName="Acc_CRM_FeedbackQuickSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -134,7 +134,7 @@
     <Setting Key="Setting_SettingInfo_GetAllLicenseeType" SpName="Acc_CRM_LicenseeTypeSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllCurrency" SpName="Acc_CRM_CurrencyList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_StationList" SpName="Acc_CRM_StationList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_SourceSettingMappingUpd" SpName="Acc_CRM_SourceSettingMappingUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_SourceSettingMappingUpd" SpName="Acc_CRM_SourceSettingMappingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Remark">
     <Setting Key="Acc_CRM_CustomerRemarkSel" SpName="Acc_CRM_CustomerRemarkSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
