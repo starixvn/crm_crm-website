@@ -94,7 +94,7 @@ namespace Fanex.CRM.Feedback.Controllers
                     TotalItems = criteria.TotalRows,
                 };
                 var jsonResult = Json(report, JsonRequestBehavior.DenyGet);
-                jsonResult.MaxJsonLength = int.MaxValue;
+                jsonResult.MaxJsonLength = Int32.MaxValue;
                 return jsonResult;
             }
 
