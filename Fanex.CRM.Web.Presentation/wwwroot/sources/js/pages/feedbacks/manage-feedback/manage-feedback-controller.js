@@ -13,6 +13,7 @@
         $scope.toDateOptions = null;
         $scope.subCategoryOptions = null;
         $scope.mainCategoryOptions = null;
+        $scope.mainCategorySetting = null;
         $scope.createUpdateFeedbackPermission = createUpdateFeedbackPermission;
         $scope.searchCriteria = {
             FeedbackId: '',
@@ -139,6 +140,16 @@
                 });
         };
 
+        $scope.getMainCategories = function () {
+            manageFeedbackFactory.getMainCategoriesSetting()
+                .then(function (data) {
+                    $scope.mainCategorySetting = data.Result;
+                    $uiBlockerService.unblockUI();
+                }, function () {
+                    $uiBlockerService.unblockUI();
+                });
+        };
+
         $scope.filterManageFeedback = function () {
             $scope.searchCriteria.PageIndex = 0; // always reset PageIndex when submit form.
             $scope.searchManageFeedback();
@@ -167,7 +178,7 @@
             manageFeedbackFactory.searchManageFeedback(criteria)
                 .then(function (data) {
                     $scope.report = data.Result;
-                    $scope.report.MainCategory = $scope.settings.MainCategory;
+                    $scope.report.MainCategories = $scope.mainCategorySetting;
                     $uiBlockerService.unblockUI();
                 }, function () {
                     $uiBlockerService.unblockUI();
@@ -363,6 +374,7 @@
 
             $scope.initDatePicker();
             $scope.getAllSetting();
+            $scope.getMainCategories();
         });
     }
 })(angular);

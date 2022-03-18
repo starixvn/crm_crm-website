@@ -92,15 +92,23 @@ namespace Fanex.CRM.Feedback.Controllers
                 {
                     Feedbacks = feedbacks.OrderByDescending(x => x.FeedbackDate).ThenByDescending(y => y.FeedbackId),
                     TotalItems = criteria.TotalRows,
-                    MainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings()
                 };
-                return Json(report, JsonRequestBehavior.DenyGet);
+                var jsonResult = Json(report, JsonRequestBehavior.DenyGet);
+                jsonResult.MaxJsonLength = int.MaxValue;
+                return jsonResult;
             }
 
             return Json(new { Feedbacks = new List<FeedbackDetail>() }, JsonRequestBehavior.DenyGet);
         }
 
-        [HttpGet]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
+        public ActionResult GetAllMainCategories()
+        {
+            var mainCategories = _serviceSetting.GetAllMainCategoriesFromAllSettings();
+            return Json(mainCategories, JsonRequestBehavior.AllowGet);
+        }
+
+            [HttpGet]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult LatestFeedback(int custId = 0, string custName = null)
         {
