@@ -1,5 +1,4 @@
-﻿
-namespace Fanex.CRM.Remark.Controllers
+﻿namespace Fanex.CRM.Remark.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
@@ -8,12 +7,12 @@ namespace Fanex.CRM.Remark.Controllers
     using Fanex.NAP.Core.Web.Attribute;
 
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
+
     public class NewRemarkController : ReadOnlyBaseController
     {
         public ActionResult Index(int customerId)
         {
-            return Redirect(string.Format("{0}/NewRemark?customerId={1}", ExternalDomain, customerId));
+            return Redirect(string.Format("{0}/NewRemark?customerId={1}", ExternalDomain, customerId));        
         }
-        
     }
 }
