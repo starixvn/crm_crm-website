@@ -9,6 +9,8 @@
     {
         IEnumerable<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria);
 
+        IEnumerable<NewRemarkInfo> GetCustomerNewRemarks(GetCustomerNewRemarksCriteria criteria);
+
         CustomerInfo GetCustomerInfo(GetCustomerInfoCriteria criteria);
 
         IEnumerable<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria);

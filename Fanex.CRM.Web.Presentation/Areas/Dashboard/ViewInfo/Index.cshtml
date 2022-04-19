@@ -52,13 +52,14 @@
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js")
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/NumeralScripts", "~/Areas/Dashboard/ViewInfoScripts")
-    <script type="text/javascript">
+<script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId;
         var createUpdateFeedbackPermission = @CreateUpdateFeedbackPermission;
 
         var viewResources = {
+            Last_5_Special_Remark: '@Labels.Last_5_Special_Remark',
             Last_5_Redemption_Log: '@Labels.Last_5_Redemption_Log',
             Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',
             Subject:'@Labels.Subject',
@@ -81,7 +82,14 @@
             Duplicate: '@Labels.Duplicate',
             There_is_no_data: '@Labels.There_is_no_data',
             Update: '@Labels.Update',
-            QuickUpdateTitle: '@Labels.QuickUpdateTitle'
+            QuickUpdateTitle: '@Labels.QuickUpdateTitle',
+            ID: '@Labels.ID',
+            RemarkTitle: '@Labels.RemarkTitle',
+            RemarkContent: '@Labels.RemarkContent',
+            CreatedDate: '@Labels.CreatedDate',
+            Creator: '@Labels.Creator',
+            Username: '@Labels.Username',
+            ViewAllRemarks: '@Labels.ViewAllRemarks'
         };
-    </script>
+</script>
 }

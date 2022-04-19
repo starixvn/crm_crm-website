@@ -1,10 +1,12 @@
 ﻿namespace Fanex.CRM.Dashboard.Controllers
 {
+    using System;
     using System.Linq;
     using System.Web.Mvc;
     using Common.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Dashboard.Criteria;
     using Fanex.CRM.Dashboard.Services;
     using Fanex.NAP.Core.Business;
@@ -84,10 +86,24 @@
         }
 
         [HttpPost]
+        public ActionResult GetNewRemarks(GetCustomerNewRemarksCriteria criteria)
+        {
+            var remarks = _dashboardServiceInstance.GetCustomerNewRemarks(criteria);
+            foreach(var remark in remarks)
+            {
+                remark.CreatedDateString = DateTime.MinValue != remark.CreatedDate ? remark.CreatedDate.ToLongFormatedDateTime() : string.Empty;
+            }
+            return Json(remarks, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult GetCustomerInfo(GetCustomerInfoCriteria criteria)
         {
             var customerInfo = _dashboardServiceInstance.GetCustomerInfo(criteria);
-            return Json(customerInfo, JsonRequestBehavior.AllowGet);
+            var allsites = _serviceSetting.GetAllSites();
+            var siteCredits = allsites.Where(x => x.Name == "Credit");
+            var creditSite = siteCredits.Where(x => x.ChildSites.Any(y => customerInfo.SiteID == y.Id)).ToList();
+            return Json(new { customerInfo , isCreditSite = creditSite.Count > 0}, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

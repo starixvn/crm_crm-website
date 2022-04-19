@@ -28,6 +28,11 @@
             return baseService.GetData<string>(criteria);
         }
 
+        public IEnumerable<NewRemarkInfo> GetCustomerNewRemarks(GetCustomerNewRemarksCriteria criteria)
+        {
+            return baseService.GetData<NewRemarkInfo>(criteria);
+        }
+
         public CustomerInfo GetCustomerInfo(GetCustomerInfoCriteria criteria)
         {
             return _dashboardRepositoryInstance.GetCustomerInfo(criteria);

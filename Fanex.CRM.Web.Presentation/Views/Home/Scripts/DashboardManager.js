@@ -12,6 +12,7 @@ var DashboardManager = function () {
             Detail: 'liDetail',
             CommunicationLog: 'liCommnunicationLog',
             SpeciaRemark: 'liSpecialRemark',
+            Remark: 'liRemark',
             Redemption: 'liRedemption',
             ActivityLog: 'liActivityLog'
         }
@@ -24,11 +25,12 @@ var DashboardManager = function () {
             Tab2: self.Enums.SubMenuId.Detail,
             Tab3: self.Enums.SubMenuId.CommunicationLog,
             Tab4: self.Enums.SubMenuId.SpeciaRemark,
-            Tab5: self.Enums.SubMenuId.Redemption,
-            Tab6: self.Enums.SubMenuId.ActivityLog
+            Tab5: self.Enums.SubMenuId.Remark,
+            Tab6: self.Enums.SubMenuId.Redemption,
+            Tab7: self.Enums.SubMenuId.ActivityLog
         },
         currentMenuTabIndex: 1,
-        maxMenuTabIndex: 6,
+        maxMenuTabIndex: 7,
         subMenuId: null
     };
 
@@ -68,17 +70,23 @@ var DashboardManager = function () {
                 }));
                 self.CachedData.currentMenuTabIndex = 4;
                 break;
+            case subMenuIdEnum.Remark:
+                menuManager.goToURL('centerFr', window.rootUrl + 'NewRemark/Index?' + $.param({
+                    customerId: customer.Id
+                }));
+                self.CachedData.currentMenuTabIndex = 5;
+                break;
             case subMenuIdEnum.Redemption:
                 menuManager.goToURL('centerFr', window.rootUrl + 'Redemption/Index?' + $.param({
                     customerId: customer.Id
                 }));
-                self.CachedData.currentMenuTabIndex = 5;
+                self.CachedData.currentMenuTabIndex = 6;
                 break;
             case subMenuIdEnum.ActivityLog:
                 menuManager.goToURL('centerFr', window.rootUrl + 'ActionLog/ActivityLog?' + $.param({
                     customerId: customer.Id
                 }));
-                self.CachedData.currentMenuTabIndex = 6;
+                self.CachedData.currentMenuTabIndex = 7;
                 break;
             default:
                 break;

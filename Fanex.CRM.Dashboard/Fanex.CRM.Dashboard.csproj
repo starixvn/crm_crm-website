@@ -121,12 +121,14 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Criteria\GetCommunicationLogsCriteria.cs" />
     <Compile Include="Criteria\GetCustomerInfoCriteria.cs" />
+    <Compile Include="Criteria\GetCustomerNewRemarksCriteria.cs" />
     <Compile Include="Criteria\GetCustomerRemarksCriteria.cs" />
     <Compile Include="Criteria\GetRedemptionLogsCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerVerifyFlagCriteria.cs" />
     <Compile Include="Models\CommunicationLogInfo.cs" />
     <Compile Include="Models\CustomerDashboardInfo.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
+    <Compile Include="Models\NewRemarkInfo.cs" />
     <Compile Include="Models\RedemptionLogInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DashboardRepository.cs" />

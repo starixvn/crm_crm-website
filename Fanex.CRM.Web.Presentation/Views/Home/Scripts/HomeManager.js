@@ -408,6 +408,11 @@ var HomeManager = function () {
 			parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.SpeciaRemark);
 		}
 	};
+	self.invokeHotKey_CtrlR = function () {
+		if (parent.dashboardManager) {
+			parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.Remark);
+		}
+	};
 	self.invokeHotKey_CtrlH = function () {
 		menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);
 	};

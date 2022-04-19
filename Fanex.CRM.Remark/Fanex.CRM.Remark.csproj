@@ -114,6 +114,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\NewRemarkController.cs" />
     <Compile Include="Controllers\RemarkController.cs" />
     <Compile Include="Criteria\GetRemarkCriteria.cs" />
     <Compile Include="Criteria\UpdateRemarkCriteria.cs" />

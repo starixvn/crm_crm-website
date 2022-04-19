@@ -553,4 +553,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="NoOfInquiries" xml:space="preserve">
     <value>No. of Inquiries</value>
   </data>
+  <data name="Tab_Remark" xml:space="preserve">
+    <value>Rema&lt;span class="hotkey"&gt;r&lt;/span&gt;k</value>
+  </data>
 </root>

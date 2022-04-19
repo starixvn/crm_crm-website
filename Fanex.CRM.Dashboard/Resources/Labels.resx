@@ -234,4 +234,25 @@
   <data name="Update" xml:space="preserve">
     <value>Update</value>
   </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Creator</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="RemarkContent" xml:space="preserve">
+    <value>Remark Content</value>
+  </data>
+  <data name="RemarkTitle" xml:space="preserve">
+    <value>Remark Title</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="ViewAllRemarks" xml:space="preserve">
+    <value>View All Remarks</value>
+  </data>
 </root>

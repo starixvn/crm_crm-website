@@ -37,7 +37,7 @@
 
             /* jshint camelcase: false */
             var gridOptions = {
-                columns: [{ HeaderText: viewResources.Subject, Width: 430, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
+                columns: [{ HeaderText: viewResources.Subject, Width: 440, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Claimed_Time, Width: 100, Name: "ColClaimedTime", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Currency, Width: 90, Name: "ColCurrency", HeaderAlign: "center", CellAlign: "center" },
                 {

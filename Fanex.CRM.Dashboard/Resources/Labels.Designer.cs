@@ -19,7 +19,7 @@ namespace Fanex.CRM.Dashboard.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Labels {
@@ -102,6 +102,24 @@ namespace Fanex.CRM.Dashboard.Resources {
         public static string Confirm_Ignore_EditVerifyFlag_Changes {
             get {
                 return ResourceManager.GetString("Confirm_Ignore_EditVerifyFlag_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created Date.
+        /// </summary>
+        public static string CreatedDate {
+            get {
+                return ResourceManager.GetString("CreatedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator.
+        /// </summary>
+        public static string Creator {
+            get {
+                return ResourceManager.GetString("Creator", resourceCulture);
             }
         }
         
@@ -214,6 +232,15 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string ID {
+            get {
+                return ResourceManager.GetString("ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information Verified.
         /// </summary>
         public static string Information_Verified {
@@ -300,6 +327,24 @@ namespace Fanex.CRM.Dashboard.Resources {
         public static string Recent_Redemption_Activity {
             get {
                 return ResourceManager.GetString("Recent_Redemption_Activity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remark Content.
+        /// </summary>
+        public static string RemarkContent {
+            get {
+                return ResourceManager.GetString("RemarkContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remark Title.
+        /// </summary>
+        public static string RemarkTitle {
+            get {
+                return ResourceManager.GetString("RemarkTitle", resourceCulture);
             }
         }
         
@@ -403,11 +448,29 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verify Customer Info.
         /// </summary>
         public static string Verify_Customer_Info {
             get {
                 return ResourceManager.GetString("Verify_Customer_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View All Remarks.
+        /// </summary>
+        public static string ViewAllRemarks {
+            get {
+                return ResourceManager.GetString("ViewAllRemarks", resourceCulture);
             }
         }
     }

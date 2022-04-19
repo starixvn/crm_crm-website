@@ -18,6 +18,9 @@
         $scope.customerRemarks = null;
         $scope.redemptionLogs = null;
         $scope.communicationLogs = null;
+        $scope.newRemarks = null;
+
+        $scope.isCreditSite = false;
 
         $scope.isSetFocus = false;
         $scope.isSuccess = false;
@@ -28,6 +31,7 @@
         $scope.isLoadedCustomerRemarks = false;
         $scope.isLoadedRedemptionLogs = false;
         $scope.isLoadedCommunicationLogs = false;
+        $scope.isLoadedNewRemarks = false;
         $scope.isLoadedSites = false;
         $scope.isInactiveSite = false
         $scope.isAfterInactive = false;
@@ -55,6 +59,11 @@
                 return;
             }
 
+            if (!$scope.isLoadedNewRemarks) {
+                $scope.getNewRemarks();
+                return;
+            }
+
             if ($scope.isLoadedCustomerInfo &&
                 $scope.isLoadedCustomerRemarks &&
                 $scope.isLoadedRedemptionLogs &&
@@ -63,9 +72,10 @@
                 if (!$scope.isAfterInactive) {
                     $scope.isInactiveSite = $scope.checkInactiveSite();
                 }
-                    $scope.unblockUI();
+                $scope.unblockUI();
             }
         };
+
         $scope.getCustomerInfo = function () {
             $scope.isLoadedCustomerInfo = false;
             var selectedCriteria = {
@@ -74,7 +84,8 @@
             $dashboardService.getCustomerInfo(selectedCriteria)
                 .then(function (data) {
                     $scope.isLoadedCustomerInfo = true;
-                    $scope.customerInfo = data.Result;
+                    $scope.customerInfo = data.Result.customerInfo;
+                    $scope.isCreditSite = data.Result.isCreditSite
                     $scope.completedLoadDashboard();
                 },
                 function () {
@@ -147,6 +158,29 @@
                     $scope.completedLoadDashboard();
                 });
         };
+
+        $scope.getNewRemarks = function () {
+            $scope.isLoadedNewRemarks = false;
+            var selectedCriteria = {
+                CustomerId: $scope.customerId
+            };
+            $dashboardService.getNewRemarks(selectedCriteria)
+                .then(function (data) {
+                    $scope.isLoadedNewRemarks = true;
+                    $scope.newRemarks = data.Result;
+                    $scope.completedLoadDashboard();
+                },
+                    function () {
+                        $scope.isLoadedNewRemarks = true;
+                        $scope.completedLoadDashboard();
+            
+                    });
+        };
+
+        $scope.handleOpenAllNewRemarks = function () {
+            parent.menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Remark);
+        }
+
         $scope.getNumberOfVerifiedInfo = function () {
             if ($scope.customerInfo) {
                 return ($scope.customerInfo.IsVerifyEmail ? 1 : 0) +

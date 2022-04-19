@@ -90,6 +90,29 @@
 
             return deferred.promise;
         };
+        
+        serviceInstance.getNewRemarks = function (selectedCriteria) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "Dashboard/GetNewRemarks", selectedCriteria)
+                .success(function (data, status, headers, config) {
+                    deferred.resolve({
+                        Result: data,
+                        Status: status,
+                        Headers: headers,
+                        Config: config
+                    });
+                }).error(function (data, status, headers, config) {
+                    deferred.reject({
+                        Result: data,
+                        Status: status,
+                        Headers: headers,
+                        Config: config
+                    });
+                });
+
+            return deferred.promise;
+        };
+
         serviceInstance.getCommunicationLogs = function (selectedCriteria) {
             var deferred = $q.defer();
             $http.post(window.rootUrl + "Dashboard/GetCommunicationLogs", selectedCriteria)
