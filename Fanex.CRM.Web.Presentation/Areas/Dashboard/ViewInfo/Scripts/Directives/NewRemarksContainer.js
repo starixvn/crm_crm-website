@@ -82,9 +82,7 @@
         }
 
         function renderContentRemarkColumn(remark, number) {
-            var html = '<div>\
-                <a class="remark-content"  href="javascript:;" data-id="' + remark.RemarkID + '" data-index="' + number + '">'+ remark.Remark +'</a>\
-            </div>'
+            var html = '<div class="remark-content"  href="javascript:;" data-id="' + remark.RemarkID + '" data-index="' + number + '">'+ remark.Remark + '</div>'
 
             return html ;
         }
