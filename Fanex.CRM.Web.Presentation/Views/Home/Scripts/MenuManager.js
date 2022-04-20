@@ -100,6 +100,9 @@ var MenuManager = function () {
             $.ajax({
                 url: window.rootUrl + "Home/GettingDashboardMenu",
                 type: "GET",
+                data: {
+                    siteId: parent.homeManager.CachedData.siteId
+                },
                 success: function (response, status, xhr) {
                     /* jshint unused: false */
                     self.DOMElements.SubMenu.html(response);

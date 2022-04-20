@@ -1,5 +1,6 @@
 ﻿@{
     bool hasCustomerInfoPermission = (bool)ViewBag.HasCustomerInfoPermission;
+    bool isCreditSite = (bool)ViewBag.IsCreditSite;
     var isCn88 = (ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff);
     var hideClass = isCn88 ? "hide-item" : "";
 }
@@ -9,7 +10,7 @@
             @Html.Raw(Resources.Language.Tab_Main)
         </a>
     </li>
-    @if (hasCustomerInfoPermission)
+    @if(hasCustomerInfoPermission)
     {
         <li id="liDetail">
             <a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liDetail');">
@@ -23,17 +24,21 @@
             </a>
         </li>
 
+
         <li id="liSpecialRemark">
             <a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liSpecialRemark');">
                 @Html.Raw(Resources.Language.Tab_SpecialRemark)
             </a>
         </li>
 
-        <li id="liRemark">
-            <a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liRemark');">
-                @Html.Raw(Resources.Language.Tab_Remark)
-            </a>
-        </li>
+        if (isCreditSite)
+        {
+            <li id="liRemark">
+                <a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liRemark');">
+                    @Html.Raw(Resources.Language.Tab_Remark)
+                </a>
+            </li>
+        }
 
         <li id="liRedemption" class="@hideClass">
             <a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liRedemption');">

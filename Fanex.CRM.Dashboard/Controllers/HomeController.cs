@@ -1,9 +1,11 @@
 ﻿namespace Fanex.CRM.Dashboard.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Services;
 
@@ -12,20 +14,23 @@
         private readonly IPermissionService _permissionService;
         private readonly ILanguageService _langService;
         private readonly IHomeService _homeService;
+        private readonly ISettingService _serviceSetting;
 
         public HomeController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public HomeController(
             IPermissionService permissionService,
             ILanguageService langService,
-            IHomeService homeService)
+            IHomeService homeService,
+            ISettingService serviceSetting)
         {
             _permissionService = permissionService ?? new PermissionService();
             _langService = langService ?? new LanguageService();
             _homeService = homeService ?? new HomeService();
+            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         public RedirectResult Index()
@@ -62,10 +67,14 @@
             return PartialView("~/Views/Home/_Menu.cshtml", currentUserMenu);
         }
 
-        public PartialViewResult GettingDashboardMenu()
+        public PartialViewResult GettingDashboardMenu(int siteId)
         {
+            var allsites = _serviceSetting.GetAllSites();
+            var siteCredits = allsites.Where(x => x.Name == "Credit");
+            var creditSite = siteCredits.Where(x => x.ChildSites.Any(y => siteId == y.Id)).ToList();
             ViewBag.HasCustomerInfoPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Read);
             ViewBag.UserRole = AppSession.CurrentUser.UserRole;
+            ViewBag.IsCreditSite = creditSite.Count > 0;
             return PartialView("~/Views/Home/_DashboardMenu.cshtml");
         }
 

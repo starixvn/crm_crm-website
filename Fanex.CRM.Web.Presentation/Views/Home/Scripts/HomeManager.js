@@ -53,7 +53,8 @@ var HomeManager = function () {
 			PopupController: null
 		},
 
-		feedbacks: null
+		feedbacks: null,
+		siteId: null
 	};
 
 	self.initPage = function () {

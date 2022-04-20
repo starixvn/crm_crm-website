@@ -93,6 +93,7 @@
                 $scope.customer = customer;
                 $scope.oldLanguages = $scope.customer.SelectedLanguages;
                 $scope.oldCustomer = angular.copy($scope.customer);
+                parent.homeManager.CachedData.siteId = customer.SiteSetting.Id;
             }
             customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
         },

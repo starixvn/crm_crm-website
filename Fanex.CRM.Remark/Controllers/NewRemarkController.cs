@@ -12,7 +12,7 @@ namespace Fanex.CRM.Remark.Controllers
     {
         public ActionResult Index(int customerId)
         {
-            return Redirect(string.Format("{0}/NewRemark", ExternalDomain));
+            return Redirect(string.Format("{0}/NewRemark?customerId={1}", ExternalDomain, customerId));
         }
         
     }
