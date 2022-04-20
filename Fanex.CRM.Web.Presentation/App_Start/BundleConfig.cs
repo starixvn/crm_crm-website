@@ -363,6 +363,7 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_Dashboard_ViewInfo(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Dashboard/ViewInfoScripts").Include(
+                "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
                 "~/Scripts/AngularJS/angular-sanitize.js",
                 HotKeyManager,
                 "~/Areas/Dashboard/ViewInfo/Scripts/DashboardApplication.js",

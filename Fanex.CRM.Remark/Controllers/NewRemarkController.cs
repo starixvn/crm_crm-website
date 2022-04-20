@@ -10,9 +10,9 @@
 
     public class NewRemarkController : ReadOnlyBaseController
     {
-        public ActionResult Index(int customerId)
+        public ActionResult Index(string customerName)
         {
-            return Redirect(string.Format("{0}/NewRemark?customerId={1}", ExternalDomain, customerId));        
+            return Redirect(string.Format("{0}/NewRemark?customerName={1}", ExternalDomain, customerName));        
         }
     }
 }

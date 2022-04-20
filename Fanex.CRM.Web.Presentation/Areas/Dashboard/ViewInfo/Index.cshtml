@@ -1,17 +1,17 @@
 ﻿@using Fanex.CRM.Dashboard.Resources;
 @using Newtonsoft.Json;
 @model int
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+@{ Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewBag.Title = Resources.Language.Title_MainTab;
     var isCN88 = ViewBag.UserRole == Fanex.CRM.Common.Enumerations.UserRole.CN88Staff;
     var hideRedemptionClass = isCN88 ? "hide-item" : "";
     var CreateUpdateFeedbackPermission = ((bool)ViewBag.CreateUpdateFeedbackPermission).ToString().ToLower();
 
-    var customerId = JsonConvert.SerializeObject(Model);
-}
+    var customerId = JsonConvert.SerializeObject(Model); }
+
 @section Styles{
+    @RazorHelper.RenderStyles("~/Scripts/Tipsy-Tooltip/tipsy.css")
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
@@ -52,7 +52,7 @@
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js")
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/NumeralScripts", "~/Areas/Dashboard/ViewInfoScripts")
-<script type="text/javascript">
+    <script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId;
@@ -91,5 +91,5 @@
             Username: '@Labels.Username',
             ViewAllRemarks: '@Labels.ViewAllRemarks'
         };
-</script>
+    </script>
 }

@@ -22,9 +22,9 @@
                     var info = newRemarks[i];
                     var dataColumns = [];
                     var userName = info.IsGroupHeadLine ? info.UserName + " (Headline)" : info.UserName;
-                    dataColumns.push({Name: "ColId",Value: info.RemarkID});
+                    dataColumns.push({ Name: "ColId",Value: info.RemarkID});
                     dataColumns.push({ Name: "ColRemarkTitle", Value: info.RemarkTitle });
-                    dataColumns.push({ Name: "ColRemarkContent", Value: info.Remark });
+                    dataColumns.push({ Name: "ColRemarkContent", Value: renderContentRemarkColumn(info, i) });
                     dataColumns.push({
                         Name: "ColCreatedDate",
                         Value: info.CreatedDateString
@@ -67,6 +67,26 @@
             };
 
             tableNewRemarks.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+            if (newRemarks && newRemarks.length > 0) {
+                var tooltips = element.find('.remark-content');
+                tooltips.tipsy({
+                        fade: true,
+                        gravity: 'nw',
+                        html: true,
+                        title: function () {
+                            return newRemarks[$(this).data('index')].Remark;
+                        }
+                    });
+            }
+
+        }
+
+        function renderContentRemarkColumn(remark, number) {
+            var html = '<div>\
+                <a class="remark-content"  href="javascript:;" data-id="' + remark.RemarkID + '" data-index="' + number + '">'+ remark.Remark +'</a>\
+            </div>'
+
+            return html ;
         }
 
         return {
