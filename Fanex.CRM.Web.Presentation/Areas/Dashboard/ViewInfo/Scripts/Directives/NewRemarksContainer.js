@@ -57,7 +57,7 @@
                 fullWidth: true,
                 fullHeight: false,
                 gridHeight: $(window).height() - $("#table-redemption-logs").height() -
-                    $("#table-communication-logs").height() - 120,
+                    $("#table-communication-logs").height() - 130,
                 showDistinctRow: false,
                 showHighlightRow: true,
                 headerColumnHeight: 29,

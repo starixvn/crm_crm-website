@@ -97,7 +97,7 @@
                 fullWidth: true,
                 fullHeight: false,
                 gridHeight: $(window).height() - $("#table-redemption-logs").height() -
-                    $(".height-remark").height() - 120,
+                    $(".height-remark").height() - 200,
                 showDistinctRow: false,
                 showHighlightRow: true,
                 headerColumnHeight: 29,
