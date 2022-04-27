@@ -235,7 +235,7 @@
     <value>Update</value>
   </data>
   <data name="CreatedDate" xml:space="preserve">
-    <value>Created Date</value>
+    <value>Created Date (GMT+8)</value>
   </data>
   <data name="Creator" xml:space="preserve">
     <value>Creator</value>

@@ -106,7 +106,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Created Date.
+        ///   Looks up a localized string similar to Created Date (GMT+8).
         /// </summary>
         public static string CreatedDate {
             get {
