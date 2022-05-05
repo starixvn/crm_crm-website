@@ -17,19 +17,14 @@
                 var newMenuItem = new MenuItem
                 {
                     Name = UpdateMenuName(menuItem.Name, rm),
-                    CreatedDate = menuItem.CreatedDate,
-                    Creator = menuItem.Creator,
-                    Description = menuItem.Description,
+
                     DisplayOrder = menuItem.DisplayOrder,
                     Environment = menuItem.Environment,
-                    Function = menuItem.Function,
+                    FunctionName = menuItem.FunctionName,
                     Id = menuItem.Id,
                     IsActive = menuItem.IsActive,
-                    ModifiedDate = menuItem.ModifiedDate,
-                    Modifier = menuItem.Modifier,
-                    Parent = menuItem.Parent,
+                    ParentId = menuItem.ParentId,
                     Policy = menuItem.Policy,
-                    Site = menuItem.Site,
                     Url = menuItem.Url
                 };
 

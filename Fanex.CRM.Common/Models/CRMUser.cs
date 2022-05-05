@@ -1,6 +1,6 @@
-﻿using Fanex.CRM.Common.Enumerations;
+﻿using System;
+using Fanex.CRM.Common.Enumerations;
 using Fanex.NAP.Core.Models;
-using System;
 
 namespace Fanex.CRM.Common.Models
 {
@@ -12,12 +12,8 @@ namespace Fanex.CRM.Common.Models
             this.Id = napUser.Id;
             this.Name = napUser.Name;
             this.Username = napUser.Username;
-            this.Group = napUser.Group;
+            this.GroupId = napUser.GroupId;
             this.Password = napUser.Password;
-            this.LastLoginDate = napUser.LastLoginDate;
-            this.Creator = napUser.Creator;
-            this.CreatedDate = napUser.CreatedDate;
-            this.ModifiedDate = napUser.ModifiedDate;
             this.FirstName = napUser.FirstName;
             this.LastName = napUser.LastName;
             this.Email = napUser.Email;

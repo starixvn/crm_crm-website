@@ -102,14 +102,14 @@
         {
             return _userService
                 .GetSiteLevel(user.Id, localLogin.Environment)
-                .FirstOrDefault(s => s.Site.Id == localLogin.SiteId && s.IsActive) != null;
+                .FirstOrDefault(s => s.SiteId == localLogin.SiteId && s.IsActive) != null;
         }
 
         private bool IsExistNapGroup(CRMUser user)
         {
-            if (user.Group != null)
+            if (user.GroupId > 0)
             {
-                var group = _groupService.Get(user.Group.Id);
+                var group = _groupService.Get(user.GroupId);
 
                 if (group != null && !group.IsActive)
                 {
@@ -122,7 +122,7 @@
 
         private bool IsExistMenuItems(CRMUser user, LocalLogin localLogin)
         {
-            return _userService.GetMenuItem(user.Id, localLogin.SiteId, localLogin.Environment, true).Any(m => m.Parent == null);
+            return _userService.GetMenuItem(user.Id, localLogin.SiteId, localLogin.Environment, true).Any(m => m.ParentId == 0);
         }
 
         #endregion Validation

@@ -47,10 +47,6 @@
                 return RecheckInStatus.Success;
             }
 
-            if (!_siteService.IsActivated(settings.SiteId))
-            {
-                return RecheckInStatus.InvalidSite;
-            }
 
             var status = _securityService.ReCheckIn(user.OnUserId, settings.SiteId);
 
