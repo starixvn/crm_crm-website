@@ -14,21 +14,18 @@
 
     public class CommonAuthenticationService : ICommonAuthenticationService
     {
-        private readonly ISiteService _siteService;
         private readonly ISecurityService _securityService;
         private readonly IMaintenanceService _maintenanceService;
 
-        public CommonAuthenticationService() : this(null, null, null)
+        public CommonAuthenticationService() : this(null, null)
         {
         }
 
         public CommonAuthenticationService(
-            ISiteService siteService,
             ISecurityService securityService,
             IMaintenanceService maintenanceService
             )
         {
-            _siteService = siteService ?? new SiteService();
             _securityService = securityService ?? new SecurityService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
