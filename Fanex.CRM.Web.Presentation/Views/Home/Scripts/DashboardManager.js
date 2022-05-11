@@ -72,7 +72,8 @@ var DashboardManager = function () {
                 break;
             case subMenuIdEnum.Remark:
                 menuManager.goToURL('centerFr', window.rootUrl + 'NewRemark/Index?' + $.param({
-                    customerName: customer.Name
+                    customerName: customer.Name,
+                    isGuest: customer.IsGuest
                 }));
                 self.CachedData.currentMenuTabIndex = 5;
                 break;
