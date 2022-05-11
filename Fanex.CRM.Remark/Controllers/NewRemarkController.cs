@@ -12,7 +12,7 @@
     {
         public ActionResult Index(string customerName, bool isGuest)
         {
-            return Redirect(string.Format("{0}/NewRemark?customerName={1}:isGuest={2}", ExternalDomain, customerName, isGuest));        
+            return Redirect(string.Format("{0}/NewRemark?customerName={1}&isGuest={2}", ExternalDomain, customerName, isGuest));        
         }
     }
 }
