@@ -72,6 +72,7 @@ var DashboardManager = function () {
                 break;
             case subMenuIdEnum.Remark:
                 menuManager.goToURL('centerFr', window.rootUrl + 'NewRemark/Index?' + $.param({
+                    custId: customer.Id,
                     customerName: customer.Name,
                     isGuest: customer.IsGuest
                 }));
