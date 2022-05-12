@@ -277,6 +277,15 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last 5 Remarks.
+        /// </summary>
+        public static string Last_5_Remark {
+            get {
+                return ResourceManager.GetString("Last_5_Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last 5 Special Remark.
         /// </summary>
         public static string Last_5_Special_Remark {

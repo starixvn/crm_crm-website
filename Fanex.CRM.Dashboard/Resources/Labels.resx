@@ -255,4 +255,7 @@
   <data name="ViewAllRemarks" xml:space="preserve">
     <value>View All Remarks</value>
   </data>
+  <data name="Last_5_Remark" xml:space="preserve">
+    <value>Last 5 Remarks</value>
+  </data>
 </root>

@@ -10,7 +10,7 @@
 
     public class NewRemarkController : ReadOnlyBaseController
     {
-        public ActionResult Index(int custId, string customerName, bool isGuest = false)
+        public ActionResult Index(int? custId, string customerName, bool isGuest = false)
         {
             return Redirect(string.Format("{0}/NewRemark?custId={1}&customerName={2}&isGuest={3}", ExternalDomain, custId, customerName, isGuest));        
         }

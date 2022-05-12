@@ -52,7 +52,7 @@
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/Fanex.Pagination.js")
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/moment.js")
     @RazorHelper.RenderScripts("~/wwwroot/sources/libs/FanexGrid/NumeralScripts", "~/Areas/Dashboard/ViewInfoScripts")
-    <script type="text/javascript">
+<script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId;
@@ -60,6 +60,7 @@
 
         var viewResources = {
             Last_5_Special_Remark: '@Labels.Last_5_Special_Remark',
+            Last_5_Remark: '@Labels.Last_5_Remark',
             Last_5_Redemption_Log: '@Labels.Last_5_Redemption_Log',
             Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',
             Subject:'@Labels.Subject',
@@ -91,5 +92,5 @@
             Username: '@Labels.Username',
             ViewAllRemarks: '@Labels.ViewAllRemarks'
         };
-    </script>
+</script>
 }

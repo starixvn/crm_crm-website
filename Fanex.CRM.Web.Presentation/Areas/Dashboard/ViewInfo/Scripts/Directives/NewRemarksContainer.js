@@ -23,7 +23,7 @@
                     var dataColumns = [];
                     var userName = info.IsGroupHeadLine ? info.UserName + " (Headline)" : info.UserName;
                     dataColumns.push({ Name: "ColId",Value: info.RemarkID});
-                    dataColumns.push({ Name: "ColRemarkTitle", Value: info.RemarkTitle });
+                    dataColumns.push({ Name: "ColRemarkTitle", Value: info.RemarkName });
                     dataColumns.push({ Name: "ColRemarkContent", Value: renderContentRemarkColumn(info, i) });
                     dataColumns.push({
                         Name: "ColCreatedDate",
@@ -74,7 +74,7 @@
                         gravity: 'nw',
                         html: true,
                         title: function () {
-                            return newRemarks[$(this).data('index')].Remark;
+                            return newRemarks[$(this).data('index')].Remark.substring(0, 550);
                         }
                     });
             }
