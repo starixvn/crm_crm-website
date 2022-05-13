@@ -17,7 +17,6 @@
         $scope.allSites = null;
         $scope.redemptionLogs = null;
         $scope.communicationLogs = null;
-        $scope.newRemarks = null;
 
         $scope.isCreditSite = false;
 
@@ -29,7 +28,6 @@
         $scope.isLoadedCustomerInfo = false;
         $scope.isLoadedRedemptionLogs = false;
         $scope.isLoadedCommunicationLogs = false;
-        $scope.isLoadedNewRemarks = false;
         $scope.isLoadedSites = false;
         $scope.isInactiveSite = false
         $scope.isAfterInactive = false;
@@ -53,11 +51,6 @@
             if ($scope.isLoadedCustomerInfo &&
                 !$scope.isLoadedSites) {
                 $scope.getAllSite();
-                return;
-            }
-
-            if (!$scope.isLoadedNewRemarks) {
-                $scope.getNewRemarks();
                 return;
             }
 
@@ -137,24 +130,6 @@
                     $scope.isLoadedCommunicationLogs = true;
                     $scope.completedLoadDashboard();
                 });
-        };
-
-        $scope.getNewRemarks = function () {
-            $scope.isLoadedNewRemarks = false;
-            var selectedCriteria = {
-                CustomerId: $scope.customerId
-            };
-            $dashboardService.getNewRemarks(selectedCriteria)
-                .then(function (data) {
-                    $scope.isLoadedNewRemarks = true;
-                    $scope.newRemarks = data.Result;
-                    $scope.completedLoadDashboard();
-                },
-                    function () {
-                        $scope.isLoadedNewRemarks = true;
-                        $scope.completedLoadDashboard();
-            
-                    });
         };
 
         $scope.handleOpenAllNewRemarks = function () {

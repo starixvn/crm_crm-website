@@ -389,7 +389,6 @@
     <Content Include="Areas\Communication\ViewLog\Styles\Images\icon-edit.png" />
     <Content Include="Areas\Communication\ViewLog\Styles\Images\quick-edit-hover.png" />
     <Content Include="Areas\Communication\ViewLog\Styles\Images\quick-edit.png" />
-    <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\NewRemarksContainer.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\icon-edit.png" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit-hover.png" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\quick-edit.png" />
