@@ -4,20 +4,20 @@
     var urlRedirect = Model;
 }
 <div ng-if="isCreditSite">
-    <div class="height-remark">
-            <div class="grid-title">
-                <div class="title grid-title-label">
-                    @Labels.Last_5_Remark
-                </div>
-                <div class="title grid-title-label view-all-remark" data-ng-click="handleOpenAllNewRemarks();">
-                    <u>@Labels.ViewAllRemarks</u>
-                </div>
+    <div class="grid-height-new-remark">
+        <div class="grid-title">
+            <div class="title grid-title-label">
+                @Labels.Last_5_Remark
             </div>
-            <iframe src="@urlRedirect" id="centerFr" name="centerFr" scrolling="auto" marginwidth="0"
-                    marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
-                    allowtransparency="true">
-            </iframe>
+            <div class="title grid-title-label view-all-remark" data-ng-click="handleOpenAllNewRemarks();">
+                <u>@Labels.ViewAllRemarks</u>
+            </div>
         </div>
+        <iframe src="@urlRedirect" id="centerFr" name="centerFr" scrolling="auto" marginwidth="0"
+                marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 90%;"
+                allowtransparency="true">
+        </iframe>
+    </div>
 </div>
 <div ng-if="!isCreditSite">
     <div class="row panel-group last specialRemark height-remark">

@@ -43,9 +43,9 @@
         }
 
         [ChildActionOnly]
-        public PartialViewResult CustomerRemarksView()
+        public PartialViewResult CustomerRemarksView(int customerId)
         {
-            var urlRedirect = string.Format("{0}/NewRemark?custId={1}&customerName={2}&isGuest={3}", ExternalDomain, 1, "customerName", false);
+            var urlRedirect = string.Format("{0}/NewRemark?custId={1}&customerName={2}&isGuest={3}&isLastFiveRemark={4}", ExternalDomain, customerId, "", false, true);
             return PartialView("~/Areas/Dashboard/ViewInfo/CustomerRemarks.cshtml", urlRedirect);
         }
 
@@ -83,17 +83,6 @@
         public ActionResult GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
         {
             var remarks = _dashboardServiceInstance.GetCustomerRemarks(criteria);
-            return Json(remarks, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public ActionResult GetNewRemarks(GetCustomerNewRemarksCriteria criteria)
-        {
-            var remarks = _dashboardServiceInstance.GetCustomerNewRemarks(criteria);
-            foreach(var remark in remarks)
-            {
-                remark.CreatedDateString = DateTime.MinValue != remark.CreatedDate ? remark.CreatedDate.ToLongFormatedDateTime() : string.Empty;
-            }
             return Json(remarks, JsonRequestBehavior.AllowGet);
         }
 

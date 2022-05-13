@@ -29,7 +29,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-8 col-sm-8 col-md-8">
-                    @Html.Action("CustomerRemarksView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
+                    @Html.Action("CustomerRemarksView", new RouteValueDictionary(new { controller = "Dashboard", area = "", customerId = customerId }))
                 </div>
                 <div class="@hideRedemptionClass col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3">
                     @Html.Action("CustomerInfoView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
