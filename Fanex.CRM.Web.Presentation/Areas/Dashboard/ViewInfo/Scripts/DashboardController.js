@@ -15,7 +15,6 @@
 
         $scope.customerInfo = null;
         $scope.allSites = null;
-        $scope.customerRemarks = null;
         $scope.redemptionLogs = null;
         $scope.communicationLogs = null;
         $scope.newRemarks = null;
@@ -28,7 +27,6 @@
         $scope.resultMessage = '';
 
         $scope.isLoadedCustomerInfo = false;
-        $scope.isLoadedCustomerRemarks = false;
         $scope.isLoadedRedemptionLogs = false;
         $scope.isLoadedCommunicationLogs = false;
         $scope.isLoadedNewRemarks = false;
@@ -37,7 +35,6 @@
         $scope.isAfterInactive = false;
         $scope.initController = function () {
             $scope.BlockUI();
-            $scope.getCustomerRemarks();
             $scope.getCustomerInfo();
             $scope.getAllSite();
             $scope.getRedemptionLogs();
@@ -65,7 +62,6 @@
             }
 
             if ($scope.isLoadedCustomerInfo &&
-                $scope.isLoadedCustomerRemarks &&
                 $scope.isLoadedRedemptionLogs &&
                 $scope.isLoadedCommunicationLogs &&
                 $scope.isLoadedSites) {
@@ -109,22 +105,6 @@
         };
 
         $scope.checkInactiveSite = function () {            $scope.isAfterInactive = true;            const siteLicensee = $scope.allSites;            const siteId = $scope.customerInfo.SiteID;            for (var index = 0; index < siteLicensee.length; index++) {                var site = siteLicensee[index];                if (site.Id === siteId) {                    return true;                }            }            return false;        };
-        $scope.getCustomerRemarks = function () {
-            $scope.isLoadedCustomerRemarks = false;
-            var selectedCriteria = {
-                CustomerId: $scope.customerId
-            };
-            $dashboardService.getCustomerRemarks(selectedCriteria)
-                .then(function (data) {
-                    $scope.isLoadedCustomerRemarks = true;
-                    $scope.customerRemarks = data.Result;
-                    $scope.completedLoadDashboard();
-                },
-                function () {
-                    $scope.isLoadedCustomerRemarks = true;
-                    $scope.completedLoadDashboard();
-                });
-        };
         $scope.getRedemptionLogs = function () {
             $scope.isLoadedRedemptionLogs = false;
             var selectedCriteria = {

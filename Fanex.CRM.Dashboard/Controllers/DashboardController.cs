@@ -45,7 +45,8 @@
         [ChildActionOnly]
         public PartialViewResult CustomerRemarksView()
         {
-            return PartialView("~/Areas/Dashboard/ViewInfo/CustomerRemarks.cshtml");
+            var urlRedirect = string.Format("{0}/NewRemark?custId={1}&customerName={2}&isGuest={3}", ExternalDomain, 1, "customerName", false);
+            return PartialView("~/Areas/Dashboard/ViewInfo/CustomerRemarks.cshtml", urlRedirect);
         }
 
         [ChildActionOnly]

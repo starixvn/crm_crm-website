@@ -1,22 +1,28 @@
 ﻿@using Fanex.CRM.Dashboard.Resources;
 
+@{
+    var urlRedirect = Model;
+}
 <div ng-if="isCreditSite">
     <div data-ng-model="newRemarks" table-new-remarks-container class="height-remark">
-        <div class="grid-title">
-            <div class="title grid-title-label">
-                @Labels.Last_5_Special_Remark
+            <div class="grid-title">
+                <div class="title grid-title-label">
+                    @Labels.Last_5_Remark
+                </div>
+                <div class="title grid-title-label view-all-remark" data-ng-click="handleOpenAllNewRemarks();">
+                    <u>@Labels.ViewAllRemarks</u>
+                </div>
             </div>
-            <div class="title grid-title-label view-all-remark" data-ng-click="handleOpenAllNewRemarks();">
-                <u>@Labels.ViewAllRemarks</u>
-            </div>
+            <iframe src="@urlRedirect" id="centerFr" name="centerFr" scrolling="auto" marginwidth="0"
+                    marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
+                    allowtransparency="true">
+            </iframe>
         </div>
-        <div id="table-new-remarks" class="freegrid display-none"></div>
-    </div>
 </div>
 <div ng-if="!isCreditSite">
     <div class="row panel-group last specialRemark height-remark">
         <div class="row title">
-            @Labels.Last_5_Remark
+            @Labels.Last_5_Special_Remark
         </div>
         <div class="nodata-message" data-ng-class="{ 'display-none': customerRemarks !== undefined && customerRemarks !== null && customerRemarks.length !== 0 }">@Labels.There_is_no_data</div>
         <ul class="custinfo row content list-unstyled">
@@ -24,6 +30,5 @@
                 <span data-ng-bind-html="getRemarkText($index)"></span>
             </li>
         </ul>
-        }
     </div>
 </div>
