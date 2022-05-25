@@ -11,10 +11,10 @@
 
     public class NewRemarkController : ReadOnlyBaseController
     {
-        public ActionResult Index(int? custId=0, string customerName="")
+        public ActionResult Index(int? custId=0, string customerName="", bool? isGuest=false)
         {
-            var isGuest = AppSession.CurrentCustomer?.IsGuest;
-            return Redirect(string.Format("{0}/NewRemark?custId={1}&customerName={2}&isGuest={3}", ExternalDomain, custId, customerName, isGuest));        
+            var isGuestParam = AppSession.CurrentCustomer != null ? AppSession.CurrentCustomer.IsGuest : isGuest;
+            return new RedirectResult(string.Format("{0}/NewRemark?custId={1}&customerName={2}&isGuest={3}", ExternalDomain, custId, customerName, isGuestParam));        
         }
     }
 }
