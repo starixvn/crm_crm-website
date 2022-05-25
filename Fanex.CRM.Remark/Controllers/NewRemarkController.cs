@@ -13,7 +13,7 @@
     {
         public ActionResult Index(int? custId=0, string customerName="")
         {
-            var isGuest = AppSession.CurrentCustomer != null ? AppSession.CurrentCustomer.IsGuest : false;
+            var isGuest = AppSession.CurrentCustomer?.IsGuest;
             return Redirect(string.Format("{0}/NewRemark?custId={1}&customerName={2}&isGuest={3}", ExternalDomain, custId, customerName, isGuest));        
         }
     }
