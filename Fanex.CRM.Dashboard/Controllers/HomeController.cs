@@ -67,14 +67,20 @@
             return PartialView("~/Views/Home/_Menu.cshtml", currentUserMenu);
         }
 
-        public PartialViewResult GettingDashboardMenu(int siteId)
+        public PartialViewResult GettingDashboardMenu(int? siteId)
         {
-            var allsites = _serviceSetting.GetAllSites();
-            var siteCredits = allsites.Where(x => x.Name == "Credit");
-            var creditSite = siteCredits.Where(x => x.ChildSites.Any(y => siteId == y.Id)).ToList();
+            if(siteId == null)
+            {
+                ViewBag.IsCreditSite = false;
+            } else
+            {
+                var allsites = _serviceSetting.GetAllSites();
+                var siteCredits = allsites.Where(x => x.Name == "Credit");
+                var creditSite = siteCredits.Where(x => x.ChildSites.Any(y => siteId == y.Id)).ToList();
+                ViewBag.IsCreditSite = creditSite.Count > 0;
+            }
             ViewBag.HasCustomerInfoPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Read);
             ViewBag.UserRole = AppSession.CurrentUser.UserRole;
-            ViewBag.IsCreditSite = creditSite.Count > 0;
             return PartialView("~/Views/Home/_DashboardMenu.cshtml");
         }
 
