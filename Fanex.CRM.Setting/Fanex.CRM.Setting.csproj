@@ -118,6 +118,7 @@
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Criteria\GetAllProvinceCriteria.cs" />
     <Compile Include="Criteria\GetRoleByPicType.cs" />
+    <Compile Include="Criteria\GetSiteDbByCustInfoCriteria.cs" />
     <Compile Include="Criteria\GetSourceSettingMappingCriteria.cs" />
     <Compile Include="Criteria\GetStationsCriteria.cs" />
     <Compile Include="Criteria\GetAllReportByRedemptionCriteria.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Criteria\GetSettingRelationByNameCriteria.cs" />
     <Compile Include="Criteria\SubProductCriteria.cs" />
     <Compile Include="Models\SettingMapping.cs" />
+    <Compile Include="Models\SiteDbGroup.cs" />
     <Compile Include="Models\SiteSetting.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\Station.cs" />

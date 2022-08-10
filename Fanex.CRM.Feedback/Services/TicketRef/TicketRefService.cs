@@ -12,10 +12,11 @@
     using Fanex.CRM.Common.Helpers;
     using System.Collections.Generic;
     using System.Threading;
+    using Fanex.CRM.Setting.Models;
 
     public interface ITicketRefService
     {
-        Task<TicketInfo> GetTicketByRefNoAsync(long refno);
+        Task<TicketInfo> GetTicketByRefNoAsync(SiteDbGroup siteDb, RefTicketParams param);
 
         DateTime GetBalanceUpday();
     }
@@ -32,11 +33,11 @@
             this.baseService = baseService ?? new BaseService();
         }
         private static string NapUrl => ConfigurationManager.AppSettings["NapUrl"];
-        public async Task<TicketInfo> GetTicketByRefNoAsync(long refno)
+        public async Task<TicketInfo> GetTicketByRefNoAsync(SiteDbGroup siteDb, RefTicketParams param)
         {
             CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
             HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
-            var url = new Uri(NapUrl + "BetListApi/GetBetListByRefNo?refno=" + refno);
+            var url = new Uri(string.Format(NapUrl + "BetListApi/GetBetListByRefNo?RefNo={0}&Site={1}&SiteDBGroupId={2}", param.Refno, siteDb.Site, siteDb.SiteDBGroupID));
             var response = await client.GetAsync(url);
             var jsonString = await response.Content.ReadAsStringAsync();
             if (jsonString != null)

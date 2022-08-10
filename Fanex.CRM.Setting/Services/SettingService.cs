@@ -58,7 +58,7 @@
             RedisCacheService.Delete(key);
         }
 
-        public void ClearAllCaches(string key= "")
+        public void ClearAllCaches(string key = "")
         {
             var SessionKeys = new List<string>
             {
@@ -71,10 +71,10 @@
                 GetProductsSessionKey, GetSubProductsSessionKey, GetBettypesSessionKey, GetMainCategorySessionKey, GetSubCategorySessionKey
             };
 
-            if(!string.IsNullOrEmpty(key))
+            if (!string.IsNullOrEmpty(key))
             {
                 SessionKeys.Add(key);
-            }    
+            }
 
             RedisCacheService.ClearCache(SessionKeys);
         }
@@ -128,20 +128,20 @@
 
         public List<Setting> GetRolesByPic(int picType)
         {
-            var allSettings = _settingRepositoryInstance.GetRoleListByPic(new GetRoleByPicType{ PicType = picType });
+            var allSettings = _settingRepositoryInstance.GetRoleListByPic(new GetRoleByPicType { PicType = picType });
             return allSettings;
         }
 
-	    public List<Setting> GetAllSettingsRemoveCache()
+        public List<Setting> GetAllSettingsRemoveCache()
         {
-            var  allSettings = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
+            var allSettings = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
             return allSettings;
         }
 
         public IList<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null)
         {
-           var sites = baseService.GetData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
-           var allSites = (from n in sites
+            var sites = baseService.GetData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
+            var allSites = (from n in sites
                             where n.IsActive
                             group n by n.IsLicensee into g
                             orderby g.Key
@@ -160,6 +160,11 @@
 
             return allSites;
         }
+
+        public SiteDbGroup GetSiteDbGroup(GetSiteDbByCustInfoCriteria criteria)
+        {
+            return baseService.GetDataEntity<SiteDbGroup>(criteria);
+        } 
 
         public IEnumerable<SiteInfo> GetAllSitesLicenseeInactive(GetAllSiteCriteria criteria = null)
         {

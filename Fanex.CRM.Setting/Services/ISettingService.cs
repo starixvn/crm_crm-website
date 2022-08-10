@@ -19,6 +19,9 @@
         List<Setting> GetAllSettingsRemoveCache();
 
         IList<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null);
+
+        SiteDbGroup GetSiteDbGroup(GetSiteDbByCustInfoCriteria criteria);
+
         IEnumerable<SiteInfo> GetAllSitesLicenseeInactive(GetAllSiteCriteria criteria = null);
 
         IList<SiteInfo> GetAllSitesCN88();

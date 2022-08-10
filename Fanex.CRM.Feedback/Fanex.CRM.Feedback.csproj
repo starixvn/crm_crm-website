@@ -159,6 +159,7 @@
     <Compile Include="Models\FeedbackDuplicationResult.cs" />
     <Compile Include="Models\ProductFilter.cs" />
     <Compile Include="Models\QuickUpdateFeedback.cs" />
+    <Compile Include="Models\RefTicketParams.cs" />
     <Compile Include="Models\TicketInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FeedbackRepository.cs" />

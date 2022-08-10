@@ -110,6 +110,7 @@
     <Setting Key="Acc_CRM_SourceLicenseeMappingUpd" SpName="Acc_CRM_SourceLicenseeMappingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_LicenseeManagerSel" SpName="Acc_CRM_LicenseeManagerSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_LicenseeMappingSel" SpName="Acc_CRM_LicenseeMappingSel" DbName="DBLIC.bodb_LIC.bodbAdminNet" />
+    <Setting Key="Acc_CRM_CustomerGetSite" SpName="Acc_CRM_CustomerGetSite" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="CustomerFeedback">
     <Setting Key="CustomerFeedbackIns" SpName="Acc_CRM_CustomerFeedbackIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />

@@ -192,12 +192,29 @@
                             return usernameList;
                         };
                         
-
                         scope.relatedCustomerResultDirective.getRelatedCustomerId = function () {
                             var IdString = "";
                             var relatedCustomers = scope.relatedCustomerResultDirective.relatedCustomers || [];
                             relatedCustomers = relatedCustomers.filter(function (value) {
                                 return value.Id !== 0;
+                            });
+                            if (relatedCustomers.length > 0) {
+                                var relatedCustomerIds = [];
+                                angular.forEach(relatedCustomers, function (customer) {
+                                    relatedCustomerIds.push(customer.Id);
+                                });
+
+                                IdString = relatedCustomerIds.join(',');
+                            }
+
+                            return IdString;
+                        };
+
+                        scope.relatedCustomerResultDirective.getValidRelatedCustomerId = function () {
+                            var IdString = "";
+                            var relatedCustomers = scope.relatedCustomerResultDirective.relatedCustomers || [];
+                            relatedCustomers = relatedCustomers.filter(function (value) {
+                                return value.Id !== 0 && value.IsSiteActive && !value.IsLicensee;
                             });
                             if (relatedCustomers.length > 0) {
                                 var relatedCustomerIds = [];
