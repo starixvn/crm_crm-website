@@ -162,7 +162,7 @@
             const colorGenerated = "color: rgb(255, 0, 0)";
             const relatedCusts = $scope.relatedCustomerResultDirective.getValidRelatedCustomerId();
             const parseFirstRelatedCust = parseInt(relatedCusts.split(',')[0], 10);
-            const custId = $scope.addGuestFeedbackParams.HasRelated && parseFirstRelatedCust !== undefined ? parseFirstRelatedCust : 0;
+            const custId = $scope.addGuestFeedbackParams.HasRelated && relatedCusts !== "" ? parseFirstRelatedCust : 0;
             addGuestFeedbackService.getTicketInfoByRefno({ Refno: refNo, CustId: parseInt(custId, 10) })
                 .then(function (data) {
                     document.getElementById('refNo').value = '';
