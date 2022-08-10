@@ -239,7 +239,7 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             try
             {
-                var isGuest = AppSession.CurrentCustomer != null ? AppSession.CurrentCustomer.IsGuest : false;
+                var isGuest = AppSession.CurrentCustomer != null ? AppSession.CurrentCustomer.IsGuest : param.IsGuest;
                 var criteria = new GetSiteDbByCustInfoCriteria
                 {
                     CustId = param.CustId,
