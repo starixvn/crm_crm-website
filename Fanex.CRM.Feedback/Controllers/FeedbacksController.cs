@@ -239,11 +239,9 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             try
             {
-                var isGuest = AppSession.CurrentCustomer != null ? AppSession.CurrentCustomer.IsGuest : param.IsGuest;
                 var criteria = new GetSiteDbByCustInfoCriteria
                 {
-                    CustId = param.CustId,
-                    IsGuest = isGuest
+                    CustId = param.CustId
                 };
                 var siteDb = _serviceSetting.GetSiteDbGroup(criteria);
                 if (string.IsNullOrEmpty(param.Refno))
