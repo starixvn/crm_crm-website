@@ -214,7 +214,7 @@
                             var IdString = "";
                             var relatedCustomers = scope.relatedCustomerResultDirective.relatedCustomers || [];
                             relatedCustomers = relatedCustomers.filter(function (value) {
-                                return value.Id !== 0 && value.IsSiteActive && !value.IsLicensee;
+                                return value.Id !== 0 && value.IsSiteActive;
                             });
                             if (relatedCustomers.length > 0) {
                                 var relatedCustomerIds = [];
