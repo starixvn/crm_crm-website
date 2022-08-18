@@ -262,7 +262,6 @@ namespace Fanex.CRM.Feedback.Controllers
             }
         }
 
-
         public string GetBalanceUpday()
         {
             var balanceDay = _ticketRefService.GetBalanceUpday();
