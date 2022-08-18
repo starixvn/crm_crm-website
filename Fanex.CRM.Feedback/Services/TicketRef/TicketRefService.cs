@@ -43,6 +43,7 @@
                 var url = new Uri(string.Format(NapUrl + "BetListApi/GetBetListByRefNo?RefNo={0}&Site={1}&SiteDBGroupId={2}", param.Refno, siteDb.Site, siteDb.SiteDBGroupID));
                 var response = await client.GetAsync(url);
                 var jsonString = await response.Content.ReadAsStringAsync();
+                LoggingHelper.Information(jsonString);
                 if (jsonString != null)
                 {
                     return JsonConvert.DeserializeObject<TicketInfo>(jsonString);

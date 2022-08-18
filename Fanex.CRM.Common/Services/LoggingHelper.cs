@@ -18,5 +18,10 @@ namespace Fanex.CRM.Common.Services
             };
             LogService.Error(string.Join(Environment.NewLine, info), exception);
         }
+
+        public static void Information(string obj)
+        {
+            LogService.Info(obj);
+        }
     }
 }
