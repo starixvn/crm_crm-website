@@ -13,6 +13,7 @@
     using System.Collections.Generic;
     using System.Threading;
     using Fanex.CRM.Setting.Models;
+    using System.Security.Policy;
 
     public interface ITicketRefService
     {
@@ -35,18 +36,26 @@
         private static string NapUrl => ConfigurationManager.AppSettings["NapUrl"];
         public async Task<TicketInfo> GetTicketByRefNoAsync(SiteDbGroup siteDb, RefTicketParams param)
         {
-            CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
-            HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
-            var url = new Uri(string.Format(NapUrl + "BetListApi/GetBetListByRefNo?RefNo={0}&Site={1}&SiteDBGroupId={2}", param.Refno, siteDb.Site, siteDb.SiteDBGroupID));
-            var response = await client.GetAsync(url);
-            var jsonString = await response.Content.ReadAsStringAsync();
-            if (jsonString != null)
+            try
             {
-                return JsonConvert.DeserializeObject<TicketInfo>(jsonString);
+                CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
+                HttpClient client = HttpClientFactory.Create(customDelegatingHandler);
+                var url = new Uri(string.Format(NapUrl + "BetListApi/GetBetListByRefNo?RefNo={0}&Site={1}&SiteDBGroupId={2}", param.Refno, siteDb.Site, siteDb.SiteDBGroupID));
+                var response = await client.GetAsync(url);
+                var jsonString = await response.Content.ReadAsStringAsync();
+                if (jsonString != null)
+                {
+                    return JsonConvert.DeserializeObject<TicketInfo>(jsonString);
+                }
+                else
+                {
+                    return await Task.FromResult<TicketInfo>(null);
+                }
             }
-            else
+            catch (Exception exception)
             {
-                return await Task.FromResult<TicketInfo>(null);
+                LoggingHelper.Error(exception, siteDb);
+                throw;
             }
         }
 
