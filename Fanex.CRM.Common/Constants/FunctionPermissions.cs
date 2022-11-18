@@ -55,6 +55,7 @@
         public const string Updateheadlineinfo = "Updateheadlineinfo";
 
         public const string DefaultCommunicationSetting = "DefaultCommunicationSetting";
+        public const string JobSettingManagement = "JobSettingManagement";
 
         public const string PICManagement = "PICManagement";
 
