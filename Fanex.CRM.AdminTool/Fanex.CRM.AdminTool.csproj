@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="Controllers\CommunicationSettingController.cs" />
     <Compile Include="Controllers\FeedbackSubjectManagementController.cs" />
+    <Compile Include="Controllers\JobSettingManagementController.cs" />
     <Compile Include="Controllers\SettingManagementCN88Controller.cs" />
     <Compile Include="Controllers\SettingManagementController.cs" />
     <Compile Include="Controllers\SettingRelationCN88Controller.cs" />
