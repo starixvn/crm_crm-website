@@ -102,7 +102,6 @@
                 { "pic4name", CustomerInfo.PersonalInfoContacts[3].Name },
                 { "pic4", CustomerInfo.PersonalInfoContacts[3].Phone },
                 { "licenseetype", CustomerInfo.LicenseeType.Id },
-                { "isvip", CustomerInfo.IsVIP },
                 { "isoverwrite", OverrideCRMInfo },
                 { "wechat", CustomerInfo.WeChat },
                 { "whatsapp", CustomerInfo.WhatsApp },
